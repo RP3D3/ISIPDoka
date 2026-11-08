@@ -1,0 +1,533 @@
+/* ==========================================================================
+   ЛОКАЛЬНАЯ АДМИНКА
+   --------------------------------------------------------------------------
+   Стили кнопок «+ область», «+ группа», «+ тема», кнопок редактирования,
+   модальных окон и уведомлений. На GitHub Pages файл подключается, но
+   админ-элементы не создаются, поэтому стили просто не используются.
+   ========================================================================== */
+
+/* ===== Кнопки добавления ===== */
+
+.doka-add-domain-item {
+  display: flex;
+  align-items: center;
+}
+
+.doka-add-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-base);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.doka-add-btn:hover {
+  color: #fff;
+  border-color: var(--domain-accent);
+  background-color: color-mix(in srgb, var(--domain-accent) 14%, transparent);
+}
+
+.doka-add-btn:focus-visible {
+  outline: 2px solid var(--domain-accent);
+  outline-offset: 2px;
+}
+
+/* «+ область» на главной — заметная строка после списка областей */
+.doka-add-domain {
+  font-size: 19px;
+  padding: 9px 18px;
+}
+
+/* Группа-«плюс» в сетке страницы области */
+.doka-add-group {
+  align-self: start;
+}
+
+.doka-add-group-btn {
+  font-size: 15px;
+  padding: 6px 12px;
+}
+
+/* «+ тема» внутри группы */
+.doka-add-topic {
+  align-self: flex-start;
+  padding: 5px 10px;
+  border: 1px dashed var(--border-color);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.doka-add-topic:hover {
+  color: var(--text-main);
+  border-color: var(--domain-accent);
+  background-color: color-mix(in srgb, var(--domain-accent) 12%, transparent);
+}
+
+/* ===== Числовое поле порядка ===== */
+
+.doka-order-input {
+  flex: 0 0 auto;
+  width: 62px;
+  padding: 5px 6px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background: #121316;
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.2;
+  text-align: center;
+  color-scheme: dark;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.doka-order-input:focus {
+  outline: none;
+  border-color: var(--domain-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--domain-accent) 25%, transparent);
+}
+
+.doka-order-input:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+/* ===== Область на главной: ссылка + порядок + редактирование ===== */
+
+.doka-domain-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.doka-domain-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  opacity: 0.7;
+  transition: opacity 0.15s ease;
+}
+
+.doka-domain-row:hover .doka-domain-controls,
+.doka-domain-controls:focus-within {
+  opacity: 1;
+}
+
+.doka-edit-domain {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.doka-edit-domain:hover {
+  color: var(--domain-accent);
+  border-color: var(--border-color);
+  background-color: color-mix(in srgb, var(--domain-accent) 12%, transparent);
+}
+
+.doka-edit-domain:focus-visible {
+  outline: 2px solid var(--domain-accent);
+  outline-offset: 2px;
+}
+
+/* ===== Группа: название + порядок + редактирование ===== */
+
+.group-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.doka-group-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.group-header .doka-order-input {
+  width: 58px;
+  padding: 3px 4px;
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(0, 0, 0, 0.24);
+  color: #fff;
+  font-size: 12px;
+}
+
+.group-header .doka-order-input:focus {
+  border-color: #fff;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
+}
+
+.doka-edit-group {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.72;
+  transition: opacity 0.15s ease, background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.doka-edit-group:hover,
+.doka-edit-group:focus-visible {
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+.doka-edit-group:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ===== Строка темы с кнопкой редактирования ===== */
+
+.topic-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.topic-row .topic-link {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.doka-edit-topic {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.topic-row:hover .doka-edit-topic,
+.doka-edit-topic:focus-visible {
+  opacity: 1;
+}
+
+.doka-edit-topic:hover {
+  color: var(--domain-accent);
+  border-color: var(--border-color);
+  background-color: color-mix(in srgb, var(--domain-accent) 12%, transparent);
+}
+
+.doka-edit-topic:focus-visible {
+  outline: 2px solid var(--domain-accent);
+  outline-offset: 2px;
+}
+
+/* ===== Модальные окна ===== */
+
+body.doka-modal-open {
+  overflow: hidden;
+}
+
+.doka-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 20px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.doka-modal-card {
+  width: min(540px, 100%);
+  margin: auto;
+  padding: 24px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: #1b1c20;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+.doka-modal--narrow {
+  width: min(420px, 100%);
+}
+
+.doka-modal-card h2 {
+  font-family: var(--font-accent);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.doka-modal-desc {
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.doka-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.doka-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.doka-field label {
+  font-family: var(--font-accent);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.doka-input,
+.doka-textarea,
+.doka-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: #121316;
+  color: var(--text-main);
+  font-family: var(--font-base);
+  font-size: 15px;
+  line-height: 1.5;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.doka-input:focus,
+.doka-textarea:focus,
+.doka-select:focus {
+  outline: none;
+  border-color: var(--domain-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--domain-accent) 25%, transparent);
+}
+
+.doka-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.doka-select {
+  cursor: pointer;
+}
+
+.doka-hint {
+  color: var(--text-muted);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.doka-modal-error {
+  min-height: 18px;
+  color: #ff8f8f;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.doka-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.doka-btn {
+  padding: 9px 16px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-family: var(--font-base);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.doka-btn-primary {
+  background: var(--domain-accent);
+  color: #fff;
+}
+
+.doka-btn-primary:hover {
+  background: color-mix(in srgb, var(--domain-accent) 80%, #fff);
+}
+
+.doka-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.doka-btn-ghost {
+  border-color: var(--border-color);
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.doka-btn-ghost:hover {
+  color: var(--text-main);
+  border-color: var(--text-muted);
+}
+
+.doka-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ===== Выбор цвета ===== */
+
+.doka-color-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.doka-color-native {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 42px;
+  padding: 2px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: #121316;
+  cursor: pointer;
+}
+
+.doka-color-native::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.doka-color-native::-webkit-color-swatch {
+  border: 0;
+  border-radius: 4px;
+}
+
+.doka-color-hex {
+  flex: 1 1 auto;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+/* ===== Уведомления ===== */
+
+.doka-toast-host {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: min(380px, calc(100vw - 40px));
+  pointer-events: none;
+}
+
+.doka-toast {
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: #1b1c20;
+  color: var(--text-main);
+  font-size: 14px;
+  line-height: 1.45;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+  animation: doka-toast-in 0.18s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.doka-toast--success {
+  border-color: color-mix(in srgb, #3ddc84 45%, transparent);
+}
+
+.doka-toast--error {
+  border-color: color-mix(in srgb, #ff6b6b 55%, transparent);
+}
+
+.doka-toast--hiding {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+@keyframes doka-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Узкие экраны ===== */
+
+@media (max-width: 620px) {
+  .doka-modal {
+    padding: 20px 12px;
+  }
+
+  .doka-modal-card {
+    padding: 20px;
+  }
+
+  .doka-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .doka-btn {
+    width: 100%;
+  }
+}

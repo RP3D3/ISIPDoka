@@ -135,6 +135,29 @@ function extractOrderFromMd(data) {
   return Number.isInteger(n) && n >= 0 ? n : null;
 }
 
+/**
+ * Аккуратно удаляет одно поле из YAML-frontmatter, не пересобирая остальные
+ * строки. Это важно для многострочных значений (`key: |`), которые нельзя
+ * терять при удалении seed-поля `order`.
+ */
+function stripFrontmatterKey(md, key) {
+  const match = md.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?/);
+  if (!match) return md;
+
+  const raw = match[1];
+  const rawStart = match.index + match[0].indexOf(raw);
+  const rawEnd = rawStart + raw.length;
+  const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const lineRe = new RegExp(
+    `^${escaped}:[^\\r\\n]*(?:\\r?\\n[ \\t]+[^\\r\\n]*)*\\r?\\n?`,
+    'm'
+  );
+
+  if (!lineRe.test(raw)) return md;
+
+  return md.slice(0, rawStart) + raw.replace(lineRe, '') + md.slice(rawEnd);
+}
+
 /* Ключевые слова для поиска из frontmatter (через запятую или пробел) */
 function extractKeywordsFromFrontmatter(data) {
   if (!data.keywords) return null;
@@ -612,13 +635,9 @@ function collectCleanup(domains) {
       for (const topic of group.topics) {
         if (topic.type === 'md' && topic.mdOrderFrontmatter !== undefined) {
           const md = readText(topic.abs);
-          const { data, body } = parseFrontmatter(md);
-          if (data.order !== undefined) {
-            const newData = { ...data };
-            delete newData.order;
-            const fmLines = Object.entries(newData).map(([k, v]) => `${k}: ${v}`);
-            const newFrontmatter = `---\n${fmLines.join('\n')}\n---\n`;
-            actions.push({ type: 'md', file: topic.abs, content: newFrontmatter + body });
+          const content = stripFrontmatterKey(md, 'order');
+          if (content !== md) {
+            actions.push({ type: 'md', file: topic.abs, content });
           }
         } else if (topic.htmlOrderValid && topic.htmlOrderTag) {
           actions.push({ type: 'html', file: topic.abs, content: topic.cleanHtml });

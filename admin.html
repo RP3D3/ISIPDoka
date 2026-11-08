@@ -8,19 +8,22 @@
 
   <!--
     Страница для администратора. В навигации сайта её нет.
-    Пароль ниже — «мягкая» клиентская защита: на статическом сайте
-    настоящей авторизации без сервера быть не может. Смените значение.
+    Работает только на локальном сервере (scripts/dev-server.js):
+    пароль и запись файлов проверяет бэкенд. На GitHub Pages
+    редактирование недоступно, страница покажет предупреждение.
   -->
-  <script>
-    const ADMIN_PASSWORD = 'isip-admin';
-  </script>
 
   <link rel="stylesheet" href="css/libs/atom-one-dark.min.css">
   <link rel="stylesheet" href="css/style.css?v=20261107-3">
+  <link rel="stylesheet" href="css/admin.css?v=20261108-2">
   <style>
     /* ===== Оболочка админки ===== */
     body {
       overflow: hidden;
+    }
+
+    [hidden] {
+      display: none !important;
     }
 
     .admin-header {
@@ -102,6 +105,12 @@
       gap: 20px;
     }
 
+    #mdMetaFields {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
     .admin-field {
       display: flex;
       flex-direction: column;
@@ -161,12 +170,19 @@
       tab-size: 2;
     }
 
+    .admin-textarea--html {
+      flex: 1;
+      min-height: 400px;
+      font-size: 12.5px;
+      tab-size: 2;
+    }
+
     .admin-field--grow {
       flex: 1;
       min-height: 320px;
     }
 
-    /* ===== Нижняя панель с кнопкой скачивания ===== */
+    /* ===== Нижняя панель ===== */
     .admin-footer {
       flex: 0 0 auto;
       padding: 16px 24px;
@@ -186,12 +202,25 @@
       white-space: nowrap;
     }
 
+    .admin-status {
+      min-height: 18px;
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .admin-footer-actions {
+      display: flex;
+      gap: 10px;
+    }
+
     .admin-download {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      width: 100%;
+      flex: 1 1 auto;
+      width: auto;
       padding: 12px 18px;
       border: 0;
       border-radius: 6px;
@@ -215,6 +244,34 @@
     .admin-download:focus-visible {
       outline: 2px solid #fff;
       outline-offset: 2px;
+    }
+
+    .admin-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: #17181b;
+      color: var(--text-muted);
+      font-family: var(--font-base);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .admin-secondary:hover {
+      color: var(--text-main);
+      border-color: var(--text-muted);
+    }
+
+    .admin-download:disabled,
+    .admin-secondary:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
     }
 
     /* ===== Правая колонка: предпросмотр ===== */
@@ -274,7 +331,7 @@
     }
 
     .admin-gate-card {
-      width: min(420px, 100%);
+      width: min(440px, 100%);
       padding: 28px;
       border: 1px solid var(--border-color);
       border-radius: 12px;
@@ -341,8 +398,8 @@
   <!-- Экран входа -->
   <div class="admin-gate" id="adminGate">
     <form class="admin-gate-card" id="adminGateForm">
-      <h1>Доступ только для администратора</h1>
-      <p>Введите пароль, чтобы открыть редактор тем.</p>
+      <h1 id="gateTitle">Доступ только для администратора</h1>
+      <p id="gateText">Введите пароль, чтобы открыть редактор тем.</p>
       <input
         type="password"
         class="admin-input"
@@ -360,9 +417,10 @@
     <div class="admin-header-left">
       <span class="brand-badge">U•ᴥ•U Дока ИСИП</span>
       <span class="admin-title">Админ-панель</span>
-      <span class="admin-subtitle">редактор Markdown-темы</span>
+      <span class="admin-subtitle" id="adminSubtitle">редактор темы</span>
     </div>
     <div class="admin-header-right">
+      <a class="admin-link" id="adminOpenTopic" href="#" target="_blank" rel="noopener" hidden>Открыть тему</a>
       <a class="admin-link" href="index.html">На главную</a>
       <button type="button" class="admin-link" id="adminLogout">Выйти</button>
     </div>
@@ -370,54 +428,68 @@
 
   <main class="admin-shell">
     <!-- ===== Слева: поля ===== -->
-    <section class="admin-panel" aria-label="Поля темы">
+    <section class="admin-panel" aria-label="Редактор темы">
       <div class="admin-form-scroll">
-        <div class="admin-field">
-          <label for="fieldTitle">Название</label>
-          <input
-            type="text"
-            class="admin-input"
-            id="fieldTitle"
-            placeholder="Например: Циклы в C#"
-            value="Новая тема"
-          >
-          <p class="admin-hint">
-            Попадает в YAML-поле <code>title</code>. Если в Markdown есть
-            заголовок <code># …</code>, он имеет приоритет в hero-блоке —
-            как в реальном <code>theme.html</code>.
-          </p>
+        <div id="mdMetaFields">
+          <div class="admin-field">
+            <label for="fieldTitle">Название</label>
+            <input
+              type="text"
+              class="admin-input"
+              id="fieldTitle"
+              placeholder="Например: Циклы в C#"
+            >
+            <p class="admin-hint">
+              YAML-поле <code>title</code>. Заголовок <code># …</code> в Markdown
+              имеет приоритет в hero-блоке.
+            </p>
+          </div>
+
+          <div class="admin-field">
+            <label for="fieldDescription">Краткое описание</label>
+            <input
+              type="text"
+              class="admin-input"
+              id="fieldDescription"
+              placeholder="О чём тема и что читатель узнает"
+            >
+            <p class="admin-hint">
+              YAML-поле <code>description</code>. Если в Markdown есть первый
+              абзац после <code>#</code>, он заменяет описание в hero-блоке.
+            </p>
+          </div>
+
+          <div class="admin-field">
+            <label for="fieldKeywords">Ключевые слова</label>
+            <input
+              type="text"
+              class="admin-input"
+              id="fieldKeywords"
+              placeholder="циклы for while foreach C#"
+            >
+            <p class="admin-hint">
+              Через пробел или запятую. Используются поиском; если оставить
+              пустым, ключевые слова будут извлечены автоматически.
+            </p>
+          </div>
+
+          <div class="admin-field">
+            <label for="fieldSvg">SVG для hero-блока</label>
+            <textarea
+              class="admin-textarea admin-textarea--code"
+              id="fieldSvg"
+              rows="7"
+              spellcheck="false"
+              placeholder="<svg viewBox=&quot;0 0 400 200&quot;>&#10;  …&#10;</svg>"
+            ></textarea>
+            <p class="admin-hint">
+              Вставляется как есть в начало hero-секции. Если поле пустое,
+              <code>svg</code> в frontmatter не добавляется.
+            </p>
+          </div>
         </div>
 
-        <div class="admin-field">
-          <label for="fieldKeywords">Ключевые слова</label>
-          <input
-            type="text"
-            class="admin-input"
-            id="fieldKeywords"
-            placeholder="циклы for while foreach C#"
-          >
-          <p class="admin-hint">
-            Через пробел или запятую. Используются поиском; если оставить пустым,
-            ключевые слова будут извлечены автоматически при синхронизации.
-          </p>
-        </div>
-
-        <div class="admin-field">
-          <label for="fieldSvg">SVG для hero-блока</label>
-          <textarea
-            class="admin-textarea admin-textarea--code"
-            id="fieldSvg"
-            rows="7"
-            spellcheck="false"
-            placeholder="<svg viewBox=&quot;0 0 400 200&quot;>&#10;  …&#10;</svg>"
-          ></textarea>
-          <p class="admin-hint">
-            Вставляется как есть в начало hero-секции. Если поле пустое,
-            <code>svg</code> в frontmatter и пустой контейнер не добавляются.
-          </p>
-        </div>
-
-        <div class="admin-field admin-field--grow">
+        <div class="admin-field admin-field--grow" id="mdEditorField">
           <label for="fieldMarkdown">Markdown</label>
           <textarea
             class="admin-textarea admin-textarea--md"
@@ -430,20 +502,41 @@
             с языком (<code>```cs</code>, <code>```sql</code>).
           </p>
         </div>
+
+        <div class="admin-field admin-field--grow" id="htmlEditorField" hidden>
+          <label for="fieldHtml">HTML-код</label>
+          <textarea
+            class="admin-textarea admin-textarea--code admin-textarea--html"
+            id="fieldHtml"
+            spellcheck="false"
+            placeholder="<!DOCTYPE html>&#10;<html lang=&quot;ru&quot;>&#10;…&#10;</html>"
+          ></textarea>
+          <p class="admin-hint">
+            Справа — живой предпросмотр с реальной шапкой сайта. Пути
+            <code>../../../css/…</code> и <code>../../../js/…</code> работают
+            так же, как на странице темы.
+          </p>
+        </div>
       </div>
 
       <div class="admin-footer">
-        <div class="admin-filename" id="adminFilename">novaya-tema.md</div>
-        <button type="button" class="admin-download" id="adminDownload">
-          ⬇ Скачать .md
-        </button>
+        <div class="admin-filename" id="adminFilename">Файл не выбран</div>
+        <div class="admin-status" id="adminStatus" aria-live="polite"></div>
+        <div class="admin-footer-actions">
+          <button type="button" class="admin-secondary" id="adminDownload" disabled>
+            ⬇ Скачать
+          </button>
+          <button type="button" class="admin-download" id="adminSave" disabled>
+            💾 Сохранить
+          </button>
+        </div>
       </div>
     </section>
 
     <!-- ===== Справа: превью ===== -->
     <section class="admin-preview" aria-label="Предпросмотр страницы">
       <div class="admin-preview-bar">
-        <span><strong>Предпросмотр</strong></span>
+        <span><strong>Предпросмотр</strong> <span id="previewMode"></span></span>
         <span id="previewWidth"></span>
       </div>
       <div class="admin-preview-body">
@@ -453,186 +546,269 @@
   </main>
 
   <script src="js/libs/marked.min.js"></script>
+  <script src="js/admin.js?v=20261108-2"></script>
   <script>
     (() => {
       'use strict';
 
-      /* ================================================================ *
-       * Доступ                                                           *
-       * ================================================================ */
-      const gate = document.getElementById('adminGate');
-      const gateForm = document.getElementById('adminGateForm');
-      const gatePassword = document.getElementById('adminPassword');
-      const gateError = document.getElementById('adminGateError');
-      const SESSION_KEY = 'dokaAdminUnlocked';
-
-      function unlock() {
-        gate.hidden = true;
-        renderPreview();
-      }
-
-      // Проверка сессии выполняется в самом низу скрипта — после того,
-      // как объявлены все поля и функция renderPreview.
-
-      gateForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (gatePassword.value === ADMIN_PASSWORD) {
-          sessionStorage.setItem(SESSION_KEY, '1');
-          gateError.textContent = '';
-          gatePassword.value = '';
-          unlock();
-        } else {
-          gateError.textContent = 'Неверный пароль.';
-          gatePassword.select();
-        }
-      });
-
-      document.getElementById('adminLogout').addEventListener('click', () => {
-        sessionStorage.removeItem(SESSION_KEY);
-        window.location.reload();
-      });
+      const $ = (id) => document.getElementById(id);
+      const escapeHtml = (value) => DokaAdmin.escapeHtml(value);
 
       /* ================================================================ *
-       * Поля и элементы                                                  *
+       * Элементы                                                         *
        * ================================================================ */
-      const titleInput = document.getElementById('fieldTitle');
-      const keywordsInput = document.getElementById('fieldKeywords');
-      const svgInput = document.getElementById('fieldSvg');
-      const markdownInput = document.getElementById('fieldMarkdown');
-      const filenameEl = document.getElementById('adminFilename');
-      const downloadBtn = document.getElementById('adminDownload');
-      const frame = document.getElementById('previewFrame');
-      const previewWidth = document.getElementById('previewWidth');
+      const gate = $('adminGate');
+      const gateForm = $('adminGateForm');
+      const gateTitle = $('gateTitle');
+      const gateText = $('gateText');
+      const gatePassword = $('adminPassword');
+      const gateError = $('adminGateError');
+      const gateSubmit = gateForm.querySelector('button[type="submit"]');
 
-      const DEFAULT_MARKDOWN = [
-        '# Новая тема',
-        '',
-        'Краткое описание темы: о чём она и что читатель узнает.',
-        '',
-        '## Первый раздел',
-        '',
-        'Текст раздела. Здесь можно использовать **выделение**, `код` и [ссылки](https://example.com).',
-        '',
-        '```cs',
-        'Console.WriteLine("Привет, мир!");',
-        '```',
-        '',
-        '## Второй раздел',
-        '',
-        '1. Первый пункт',
-        '2. Второй пункт',
-        '   - вложенный пункт',
-        '   - ещё один',
-        '',
-        '| Поле | Значение |',
-        '|---|---|',
-        '| Язык | C# |',
-        '| Уровень | Основы |',
-      ].join('\n');
+      const subtitle = $('adminSubtitle');
+      const openTopicLink = $('adminOpenTopic');
+      const logoutBtn = $('adminLogout');
 
-      if (!markdownInput.value) markdownInput.value = DEFAULT_MARKDOWN;
+      const mdMetaFields = $('mdMetaFields');
+      const mdEditorField = $('mdEditorField');
+      const htmlEditorField = $('htmlEditorField');
+
+      const titleInput = $('fieldTitle');
+      const descriptionInput = $('fieldDescription');
+      const keywordsInput = $('fieldKeywords');
+      const svgInput = $('fieldSvg');
+      const markdownInput = $('fieldMarkdown');
+      const htmlInput = $('fieldHtml');
+
+      const filenameEl = $('adminFilename');
+      const statusEl = $('adminStatus');
+      const saveBtn = $('adminSave');
+      const downloadBtn = $('adminDownload');
+
+      const frame = $('previewFrame');
+      const previewMode = $('previewMode');
+      const previewWidth = $('previewWidth');
 
       /* ================================================================ *
-       * Утилиты                                                          *
+       * Состояние                                                        *
        * ================================================================ */
-      const TRANSLIT = {
-        а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh',
-        з: 'z', и: 'i', й: 'y', к: 'k', л: 'l', м: 'm', н: 'n', о: 'o',
-        п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f', х: 'h', ц: 'c',
-        ч: 'ch', ш: 'sh', щ: 'sch', ъ: '', ы: 'y', ь: '', э: 'e',
-        ю: 'yu', я: 'ya',
-      };
+      let filePath = new URLSearchParams(window.location.search).get('path') || '';
+      let fileType = /\.html$/i.test(filePath) ? 'html' : 'md';
+      let originalData = {};
+      let dirty = false;
+      let loading = false;
+      let saving = false;
+      let unlocked = false;
 
-      function slugify(value) {
-        const text = String(value || '').toLowerCase().trim();
-        let out = '';
-        for (const ch of text) {
-          if (TRANSLIT[ch] !== undefined) out += TRANSLIT[ch];
-          else if (/[a-z0-9]/.test(ch)) out += ch;
-          else out += '-';
-        }
-        return out.replace(/-+/g, '-').replace(/^-|-$/g, '') || 'new-topic';
-      }
-
-      function escapeHtml(value) {
-        return String(value == null ? '' : value)
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;');
-      }
-
+      /* ================================================================ *
+       * Служебные функции                                                *
+       * ================================================================ */
       function yamlLine(value) {
-        return String(value || '').replace(/[\r\n]+/g, ' ').trim();
+        return String(value ?? '').replace(/[\r\n]+/g, ' ').trim();
       }
 
-      /* ================================================================ *
-       * Сборка Markdown-файла                                            *
-       * ================================================================ */
-      function buildMarkdownFile() {
-        const title = yamlLine(titleInput.value) || 'Без названия';
-        const keywords = yamlLine(keywordsInput.value);
-        const svgLines = svgInput.value
-          .replace(/\r\n/g, '\n')
-          .split('\n')
-          .map((line) => line.replace(/\s+$/, ''))
-          .filter((line) => line.trim() !== '');
+      function parseFrontmatter(md) {
+        const frontmatterRe = /^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?/;
+        const match = md.match(frontmatterRe);
+        if (!match) return { data: {}, body: md };
+
+        const raw = match[1];
+        const body = md.slice(match[0].length);
+        const data = {};
+        const lines = raw.split(/\r?\n/);
+        let currentKey = null;
+        let currentValue = [];
+
+        for (const line of lines) {
+          if (currentKey !== null && /^\s{2}/.test(line) && line.trim() !== '') {
+            currentValue.push(line.slice(2));
+            continue;
+          }
+
+          if (currentKey !== null) {
+            data[currentKey] = currentValue.join('\n').trim();
+            currentKey = null;
+            currentValue = [];
+          }
+
+          const idx = line.indexOf(':');
+          if (idx === -1) continue;
+          const key = line.slice(0, idx).trim();
+          const value = line.slice(idx + 1).trim();
+
+          if (value === '|') {
+            currentKey = key;
+            currentValue = [];
+          } else {
+            data[key] = value;
+          }
+        }
+
+        if (currentKey !== null) {
+          data[currentKey] = currentValue.join('\n').trim();
+        }
+
+        return { data, body };
+      }
+
+      function renderFrontmatter(data) {
+        const priority = ['title', 'description', 'keywords', 'order', 'svg'];
+        const keys = [
+          ...priority.filter((key) =>
+            Object.prototype.hasOwnProperty.call(data, key)
+          ),
+          ...Object.keys(data).filter((key) => !priority.includes(key)),
+        ];
 
         let out = '---\n';
-        out += `title: ${title}\n`;
-        if (keywords) out += `keywords: ${keywords}\n`;
-        if (svgLines.length) {
-          out += 'svg: |\n';
-          out += svgLines.map((line) => `  ${line}`).join('\n') + '\n';
+        for (const key of keys) {
+          const value = data[key];
+          const text = value == null ? '' : String(value);
+          if (text.includes('\n')) {
+            out += `${key}: |\n`;
+            out += text.split('\n').map((line) => `  ${line}`).join('\n') + '\n';
+          } else {
+            out += `${key}: ${text.replace(/[\r\n]+/g, ' ').trim()}\n`;
+          }
         }
-        out += '---\n\n';
-
-        const body = markdownInput.value.replace(/\r\n/g, '\n');
-        out += body;
-        if (!out.endsWith('\n')) out += '\n';
-        return out;
+        return out + '---\n\n';
       }
 
-      function currentFilename() {
-        return slugify(titleInput.value) + '.md';
+      function buildMarkdownFile() {
+        const data = { ...originalData };
+        data.title = yamlLine(titleInput.value) || 'Без названия';
+
+        const description = yamlLine(descriptionInput.value);
+        if (description) data.description = description;
+        else delete data.description;
+
+        const keywords = yamlLine(keywordsInput.value);
+        if (keywords) data.keywords = keywords;
+        else delete data.keywords;
+
+        const svg = svgInput.value
+          .replace(/\r\n/g, '\n')
+          .replace(/[ \t]+$/gm, '')
+          .trim();
+        if (svg) data.svg = svg;
+        else delete data.svg;
+
+        const body = markdownInput.value
+          .replace(/\r\n/g, '\n')
+          .replace(/^\n+/, '');
+
+        return renderFrontmatter(data) + body + (body.endsWith('\n') ? '' : '\n');
       }
 
-      function updateFilename() {
-        filenameEl.textContent = currentFilename();
+      function setDirty(value) {
+        dirty = value;
+        saveBtn.textContent = value ? '💾 Сохранить •' : '💾 Сохранить';
       }
 
-      function downloadMarkdown() {
-        const blob = new Blob([buildMarkdownFile()], {
-          type: 'text/markdown;charset=utf-8',
-        });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = currentFilename();
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      function setMode(mode) {
+        fileType = mode === 'html' ? 'html' : 'md';
+        const isHtml = fileType === 'html';
+
+        mdMetaFields.hidden = isHtml;
+        mdEditorField.hidden = isHtml;
+        htmlEditorField.hidden = !isHtml;
+
+        previewMode.textContent = isHtml ? '· HTML' : '· Markdown';
+        subtitle.textContent = isHtml
+          ? 'редактор HTML-темы'
+          : 'редактор Markdown-темы';
       }
 
-      downloadBtn.addEventListener('click', downloadMarkdown);
-      titleInput.addEventListener('input', updateFilename);
+      function updateOpenLink() {
+        if (!filePath) {
+          openTopicLink.hidden = true;
+          return;
+        }
+        openTopicLink.hidden = false;
+        openTopicLink.href =
+          fileType === 'md'
+            ? 'theme.html?path=' + encodeURIComponent(filePath)
+            : filePath;
+      }
+
+      function showNoFile(message) {
+        setMode('md');
+        mdMetaFields.hidden = true;
+        mdEditorField.hidden = true;
+        htmlEditorField.hidden = true;
+        filenameEl.textContent = 'Файл не выбран';
+        statusEl.textContent = '';
+        saveBtn.disabled = true;
+        downloadBtn.disabled = true;
+        openTopicLink.hidden = true;
+        frame.srcdoc = `<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"><style>
+  html, body { height: 100%; margin: 0; }
+  body { display: grid; place-items: center; padding: 24px; background: #222429;
+    color: #9e9ea0; font-family: 'Golos Text', sans-serif; text-align: center; line-height: 1.6; }
+</style></head><body><p>${escapeHtml(message)}</p></body></html>`;
+      }
 
       /* ================================================================ *
-       * Предпросмотр: та же логика, что в theme.html                       *
+       * Загрузка файла                                                   *
        * ================================================================ */
-      let useId = new Set();
+      async function loadFile() {
+        if (!filePath) {
+          showNoFile('Файл не выбран. Откройте тему из списка области.');
+          return;
+        }
+
+        loading = true;
+        statusEl.textContent = 'Загружаю…';
+        try {
+          const data = await DokaAdmin.api(
+            '/api/admin/file?path=' + encodeURIComponent(filePath)
+          );
+
+          filePath = data.path;
+          setMode(data.type);
+
+          if (data.type === 'md') {
+            const parsed = parseFrontmatter(data.content);
+            originalData = parsed.data || {};
+            titleInput.value = originalData.title || '';
+            descriptionInput.value = originalData.description || '';
+            keywordsInput.value = originalData.keywords || '';
+            svgInput.value = originalData.svg || '';
+            markdownInput.value = parsed.body.replace(/^\n+/, '');
+          } else {
+            htmlInput.value = data.content;
+            originalData = {};
+          }
+
+          filenameEl.textContent = filePath.replace(/^content\//, '');
+          statusEl.textContent = '';
+          saveBtn.disabled = false;
+          downloadBtn.disabled = false;
+          updateOpenLink();
+          setDirty(false);
+          renderPreview();
+        } catch (error) {
+          showNoFile('Не удалось загрузить файл: ' + error.message);
+          DokaAdmin.toast(error.message, 'error');
+        } finally {
+          loading = false;
+        }
+      }
+
+      /* ================================================================ *
+       * Предпросмотр Markdown (как на theme.html)                        *
+       * ================================================================ */
+      let usedIds = new Set();
 
       function buildArticle(markdown) {
         const article = document.createElement('article');
         article.className = 'article-content';
         article.innerHTML = marked.parse(markdown || '');
 
-        // 1) Первый h1 и следующий за ним абзац уходят в hero
         const firstH1 = article.querySelector('h1');
         let heroTitle = titleInput.value.trim() || 'Без названия';
-        let summary = '';
+        let summary = descriptionInput.value.trim();
 
         if (firstH1) {
           heroTitle = firstH1.textContent.trim() || heroTitle;
@@ -644,7 +820,6 @@
           firstH1.remove();
         }
 
-        // 2) Свободный контент между h2/h3 оборачиваем в .topic-section
         let currentSection = null;
         for (const child of Array.from(article.children)) {
           if (child.classList.contains('topic-section')) {
@@ -661,16 +836,15 @@
           }
         }
 
-        // 3) id заголовков + оглавление
-        useId = new Set();
+        usedIds = new Set();
         const tocItems = [];
         article.querySelectorAll('h2, h3').forEach((heading) => {
           if (!heading.textContent.trim()) return;
-          const base = heading.id.trim() || slugify(heading.textContent);
+          const base = heading.id.trim() || DokaAdmin.slugify(heading.textContent) || 'section';
           let id = base;
           let n = 2;
-          while (useId.has(id)) id = `${base}-${n++}`;
-          useId.add(id);
+          while (usedIds.has(id)) id = `${base}-${n++}`;
+          usedIds.add(id);
           heading.id = id;
           tocItems.push({
             id,
@@ -679,7 +853,6 @@
           });
         });
 
-        // 4) Языковые метки кода и внешние ссылки
         article.querySelectorAll('pre code[class]').forEach((el) => {
           const match = el.className.match(/language-(\w+)/);
           if (match) {
@@ -688,17 +861,17 @@
           }
         });
 
-        article.querySelectorAll('a[href]').forEach((a) => {
-          if (/^https?:\/\//i.test(a.getAttribute('href') || '')) {
-            a.setAttribute('target', '_blank');
-            a.setAttribute('rel', 'noopener noreferrer');
+        article.querySelectorAll('a[href]').forEach((link) => {
+          if (/^https?:\/\//i.test(link.getAttribute('href') || '')) {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
           }
         });
 
         return { article, heroTitle, summary, tocItems };
       }
 
-      function buildPreviewDocument(markdown) {
+      function buildMarkdownPreviewDocument(markdown) {
         const { article, heroTitle, summary, tocItems } = buildArticle(markdown);
 
         const svg = svgInput.value.trim();
@@ -722,6 +895,16 @@
         const layoutClass =
           'topic-main-layout' + (tocItems.length ? '' : ' topic-main-layout--single');
 
+        const segments = filePath.split('/');
+        const domainLabel = segments[1] || 'Тема';
+        const groupLabel = segments[2] || '';
+        const crumbs =
+          '<span>/</span>' +
+          `<span>${escapeHtml(domainLabel)}</span>` +
+          (groupLabel ? `<span>/</span><span>${escapeHtml(groupLabel)}</span>` : '') +
+          '<span>/</span>' +
+          `<span class="current">${escapeHtml(heroTitle)}</span>`;
+
         return `<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -738,12 +921,7 @@
 <header class="site-header">
   <div class="header-left">
     <span class="brand-badge">U•ᴥ•U Дока ИСИП</span>
-    <div class="breadcrumbs">
-      <span>/</span>
-      <span>Новая тема</span>
-      <span>/</span>
-      <span class="current">${escapeHtml(heroTitle)}</span>
-    </div>
+    <div class="breadcrumbs">${crumbs}</div>
   </div>
 </header>
 <section class="topic-hero">
@@ -763,9 +941,107 @@
 </html>`;
       }
 
+      /* ================================================================ *
+       * Предпросмотр HTML (с реальной шапкой через page.js)             *
+       * ================================================================ */
+      function titleFromHtml(html) {
+        const h1 = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+        if (h1) return h1[1].replace(/<[^>]+>/g, '').trim();
+        const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+        return title ? title[1].replace(/<[^>]+>/g, '').trim() : '';
+      }
+
+      function injectIntoHead(html, tag) {
+        if (/<head[^>]*>/i.test(html)) {
+          return html.replace(/<head[^>]*>/i, (match) => match + '\n  ' + tag);
+        }
+        if (/<html[^>]*>/i.test(html)) {
+          return html.replace(
+            /<html[^>]*>/i,
+            (match) => match + '\n<head>\n  ' + tag + '\n</head>'
+          );
+        }
+        return '<!DOCTYPE html><html><head>' + tag + '</head><body>' + html + '</body></html>';
+      }
+
+      function buildHtmlPreviewDocument(code) {
+        const segments = filePath.split('/');
+        const domainId = segments[1] || '';
+        const groupId = segments[2] || '';
+        const topicSlug = (segments[segments.length - 1] || '').replace(/\.html$/i, '');
+
+        const folderUrl = new URL(filePath || 'content/', window.location.href);
+        folderUrl.pathname = folderUrl.pathname.replace(/[^/]*$/, '');
+        const baseHref = folderUrl.href;
+        const rootHref = new URL('../../../', folderUrl.href).href;
+
+        const context = {
+          urlKey: filePath,
+          domainId,
+          domainTitle: domainId,
+          groupId,
+          groupName: groupId,
+          topicTitle: titleFromHtml(String(code || '')) || topicSlug,
+          accent: '',
+        };
+        const contextJson = JSON.stringify(context).replace(/</g, '\\u003c');
+
+        let html = String(code || '');
+
+        const baseTag = `<base href="${escapeHtml(baseHref)}">`;
+        if (/<base\b[^>]*>/i.test(html)) {
+          html = html.replace(/<base\b[^>]*>/i, baseTag);
+        } else {
+          html = injectIntoHead(html, baseTag);
+        }
+
+        if (!/style\.css/i.test(html)) {
+          html = injectIntoHead(
+            html,
+            `<link rel="stylesheet" href="${escapeHtml(rootHref)}css/style.css?v=20261107-3">`
+          );
+        }
+
+        if (!/atom-one-dark/i.test(html)) {
+          html = injectIntoHead(
+            html,
+            `<link rel="stylesheet" href="${escapeHtml(rootHref)}css/libs/atom-one-dark.min.css">`
+          );
+        }
+
+        if (!/page\.js/i.test(html)) {
+          const pageScript = `<script src="${escapeHtml(rootHref)}js/page.js?v=20261107-2"><\/script>`;
+          html = /<\/body>/i.test(html)
+            ? html.replace(/<\/body>/i, pageScript + '\n</body>')
+            : html + pageScript;
+        }
+
+        const bootScript =
+          '<script>window.__themeContext=' +
+          contextJson +
+          ';window.addEventListener("DOMContentLoaded",function(){' +
+          'setTimeout(function(){window.dispatchEvent(new Event("themeContentLoaded"));},0);' +
+          '});<\/script>';
+
+        html = /<\/body>/i.test(html)
+          ? html.replace(/<\/body>/i, bootScript + '\n</body>')
+          : html + bootScript;
+
+        return html;
+      }
+
+      /* ================================================================ *
+       * Общий предпросмотр                                               *
+       * ================================================================ */
       function renderPreview() {
-        if (gate && !gate.hidden) return;
-        frame.srcdoc = buildPreviewDocument(markdownInput.value);
+        if (!unlocked) return;
+
+        if (fileType === 'html') {
+          frame.srcdoc = buildHtmlPreviewDocument(htmlInput.value);
+        } else {
+          frame.srcdoc = buildMarkdownPreviewDocument(markdownInput.value);
+        }
+
         previewWidth.textContent = `${frame.clientWidth || 0}px`;
       }
 
@@ -775,12 +1051,121 @@
         previewTimer = setTimeout(renderPreview, 180);
       }
 
-      [titleInput, keywordsInput, svgInput, markdownInput].forEach((el) => {
-        el.addEventListener('input', () => {
-          updateFilename();
-          schedulePreview();
+      /* ================================================================ *
+       * Сохранение                                                       *
+       * ================================================================ */
+      async function saveFile() {
+        if (!filePath || saving) return;
+
+        saving = true;
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Сохраняю…';
+        statusEl.textContent = 'Сохраняю файл и пересобираю поиск…';
+
+        try {
+          const content =
+            fileType === 'html' ? htmlInput.value : buildMarkdownFile();
+
+          await DokaAdmin.api('/api/admin/file', {
+            method: 'PUT',
+            body: { path: filePath, content },
+          });
+
+          if (fileType === 'md') {
+            const parsed = parseFrontmatter(content);
+            originalData = parsed.data || {};
+          }
+
+          statusEl.textContent = 'Сохранено. Структура и поиск обновлены.';
+          setDirty(false);
+          DokaAdmin.toast('Сохранено. Структура и поиск обновлены.', 'success');
+          renderPreview();
+        } catch (error) {
+          statusEl.textContent = '';
+          DokaAdmin.toast(error.message, 'error');
+        } finally {
+          saving = false;
+          saveBtn.disabled = false;
+          saveBtn.textContent = dirty ? '💾 Сохранить •' : '💾 Сохранить';
+        }
+      }
+
+      function downloadFile() {
+        if (!filePath) return;
+
+        const content =
+          fileType === 'html' ? htmlInput.value : buildMarkdownFile();
+        const name =
+          filePath.split('/').pop() ||
+          (fileType === 'html' ? 'tema.html' : 'tema.md');
+
+        const blob = new Blob([content], {
+          type:
+            fileType === 'html'
+              ? 'text/html;charset=utf-8'
+              : 'text/markdown;charset=utf-8',
         });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = name;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+
+      /* ================================================================ *
+       * Вход и запуск                                                    *
+       * ================================================================ */
+      async function unlock() {
+        if (unlocked) return;
+        unlocked = true;
+        gate.hidden = true;
+
+        if (filePath) {
+          await loadFile();
+        } else {
+          showNoFile('Файл не выбран. Откройте тему из списка области.');
+        }
+      }
+
+      gateForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        gateError.textContent = '';
+        gateSubmit.disabled = true;
+        gateSubmit.textContent = 'Проверяю…';
+
+        try {
+          await DokaAdmin.login(gatePassword.value);
+          gatePassword.value = '';
+          await unlock();
+        } catch (error) {
+          gateError.textContent = error.message;
+          gatePassword.select();
+        } finally {
+          gateSubmit.disabled = false;
+          gateSubmit.textContent = 'Войти';
+        }
       });
+
+      logoutBtn.addEventListener('click', () => {
+        DokaAdmin.clearPassword();
+        window.location.reload();
+      });
+
+      saveBtn.addEventListener('click', saveFile);
+      downloadBtn.addEventListener('click', downloadFile);
+
+      [titleInput, descriptionInput, keywordsInput, svgInput, markdownInput, htmlInput].forEach(
+        (element) => {
+          element.addEventListener('input', () => {
+            if (loading) return;
+            setDirty(true);
+            schedulePreview();
+          });
+        }
+      );
 
       window.addEventListener('resize', () => {
         previewWidth.textContent = `${frame.clientWidth || 0}px`;
@@ -790,12 +1175,46 @@
         previewWidth.textContent = `${frame.clientWidth || 0}px`;
       });
 
-      updateFilename();
-      if (sessionStorage.getItem(SESSION_KEY) === '1') {
-        unlock();
-      } else {
+      window.addEventListener('beforeunload', (event) => {
+        if (!dirty) return;
+        event.preventDefault();
+        event.returnValue = '';
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
+          event.preventDefault();
+          if (unlocked) saveFile();
+        }
+      });
+
+      (async function start() {
+        const available = await DokaAdmin.ready();
+
+        if (!available) {
+          gateTitle.textContent = 'Локальный сервер не запущен';
+          gateText.textContent =
+            'Админ-редактор работает только на локальном сервере. ' +
+            'Запустите doka.bat или node scripts/dev-server.js. ' +
+            'На GitHub Pages редактирование недоступно.';
+          gatePassword.disabled = true;
+          gateSubmit.disabled = true;
+          return;
+        }
+
+        const stored = DokaAdmin.getPassword();
+        if (stored) {
+          try {
+            await DokaAdmin.login(stored);
+            await unlock();
+            return;
+          } catch (_) {
+            DokaAdmin.clearPassword();
+          }
+        }
+
         gatePassword.focus();
-      }
+      })();
     })();
   </script>
 </body>

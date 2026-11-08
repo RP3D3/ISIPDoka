@@ -1,0 +1,969 @@
+/*
+ * Общий модуль локальной админки.
+ *
+ * Подключается на index.html, domain.html и admin.html.
+ * Если /api/admin/status недоступен (GitHub Pages), модуль молча выключается:
+ * никакие админ-кнопки не появляются.
+ */
+(() => {
+  'use strict';
+
+  const PASSWORD_KEY = 'dokaAdminPassword';
+  const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+  const TRANSLIT = {
+    а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh',
+    з: 'z', и: 'i', й: 'y', к: 'k', л: 'l', м: 'm', н: 'n', о: 'o',
+    п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f', х: 'h', ц: 'c',
+    ч: 'ch', ш: 'sh', щ: 'sch', ъ: '', ы: 'y', ь: '', э: 'e',
+    ю: 'yu', я: 'ya',
+  };
+
+  function slugify(value) {
+    let out = '';
+    for (const ch of String(value ?? '').toLowerCase()) {
+      if (TRANSLIT[ch] !== undefined) out += TRANSLIT[ch];
+      else if (/[a-z0-9]/.test(ch)) out += ch;
+      else out += '-';
+    }
+    return out.replace(/-+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function apiUrl(pathname) {
+    return new URL('.' + pathname, window.location.href).href;
+  }
+
+  /* ====================================================================== *
+   * Доступность бэкенда и пароль                                          *
+   * ====================================================================== */
+
+  let availablePromise = null;
+  let password = sessionStorage.getItem(PASSWORD_KEY) || '';
+  let passwordPrompt = null;
+
+  function ready() {
+    if (!availablePromise) {
+      availablePromise = (async () => {
+        try {
+          const res = await fetch(apiUrl('/api/admin/status'), {
+            cache: 'no-store',
+            headers: { Accept: 'application/json' },
+          });
+          if (!res.ok) return false;
+          const data = await res.json();
+          return Boolean(data && data.admin);
+        } catch (_) {
+          return false;
+        }
+      })();
+    }
+    return availablePromise;
+  }
+
+  function getPassword() {
+    return password;
+  }
+
+  function clearPassword() {
+    password = '';
+    sessionStorage.removeItem(PASSWORD_KEY);
+  }
+
+  async function login(value) {
+    const res = await fetch(apiUrl('/api/admin/login'), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({ password: value }),
+    });
+
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      throw new Error(data.error || 'Неверный пароль.');
+    }
+
+    password = value;
+    sessionStorage.setItem(PASSWORD_KEY, value);
+    return true;
+  }
+
+  async function request(pathname, options = {}, retry = true) {
+    if (!(await ready())) {
+      throw new Error('Локальный сервер админки недоступен.');
+    }
+
+    if (!password) {
+      const entered = await promptPassword();
+      if (!entered) throw new Error('Отменено.');
+    }
+
+    const { method = 'GET', body } = options;
+    const headers = {
+      Accept: 'application/json',
+      'X-Admin-Password': password,
+    };
+    if (body !== undefined) headers['Content-Type'] = 'application/json';
+
+    let res;
+    try {
+      res = await fetch(apiUrl(pathname), {
+        method,
+        headers,
+        body: body === undefined ? undefined : JSON.stringify(body),
+        cache: 'no-store',
+      });
+    } catch (_) {
+      throw new Error('Не удалось связаться с локальным сервером.');
+    }
+
+    if (res.status === 401 && retry) {
+      clearPassword();
+      const entered = await promptPassword('Сессия истекла. Введите пароль снова.');
+      if (!entered) throw new Error('Отменено.');
+      return request(pathname, options, false);
+    }
+
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      throw new Error(data.error || `Ошибка ${res.status}.`);
+    }
+    return data;
+  }
+
+  /* ====================================================================== *
+   * Модальные окна                                                        *
+   * ====================================================================== */
+
+  function openDialog(config) {
+    return new Promise((resolve) => {
+      const {
+        title,
+        description = '',
+        submitLabel = 'Создать',
+        cancelLabel = 'Отмена',
+        fields = [],
+        onSubmit,
+        className = '',
+      } = config;
+
+      const overlay = document.createElement('div');
+      overlay.className = 'doka-modal';
+
+      const card = document.createElement('div');
+      card.className = 'doka-modal-card' + (className ? ' ' + className : '');
+      card.setAttribute('role', 'dialog');
+      card.setAttribute('aria-modal', 'true');
+
+      const heading = document.createElement('h2');
+      heading.textContent = title;
+      card.appendChild(heading);
+
+      if (description) {
+        const desc = document.createElement('p');
+        desc.className = 'doka-modal-desc';
+        desc.textContent = description;
+        card.appendChild(desc);
+      }
+
+      const form = document.createElement('form');
+      form.className = 'doka-modal-form';
+      form.noValidate = true;
+      card.appendChild(form);
+
+      const controls = new Map();
+      let autofocusInput = null;
+
+      for (const field of fields) {
+        const wrap = document.createElement('div');
+        wrap.className = 'doka-field';
+
+        const label = document.createElement('label');
+        label.textContent = field.label;
+        wrap.appendChild(label);
+
+        let input;
+        let getValue;
+
+        if (field.type === 'textarea') {
+          input = document.createElement('textarea');
+          input.className = 'doka-input doka-textarea';
+          input.rows = field.rows || 3;
+          if (field.placeholder) input.placeholder = field.placeholder;
+          input.value = field.value || '';
+          getValue = () => input.value.trim();
+        } else if (field.type === 'select') {
+          input = document.createElement('select');
+          input.className = 'doka-input doka-select';
+          for (const option of field.options || []) {
+            const el = document.createElement('option');
+            el.value = option.value;
+            el.textContent = option.label;
+            input.appendChild(el);
+          }
+          input.value = field.value || (field.options?.[0]?.value ?? '');
+          getValue = () => input.value;
+        } else if (field.type === 'color') {
+          input = document.createElement('div');
+          input.className = 'doka-color-row';
+
+          const native = document.createElement('input');
+          native.type = 'color';
+          native.className = 'doka-color-native';
+          native.value = field.value || '#6c47ff';
+
+          const hex = document.createElement('input');
+          hex.type = 'text';
+          hex.className = 'doka-input doka-color-hex';
+          hex.value = field.value || '#6c47ff';
+          hex.maxLength = 7;
+          hex.spellcheck = false;
+          hex.placeholder = '#6c47ff';
+
+          native.addEventListener('input', () => {
+            hex.value = native.value;
+          });
+          hex.addEventListener('input', () => {
+            if (/^#[0-9a-fA-F]{6}$/.test(hex.value.trim())) {
+              native.value = hex.value.trim();
+            }
+          });
+
+          input.appendChild(native);
+          input.appendChild(hex);
+          getValue = () => hex.value.trim();
+          label.htmlFor = '';
+          autofocusInput = autofocusInput || hex;
+        } else {
+          input = document.createElement('input');
+          input.type = field.type === 'password' ? 'password' : 'text';
+          input.className = 'doka-input';
+          if (field.placeholder) input.placeholder = field.placeholder;
+          input.value = field.value || '';
+          input.autocomplete = field.type === 'password' ? 'current-password' : 'off';
+          if (field.spellcheck === false) input.spellcheck = false;
+          getValue = () => input.value.trim();
+        }
+
+        if (field.type !== 'color') {
+          const id = 'doka-field-' + field.name;
+          input.id = id;
+          label.htmlFor = id;
+          if (field.autofocus) autofocusInput = input;
+        }
+
+        wrap.appendChild(input);
+
+        if (field.hint) {
+          const hint = document.createElement('p');
+          hint.className = 'doka-hint';
+          hint.textContent = field.hint;
+          wrap.appendChild(hint);
+        }
+
+        form.appendChild(wrap);
+        controls.set(field.name, { input, getValue, field });
+
+        if (field.slug) {
+          input.spellcheck = false;
+          input.autocomplete = 'off';
+        }
+      }
+
+      // Плейсхолдер фактического имени = транслит названия.
+      for (const field of fields) {
+        if (!field.derive) continue;
+        const target = controls.get(field.name);
+        const source = controls.get(field.derive);
+        if (!target || !source || target.field.type === 'color') continue;
+
+        let touched = Boolean(String(target.getValue() || '').trim());
+        const refresh = () => {
+          if (touched) return;
+          const generated = slugify(source.input.value);
+          target.input.placeholder = generated || field.placeholder || '';
+        };
+
+        source.input.addEventListener('input', refresh);
+        target.input.addEventListener('input', () => {
+          touched = Boolean(target.input.value.trim());
+          refresh();
+        });
+        refresh();
+      }
+
+      const errorEl = document.createElement('p');
+      errorEl.className = 'doka-modal-error';
+      errorEl.setAttribute('aria-live', 'polite');
+      form.appendChild(errorEl);
+
+      const actions = document.createElement('div');
+      actions.className = 'doka-modal-actions';
+
+      const cancelBtn = document.createElement('button');
+      cancelBtn.type = 'button';
+      cancelBtn.className = 'doka-btn doka-btn-ghost';
+      cancelBtn.textContent = cancelLabel;
+
+      const submitBtn = document.createElement('button');
+      submitBtn.type = 'submit';
+      submitBtn.className = 'doka-btn doka-btn-primary';
+      submitBtn.textContent = submitLabel;
+
+      actions.appendChild(cancelBtn);
+      actions.appendChild(submitBtn);
+      form.appendChild(actions);
+
+      overlay.appendChild(card);
+      document.body.appendChild(overlay);
+      document.body.classList.add('doka-modal-open');
+
+      function close(result) {
+        overlay.remove();
+        document.removeEventListener('keydown', onKey);
+        if (!document.querySelector('.doka-modal')) {
+          document.body.classList.remove('doka-modal-open');
+        }
+        resolve(result);
+      }
+
+      function onKey(event) {
+        if (event.key === 'Escape') close(null);
+      }
+
+      document.addEventListener('keydown', onKey);
+      cancelBtn.addEventListener('click', () => close(null));
+      overlay.addEventListener('mousedown', (event) => {
+        if (event.target === overlay) close(null);
+      });
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        errorEl.textContent = '';
+
+        const values = {};
+        for (const [name, control] of controls) {
+          values[name] = control.getValue();
+        }
+
+        // Если фактическое имя пустое — подставляем транслит названия.
+        for (const field of fields) {
+          if (field.derive && !values[field.name]) {
+            values[field.name] = slugify(values[field.derive] || '');
+          }
+          if (field.slug) {
+            values[field.name] = String(values[field.name] || '').trim();
+            if (!SLUG_RE.test(values[field.name])) {
+              errorEl.textContent =
+                'Фактическое имя: только латиница в нижнем регистре, цифры и дефис.';
+              return;
+            }
+          }
+          if (field.type === 'color' && !/^#[0-9a-fA-F]{6}$/.test(values[field.name])) {
+            errorEl.textContent = 'Цвет должен быть в формате #RRGGBB.';
+            return;
+          }
+          if (field.required && !values[field.name]) {
+            errorEl.textContent = `Заполните поле «${field.label}».`;
+            return;
+          }
+        }
+
+        try {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Подождите…';
+          const result = await onSubmit(values);
+          if (result !== false) close(values);
+        } catch (error) {
+          errorEl.textContent = error?.message || String(error);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitLabel;
+        }
+      });
+
+      requestAnimationFrame(() => {
+        if (autofocusInput) autofocusInput.focus();
+      });
+    });
+  }
+
+  function promptPassword(message) {
+    if (passwordPrompt) return passwordPrompt;
+
+    passwordPrompt = (async () => {
+      let success = false;
+      await openDialog({
+        title: 'Вход для администратора',
+        description:
+          message ||
+          'Введите пароль локальной админки. Он задаётся в DOKA_ADMIN_PASSWORD или по умолчанию: isip-admin.',
+        submitLabel: 'Войти',
+        className: 'doka-modal--narrow',
+        fields: [
+          {
+            name: 'password',
+            label: 'Пароль',
+            type: 'password',
+            placeholder: 'Пароль',
+            required: true,
+            autofocus: true,
+          },
+        ],
+        onSubmit: async (values) => {
+          await login(values.password);
+          success = true;
+        },
+      });
+      return success ? password : null;
+    })().finally(() => {
+      passwordPrompt = null;
+    });
+
+    return passwordPrompt;
+  }
+
+  /* ====================================================================== *
+   * Уведомления                                                           *
+   * ====================================================================== */
+
+  function toast(message, type = 'info') {
+    let host = document.getElementById('dokaToastHost');
+    if (!host) {
+      host = document.createElement('div');
+      host.id = 'dokaToastHost';
+      host.className = 'doka-toast-host';
+      document.body.appendChild(host);
+    }
+
+    const item = document.createElement('div');
+    item.className = 'doka-toast' + (type ? ' doka-toast--' + type : '');
+    item.textContent = message;
+    host.appendChild(item);
+
+    setTimeout(() => {
+      item.classList.add('doka-toast--hiding');
+      setTimeout(() => item.remove(), 200);
+    }, 3500);
+  }
+
+  /* ====================================================================== *
+   * Диалоги создания                                                      *
+   * ====================================================================== */
+
+  async function createDomainDialog() {
+    if (!(await ready())) return;
+
+    const values = await openDialog({
+      title: 'Новая область',
+      description:
+        'Область — крупный раздел документации. Она появится на главной странице.',
+      submitLabel: 'Создать область',
+      fields: [
+        {
+          name: 'title',
+          label: 'Название',
+          type: 'text',
+          placeholder: 'Например: Базы данных (SQL)',
+          required: true,
+          autofocus: true,
+        },
+        {
+          name: 'slug',
+          label: 'Фактическое имя',
+          type: 'text',
+          placeholder: 'bazy-dannyh',
+          derive: 'title',
+          slug: true,
+          required: true,
+          hint:
+            'Имя папки. Если оставить пустым — подставится транслит названия.',
+        },
+        {
+          name: 'accent',
+          label: 'Акцентный цвет',
+          type: 'color',
+          value: '#6c47ff',
+        },
+        {
+          name: 'description',
+          label: 'Описание области',
+          type: 'textarea',
+          rows: 3,
+          placeholder: 'Коротко о том, что внутри.',
+        },
+      ],
+      onSubmit: async (data) => {
+        await request('/api/admin/domain', { method: 'POST', body: data });
+        toast(`Область «${data.title}» создана.`, 'success');
+      },
+    });
+
+    if (values) window.location.reload();
+  }
+
+  async function createGroupDialog(domainId) {
+    if (!(await ready())) return;
+
+    const values = await openDialog({
+      title: 'Новая группа',
+      description: 'Группа объединяет темы внутри области.',
+      submitLabel: 'Создать группу',
+      fields: [
+        {
+          name: 'title',
+          label: 'Название',
+          type: 'text',
+          placeholder: 'Например: Основы',
+          required: true,
+          autofocus: true,
+        },
+        {
+          name: 'slug',
+          label: 'Фактическое имя',
+          type: 'text',
+          placeholder: 'osnovy',
+          derive: 'title',
+          slug: true,
+          required: true,
+          hint:
+            'Имя папки группы. Если оставить пустым — подставится транслит названия.',
+        },
+      ],
+      onSubmit: async (data) => {
+        await request('/api/admin/group', {
+          method: 'POST',
+          body: { ...data, domain: domainId },
+        });
+        toast(`Группа «${data.title}» создана.`, 'success');
+      },
+    });
+
+    if (values) window.location.reload();
+  }
+
+  async function createTopicDialog(domainId, groupId) {
+    if (!(await ready())) return;
+
+    let created = null;
+    const values = await openDialog({
+      title: 'Новая тема',
+      description: 'Тема появится в конце выбранной группы.',
+      submitLabel: 'Создать тему',
+      fields: [
+        {
+          name: 'title',
+          label: 'Название',
+          type: 'text',
+          placeholder: 'Например: Циклы в C#',
+          required: true,
+          autofocus: true,
+        },
+        {
+          name: 'slug',
+          label: 'Фактическое имя',
+          type: 'text',
+          placeholder: 'cikly',
+          derive: 'title',
+          slug: true,
+          required: true,
+          hint:
+            'Имя файла без расширения. Если оставить пустым — подставится транслит названия.',
+        },
+        {
+          name: 'type',
+          label: 'Тип темы',
+          type: 'select',
+          value: 'md',
+          options: [
+            { value: 'md', label: '.md — Markdown-тема' },
+            { value: 'html', label: '.html — интерактивная страница' },
+          ],
+        },
+      ],
+      onSubmit: async (data) => {
+        created = await request('/api/admin/topic', {
+          method: 'POST',
+          body: { ...data, domain: domainId, group: groupId },
+        });
+        toast('Тема создана, открываю редактор…', 'success');
+      },
+    });
+
+    if (values && created?.path) {
+      window.location.href = 'admin.html?path=' + encodeURIComponent(created.path);
+    }
+  }
+
+  async function editDomainDialog(domain) {
+    if (!(await ready())) return;
+
+    const id = String(domain?.id || '');
+    if (!id) return;
+
+    const values = await openDialog({
+      title: 'Редактировать область',
+      description: 'Название, цвет и описание обновятся на сайте.',
+      submitLabel: 'Сохранить',
+      fields: [
+        {
+          name: 'title',
+          label: 'Название',
+          type: 'text',
+          value: domain.title || '',
+          required: true,
+          autofocus: true,
+        },
+        {
+          name: 'slug',
+          label: 'Фактическое имя',
+          type: 'text',
+          value: id,
+          slug: true,
+          required: true,
+          hint:
+            'Имя папки области. При изменении изменится адрес страницы области.',
+        },
+        {
+          name: 'accent',
+          label: 'Акцентный цвет',
+          type: 'color',
+          value: domain.accent || '#6c47ff',
+        },
+        {
+          name: 'description',
+          label: 'Описание области',
+          type: 'textarea',
+          value: domain.description || '',
+          rows: 3,
+          placeholder: 'Коротко о том, что внутри.',
+        },
+      ],
+      onSubmit: async (data) => {
+        await request('/api/admin/domain', {
+          method: 'PUT',
+          body: { ...data, domain: id },
+        });
+        toast(`Область «${data.title}» сохранена.`, 'success');
+      },
+    });
+
+    if (values) window.location.reload();
+  }
+
+  async function editGroupDialog(domainId, group) {
+    if (!(await ready())) return;
+
+    const id = String(group?.id || '');
+    if (!id) return;
+
+    const values = await openDialog({
+      title: 'Редактировать группу',
+      description: 'Название группы появится в списке тем области.',
+      submitLabel: 'Сохранить',
+      fields: [
+        {
+          name: 'title',
+          label: 'Название',
+          type: 'text',
+          value: group.title || '',
+          required: true,
+          autofocus: true,
+        },
+        {
+          name: 'slug',
+          label: 'Фактическое имя',
+          type: 'text',
+          value: id,
+          slug: true,
+          required: true,
+          hint:
+            'Имя папки группы. При изменении изменится адрес страниц внутри неё.',
+        },
+      ],
+      onSubmit: async (data) => {
+        await request('/api/admin/group', {
+          method: 'PUT',
+          body: { ...data, domain: domainId, group: id },
+        });
+        toast(`Группа «${data.title}» сохранена.`, 'success');
+      },
+    });
+
+    if (values) window.location.reload();
+  }
+
+  /* ====================================================================== *
+   * Сортировка (order)                                                    *
+   * ====================================================================== */
+
+  function elementOrder(element) {
+    const input = element.querySelector('.doka-order-input');
+    if (!input) return 0;
+    const value = Number(input.dataset.order ?? input.value);
+    return Number.isFinite(value) ? value : 0;
+  }
+
+  function reorderChildren(container, itemSelector, addSelector) {
+    if (!container) return;
+
+    const items = [...container.children].filter((element) =>
+      element.matches(itemSelector)
+    );
+    items.sort((a, b) => {
+      const diff = elementOrder(a) - elementOrder(b);
+      if (diff !== 0) return diff;
+      return (a.textContent || '').localeCompare(b.textContent || '', 'ru');
+    });
+
+    const anchor = container.querySelector(addSelector) || null;
+    for (const item of items) {
+      container.insertBefore(item, anchor);
+    }
+  }
+
+  function reorderAfterOrderChange(input) {
+    const kind = input.dataset.kind;
+
+    if (kind === 'domain') {
+      reorderChildren(
+        document.getElementById('domainsList'),
+        '.domain-item[data-domain]',
+        '.doka-add-domain-item'
+      );
+    } else if (kind === 'group') {
+      reorderChildren(
+        document.getElementById('groupsContainer'),
+        '.group-section:not(.doka-add-group)',
+        '.doka-add-group'
+      );
+    } else {
+      const column = input.closest('.topics-columns');
+      if (column) {
+        reorderChildren(column, '.topic-row', '.doka-add-topic');
+      }
+    }
+  }
+
+  async function changeOrder(input) {
+    if (!input || input.disabled) return;
+
+    const previous = input.dataset.order ?? '';
+    const next = Number(input.value);
+
+    if (!Number.isInteger(next) || next < 0) {
+      input.value = previous;
+      toast('Порядок должен быть целым неотрицательным числом.', 'error');
+      return;
+    }
+
+    input.disabled = true;
+    try {
+      await request('/api/admin/order', {
+        method: 'POST',
+        body: {
+          kind: input.dataset.kind,
+          domain: input.dataset.domain || undefined,
+          group: input.dataset.group || undefined,
+          url: input.dataset.url || undefined,
+          order: next,
+        },
+      });
+
+      input.dataset.order = String(next);
+      input.value = String(next);
+      reorderAfterOrderChange(input);
+      toast('Порядок обновлён.', 'success');
+    } catch (error) {
+      input.value = previous;
+      toast(error?.message || String(error), 'error');
+    } finally {
+      input.disabled = false;
+    }
+  }
+
+  function bindOrderInputs(root) {
+    if (!root || root.dataset.dokaOrderBound === '1') return;
+    root.dataset.dokaOrderBound = '1';
+    root.addEventListener('change', (event) => {
+      const input = event.target.closest('.doka-order-input');
+      if (input) changeOrder(input);
+    });
+  }
+
+  /* ====================================================================== *
+   * Кнопки на страницах                                                   *
+   * ====================================================================== */
+
+  async function mountIndex(domains = []) {
+    if (!(await ready())) return;
+
+    const list = document.getElementById('domainsList');
+    if (!list) return;
+
+    const byId = new Map(
+      (Array.isArray(domains) ? domains : []).map((domain) => [
+        String(domain.id || ''),
+        domain,
+      ])
+    );
+
+    list.querySelectorAll('.domain-item').forEach((item) => {
+      const link = item.querySelector('a[href*="domain.html?id="]');
+      if (!link) return;
+
+      let id = '';
+      try {
+        id = new URL(link.href, window.location.href).searchParams.get('id') || '';
+      } catch (_) {
+        id = '';
+      }
+      if (!id) return;
+
+      const data = byId.get(id) || { id, title: link.textContent, order: 0 };
+      item.dataset.domain = id;
+      item.dataset.order = String(data.order ?? 0);
+
+      if (item.querySelector('.doka-domain-controls')) return;
+
+      let row = item.querySelector('.doka-domain-row');
+      if (!row) {
+        row = document.createElement('div');
+        row.className = 'doka-domain-row';
+        link.before(row);
+        row.appendChild(link);
+      }
+
+      const controls = document.createElement('div');
+      controls.className = 'doka-domain-controls';
+
+      const orderInput = document.createElement('input');
+      orderInput.type = 'number';
+      orderInput.min = '0';
+      orderInput.step = '10';
+      orderInput.className = 'doka-order-input';
+      orderInput.value = String(data.order ?? 0);
+      orderInput.dataset.kind = 'domain';
+      orderInput.dataset.domain = id;
+      orderInput.dataset.order = String(data.order ?? 0);
+      orderInput.setAttribute('aria-label', `Порядок области «${data.title || id}»`);
+
+      const editButton = document.createElement('button');
+      editButton.type = 'button';
+      editButton.className = 'doka-edit-domain';
+      editButton.textContent = '✎';
+      editButton.title = 'Редактировать область';
+      editButton.setAttribute('aria-label', `Редактировать область «${data.title || id}»`);
+      editButton.dataset.domain = id;
+
+      controls.appendChild(orderInput);
+      controls.appendChild(editButton);
+      row.appendChild(controls);
+    });
+
+    if (!list.dataset.dokaBound) {
+      list.dataset.dokaBound = '1';
+      list.addEventListener('click', (event) => {
+        const edit = event.target.closest('.doka-edit-domain');
+        if (!edit) return;
+        const item = edit.closest('.domain-item');
+        const id = edit.dataset.domain || item?.dataset.domain || '';
+        if (!id) return;
+        editDomainDialog({
+          id,
+          title: item?.querySelector('a')?.textContent || id,
+          accent: byId.get(id)?.accent || '#6c47ff',
+          description: byId.get(id)?.description || '',
+        });
+      });
+    }
+    bindOrderInputs(list);
+
+    if (!list.querySelector('.doka-add-domain-item')) {
+      const item = document.createElement('li');
+      item.className = 'domain-item doka-add-domain-item';
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'doka-add-btn doka-add-domain';
+      button.textContent = '+ область';
+      button.addEventListener('click', createDomainDialog);
+
+      item.appendChild(button);
+      list.appendChild(item);
+    }
+  }
+
+  function bindDomainPage(domainId) {
+    const container = document.getElementById('groupsContainer');
+    if (!container) return;
+
+    bindOrderInputs(container);
+
+    if (container.dataset.dokaBound === '1') return;
+    container.dataset.dokaBound = '1';
+
+    container.addEventListener('click', (event) => {
+      const editTopic = event.target.closest('.doka-edit-topic');
+      if (editTopic) {
+        const path = editTopic.dataset.path;
+        if (path) {
+          window.location.href = 'admin.html?path=' + encodeURIComponent(path);
+        }
+        return;
+      }
+
+      const editGroup = event.target.closest('.doka-edit-group');
+      if (editGroup) {
+        editGroupDialog(domainId, {
+          id: editGroup.dataset.group || '',
+          title: editGroup.dataset.title || '',
+        });
+        return;
+      }
+
+      const addTopic = event.target.closest('.doka-add-topic');
+      if (addTopic) {
+        createTopicDialog(domainId, addTopic.dataset.group);
+        return;
+      }
+
+      const addGroup = event.target.closest('.doka-add-group-btn');
+      if (addGroup) {
+        createGroupDialog(domainId);
+      }
+    });
+  }
+
+  window.DokaAdmin = {
+    ready,
+    login,
+    request,
+    api: request,
+    getPassword,
+    clearPassword,
+    promptPassword,
+    toast,
+    openDialog,
+    slugify,
+    escapeHtml,
+    mountIndex,
+    bindDomainPage,
+    createDomainDialog,
+    createGroupDialog,
+    createTopicDialog,
+    editDomainDialog,
+    editGroupDialog,
+    changeOrder,
+  };
+})();

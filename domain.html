@@ -5,6 +5,7 @@
   <title>Дока ИСИП</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="./css/style.css?v=20261107-3">
+  <link rel="stylesheet" href="./css/admin.css?v=20261108-2">
   <style>:root { --domain-accent: #614fa8; }</style>
 </head>
 <body>
@@ -40,6 +41,7 @@
   </div>
 
   <script src="./js/search.js?v=20261108-1"></script>
+  <script src="./js/admin.js?v=20261108-2"></script>
   <script>
     (function () {
       function escapeHtml(value) {
@@ -80,36 +82,99 @@
             (a, b) => (a.order ?? 0) - (b.order ?? 0)
           );
 
-          const container = document.getElementById('groupsContainer');
-          if (!groups.length) {
-            container.innerHTML = '<p style="color: var(--text-muted);">В этой области пока нет тем.</p>';
-            return;
-          }
+          const adminAvailable = window.DokaAdmin
+            ? await window.DokaAdmin.ready()
+            : false;
 
-          container.innerHTML = groups
+          const container = document.getElementById('groupsContainer');
+
+          const groupsHtml = groups
             .map((group) => {
               const topics = [...(group.topics || [])].sort(
                 (a, b) => (a.order ?? 0) - (b.order ?? 0)
               );
+              const topicsHtml = topics
+                .map((t) => {
+                  const href = t.type === 'md'
+                    ? `theme.html?path=${encodeURI(t.url)}`
+                    : escapeHtml(t.url);
+                  const badge = t.interactive ? ' 🔧' : '';
+                  const orderInput = adminAvailable
+                    ? `<input type="number" class="doka-order-input" min="0" step="10"
+                        value="${Number(t.order ?? 0)}"
+                        data-kind="topic"
+                        data-domain="${escapeHtml(domainId)}"
+                        data-group="${escapeHtml(group.id || '')}"
+                        data-url="${escapeHtml(t.url)}"
+                        data-order="${Number(t.order ?? 0)}"
+                        aria-label="Порядок темы «${escapeHtml(t.title)}»">`
+                    : '';
+                  const editButton = adminAvailable
+                    ? `<button type="button" class="doka-edit-topic" data-path="${escapeHtml(t.url)}" title="Редактировать тему" aria-label="Редактировать тему">✎</button>`
+                    : '';
+                  return `<div class="topic-row">
+                    <a class="topic-link" href="${href}">${escapeHtml(t.title)}${badge}</a>
+                    ${orderInput}
+                    ${editButton}
+                  </div>`;
+                })
+                .join('');
+
+              const addTopic = adminAvailable
+                ? `<button type="button" class="doka-add-topic" data-group="${escapeHtml(group.id || '')}">+ тема</button>`
+                : '';
+
+              const groupTools = adminAvailable
+                ? `<span class="doka-group-tools">
+                    <input type="number" class="doka-order-input" min="0" step="10"
+                      value="${Number(group.order ?? 0)}"
+                      data-kind="group"
+                      data-domain="${escapeHtml(domainId)}"
+                      data-group="${escapeHtml(group.id || '')}"
+                      data-order="${Number(group.order ?? 0)}"
+                      aria-label="Порядок группы «${escapeHtml(group.name)}»">
+                    <button type="button" class="doka-edit-group"
+                      data-group="${escapeHtml(group.id || '')}"
+                      data-title="${escapeHtml(group.name)}"
+                      title="Редактировать группу"
+                      aria-label="Редактировать группу «${escapeHtml(group.name)}»">✎</button>
+                  </span>`
+                : '';
+
               return `
                 <section class="group-section" id="group-${escapeHtml(group.id || '')}">
-                  <div class="group-header">${escapeHtml(group.name)}</div>
+                  <div class="group-header">
+                    <span class="group-name">${escapeHtml(group.name)}</span>
+                    ${groupTools}
+                  </div>
                   <div class="topics-columns">
-                    ${topics
-                      .map(
-                        (t) => {
-                          const href = t.type === 'md'
-                            ? `theme.html?path=${encodeURI(t.url)}`
-                            : escapeHtml(t.url);
-                          const badge = t.interactive ? ' 🔧' : '';
-                          return `<a class="topic-link" href="${href}">${escapeHtml(t.title)}${badge}</a>`;
-                        }
-                      )
-                      .join('')}
+                    ${topicsHtml}
+                    ${addTopic}
                   </div>
                 </section>`;
             })
             .join('');
+
+          const addGroup = adminAvailable
+            ? `<div class="group-section doka-add-group">
+                 <button type="button" class="doka-add-group-btn doka-add-btn">+ группа</button>
+               </div>`
+            : '';
+
+          if (groups.length) {
+            container.innerHTML = groupsHtml + addGroup;
+          } else if (adminAvailable) {
+            container.innerHTML =
+              '<p style="color: var(--text-muted);">В этой области пока нет групп. Создайте первую группу.</p>' +
+              addGroup;
+          } else {
+            container.innerHTML =
+              '<p style="color: var(--text-muted);">В этой области пока нет тем.</p>';
+          }
+
+          if (adminAvailable && window.DokaAdmin) {
+            window.DokaAdmin.bindDomainPage(domainId);
+          }
         } catch (err) {
           console.error('[domain] Не удалось загрузить structure.json:', err);
           document.getElementById('groupsContainer').innerHTML =
