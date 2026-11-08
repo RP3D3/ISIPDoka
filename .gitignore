@@ -1,0 +1,10 @@
+# Инструменты сборки (не нужны на GitHub Pages)
+node_modules/
+.cache/
+# Склеенный локально model.onnx (в репозитории лежат только части)
+models/rubert-tiny2/onnx/model.onnx
+scripts/transit/
+scripts/dev-server.js
+scripts/test-semantic.js
+
+npm-debug.log*

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тема — Дока ИСИП</title>
+
+  <link rel="stylesheet" href="css/libs/atom-one-dark.min.css">
+  <link rel="stylesheet" href="css/style.css?v=20261107-3">
+</head>
+<body>
+  <section class="topic-hero">
+    <div class="topic-hero-container">
+      <h1 id="theme-title">Загрузка…</h1>
+      <p class="summary" id="theme-summary"></p>
+    </div>
+  </section>
+
+  <article class="article-content" id="theme-article">
+    <!-- Контент темы будет загружен из .md файла -->
+  </article>
+
+  <script src="js/libs/marked.min.js"></script>
+  <script>
+    (() => {
+      'use strict';
+
+      /* ------------------------------------------------------------------ *
+       * Парсит query-параметр ?path=                                     *
+       * ------------------------------------------------------------------ */
+      function getPathParam() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('path') || '';
+      }
+
+      /* ------------------------------------------------------------------ *
+       * Составляет контекст области/группы/темы из пути для page.js        *
+       * content/csharp/osnovy/hello-world.md → domain=csharp, group=osnovy *
+       * ------------------------------------------------------------------ */
+      function buildThemeContext(path) {
+        const segments = path.split('/').filter(Boolean);
+        // Ожидается: content/<domain>/<group>/<file.md>
+        const domainId = segments.length > 1 ? segments[1] : '';
+        const groupId = segments.length > 2 ? segments[2] : '';
+        const fileName = segments.length > 3 ? segments[segments.length - 1] : '';
+        const topicTitle = fileName.replace(/\.md$/i, '');
+
+        return {
+          domainId,
+          domainTitle: domainId,
+          groupId,
+          groupName: groupId,
+          topicTitle,
+          accent: '',
+          urlKey: path,
+        };
+      }
+
+      /* ------------------------------------------------------------------ *
+       * Разделяет YAML frontmatter ---...--- от тела markdown              *
+       * ------------------------------------------------------------------ */
+      function parseFrontmatter(md) {
+        const frontmatterRe = /^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?/;
+        const match = md.match(frontmatterRe);
+        if (!match) return { data: {}, body: md };
+
+        const raw = match[1];
+        const body = md.slice(match[0].length);
+        const data = {};
+        const lines = raw.split(/\r?\n/);
+        let currentKey = null;
+        let currentValue = [];
+
+        for (const line of lines) {
+          // Блок-скаляр | : строки с отступом относятся к предыдущему ключу
+          if (currentKey !== null && /^\s{2}/.test(line) && line.trim() !== '') {
+            currentValue.push(line.slice(2));
+            continue;
+          }
+
+          // Сохраняем предыдущий накопленный ключ (многострочное значение)
+          if (currentKey !== null) {
+            data[currentKey] = currentValue.join('\n').trim();
+            currentKey = null;
+            currentValue = [];
+          }
+
+          const idx = line.indexOf(':');
+          if (idx === -1) continue;
+          const key = line.slice(0, idx).trim();
+          const value = line.slice(idx + 1).trim();
+
+          if (value === '|') {
+            currentKey = key;
+            currentValue = [];
+          } else {
+            data[key] = value;
+          }
+        }
+
+        // Последний ключ
+        if (currentKey !== null) {
+          data[currentKey] = currentValue.join('\n').trim();
+        }
+
+        return { data, body };
+      }
+
+      /* ------------------------------------------------------------------ *
+       * Загружает .md, конвертирует в HTML, вставляет в страницу          *
+       * ------------------------------------------------------------------ */
+      async function loadTheme() {
+        const path = getPathParam();
+        if (!path) {
+          document.getElementById('theme-title').textContent = 'Не указан путь к теме';
+          document.getElementById('theme-article').textContent =
+            'Используйте: theme.html?path=content/csharp/osnovy/hello-world.md';
+          window.dispatchEvent(new Event('themeContentLoaded'));
+          return;
+        }
+
+        try {
+          const res = await fetch(path);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const md = await res.text();
+
+          const { data, body } = parseFrontmatter(md);
+          const title = data.title || path.split('/').pop().replace(/\.md$/i, '');
+
+          document.title = title;
+          document.getElementById('theme-title').textContent = title;
+          document.getElementById('theme-summary').textContent =
+            data.description || '';
+
+          // SVG — в hero-секцию (берём из YAML поля svg, если есть)
+          const svgRaw = data.svg || '';
+          const svg = svgRaw.trim() || null;
+          if (svg) {
+            const hero = document.querySelector('.topic-hero');
+            const svgContainer = document.createElement('div');
+            svgContainer.className = 'topic-hero-svg';
+            svgContainer.innerHTML = svg;
+            const container = document.querySelector('.topic-hero-container');
+            if (container) {
+              container.insertAdjacentElement('beforebegin', svgContainer);
+            } else {
+              hero.appendChild(svgContainer);
+            }
+          }
+
+          // Markdown — в статью
+          const html = marked.parse(body);
+
+          const article = document.getElementById('theme-article');
+          article.innerHTML = html;
+
+          // Выносим первый h1 и первый абзац после него из markdown в hero-секцию
+          const firstH1 = article.querySelector('h1');
+          const firstP = firstH1 ? firstH1.nextElementSibling : null;
+
+          if (firstH1) {
+            const heroTitle = document.getElementById('theme-title');
+            heroTitle.textContent = firstH1.textContent.trim();
+            firstH1.remove();
+          }
+
+          if (firstP && firstP.tagName === 'P') {
+            const heroSummary = document.getElementById('theme-summary');
+            heroSummary.textContent = firstP.textContent.trim();
+            firstP.remove();
+          }
+
+          // Внешние ссылки — в новой вкладке, чтобы не терять страницу доки
+          article.querySelectorAll('a[href]').forEach((a) => {
+            const href = a.getAttribute('href') || '';
+            if (/^https?:\/\//i.test(href)) {
+              a.setAttribute('target', '_blank');
+              a.setAttribute('rel', 'noopener noreferrer');
+            }
+          });
+
+          // Чистим классы языков у кодовых блоков: language-cs → cs
+          article.querySelectorAll('pre code[class]').forEach((el) => {
+            const cls = el.className;
+            const match = cls.match(/language-(\w+)/);
+            if (match) {
+              el.dataset.lang = match[1];
+              el.className = match[1];
+            }
+          });
+
+          // Подсветка кода через highlight.js (подключается page.js позже).
+          // Если hljs уже есть — подсветим сразу, иначе page.js сделает это.
+          if (window.hljs) {
+            window.hljs.highlightAll();
+          }
+        } catch (err) {
+          document.getElementById('theme-title').textContent = 'Ошибка загрузки';
+          document.getElementById('theme-article').textContent =
+            `Не удалось загрузить тему: ${err.message}`;
+        } finally {
+          // Сообщаем page.js, что контент уже вставлен — можно строить оглавление
+          window.dispatchEvent(new Event('themeContentLoaded'));
+        }
+      }
+
+      // Контекст для page.js (шапка, крошки, акцент области)
+      const path = getPathParam();
+      window.__themeContext = buildThemeContext(path);
+
+      loadTheme();
+    })();
+  </script>
+
+  <script src="js/page.js?v=20261107-2"></script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Привет, мир!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../../../css/libs/atom-one-dark.min.css">
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+  <section class="topic-hero">
+    <!-- HERO_SVG_START
+         Сюда вставляется готовый <svg> из hero_svg.md.
+         SVG здесь не генерируется.
+    HERO_SVG_END -->
+
+    <div class="topic-hero-container">
+      <h1>Привет, мир!</h1>
+      <p class="summary">
+        Минимальная рабочая программа на C#, вывод текста в терминал и разница между современным синтаксисом в одну строчку и классическим методом Main.
+      </p>
+    </div>
+  </section>
+
+  <article class="article-content">
+    <section class="topic-section">
+      <h2>Кратко</h2>
+      <p>
+        В современном C# первая программа занимает ровно одну строчку без классов, пространств имён и шаблонных обёрток:
+      </p>
+
+      <pre><code class="language-csharp">Console.WriteLine("Привет, мир!");</code></pre>
+
+      <p>
+        Вызывается системный класс <code>Console</code>, запускается метод <code>WriteLine()</code>, и переданный в кавычках текст выводится в окно терминала. Всё остальное платформа делает сама.
+      </p>
+    </section>
+
+    <section class="topic-section">
+      <h2>Анатомия одной строки</h2>
+      <p>
+        Даже в одной команде задействованы базовые правила синтаксиса языка:
+      </p>
+      <ul>
+        <li><code>Console</code> — встроенный статический класс платформы .NET, отвечающий за стандартный ввод и вывод.</li>
+        <li><code>.WriteLine(...)</code> — вызов метода, который отправляет строку в терминал и сразу переводит курсор на новую строку.</li>
+        <li><code>"Привет, мир!"</code> — строковый литерал. Текст всегда оборачивается в двойные кавычки.</li>
+        <li><code>;</code> — обязательный разделитель. Каждая инструкция в C# завершается точкой с запятой.</li>
+      </ul>
+    </section>
+
+    <section class="topic-section">
+      <h2>Top-level statements против классики</h2>
+      <p>
+        До версии C# 9 даже для вывода одного слова требовалось строить громоздкий каркас. Сейчас этот механизм автоматизирован с помощью <strong>инструкций верхнего уровня</strong> (<em>Top-level statements</em>).
+      </p>
+
+      <h3>Классический шаблон: как было раньше</h3>
+      <p>
+        В старых версиях языка и легаси-проектах точка входа объявляется явно через класс и метод:
+      </p>
+
+      <pre><code class="language-csharp">using System;
+
+namespace HelloWorldApp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Привет, мир!");
+        }
+    }
+}</code></pre>
+
+      <p>
+        Здесь разработчик вручную подключает пространство имён через <code>using System;</code>, создаёт контейнер <code>class Program</code> и точку входа <code>static void Main</code> с массивом аргументов командной строки <code>string[] args</code>.
+      </p>
+
+      <h3>Современный подход: как устроено сейчас</h3>
+      <p>
+        Начиная с C# 9 и .NET 6, весь файл <code>Program.cs</code> может состоять только из рабочих команд. Компилятор сам «оборачивает» код в невидимый класс и синтезирует метод точки входа.
+      </p>
+      <p>
+        <strong>Важное правило:</strong> писать инструкции верхнего уровня разрешено только в <em>одном</em> файле проекта. Если добавить такой же код во второй файл, компилятор выдаст ошибку <code>CS8802</code>, так как точек входа не может быть две.
+      </p>
+    </section>
+
+    <section class="topic-section">
+      <h2>Сравнение стилей точки входа</h2>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Критерий</th>
+            <th>Top-level statements</th>
+            <th>Классический Program.Main</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Размер кода</td>
+            <td>Только рабочие инструкции</td>
+            <td>Обязательны namespace, class и метод Main</td>
+          </tr>
+          <tr>
+            <td>Где создаётся точка входа</td>
+            <td>Синтезируется компилятором неявно</td>
+            <td>Пишется разработчиком явно</td>
+          </tr>
+          <tr>
+            <td>Лимит файлов</td>
+            <td>Строго один файл на весь проект</td>
+            <td>Метод Main в выбранном классе</td>
+          </tr>
+          <tr>
+            <td>Аргументы консоли</td>
+            <td>Доступны через готовую переменную <code>args</code></td>
+            <td>Передаются через параметр <code>string[] args</code></td>
+          </tr>
+          <tr>
+            <td>Основное назначение</td>
+            <td>Новые консольные утилиты, микросервисы, учёба</td>
+            <td>Легаси-системы, проекты со строгими правилами ООП</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="topic-section">
+      <h2>WriteLine против Write</h2>
+      <p>
+        Для печати текста используются два метода класса <code>Console</code>. Разница — в позиции курсора после вывода.
+      </p>
+
+      <h3>Console.WriteLine</h3>
+      <p>
+        Печатает текст и переносит курсор на следующую строку:
+      </p>
+
+      <pre><code class="language-csharp">Console.WriteLine("Строка 1");
+Console.WriteLine("Строка 2");</code></pre>
+
+      <p>Вывод:</p>
+      <pre><code class="language-text">Строка 1
+Строка 2</code></pre>
+
+      <h3>Console.Write</h3>
+      <p>
+        Печатает текст и оставляет курсор на том же месте. Следующий вызов продолжит печать встык:
+      </p>
+
+      <pre><code class="language-csharp">Console.Write("Привет, ");
+Console.Write("мир!");
+Console.WriteLine(); // перенос строки без вывода текста</code></pre>
+
+      <p>Вывод:</p>
+      <pre><code class="language-text">Привет, мир!</code></pre>
+    </section>
+
+    <section class="topic-section">
+      <h2>Интерактив: выбор стиля кода</h2>
+      <p>
+        Переключайте синтаксис, чтобы увидеть разницу между минималистичным и классическим форматом.
+      </p>
+
+      <div class="try-box" id="syntaxChooser">
+        <div class="chips">
+          <button type="button" class="active" data-mode="top">Top-level statements (C# 9+)</button>
+          <button type="button" data-mode="classic">Классический Program.Main</button>
+        </div>
+        <div class="info-panel" id="syntaxDetail" aria-live="polite">
+          <span class="info-panel-strong">Top-level statements</span>
+          <span class="info-panel-text">Стандарт для современных шаблонов .NET. Никаких классов и обёрток — компилятор всё делает за кадром.</span>
+          <code class="info-panel-code">Console.WriteLine("Привет, мир!");</code>
+        </div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Интерактив: эмулятор вывода в консоль</h2>
+      <p>
+        Попробуйте разницу между методами в действии: посмотрите, где оказывается курсор при вызове <code>Write</code> и <code>WriteLine</code>.
+      </p>
+
+      <div class="try-box" id="consoleSim">
+        <div class="try-header">ЭМУЛЯТОР ТЕРМИНАЛА</div>
+        <div class="try-controls">
+          <label for="consoleInput">Текст:</label>
+          <input type="text" id="consoleInput" value="Привет, мир!" autocomplete="off">
+          <button type="button" id="btnRunWriteLine">Console.WriteLine()</button>
+          <button type="button" id="btnRunWrite">Console.Write()</button>
+          <button type="button" id="btnResetConsole">Очистить</button>
+          <span class="try-counter" id="simLinesCounter">0 строк</span>
+        </div>
+        <div class="info-panel" id="simCodePreview">
+          <span class="info-panel-strong">Вызов в C#</span>
+          <code class="info-panel-code" id="codeLineView">Console.WriteLine("Привет, мир!");</code>
+        </div>
+        <div class="info-panel" id="simTerminalScreen" aria-live="polite">[Терминал готов]</div>
+        <div class="try-hint" id="simHint" role="status"></div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Частые грабли</h2>
+      <ul>
+        <li>
+          <strong>Регистр букв:</strong> C# чувствителен к регистру. <code>console.writeline</code> или <code>Console.writeline</code> не скомпилируются. Имена типов и методов пишутся в PascalCase: <code>Console.WriteLine</code>.
+        </li>
+        <li>
+          <strong>Одинарные кавычки:</strong> запись <code>'Привет'</code> вызовет ошибку. Одинарные кавычки зарезервированы под единичный символ <code>char</code> (например, <code>'A'</code>), а строки всегда берутся в двойные кавычки <code>"..."</code>.
+        </li>
+        <li>
+          <strong>Точка с запятой:</strong> пропуск <code>;</code> в конце строки — самая частая синтаксическая ошибка у новичков.
+        </li>
+        <li>
+          <strong>Два файла с Top-level statements:</strong> свободный код вне классов допускается строго в одном файле. Все остальные файлы проекта обязаны содержать классы, структуры или интерфейсы.
+        </li>
+        <li>
+          <strong>Порядок объявлений:</strong> если в файле верхнего уровня объявляются функции или классы, они обязаны располагаться <em>ниже</em> выполняемых инструкций, а не перед ними.
+        </li>
+      </ul>
+    </section>
+
+    <section class="topic-section">
+      <h2>В сухом остатке</h2>
+      <ul>
+        <li>Для первой программы на современном C# достаточно одной строчки: <code>Console.WriteLine("...");</code>.</li>
+        <li>Классический <code>static void Main</code> по-прежнему валиден, но обязателен только в легаси-проектах.</li>
+        <li><code>WriteLine()</code> делает перенос на следующую строку, а <code>Write()</code> оставляет курсор на месте.</li>
+        <li>Инструкции верхнего уровня могут находиться только в одном <code>.cs</code> файле внутри проекта.</li>
+      </ul>
+    </section>
+  </article>
+
+  <script>
+    (function () {
+      const CHOICES = {
+        top: {
+          title: 'Top-level statements',
+          text: 'Стандарт для современных шаблонов .NET. Никаких классов и обёрток — компилятор всё делает за кадром.',
+          code: 'Console.WriteLine("Привет, мир!");'
+        },
+        classic: {
+          title: 'Классический Program.Main',
+          text: 'Явное объявление класса Program и точки входа Main(string[] args). Стандарт в старых проектах и строгих архитектурах.',
+          code: 'namespace HelloWorld;\n\ninternal class Program\n{\n    static void Main(string[] args)\n    {\n        Console.WriteLine("Привет, мир!");\n    }\n}'
+        }
+      };
+
+      const chooser = document.getElementById('syntaxChooser');
+      const detail = document.getElementById('syntaxDetail');
+      if (!chooser || !detail) return;
+
+      const chips = chooser.querySelectorAll('button[data-mode]');
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          const info = CHOICES[chip.dataset.mode];
+          if (!info) return;
+
+          chips.forEach(function (btn) {
+            btn.classList.remove('active');
+          });
+          chip.classList.add('active');
+
+          detail.innerHTML =
+            '<span class="info-panel-strong">' + info.title + '</span>' +
+            '<span class="info-panel-text">' + info.text + '</span>' +
+            '<code class="info-panel-code">' + info.code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>') + '</code>';
+        });
+      });
+    })();
+
+    (function () {
+      const input = document.getElementById('consoleInput');
+      const btnWriteLine = document.getElementById('btnRunWriteLine');
+      const btnWrite = document.getElementById('btnRunWrite');
+      const btnReset = document.getElementById('btnResetConsole');
+      const screen = document.getElementById('simTerminalScreen');
+      const codePreview = document.getElementById('codeLineView');
+      const counter = document.getElementById('simLinesCounter');
+      const hint = document.getElementById('simHint');
+
+      if (!input || !btnWriteLine || !btnWrite || !btnReset || !screen || !codePreview || !counter || !hint) {
+        return;
+      }
+
+      let terminalBuffer = '';
+      let isInitial = true;
+
+      function updateCounter() {
+        if (!terminalBuffer) {
+          counter.textContent = '0 строк';
+          return;
+        }
+        const lines = terminalBuffer.split('\n');
+        const count = lines[lines.length - 1] === '' ? lines.length - 1 : lines.length;
+        const mod10 = count % 10;
+        const mod100 = count % 100;
+        let suffix = 'строк';
+        if (mod10 === 1 && mod100 !== 11) {
+          suffix = 'строка';
+        } else if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) {
+          suffix = 'строки';
+        }
+        counter.textContent = count + ' ' + suffix;
+      }
+
+      function escapeHtml(text) {
+        return text
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+      }
+
+      function executeOutput(isWriteLine) {
+        const val = input.value;
+        const methodName = isWriteLine ? 'WriteLine' : 'Write';
+        codePreview.textContent = 'Console.' + methodName + '("' + val.replace(/"/g, '\"') + '");';
+
+        if (isInitial) {
+          terminalBuffer = '';
+          isInitial = false;
+        }
+
+        hint.textContent = '';
+        terminalBuffer += val + (isWriteLine ? '\n' : '');
+
+        screen.innerHTML = escapeHtml(terminalBuffer).replace(/\n/g, '<br>') || '&gt;';
+        updateCounter();
+      }
+
+      btnWriteLine.addEventListener('click', function () {
+        executeOutput(true);
+      });
+
+      btnWrite.addEventListener('click', function () {
+        executeOutput(false);
+      });
+
+      btnReset.addEventListener('click', function () {
+        terminalBuffer = '';
+        isInitial = true;
+        hint.textContent = '';
+        codePreview.textContent = 'Console.Clear();';
+        screen.textContent = '[Консоль очищена]';
+        updateCounter();
+      });
+    })();
+  </script>
+
+  <script src="../../../js/page.js"></script>
+</body>
+</html>

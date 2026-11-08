@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Интерактив: цикл for по шагам</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Seed-порядок нужен только для новой темы. После sync удалится. -->
+
+  <link rel="stylesheet" href="../../../css/libs/atom-one-dark.min.css">
+  <link rel="stylesheet" href="../../../css/style.css?v=20261107-3">
+  <style>
+    /* --- Интерактивное демо цикла --- */
+    .loop-demo {
+      margin: 24px 0 8px;
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(97, 79, 168, 0.12), rgba(255, 255, 255, 0.02));
+    }
+
+    .loop-demo-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .loop-demo-stat {
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .loop-demo-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-muted);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .loop-demo-value {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 24px;
+      line-height: 1.2;
+      color: var(--text-main);
+    }
+
+    .loop-demo-bar {
+      height: 8px;
+      margin-bottom: 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+    }
+
+    .loop-demo-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: var(--domain-accent);
+      transition: width 0.25s ease;
+    }
+
+    .loop-demo-status {
+      min-height: 24px;
+      margin-bottom: 18px;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    .loop-demo-status.is-done {
+      color: #9be29b;
+    }
+
+    .loop-demo-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .loop-demo-btn {
+      padding: 9px 18px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      font-family: var(--font-base);
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+    }
+
+    .loop-demo-btn:hover:not(:disabled) {
+      border-color: var(--domain-accent);
+      background: rgba(97, 79, 168, 0.22);
+    }
+
+    .loop-demo-btn:focus-visible {
+      outline: 2px solid var(--domain-accent);
+      outline-offset: 2px;
+    }
+
+    .loop-demo-btn:disabled {
+      cursor: default;
+      opacity: 0.45;
+    }
+
+    .loop-demo-btn--primary {
+      border-color: transparent;
+      background: var(--domain-accent);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .loop-demo-btn--primary:hover:not(:disabled) {
+      background: color-mix(in srgb, var(--domain-accent) 80%, #fff);
+    }
+
+    @media (max-width: 640px) {
+      .loop-demo {
+        padding: 18px;
+      }
+
+      .loop-demo-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="topic-hero">
+    <div class="topic-hero-container">
+      <h1>Интерактив: цикл for по шагам</h1>
+      <p class="summary">
+        Пошаговый проигрыватель цикла: нажимайте «Шаг» и смотрите, как меняются
+        счётчик, накопленная сумма и условие выхода.
+      </p>
+    </div>
+  </section>
+
+  <article class="article-content">
+    <section class="topic-section">
+      <h2>Что показывает демо</h2>
+      <p>
+        В демо выполняется цикл, который складывает числа от 1 до 5. Каждое
+        нажатие кнопки «Шаг» — одна итерация: счётчик <code>i</code>
+        увеличивается, а к переменной <code>sum</code> прибавляется текущее
+        значение <code>i</code>.
+      </p>
+      <p>
+        После пятой итерации условие <code>i &lt;= 5</code> станет ложным, и цикл
+        завершится. Сумма должна получиться равной <strong>15</strong>.
+      </p>
+    </section>
+
+    <section class="topic-section">
+      <h2>Демо</h2>
+
+      <div class="loop-demo" id="loopDemo">
+        <div class="loop-demo-stats">
+          <div class="loop-demo-stat">
+            <span class="loop-demo-label">Счётчик i</span>
+            <span class="loop-demo-value" id="loopI">—</span>
+          </div>
+          <div class="loop-demo-stat">
+            <span class="loop-demo-label">Сумма sum</span>
+            <span class="loop-demo-value" id="loopSum">0</span>
+          </div>
+          <div class="loop-demo-stat">
+            <span class="loop-demo-label">Итерация</span>
+            <span class="loop-demo-value" id="loopStep">0 / 5</span>
+          </div>
+        </div>
+
+        <div class="loop-demo-bar" aria-hidden="true">
+          <div class="loop-demo-bar-fill" id="loopBar"></div>
+        </div>
+
+        <p class="loop-demo-status" id="loopStatus" aria-live="polite">
+          Цикл ещё не запущен.
+        </p>
+
+        <div class="loop-demo-actions">
+          <button type="button" class="loop-demo-btn loop-demo-btn--primary" id="loopStepBtn">
+            Шаг
+          </button>
+          <button type="button" class="loop-demo-btn" id="loopResetBtn">
+            Сброс
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Код цикла</h2>
+      <p>Именно этот цикл проигрывает демо:</p>
+
+      <pre><code class="language-csharp">int sum = 0;
+
+for (int i = 1; i &lt;= 5; i++)
+{
+    sum += i;
+}
+
+Console.WriteLine(sum); // 15</code></pre>
+    </section>
+
+    <section class="topic-section">
+      <h2>Что проверить</h2>
+      <ul>
+        <li>На первом шаге <code>i</code> равно 1, а <code>sum</code> — 1.</li>
+        <li>На каждом следующем шаге <code>sum</code> увеличивается на текущее <code>i</code>.</li>
+        <li>После пятого шага кнопка «Шаг» блокируется, а итог равен 15.</li>
+        <li>Кнопка «Сброс» возвращает демо в исходное состояние.</li>
+      </ul>
+    </section>
+  </article>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const TOTAL = 5;
+
+      const iEl = document.getElementById('loopI');
+      const sumEl = document.getElementById('loopSum');
+      const stepEl = document.getElementById('loopStep');
+      const barEl = document.getElementById('loopBar');
+      const statusEl = document.getElementById('loopStatus');
+      const stepBtn = document.getElementById('loopStepBtn');
+      const resetBtn = document.getElementById('loopResetBtn');
+
+      let i = 0;
+      let sum = 0;
+      let done = false;
+
+      function render() {
+        iEl.textContent = i === 0 ? '—' : String(i);
+        sumEl.textContent = String(sum);
+        stepEl.textContent = `${i} / ${TOTAL}`;
+        barEl.style.width = `${(i / TOTAL) * 100}%`;
+
+        statusEl.classList.toggle('is-done', done);
+
+        if (done) {
+          statusEl.textContent = `Цикл завершён: sum = ${sum}. Условие i <= ${TOTAL} стало ложным.`;
+          stepBtn.disabled = true;
+        } else if (i === 0) {
+          statusEl.textContent = 'Цикл ещё не запущен.';
+          stepBtn.disabled = false;
+        } else {
+          statusEl.textContent = `Итерация ${i}: sum += ${i} → sum = ${sum}.`;
+          stepBtn.disabled = false;
+        }
+      }
+
+      stepBtn.addEventListener('click', () => {
+        if (done) return;
+        i += 1;
+        sum += i;
+        if (i >= TOTAL) done = true;
+        render();
+      });
+
+      resetBtn.addEventListener('click', () => {
+        i = 0;
+        sum = 0;
+        done = false;
+        render();
+      });
+
+      render();
+    })();
+  </script>
+
+  <script src="../../../js/page.js?v=20261107-2"></script>
+</body>
+</html>

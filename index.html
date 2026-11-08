@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Дока ИСИП</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css?v=20261107-3">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-left">
+      <div class="brand-badge">U•ᴥ•U Дока ИСИП</div>
+      <div class="breadcrumbs">
+        <span>/</span>
+        <span class="current">Меню</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="search-trigger-btn" id="searchTriggerBtn">
+        Поиск <kbd>/</kbd>
+      </button>
+    </div>
+  </header>
+
+  <main class="hero-index">
+    <ul class="domains-list" id="domainsList">
+      <li class="domain-item"><span style="color: var(--text-muted);">Загрузка...</span></li>
+    </ul>
+  </main>
+
+  <div class="search-modal" id="searchModal">
+    <div class="search-box">
+      <input type="text" class="search-box-input" id="searchInput" placeholder="Поиск по доке..." autocomplete="off">
+      <ul class="search-results-list" id="searchResults"></ul>
+    </div>
+  </div>
+
+  <script src="./js/search.js?v=20261108-1"></script>
+  <script>
+    (function () {
+      function escapeHtml(value) {
+        return String(value == null ? '' : value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      async function renderDomains() {
+        const list = document.getElementById('domainsList');
+        try {
+          const res = await fetch('./data/structure.json');
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          const domains = Object.entries(data).sort(
+            (a, b) => (a[1].order ?? 0) - (b[1].order ?? 0)
+          );
+
+          if (!domains.length) {
+            list.innerHTML = '<li class="domain-item"><span style="color: var(--text-muted);">Пока нет ни одной области.</span></li>';
+            return;
+          }
+
+          list.innerHTML = domains
+            .map(([id, domain]) => {
+              const accent = escapeHtml(domain.accent || '#6c47ff');
+              const title = escapeHtml(domain.title || id);
+              return `<li class="domain-item" style="--domain-color: ${accent};">
+                <a href="domain.html?id=${encodeURIComponent(id)}">${title}</a>
+              </li>`;
+            })
+            .join('');
+        } catch (err) {
+          console.error('[index] Не удалось загрузить structure.json:', err);
+          list.innerHTML = '<li class="domain-item"><span style="color: var(--text-muted);">Не удалось загрузить структуру.</span></li>';
+        }
+      }
+
+      renderDomains();
+    })();
+  </script>
+</body>
+</html>

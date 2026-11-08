@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Массивы</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../../css/libs/atom-one-dark.min.css">
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+<section class="topic-hero">
+    <svg viewBox="0 0 900 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 900px; max-height: 280px; height: auto; display: block; margin: 0 auto 20px;">
+  <style>
+    /* 1. Прямой доступ селектора к ячейке [2] за O(1) */
+    @keyframes indexSelector {
+      0%, 15% {
+        transform: translateY(-16px);
+        opacity: 0.4;
+      }
+      30%, 80% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      92%, 100% {
+        transform: translateY(-16px);
+        opacity: 0.4;
+      }
+    }
+
+    /* 2. Реакция геометрической фигуры в ячейке [2] (подъём и вращение) */
+    @keyframes itemActivate {
+      0%, 25% {
+        transform: translateY(0) rotate(0deg);
+      }
+      35% {
+        transform: translateY(-8px) rotate(45deg);
+      }
+      45%, 80% {
+        transform: translateY(-4px) rotate(45deg);
+      }
+      90%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+    }
+
+    /* 3. Пульсация считывающего прицела / луча */
+    @keyframes scanRay {
+      0%, 25% { opacity: 0; transform: scaleY(0.3); }
+      32%, 78% { opacity: 1; transform: scaleY(1); }
+      88%, 100% { opacity: 0; transform: scaleY(0.3); }
+    }
+
+    /* 4. Вращение абстрактного индикатора сложности O(1) слева */
+    @keyframes dialSpin {
+      0% { transform: rotate(0deg); }
+      30%, 75% { transform: rotate(90deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .anim-selector { animation: indexSelector 4.2s cubic-bezier(0.2, 0.9, 0.3, 1) infinite; }
+    .anim-target-shape { transform-origin: center; animation: itemActivate 4.2s ease-in-out infinite; }
+    .anim-ray { transform-origin: top center; animation: scanRay 4.2s ease-out infinite; }
+    .anim-dial { transform-origin: 40px 40px; animation: dialSpin 4.2s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .anim-selector, .anim-target-shape, .anim-ray, .anim-dial {
+        animation: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+      }
+    }
+  </style>
+
+  <!-- Базовые направляющие уровня и линейка адресации -->
+  <line x1="60" y1="230" x2="840" y2="230" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="6 6" opacity="0.3" />
+  <line x1="60" y1="65" x2="840" y2="65" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.15" />
+
+  <!-- ЛЕВАЯ ЧАСТЬ: Абстрактный диск адресации и бейдж O(1) -->
+  <g transform="translate(60, 95)">
+    <!-- Внешнее кольцо с делениями -->
+    <circle cx="40" cy="40" r="38" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="8 4" opacity="0.4" />
+    <!-- Вращающийся диск с прорезями -->
+    <g class="anim-dial">
+      <circle cx="40" cy="40" r="28" fill="#000000" stroke="#FFFFFF" stroke-width="2" />
+      <line x1="40" y1="16" x2="40" y2="28" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+      <line x1="40" y1="52" x2="40" y2="64" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+      <circle cx="40" cy="40" r="8" fill="#FFFFFF" />
+      <circle cx="40" cy="40" r="3" fill="#000000" />
+    </g>
+    <!-- Бейдж O(1) -->
+    <rect x="-8" y="94" width="96" height="24" rx="4" fill="#000000" stroke="#FFFFFF" stroke-width="1.5" />
+    <text x="40" y="110" fill="#FFFFFF" text-anchor="middle" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="11" font-weight="700">Access: O(1)</text>
+  </g>
+
+  <!-- ЦЕНТРАЛЬНАЯ ЧАСТЬ: Неразрывный монолитный блок массива (5 слотов) -->
+  <g id="array-monolith" transform="translate(185, 95)">
+    <!-- Жёсткая падающая тень слотов -->
+    <rect x="8" y="8" width="530" height="95" rx="8" fill="#000000" />
+    <!-- Общий белый корпус непрерывной памяти -->
+    <rect x="0" y="0" width="530" height="95" rx="8" fill="#FFFFFF" stroke="#000000" stroke-width="2.5" />
+
+    <!-- Перегородки между смежными ячейками (ширина слота 106px) -->
+    <line x1="106" y1="0" x2="106" y2="95" stroke="#000000" stroke-width="2" />
+    <line x1="212" y1="0" x2="212" y2="95" stroke="#000000" stroke-width="2" />
+    <line x1="318" y1="0" x2="318" y2="95" stroke="#000000" stroke-width="2" />
+    <line x1="424" y1="0" x2="424" y2="95" stroke="#000000" stroke-width="2" />
+
+    <!-- Индексы [0]..[4] внизу слотов -->
+    <text x="53" y="83" text-anchor="middle" fill="#000000" font-family="&#39;JetBrains Mono&#39;, monospace" font-weight="700" font-size="13">[0]</text>
+    <text x="159" y="83" text-anchor="middle" fill="#000000" font-family="&#39;JetBrains Mono&#39;, monospace" font-weight="700" font-size="13">[1]</text>
+    <text x="265" y="83" text-anchor="middle" fill="#000000" font-family="&#39;JetBrains Mono&#39;, monospace" font-weight="800" font-size="14">[2]</text>
+    <text x="371" y="83" text-anchor="middle" fill="#000000" font-family="&#39;JetBrains Mono&#39;, monospace" font-weight="700" font-size="13">[3]</text>
+    <text x="477" y="83" text-anchor="middle" fill="#000000" font-family="&#39;JetBrains Mono&#39;, monospace" font-weight="700" font-size="13">[4]</text>
+
+    <!-- Абстрактные геометрические фигуры внутри ячеек -->
+    <!-- Слот 0: Концентрические круги -->
+    <g transform="translate(53, 40)">
+      <circle cx="0" cy="0" r="16" fill="#000000" />
+      <circle cx="0" cy="0" r="6" fill="#FFFFFF" />
+    </g>
+
+    <!-- Слот 1: Треугольник -->
+    <g transform="translate(159, 40)">
+      <polygon points="0,-16 16,14 -16,14" fill="#000000" />
+      <circle cx="0" cy="3" r="3.5" fill="#FFFFFF" />
+    </g>
+
+    <!-- Слот 2: АКТИВНЫЙ РОМБ (подвержен анимации) -->
+    <g transform="translate(265, 40)">
+      <g class="anim-target-shape">
+        <rect x="-14" y="-14" width="28" height="28" rx="3" fill="#000000" />
+        <circle cx="0" cy="0" r="5" fill="#FFFFFF" />
+      </g>
+    </g>
+
+    <!-- Слот 3: Плюс / Крестовина -->
+    <g transform="translate(371, 40)">
+      <rect x="-5" y="-16" width="10" height="32" rx="2" fill="#000000" />
+      <rect x="-16" y="-5" width="32" height="10" rx="2" fill="#000000" />
+      <circle cx="0" cy="0" r="3" fill="#FFFFFF" />
+    </g>
+
+    <!-- Слот 4: Квадратная плашка с точками -->
+    <g transform="translate(477, 40)">
+      <rect x="-15" y="-15" width="30" height="30" rx="4" fill="#000000" />
+      <rect x="-9" y="-9" width="18" height="18" rx="2" fill="#FFFFFF" />
+      <rect x="-4" y="-4" width="8" height="8" rx="1" fill="#000000" />
+    </g>
+  </g>
+
+  <!-- СВЕРХУ: Считывающий селектор array[2] над третьей ячейкой (X = 185 + 265 = 450) -->
+  <g transform="translate(450, 30)">
+    <g class="anim-selector">
+      <!-- Плашка кода -->
+      <rect x="-58" y="0" width="116" height="28" rx="4" fill="#000000" stroke="#FFFFFF" stroke-width="1.5" />
+      <text x="0" y="18" fill="#FFFFFF" text-anchor="middle" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="12" font-weight="700">array[2]</text>
+      <!-- Направляющая стрелка-визир -->
+      <path d="M 0 28 L 0 52" stroke="#FFFFFF" stroke-width="2" />
+      <polygon points="-5,50 5,50 0,57" fill="#FFFFFF" />
+    </g>
+    <!-- Пунктирный луч захвата -->
+    <g class="anim-ray">
+      <line x1="-16" y1="58" x2="-16" y2="88" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="3 3" />
+      <line x1="16" y1="58" x2="16" y2="88" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="3 3" />
+    </g>
+  </g>
+
+  <!-- ПРАВАЯ ЧАСТЬ: Замок неизменяемости размера (Fixed Bounds) -->
+  <g transform="translate(745, 95)">
+    <!-- Граничный упор / Скоба-ограничитель -->
+    <path d="M 0 10 L 15 10 L 15 85 L 0 85" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="none" />
+    <line x1="15" y1="47" x2="35" y2="47" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="3 3" />
+    
+    <!-- Бейдж фиксированной длины -->
+    <rect x="25" y="16" width="105" height="26" rx="4" fill="#000000" stroke="#FFFFFF" stroke-width="1.5" />
+    <text x="77" y="33" fill="#FFFFFF" text-anchor="middle" font-family="&#39;JetBrains Mono&#39;, monospace" font-weight="700" font-size="11">Length: 5</text>
+
+    <!-- Бейдж неизменяемости (fixed size) -->
+    <rect x="25" y="52" width="105" height="26" rx="4" fill="#FFFFFF" />
+    <text x="77" y="69" fill="#000000" text-anchor="middle" font-family="&#39;JetBrains Mono&#39;, monospace" font-weight="800" font-size="11">FIXED SIZE</text>
+  </g>
+</svg>
+    <div class="topic-hero-container">
+      <h1>Массивы</h1>
+      <p class="summary">Фиксированный набор однотипных значений в непрерывной памяти: объявление, доступ по индексу, перебор for/foreach, многомерные и зубчатые массивы.</p>
+    </div>
+  </section>
+
+  <article class="article-content">
+<section class="topic-section">
+      <h2>Создание массива</h2>
+      <p>Массив — набор элементов <strong>одного типа</strong> фиксированной длины. Размер задаётся один раз и не меняется:</p>
+
+      <pre><code class="language-csharp">// Пустой массив на 3 элемента (по умолчанию все нули)
+int[] buffer = new int[3];
+
+// Сразу с значениями — длина вычисляется сама
+string[] students = { "Анна", "Борис", "Вера" };
+
+// Компактная запись с var и new()
+var days = new int[] { 1, 2, 3, 4, 5 };</code></pre>
+
+      <div class="try-box" id="arrayDemo">
+        <div class="try-header">Попробуй сам: положи элемент в ячейку</div>
+        <div class="try-controls">
+          <input type="text" id="arrInput" maxlength="12" placeholder="значение">
+          <button type="button" id="arrAdd">+ Добавить</button>
+          <button type="button" id="arrRemove">− Убрать последний</button>
+          <span class="try-counter" id="arrCount">Length = 0</span>
+        </div>
+        <div class="cell-grid" id="arrCells"></div>
+        <div class="try-hint" id="arrHint"></div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Индексы и Length</h2>
+      <p>Нумерация начинается с <strong>нуля</strong>. Последний элемент имеет индекс <code>Length − 1</code>:</p>
+
+      <pre><code class="language-csharp">int[] scores = { 22, 34, 40, 25, 50 };
+
+int first = scores[0];        // 22
+int last = scores[scores.Length - 1];   // 50
+scores[2] = 41;               // заменили третий элемент
+
+// Индекс с конца — оператор ^ (C# 8+):
+int last2 = scores[^1];       // тоже 50</code></pre>
+
+      <p>Свойство <code>Length</code> — количество элементов, оно неизменяемо у созданного массива.</p>
+    </section>
+
+    <section class="topic-section">
+      <h2>Перебор: for или foreach</h2>
+      <p><code>for</code> нужен, когда важен индекс (например, идём с шагом 2). <code>foreach</code> — когда пробегаем все элементы и менять их не требуется:</p>
+
+      <pre><code class="language-csharp">string[] students = { "Анна", "Борис", "Вера" };
+
+// классический перебор с индексом
+for (int i = 0; i < students.Length; i++)
+{
+    Console.WriteLine($"{i}. {students[i]}");
+}
+
+// когда нужен только элемент
+foreach (string name in students)
+{
+    Console.WriteLine($"Привет, {name}!");
+}</code></pre>
+
+      <p>У переменной <code>foreach</code> нельзя присваивать новое значение элементу массива — для изменений используй <code>for</code>.</p>
+    </section>
+
+    <section class="topic-section">
+      <h2>Многомерные и зубчатые</h2>
+      <p>Прямоугольный массив — таблица <code>[rows, cols]</code>. Зубчатый — «массив массивов», строки могут быть разной длины:</p>
+
+      <pre><code class="language-csharp">// прямоугольная таблица оценок 2 × 3
+int[,] marks = new int[2, 3];
+marks[0, 0] = 5;
+marks[1, 2] = 4;
+
+// зубчатый массив: у каждой строки своя длина
+int[][] pyramid = new int[3][];
+pyramid[0] = new[] { 5 };
+pyramid[1] = new[] { 5, 4 };
+pyramid[2] = new[] { 5, 4, 3 };
+
+foreach (int[] row in pyramid)
+    Console.WriteLine(string.Join(", ", row));</code></pre>
+    </section>
+
+    <section class="topic-section">
+      <h2>Частые ошибки</h2>
+      <p>Выход за границы массива — классика runtime-ошибок:</p>
+
+      <pre><code class="language-csharp">int[] arr = { 1, 2, 3 };
+
+// arr[3] — IndexOutOfRangeException!
+// Правильно: последний элемент — arr[arr.Length - 1] == arr[2]</code></pre>
+
+      <p>Полезные утилиты класса <code>Array</code>: <code>Array.Sort(arr)</code>, <code>Array.Reverse(arr)</code>, <code>Array.IndexOf(arr, value)</code>, а отличие копий — <code>arr.Clone()</code> делает поверхностную копию.</p>
+    </section>
+  </article>
+
+  <script>
+    // --- Интерактив: визуализатор массива ---
+    (function () {
+      const MAX = 8;
+      const cells = document.getElementById('arrCells');
+      const btnAdd = document.getElementById('arrAdd');
+      const btnRemove = document.getElementById('arrRemove');
+      const input = document.getElementById('arrInput');
+      const counter = document.getElementById('arrCount');
+      const hint = document.getElementById('arrHint');
+      if (!cells || !btnAdd || !btnRemove || !counter) return;
+
+      const state = [];
+
+      function render() {
+        cells.innerHTML = '';
+        state.forEach(function (value, index) {
+          const cell = document.createElement('div');
+          cell.className = 'cell' + (index === state.length - 1 ? ' active' : '');
+          cell.innerHTML = '<span class="cell-value">' + value + '</span><span class="cell-index">[' + index + ']</span>';
+          cells.appendChild(cell);
+        });
+        if (state.length === 0) {
+          cells.innerHTML = '<div class="cell-grid-empty">массив пуст</div>';
+        }
+        counter.textContent = 'Length = ' + state.length;
+        hint.textContent =
+          state.length === MAX ? 'Массив достиг лимита — размер фиксирован!' : '';
+        btnAdd.disabled = state.length >= MAX;
+        btnRemove.disabled = state.length === 0;
+      }
+
+      btnAdd.addEventListener('click', function () {
+        const value = (input.value || '').trim();
+        if (!value) { hint.textContent = 'Сначала введи значение.'; return; }
+        if (state.length >= MAX) { return; }
+        state.push(value);
+        input.value = '';
+        render();
+      });
+
+      btnRemove.addEventListener('click', function () {
+        state.pop();
+        render();
+      });
+
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { btnAdd.click(); }
+      });
+
+      render();
+    })();
+  </script>
+
+  <script src="../../../js/page.js"></script>
+</body>
+</html>

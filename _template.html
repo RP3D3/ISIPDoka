@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <!-- Только русское название темы. Без «— C# — Дока ИСИП». -->
+  <title>Название темы</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--
+    Seed-порядок для НОВОЙ темы. Число согласуется по structure.json.
+    После первого `npm run sync` тег будет удалён, а order попадёт в structure.json.
+    Для существующей темы тег не нужен.
+  -->
+  <meta name="order" content="10">
+
+  <link rel="stylesheet" href="../../../css/libs/atom-one-dark.min.css">
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+  <section class="topic-hero">
+    <!-- HERO_SVG_START
+         Сюда вставляется готовый <svg> из hero_svg.md.
+         SVG здесь не генерируется.
+    HERO_SVG_END -->
+
+    <div class="topic-hero-container">
+      <h1>Название темы</h1>
+      <p class="summary">Одно-два предложения: о чём эта страница и что читатель узнает.</p>
+    </div>
+  </section>
+
+  <!--
+    Только контент. Шапку, хлебные крошки, оглавление и поиск добавит js/page.js.
+    Пишите h2/h3 — из них автоматически соберётся оглавление.
+    ID расставляются транслитом автоматически.
+    Пример полной страницы — example.html в корне проекта.
+  -->
+  <article class="article-content">
+    <section class="topic-section">
+      <h2>Первый раздел</h2>
+      <p>Текст раздела.</p>
+
+      <pre><code class="language-csharp">Console.WriteLine("Пример кода");</code></pre>
+    </section>
+
+    <section class="topic-section">
+      <h2>Второй раздел</h2>
+      <p>Текст раздела. `текст` писать в формате <code>текст</code></p>
+    </section>
+  </article>
+
+  <script src="../../../js/page.js"></script>
+</body>
+</html>

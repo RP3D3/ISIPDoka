@@ -1,0 +1,1151 @@
+﻿/* ==========================================================================
+   ДОКА ИСИП — глобальные стили
+   --------------------------------------------------------------------------
+   Один файл на весь сайт. Подключается на всех страницах:
+
+     <link rel="stylesheet" href=".../css/style.css">
+
+   Шрифты лежат локально в папке fonts/ и подключаются только отсюда,
+   через @font-face. Внешние Google Fonts не используются.
+
+   Страницы тем дополнительно подключают тему подсветки кода:
+
+     <link rel="stylesheet" href=".../css/libs/atom-one-dark.min.css">
+   ==========================================================================
+
+   КАК УСТРОЕНА СТРАНИЦА
+   ---------------------
+   1. index.html и domain.html содержат готовую разметку целиком.
+   2. Страница темы (content/<область>/<группа>/<страница>.html) содержит
+      только три вещи:
+
+        <section class="topic-hero"> ... </section>
+        <article class="article-content"> ... </article>
+        <script src="../../../js/page.js"></script>
+
+   3. ВСЁ ОСТАЛЬНОЕ на страницу темы добавляет js/page.js:
+        — шапку <header class="site-header"> с логотипом,
+          хлебными крошками .breadcrumbs и кнопкой поиска;
+        — боковое оглавление <aside class="toc-nav">, собранное из h2/h3;
+        — модальное окно поиска .search-modal;
+        — обёртку .topic-main-layout вокруг статьи.
+      Поэтому в HTML темы шапки, крошек и оглавления быть не должно.
+      Их стили ниже нужны только для того, чтобы понимать, как они выглядят
+      и какие классы создаёт скрипт.
+
+   КАСТОМИЗАЦИЯ HTML-ВЁРСТКИ
+   -------------------------
+   — Весь контент статьи лежит внутри <article class="article-content">.
+   — Каждый смысловой блок — <section class="topic-section"> с одним h2
+     (по h2/h3 автоматически строится оглавление).
+   — Внутри допустимы: p, ul/ol/li, strong/em, code, pre > code,
+     table.compare-table.
+   — Новые классы и inline-стили для оформления не нужны: акцентный цвет,
+     отступы, шрифты и состояния уже заданы здесь.
+   — Цвет акцента приходит из data/structure.json (поле accent области)
+     и подставляется в --domain-accent скриптом js/page.js. Вручную в HTML
+     его указывать не нужно.
+
+   СОДЕРЖАНИЕ
+   ----------
+    0. Шрифты (@font-face, локальные файлы из fonts/)
+    1. Токены оформления (:root)
+    2. Сброс и базовая типографика
+    3. Шапка сайта (разметку создаёт js/page.js)
+    4. Поиск: кнопка в шапке и модальное окно (создаёт js/page.js)
+    5. Главная страница
+    6. Страница области
+    7. Страница темы: hero, раскладка, оглавление (создаёт js/page.js)
+    8. Статья: типографика и универсальные элементы
+   9. Скроллбары
+   10. Адаптивность
+   ========================================================================== */
+
+
+/* ==========================================================================
+   0. ШРИФТЫ
+   --------------------------------------------------------------------------
+   Файлы лежат в fonts/ рядом с css/. Подключаются только здесь — отдельные
+   <link> в HTML не нужны.
+
+   Оба шрифта — вариативные (один файл на все начертания):
+     Golos Text     — веса 400–900 (основной текст и заголовки),
+     JetBrains Mono — веса 100–800 (код, оглавление, подписи).
+
+   Для каждого шрифта по два файла: кириллица и латиница. Браузер выбирает
+   нужный по unicode-range, поэтому загружается только то, что используется
+   на странице.
+
+   Лицензии: Golos Text и JetBrains Mono распространяются по SIL Open Font
+   License 1.1.
+   ========================================================================== */
+
+/* Golos Text — кириллица */
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('../fonts/golos-text-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+/* Golos Text — латиница и типографская пунктуация */
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('../fonts/golos-text-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* JetBrains Mono — кириллица */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('../fonts/jetbrains-mono-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+/* JetBrains Mono — латиница и типографская пунктуация */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('../fonts/jetbrains-mono-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+/* ==========================================================================
+   1. ТОКЕНЫ ОФОРМЛЕНИЯ
+   --------------------------------------------------------------------------
+   Все цвета и шрифты собраны в CSS-переменные. Меняйте оформление здесь,
+   а не в отдельных правилах.
+   ========================================================================== */
+
+:root {
+  /* Базовые цвета фона и текста */
+  --bg-main: #222429;   /* фон страницы */
+  --bg-header: #1b1c20; /* фон шапки, если у области нет своего акцента */
+  --bg-card: #282a30;   /* фон карточек и модалки поиска */
+  --text-main: #ffffff; /* основной текст */
+  --text-muted: #9e9ea0;/* второстепенный текст, подписи */
+  --border-color: rgba(255, 255, 255, 0.14); /* тонкие рамки и разделители */
+
+  /* Акцент области.
+     Fallback для главной страницы и на случай, если structure.json
+     ещё не загрузился. На страницах области и темы значение подставляет
+     js/page.js из поля accent в data/structure.json. */
+  --domain-accent: #6c47ff;
+
+  /* Шрифты: файлы лежат в fonts/, @font-face объявлены в разделе 0 */
+  --font-base: 'Golos Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
+  /* Заголовки и шапка используют основной шрифт, чтобы держать строгий стиль */
+  --font-accent: var(--font-base);
+}
+
+
+/* ==========================================================================
+   2. СБРОС И БАЗОВАЯ ТИПОГРАФИКА
+   ========================================================================== */
+
+html {
+  /* Плавная прокрутка нужна и для переходов по якорям, и для программного
+     скролла из js/page.js */
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-base);
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ссылки наследуют цвет текста: подчёркивание и акценты задаются точечно */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ==========================================================================
+   3. ШАПКА САЙТА
+   --------------------------------------------------------------------------
+   ВАЖНО: на странице темы этого блока в HTML НЕТ. Шапку, хлебные крошки
+   и кнопку поиска создаёт js/page.js (функция renderHeader).
+
+   На главной (index.html) и странице области (domain.html) шапка
+   размечена вручную — используется тот же набор классов.
+   ========================================================================== */
+
+.site-header {
+  height: 64px;
+  /* Шапка окрашивается в точный цвет области */
+  background-color: var(--domain-accent, var(--bg-header));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky; /* шапка остаётся сверху при прокрутке */
+  top: 0;
+  z-index: 100;
+  font-family: var(--font-accent);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Логотип-бейдж. На главной это <div>, на внутренних страницах — ссылка */
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  cursor: pointer;
+  font-family: var(--font-accent);
+}
+
+/* Хлебные крошки: / Область / Группа / Тема.
+   На странице темы их целиком собирает js/page.js. */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 17px;
+  font-family: var(--font-accent);
+}
+
+/* Текущая (последняя) крошка — белая и жирная */
+.breadcrumbs span.current {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+/* Промежуточные крошки — ссылки */
+.breadcrumbs a {
+  transition: color 0.15s ease;
+}
+
+.breadcrumbs a:hover {
+  color: var(--text-main);
+  text-decoration: underline;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Кнопка «Поиск» в шапке */
+.search-trigger-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+  padding: 6px 12px;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  transition: all 0.15s ease;
+}
+
+.search-trigger-btn:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: var(--text-main);
+}
+
+/* Подсказка о горячей клавише «/» внутри кнопки */
+.search-trigger-btn kbd {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+
+/* ==========================================================================
+   4. ПОИСК
+   --------------------------------------------------------------------------
+   Модалку поиска создаёт js/search.js (initSearchModal) — в HTML её нет.
+   На index.html и domain.html она размечена вручную теми же классами.
+   ========================================================================== */
+
+/* Затемнение на весь экран с окном поиска по центру */
+.search-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: none; /* открывается классом .active */
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.search-modal.active {
+  display: flex;
+}
+
+.search-box {
+  width: 100%;
+  max-width: 680px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.search-box-input {
+  width: 100%;
+  padding: 18px 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 18px;
+  font-family: var(--font-base);
+  outline: none;
+}
+
+/* Список результатов. Пункты генерирует js/search.js */
+.search-results-list {
+  list-style: none;
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 8px 0;
+  /* Скроллбар внутри списка */
+  scrollbar-width: thin;
+  scrollbar-color: #2d2e33 #121316;
+}
+
+.search-results-list li a {
+  display: block;
+  padding: 12px 24px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  text-decoration: none;
+}
+
+.search-results-list li a:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Категория результата: «C# / Основы» */
+.search-results-list .item-category {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+/* Заголовок темы в результате */
+.search-results-list .item-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* Подчёркивание заголовка цветом области результата.
+   --item-accent приходит из accent области в data/structure.json. */
+.search-results-list li .item-title {
+  display: inline-block;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+  border-bottom-color: var(--item-accent, transparent);
+  transition: border-bottom-color 0.15s ease;
+}
+
+.search-results-list li:hover .item-title {
+  border-bottom-color: transparent;
+}
+
+.search-results-list li:hover {
+  background-color: var(--item-accent, var(--bg-card));
+  color: #fff;
+}
+
+.search-results-list li:hover .item-category,
+.search-results-list li:hover .item-title,
+.search-results-list li:hover .item-title .result-badge-ai {
+  color: #fff;
+}
+
+/* Пункт, выбранный стрелками клавиатуры */
+.search-item-selected {
+  color: #fff;
+}
+
+.search-item-selected .item-category,
+.search-item-selected .item-title,
+.search-item-selected .result-badge-ai {
+  color: #fff;
+}
+
+.search-item-selected .item-title {
+  border-bottom-color: #fff;
+}
+
+.search-results-list li > a.search-item-selected {
+  background-color: var(--item-accent, var(--bg-card));
+}
+
+/* Индикатор инициализации ИИ-поиска внизу окна */
+.search-ai-status {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.search-ai-status.visible {
+  display: flex;
+}
+
+.search-ai-status.error {
+  color: #ff8f6c;
+}
+
+.search-ai-status-spinner {
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-top-color: var(--domain-accent, #6c47ff);
+  border-radius: 50%;
+  animation: aiSpinnerSpin 0.8s linear infinite;
+  flex: 0 0 auto;
+}
+
+@keyframes aiSpinnerSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Бейдж «смысл» у векторных совпадений */
+.result-badge-ai {
+  display: inline-block;
+  vertical-align: 2px;
+  margin-left: 8px;
+  padding: 1px 7px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
+/* Пустая выдача поиска */
+.search-empty {
+  padding: 16px 24px;
+  color: #b9b9b9;
+}
+
+.search-empty-ai {
+  color: #9e9ea0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+
+/* ==========================================================================
+   5. ГЛАВНАЯ СТРАНИЦА (index.html)
+   --------------------------------------------------------------------------
+   Список областей строит инлайн-скрипт в index.html.
+   Цвет подчёркивания каждой области задаётся inline-переменной
+   --domain-color на <li class="domain-item">.
+   ========================================================================== */
+
+.hero-index {
+  padding: 80px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.domains-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+}
+
+.domain-item a {
+  display: inline-block;
+  font-size: 42px;
+  font-weight: 800;
+  font-family: var(--font-accent);
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  padding: 4px 14px;
+  border-radius: 4px;
+  position: relative;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Цветная полоса под названием области */
+.domain-item a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 14px;
+  right: 14px;
+  height: 4px;
+  background-color: var(--domain-color);
+  transition: opacity 0.15s ease;
+}
+
+.domain-item a:hover {
+  background-color: var(--domain-color);
+  color: #000;
+}
+
+.domain-item a:hover::after {
+  opacity: 0;
+}
+
+
+/* ==========================================================================
+   6. СТРАНИЦА ОБЛАСТИ (domain.html)
+   --------------------------------------------------------------------------
+   Группы и темы строит инлайн-скрипт в domain.html.
+   ========================================================================== */
+
+.domain-layout {
+  display: grid;
+  /* На средних экранах сайдбар сужается, чтобы не съедать место у контента */
+  grid-template-columns: clamp(240px, 24vw, 320px) 1fr;
+  min-height: calc(100vh - 64px);
+}
+
+/* Левая колонка с названием и описанием области */
+.domain-sidebar {
+  padding: 40px 32px;
+  border-right: 1px solid var(--border-color);
+}
+
+.domain-sidebar h1 {
+  font-size: 36px;
+  font-weight: 700;
+  font-family: var(--font-accent);
+  letter-spacing: -0.4px;
+  margin-bottom: 16px;
+}
+
+.domain-sidebar p {
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Правая часть: сетка групп */
+.domain-content {
+  padding: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 40px;
+  align-items: start;
+}
+
+.group-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* Плашка с названием группы, «прилипает» под шапкой */
+.group-header {
+  position: sticky;
+  top: 72px;
+  display: inline-block;
+  background-color: var(--domain-accent);
+  color: #fff;
+  padding: 4px 12px;
+  font-size: 15px;
+  font-family: var(--font-accent);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  border-radius: 3px;
+  margin-bottom: 0;
+  z-index: 10;
+}
+
+.topics-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Ссылка на тему внутри группы */
+.topic-link {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--text-main);
+  transition: color 0.15s ease;
+}
+
+.topic-link:hover {
+  color: var(--domain-accent);
+}
+
+
+/* ==========================================================================
+   7. СТРАНИЦА ТЕМЫ
+   --------------------------------------------------------------------------
+   HTML темы содержит только .topic-hero и .article-content.
+   .topic-main-layout и .toc-nav создаёт js/page.js.
+   ========================================================================== */
+
+/* --- 7.1. Hero-секция (верхний цветной блок с заголовком) --- */
+.topic-hero {
+  background-color: var(--domain-accent);
+  color: #fff;
+  padding: 64px 40px;
+}
+
+.topic-hero-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.topic-hero h1 {
+  font-size: 46px;
+  font-weight: 700;
+  font-family: var(--font-accent);
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+
+.topic-hero .summary {
+  font-size: 20px;
+  opacity: 0.95;
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
+
+/* --- 7.2. Раскладка «оглавление + статья» (создаёт js/page.js) --- */
+.topic-main-layout {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  padding: 40px;
+  gap: 40px;
+}
+
+/* Одиночная колонка — если в статье нет h2/h3 и оглавление не нужно */
+.topic-main-layout--single {
+  grid-template-columns: 1fr;
+}
+
+/* --- 7.3. Оглавление (создаёт js/page.js из h2/h3) ---
+   Оглавление собирается автоматически: h2 — пункт первого уровня,
+   h3 — пункт с отступом (.toc-level-3). Активный пункт получает класс
+   .active от IntersectionObserver. Клик по пункту центрирует секцию
+   и подсвечивает её классом .active-flash. */
+.toc-nav {
+  position: sticky;
+  top: 72px;
+  align-self: start;
+}
+
+.toc-nav ul {
+  list-style: none;
+  border-left: 2px solid var(--border-color);
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toc-nav a {
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+}
+
+.toc-nav a:hover,
+.toc-nav a.active {
+  color: var(--text-main);
+}
+
+/* Пункт для заголовка h3 */
+.toc-nav li.toc-level-3 {
+  padding-left: 14px;
+  font-size: 13px;
+}
+
+
+/* ==========================================================================
+   8. СТАТЬЯ: ТИПОГРАФИКА И УНИВЕРСАЛЬНЫЕ ЭЛЕМЕНТЫ
+   --------------------------------------------------------------------------
+   Всё, что автор темы пишет внутри <article class="article-content">.
+   Это и есть «кастомизация»: используйте только эти элементы и классы.
+   ========================================================================== */
+
+.article-content {
+  max-width: 760px;
+  line-height: 1.7;
+}
+
+/* Отступ у пунктов списков */
+.article-content li {
+  margin-left: 50px;
+}
+
+/* --- 8.1. Секция темы ---
+   Каждый h2 оборачивается в <section class="topic-section">.
+   Секция — единица навигации: именно она подсвечивается при клике
+   по оглавлению. scroll-margin-top не даёт заголовку уехать под шапку
+   при обычном переходе по якорю. */
+.topic-section {
+  scroll-margin-top: 68px;
+  padding: 16px 20px;
+  margin: 0 -20px 24px -20px;
+  border-radius: 8px;
+  background-color: transparent;
+}
+
+/* Вспышка секции после клика по оглавлению.
+   Класс .active-flash ставит js/page.js, анимация гаснет сама. */
+@keyframes flareBurn {
+  0% {
+    background-color: transparent;
+  }
+  8% {
+    background-color: color-mix(in srgb, var(--domain-accent) 22%, transparent);
+  }
+  45% {
+    background-color: color-mix(in srgb, var(--domain-accent) 18%, transparent);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.topic-section.active-flash {
+  animation: flareBurn 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* --- 8.2. Заголовки --- */
+.topic-section h2,
+.topic-section h3,
+.topic-section h4 {
+  font-family: var(--font-accent);
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  margin: 0 0 16px;
+}
+
+.topic-section h2 {
+  font-size: 28px;
+}
+
+/* При переходе по якорю заголовок не должен прятаться под шапкой */
+.article-content h2,
+.article-content h3 {
+  scroll-margin-top: 80px;
+}
+
+/* --- 8.3. Абзацы и выделения --- */
+.article-content p {
+  margin-bottom: 20px;
+  color: #d1d2d6;
+}
+
+/* --- 8.3.1. Ссылки в контенте --- */
+.article-content a {
+  color: var(--domain-accent);
+  /* На тёмном фоне чистый акцент области может быть слишком тёмным */
+  color: color-mix(in srgb, var(--domain-accent) 65%, #fff);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.article-content a:hover {
+  color: color-mix(in srgb, var(--domain-accent) 45%, #fff);
+  opacity: 0.95;
+}
+
+strong,
+b {
+  font-family: var(--font-accent);
+  font-weight: 700;
+}
+
+/* --- 8.4. Блоки кода ---
+   Разметка: <pre><code class="language-csharp">...</code></pre>.
+   Цвета токенов задаёт atom-one-dark.min.css, фон и отступы — здесь. */
+.article-content pre {
+  background-color: #121316;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 18px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  margin: 20px 0;
+  color: #f1f1f1;
+}
+
+/* Инлайновый код: `int`, `List<T>`, `Console.WriteLine` */
+.article-content code {
+  font-family: var(--font-mono);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+/* Внутри <pre> у кода не должно быть собственного фона и отступов */
+.article-content pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/* --- 8.5. Таблица сравнения ---
+   Разметка: <table class="compare-table"> с thead/tbody. */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0 24px;
+  font-size: 15px;
+}
+
+.compare-table th,
+.compare-table td {
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.compare-table thead th {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.compare-table td:first-child {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* --- 8.6. Таблицы из markdown ---
+   Разметка: обычный <table> без класса, который генерирует marked.js. */
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0 24px;
+  font-size: 15px;
+}
+
+.article-content table th,
+.article-content table td {
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.article-content table thead th {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.article-content table tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* --- 8.7. Подпись языка у блока кода ---
+   Показывает cs / sql / bash и т.п. в правом верхнем углу <pre>. */
+.article-content pre {
+  position: relative;
+}
+
+.article-content pre code[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-color);
+  border-bottom: none;
+  border-left: none;
+  border-top-right-radius: 6px;
+  padding: 2px 8px;
+  text-transform: lowercase;
+  user-select: none;
+}
+
+/* ==========================================================================
+   9. СКРОЛЛБАРЫ
+   ========================================================================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #121316;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2d2e33;
+  border: 2px solid #121316;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3b40;
+}
+
+
+/* ==========================================================================
+   10. Адаптивность
+   --------------------------------------------------------------------------
+   До 960px оглавление превращается в горизонтальную ленту над статьёй,
+   раскладки становятся одноколоночными. До 640px уменьшаются отступы
+   и шрифты шапки.
+   ========================================================================== */
+
+/* Страница области: сайдбар становится компактной горизонтальной плашкой
+   только когда двух колонок действительно не хватает */
+@media (max-width: 768px) {
+  .domain-layout {
+    grid-template-columns: 1fr;
+    /* Не даём единственной строке сайдбара растягиваться на всю высоту */
+    align-content: start;
+  }
+
+  .domain-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 20px;
+    padding: 18px 20px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .domain-sidebar h1 {
+    font-size: 28px;
+    margin-bottom: 0;
+  }
+
+  .domain-sidebar p {
+    flex: 1 1 300px;
+    min-width: 0;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .domain-content {
+    padding: 22px 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 28px;
+  }
+}
+
+@media (max-width: 960px) {
+  .topic-main-layout {
+    grid-template-columns: 1fr;
+    padding: 28px 24px;
+    gap: 20px;
+  }
+
+  /* Оглавление — горизонтальная лента */
+  .toc-nav {
+    position: static;
+    top: auto;
+  }
+
+  .toc-nav ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    border-left: none;
+    border-bottom: 2px solid var(--border-color);
+    padding: 0 0 12px;
+  }
+
+  .toc-nav li.toc-level-3 {
+    padding-left: 0;
+  }
+
+  .topic-hero {
+    padding: 44px 24px;
+  }
+
+  .topic-hero h1 {
+    font-size: clamp(32px, 7vw, 46px);
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+
+  .site-header {
+    height: auto;
+    min-height: 64px;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 16px;
+  }
+
+  .header-left {
+    flex-wrap: wrap;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .brand-badge {
+    font-size: 16px;
+    padding: 3px 10px;
+  }
+
+  .breadcrumbs {
+    font-size: 14px;
+    flex-wrap: wrap;
+  }
+
+  .search-trigger-btn {
+    font-size: 13px;
+    padding: 5px 9px;
+  }
+
+  .search-trigger-btn kbd {
+    display: none;
+  }
+
+  .hero-index {
+    padding: 48px 20px;
+  }
+
+  .domain-item a {
+    font-size: clamp(28px, 9vw, 40px);
+  }
+
+  .domain-sidebar h1 {
+    font-size: clamp(24px, 6.5vw, 28px);
+  }
+
+  .domain-content {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 24px 20px;
+  }
+
+  .group-header {
+    position: static;
+  }
+
+  .topic-hero {
+    padding: 32px 16px;
+  }
+
+  .topic-hero h1 {
+    font-size: clamp(28px, 9vw, 38px);
+  }
+
+  .topic-hero .summary {
+    font-size: 17px;
+  }
+
+  .topic-main-layout {
+    padding: 20px 16px;
+    gap: 16px;
+  }
+
+  .article-content {
+    max-width: 100%;
+    line-height: 1.65;
+  }
+
+  .topic-section {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 10px 0;
+  }
+
+  .topic-section h2 {
+    font-size: 24px;
+  }
+
+  .article-content pre {
+    font-size: 13px;
+    padding: 14px;
+  }
+
+  .compare-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .search-modal {
+    padding-top: 40px;
+  }
+
+  .search-box {
+    margin: 0 12px;
+  }
+
+  .search-box-input {
+    padding: 14px 16px;
+    font-size: 16px;
+  }
+
+  .search-results-list li a {
+    padding: 10px 16px;
+  }
+
+
+}

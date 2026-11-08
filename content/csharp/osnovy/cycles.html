@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Циклы</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../../css/libs/atom-one-dark.min.css">
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+<section class="topic-hero">
+    <svg viewBox="0 0 900 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 900px; max-height: 280px; height: auto; display: block; margin: 0 auto 20px;">
+  <style>
+    .track-dash {
+      stroke-dasharray: 10 6;
+      animation: loop-flow 1.5s linear infinite;
+    }
+    .wheel-spin {
+      animation: spin-cw 3s linear infinite;
+    }
+    .scanner-blink {
+      animation: blink 1.2s ease-in-out infinite alternate;
+    }
+    .hopper-pulse {
+      animation: pulse-step 1.8s ease-in-out infinite;
+    }
+
+    @keyframes loop-flow {
+      0% { stroke-dashoffset: 32; }
+      100% { stroke-dashoffset: 0; }
+    }
+    @keyframes spin-cw {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes blink {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+    @keyframes pulse-step {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .track-dash, .wheel-spin, .scanner-blink, .hopper-pulse {
+        animation: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+      }
+    }
+  </style>
+
+  <!-- Базовые рельсы трассы -->
+  <line x1="50" y1="210" x2="850" y2="210" stroke="#000000" stroke-width="4" stroke-linecap="round" />
+  <line x1="50" y1="210" x2="850" y2="210" stroke="#7F5AF0" stroke-width="2" class="track-dash" />
+
+  <!-- ЛЕВАЯ ЧАСТЬ: Турникеты условий while и do..while (X: 60–240) -->
+  <g transform="translate(80, 50)">
+    <!-- Блок предпроверки (while) -->
+    <rect x="0" y="25" width="60" height="90" rx="6" fill="#FFFFFF" stroke="#000000" stroke-width="3" />
+    <circle cx="30" cy="50" r="10" fill="#000000" />
+    <circle cx="30" cy="50" r="5" fill="#7F5AF0" class="scanner-blink" />
+    <line x1="12" y1="80" x2="48" y2="80" stroke="#7F5AF0" stroke-width="3" stroke-linecap="round" />
+    <rect x="2" y="125" width="56" height="20" rx="3" fill="#000000" />
+    <text x="30" y="139" fill="#FFFFFF" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="10" font-weight="700" text-anchor="middle">while</text>
+
+    <!-- Барьер постпроверки (do..while) -->
+    <g transform="translate(85, 25)">
+      <rect x="0" y="0" width="60" height="90" rx="6" fill="#FFFFFF" stroke="#000000" stroke-width="3" />
+      <path d="M 15 25 L 45 25 L 30 50 Z" fill="#7F5AF0" />
+      <circle cx="30" cy="72" r="6" fill="#000000" />
+      <rect x="0" y="100" width="60" height="20" rx="3" fill="#7F5AF0" />
+      <text x="30" y="114" fill="#FFFFFF" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="9" font-weight="700" text-anchor="middle">do-while</text>
+    </g>
+  </g>
+
+  <!-- ЦЕНТР: Механизм кольца for и конвейер foreach (X: 280–620) -->
+  <g transform="translate(300, 30)">
+    <!-- Кольцевой цикловый барабан (for) -->
+    <g transform="translate(90, 85)">
+      <circle cx="0" cy="0" r="65" stroke="#000000" stroke-width="4" fill="#FFFFFF" />
+      <circle cx="0" cy="0" r="50" stroke="#7F5AF0" stroke-width="2" class="track-dash" />
+      
+      <!-- Вращающаяся сердцевина-шестерня -->
+      <g style="transform-box: fill-box; transform-origin: center;" class="wheel-spin">
+        <circle cx="0" cy="0" r="16" fill="#000000" />
+        <rect x="-3" y="-32" width="6" height="64" rx="2" fill="#000000" />
+        <rect x="-32" y="-3" width="64" height="6" rx="2" fill="#000000" />
+        <circle cx="0" cy="0" r="6" fill="#7F5AF0" />
+      </g>
+
+      <!-- Индикатор счетчика шагов -->
+      <rect x="-35" y="75" width="70" height="22" rx="4" fill="#000000" />
+      <text x="0" y="90" fill="#FFFFFF" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="11" font-weight="700" text-anchor="middle">i++ (for)</text>
+    </g>
+
+    <!-- Шаговый перебор коллекций (foreach) -->
+    <g transform="translate(200, 35)" class="hopper-pulse">
+      <rect x="0" y="0" width="90" height="95" rx="6" fill="#FFFFFF" stroke="#000000" stroke-width="3" />
+      <!-- Элементы итератора в очереди -->
+      <rect x="15" y="15" width="60" height="14" rx="3" fill="#7F5AF0" />
+      <rect x="15" y="35" width="60" height="14" rx="3" fill="#000000" />
+      <rect x="15" y="55" width="60" height="14" rx="3" fill="#000000" />
+      <polygon points="45,75 52,85 38,85" fill="#7F5AF0" />
+      <rect x="10" y="110" width="70" height="20" rx="3" fill="#000000" />
+      <text x="45" y="124" fill="#FFFFFF" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="10" font-weight="700" text-anchor="middle">foreach</text>
+    </g>
+  </g>
+
+  <!-- ПРАВАЯ ЧАСТЬ: Селектор break и петля continue (X: 660–840) -->
+  <g transform="translate(680, 50)">
+    <!-- Стоп-кран аварийного выхода (break) -->
+    <g transform="translate(15, 20)">
+      <rect x="0" y="0" width="65" height="95" rx="6" fill="#FFFFFF" stroke="#000000" stroke-width="3" />
+      <line x1="12" y1="18" x2="53" y2="58" stroke="#000000" stroke-width="4" stroke-linecap="round" />
+      <line x1="53" y1="18" x2="12" y2="58" stroke="#000000" stroke-width="4" stroke-linecap="round" />
+      <circle cx="32" cy="38" r="8" fill="#7F5AF0" />
+      <rect x="2" y="110" width="60" height="20" rx="4" fill="#000000" />
+      <text x="32" y="124" fill="#FFFFFF" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="10" font-weight="700" text-anchor="middle">break</text>
+    </g>
+
+    <!-- Стрелочный обходной мост (continue) -->
+    <g transform="translate(95, 20)">
+      <rect x="0" y="0" width="65" height="95" rx="6" fill="#FFFFFF" stroke="#000000" stroke-width="3" />
+      <!-- Дуговая стрелка перехода на новый виток -->
+      <path d="M 15 65 C 15 30 50 30 50 48" stroke="#7F5AF0" stroke-width="4" fill="none" stroke-linecap="round" />
+      <polyline points="42,42 50,48 58,42" fill="none" stroke="#7F5AF0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="20" cy="72" r="4" fill="#000000" />
+      <circle cx="45" cy="72" r="4" fill="#000000" />
+      <rect x="0" y="110" width="65" height="20" rx="4" fill="#7F5AF0" />
+      <text x="32" y="124" fill="#FFFFFF" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="9" font-weight="700" text-anchor="middle">continue</text>
+    </g>
+  </g>
+</svg>
+    <div class="topic-hero-container">
+      <h1>Циклы</h1>
+      <p class="summary">Повторение кода: while, do&hellip;while, for, foreach — и как прерывать итерации через break и continue.</p>
+    </div>
+  </section>
+
+  <article class="article-content">
+<section class="topic-section">
+      <h2>while — пока условие истинно</h2>
+      <p>Цикл с предусловием: условие проверяется <strong>перед</strong> каждой итерацией. Если оно ложно с самого начала — тело не выполнится ни разу.</p>
+
+      <pre><code class="language-csharp">int attempts = 0;
+while (attempts < 3)
+{
+    Console.WriteLine($"Попытка {attempts + 1}");
+    attempts++;
+}</code></pre>
+
+      <div class="try-box" id="whileDemo">
+        <div class="try-header">Попробуй: посчитай до N (while)</div>
+        <div class="try-controls">
+          <input type="text" id="whileN" maxlength="2" value="5" placeholder="N">
+          <button type="button" id="whileRun">Старт</button>
+          <span class="try-counter" id="whileLog"></span>
+        </div>
+        <div class="try-hint" id="whileHint"></div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>do&hellip;while — сначала действие, потом проверка</h2>
+      <p>Цикл с постусловием: тело гарантированно выполняется <strong>хотя бы один раз</strong>, условие проверяется после:</p>
+
+      <pre><code class="language-csharp">int value;
+do
+{
+    Console.Write("Введи число больше 0: ");
+    value = int.Parse(Console.ReadLine());
+} while (value <= 0);</code></pre>
+
+      <p>Идеально для ввода данных с проверкой — спрашиваем пока пользователь не введёт корректное значение.</p>
+    </section>
+
+    <section class="topic-section">
+      <h2>for — когда заранее известно, сколько раз</h2>
+      <p>Классический счётный цикл: инициализация, условие, шаг — в одной строке заголовка:</p>
+
+      <pre><code class="language-csharp">for (int i = 0; i < 5; i++)
+{
+    Console.WriteLine($"i = {i}");
+}
+// Выведет: 0, 1, 2, 3, 4</code></pre>
+
+      <p>Все три части опциональны — можно писать <code>for (;;)</code> (бесконечный цикл), но тогда выход организуется через <code>break</code>.</p>
+    </section>
+
+    <section class="topic-section">
+      <h2>foreach — перебор коллекций</h2>
+      <p>Для массивов, списков и всего, что можно перечислить. Читаемее, когда индекс не нужен:</p>
+
+      <pre><code class="language-csharp">string[] tools = { "IDE", "Git", "Отладчик" };
+foreach (string tool in tools)
+{
+    Console.WriteLine($"Инструмент: {tool}");
+}</code></pre>
+
+      <p>Нельзя менять элементы через переменную цикла и нельзя добавлять/удалять элементы коллекции внутри <code>foreach</code> — для этого есть <code>for</code> с индексом.</p>
+    </section>
+
+    <section class="topic-section">
+      <h2>break и continue</h2>
+      <p><code>break</code> полностью прерывает цикл. <code>continue</code> пропускает оставшуюся часть текущей итерации и переходит к следующей:</p>
+
+      <pre><code class="language-csharp">for (int i = 0; i < 10; i++)
+{
+    if (i == 3) continue;   // пропускаем 3
+    if (i == 7) break;      // останавливаемся на 7
+    Console.WriteLine(i);
+}
+// Выведет: 0, 1, 2, 4, 5, 6</code></pre>
+
+      <p>Применяй осторожно — слишком много break/continue вложенных циклов делает код трудночитаемым.</p>
+    </section>
+  </article>
+
+  <script>
+    // --- Интерактив: счётчик цикла while ---
+    (function () {
+      const input = document.getElementById('whileN');
+      const btn = document.getElementById('whileRun');
+      const log = document.getElementById('whileLog');
+      const hint = document.getElementById('whileHint');
+      if (!input || !btn || !log) return;
+
+      btn.addEventListener('click', function () {
+        const n = Math.max(0, Math.min(50, parseInt(input.value || '0', 10) || 0));
+        const lines = [];
+        let i = 0;
+        while (i < n) { lines.push('шаг ' + (i + 1)); i++; }
+        log.textContent = lines.length ? lines.join('  ·  ') : '(пусто — условие ложно с самого начала)';
+        hint.textContent = n === 0 ? 'Тело while не выполнится ни разу.' : '';
+      });
+    })();
+  </script>
+
+  <script src="../../../js/page.js"></script>
+</body>
+</html>
