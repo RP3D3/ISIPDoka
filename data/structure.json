@@ -25,13 +25,21 @@
             "keywords": "цикл интерактив шагам демо итерация кнопка сброс сумма счётчик текущее увеличивается шаге блокируется возвращает выполняется должна",
             "type": "html",
             "interactive": true
+          },
+          {
+            "order": 30,
+            "title": "Тестовая тема для деплоя",
+            "url": "content/csharp/osnovy/testovaya-tema-dlya-deploya.md",
+            "keywords": "повидло",
+            "type": "md",
+            "interactive": false
           }
         ]
       }
     ]
   },
   "sql": {
-    "order": 21,
+    "order": 20,
     "title": "Базы данных (SQL)",
     "accent": "#3b82f6",
     "description": "Реляционные базы данных и язык SQL: таблицы, выборки, фильтрация, агрегаты и связи между данными.",
