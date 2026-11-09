@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Дока ИСИП</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="./css/style.css?v=20261109-1">
+<link rel="stylesheet" href="./css/style.css?v=20261109-4">
   <link rel="stylesheet" href="./css/admin.css?v=20261109-5">
   <style>:root { --domain-accent: #614fa8; }</style>
 </head>
@@ -41,7 +41,8 @@
   </div>
 
   <script src="./js/search.js?v=20261109-3"></script>
-  <script src="./js/admin.js?v=20261109-4"></script>
+  <script src="./js/progress.js?v=20261109-1"></script>
+  <script src="./js/admin.js?v=20261109-5"></script>
   <script>
     (function () {
       function escapeHtml(value) {
@@ -99,6 +100,10 @@
                     ? `theme.html?path=${encodeURI(t.url)}`
                     : escapeHtml(t.url);
                   const badge = t.interactive ? ' 🔧' : '';
+                  const isRead = window.DokaProgress
+                    ? window.DokaProgress.isRead(t.url)
+                    : true;
+                  const linkClass = 'topic-link' + (isRead ? '' : ' is-unread');
                   const orderInput = adminAvailable
                     ? `<input type="number" class="doka-order-input" min="0" step="10"
                         value="${Number(t.order ?? 0)}"
@@ -126,7 +131,7 @@
                       </details>`
                     : '';
                   return `<div class="topic-row">
-                    <a class="topic-link" href="${href}">${escapeHtml(t.title)}${badge}</a>
+                    <a class="${linkClass}" data-topic-url="${escapeHtml(t.url)}" href="${href}">${escapeHtml(t.title)}${badge}</a>
                     ${orderInput}
                     ${actions}
                   </div>`;
@@ -191,6 +196,62 @@
             container.innerHTML =
               '<p style="color: var(--text-muted);">В этой области пока нет тем.</p>';
           }
+
+          function applyReadStates() {
+            if (!window.DokaProgress) return;
+            container
+              .querySelectorAll('.topic-link[data-topic-url]')
+              .forEach((link) => {
+                link.classList.toggle(
+                  'is-unread',
+                  !window.DokaProgress.isRead(link.dataset.topicUrl)
+                );
+              });
+          }
+
+          applyReadStates();
+
+          if (window.DokaProgress) {
+            window.addEventListener(
+              window.DokaProgress.changeEvent,
+              applyReadStates
+            );
+            window.addEventListener('storage', (event) => {
+              if (!event.key || event.key === window.DokaProgress.key) {
+                applyReadStates();
+              }
+            });
+          }
+
+          function highlightGroupFromHash() {
+            let raw = window.location.hash.slice(1);
+            if (!raw) return;
+
+            try {
+              raw = decodeURIComponent(raw);
+            } catch (_) {
+              /* оставляем как есть */
+            }
+            if (!raw.startsWith('group-')) return;
+
+            const target = document.getElementById(raw);
+            if (!target) return;
+
+            window.setTimeout(() => {
+              target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              target.classList.remove('active-flash');
+              void target.offsetHeight;
+              target.classList.add('active-flash');
+              target.addEventListener(
+                'animationend',
+                () => target.classList.remove('active-flash'),
+                { once: true }
+              );
+            }, 120);
+          }
+
+          highlightGroupFromHash();
+          window.addEventListener('hashchange', highlightGroupFromHash);
 
           if (adminAvailable && window.DokaAdmin) {
             window.DokaAdmin.bindDomainPage(

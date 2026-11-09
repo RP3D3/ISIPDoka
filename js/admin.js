@@ -8,7 +8,6 @@
 (() => {
   'use strict';
 
-  const PASSWORD_KEY = 'dokaAdminPassword';
   const PREVIEW_KEY = 'dokaAdminPreview';
   const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -44,12 +43,10 @@
   }
 
   /* ====================================================================== *
-   * Доступность бэкенда и пароль                                          *
+   * Доступность бэкенда                                                   *
    * ====================================================================== */
 
   let availablePromise = null;
-  let password = sessionStorage.getItem(PASSWORD_KEY) || '';
-  let passwordPrompt = null;
 
   function ready() {
     if (!availablePromise) {
@@ -68,15 +65,6 @@
       })();
     }
     return availablePromise;
-  }
-
-  function getPassword() {
-    return password;
-  }
-
-  function clearPassword() {
-    password = '';
-    sessionStorage.removeItem(PASSWORD_KEY);
   }
 
   /* ====================================================================== *
@@ -193,41 +181,13 @@
     return details;
   }
 
-  async function login(value) {
-    const res = await fetch(apiUrl('/api/admin/login'), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({ password: value }),
-    });
-
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) {
-      throw new Error(data.error || 'Неверный пароль.');
-    }
-
-    password = value;
-    sessionStorage.setItem(PASSWORD_KEY, value);
-    return true;
-  }
-
-  async function request(pathname, options = {}, retry = true) {
+  async function request(pathname, options = {}) {
     if (!(await ready())) {
       throw new Error('Локальный сервер админки недоступен.');
     }
 
-    if (!password) {
-      const entered = await promptPassword();
-      if (!entered) throw new Error('Отменено.');
-    }
-
     const { method = 'GET', body } = options;
-    const headers = {
-      Accept: 'application/json',
-      'X-Admin-Password': password,
-    };
+    const headers = { Accept: 'application/json' };
     if (body !== undefined) headers['Content-Type'] = 'application/json';
 
     let res;
@@ -240,13 +200,6 @@
       });
     } catch (_) {
       throw new Error('Не удалось связаться с локальным сервером.');
-    }
-
-    if (res.status === 401 && retry) {
-      clearPassword();
-      const entered = await promptPassword('Сессия истекла. Введите пароль снова.');
-      if (!entered) throw new Error('Отменено.');
-      return request(pathname, options, false);
     }
 
     const data = await res.json().catch(() => ({}));
@@ -511,41 +464,6 @@
         if (autofocusInput) autofocusInput.focus();
       });
     });
-  }
-
-  function promptPassword(message) {
-    if (passwordPrompt) return passwordPrompt;
-
-    passwordPrompt = (async () => {
-      let success = false;
-      await openDialog({
-        title: 'Вход для администратора',
-        description:
-          message ||
-          'Введите пароль локальной админки. Он задаётся в DOKA_ADMIN_PASSWORD или по умолчанию: isip-admin.',
-        submitLabel: 'Войти',
-        className: 'doka-modal--narrow',
-        fields: [
-          {
-            name: 'password',
-            label: 'Пароль',
-            type: 'password',
-            placeholder: 'Пароль',
-            required: true,
-            autofocus: true,
-          },
-        ],
-        onSubmit: async (values) => {
-          await login(values.password);
-          success = true;
-        },
-      });
-      return success ? password : null;
-    })().finally(() => {
-      passwordPrompt = null;
-    });
-
-    return passwordPrompt;
   }
 
   /* ====================================================================== *
@@ -1293,12 +1211,8 @@
 
   window.DokaAdmin = {
     ready,
-    login,
     request,
     api: request,
-    getPassword,
-    clearPassword,
-    promptPassword,
     toast,
     openDialog,
     slugify,

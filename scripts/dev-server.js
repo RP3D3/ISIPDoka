@@ -6,8 +6,6 @@
  * Отдаёт статику сайта и предоставляет /api/admin/* для локальной админки.
  * Бэкенд работает только на 127.0.0.1; на GitHub Pages сайт остаётся
  * чистой статикой, а админ-эндпоинты просто недоступны.
- *
- * Пароль: DOKA_ADMIN_PASSWORD или isip-admin по умолчанию.
  */
 import { createServer } from 'node:http';
 import {
@@ -28,7 +26,6 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CONTENT_DIR = path.join(ROOT, 'content');
 const SCRIPTS_DIR = path.join(ROOT, 'scripts');
 const PORT = Number(process.argv[2] || 5173);
-const ADMIN_PASSWORD = process.env.DOKA_ADMIN_PASSWORD || 'isip-admin';
 const MAX_BODY_SIZE = 8 * 1024 * 1024;
 const SCRIPT_TIMEOUT = 5 * 60 * 1000;
 
@@ -77,27 +74,6 @@ function sendText(res, status, text) {
     'Cache-Control': 'no-store',
   });
   res.end(text);
-}
-
-function safeEqual(a, b) {
-  const left = String(a ?? '');
-  const right = String(b ?? '');
-  if (left.length !== right.length) return false;
-  let diff = 0;
-  for (let i = 0; i < left.length; i += 1) {
-    diff |= left.charCodeAt(i) ^ right.charCodeAt(i);
-  }
-  return diff === 0;
-}
-
-function isAuthorized(req) {
-  return safeEqual(req.headers['x-admin-password'], ADMIN_PASSWORD);
-}
-
-function requireAuthorized(req) {
-  if (!isAuthorized(req)) {
-    throw new HttpError(401, 'Требуется пароль администратора.');
-  }
 }
 
 async function readBody(req) {
@@ -246,7 +222,7 @@ function htmlTopicTemplate(title, description) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="../../../css/libs/atom-one-dark.min.css">
-  <link rel="stylesheet" href="../../../css/style.css?v=20261109-1">
+  <link rel="stylesheet" href="../../../css/style.css?v=20261109-4">
 </head>
 <body>
   <section class="topic-hero">
@@ -264,7 +240,7 @@ function htmlTopicTemplate(title, description) {
     </section>
   </article>
 
-  <script src="../../../js/page.js?v=20261107-2"></script>
+  <script src="../../../js/page.js?v=20261109-2"></script>
 </body>
 </html>
 `;
@@ -382,17 +358,6 @@ async function handleApi(req, res, url) {
     sendJson(res, 200, { ok: true, admin: true });
     return;
   }
-
-  if (pathname === '/api/admin/login' && req.method === 'POST') {
-    const body = await readJsonBody(req);
-    if (!safeEqual(body.password, ADMIN_PASSWORD)) {
-      throw new HttpError(401, 'Неверный пароль.');
-    }
-    sendJson(res, 200, { ok: true });
-    return;
-  }
-
-  requireAuthorized(req);
 
   if (pathname === '/api/admin/domain' && req.method === 'POST') {
     const body = await readJsonBody(req);
@@ -882,7 +847,4 @@ createServer(async (req, res) => {
   }
 }).listen(PORT, '127.0.0.1', () => {
   console.log(`[dev-server] http://127.0.0.1:${PORT}/  (root: ${ROOT})`);
-  console.log(
-    `[dev-server] админка: пароль ${process.env.DOKA_ADMIN_PASSWORD ? 'из DOKA_ADMIN_PASSWORD' : 'по умолчанию (isip-admin)'}`
-  );
 });

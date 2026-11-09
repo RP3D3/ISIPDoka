@@ -6,7 +6,7 @@
   <title>Тема — Дока ИСИП</title>
 
   <link rel="stylesheet" href="css/libs/atom-one-dark.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261109-1">
+  <link rel="stylesheet" href="css/style.css?v=20261109-4">
 </head>
 <body>
   <section class="topic-hero">
@@ -21,6 +21,7 @@
   </article>
 
   <script src="js/libs/marked.min.js"></script>
+  <script src="js/markdown-render.js?v=20261109-1"></script>
   <script src="js/markdown-alerts.js?v=20261109-1"></script>
   <script>
     (() => {
@@ -150,7 +151,9 @@
           }
 
           // Markdown — в статью
-          const html = marked.parse(body);
+          const html = window.DokaMarkdown
+            ? window.DokaMarkdown.render(body).html
+            : marked.parse(body);
 
           const article = document.getElementById('theme-article');
           article.innerHTML = html;
@@ -216,6 +219,6 @@
     })();
   </script>
 
-  <script src="js/page.js?v=20261107-2"></script>
+  <script src="js/page.js?v=20261109-2"></script>
 </body>
 </html>

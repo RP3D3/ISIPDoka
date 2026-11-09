@@ -222,3 +222,11 @@ await caches.keys()
   (`AI_SEMANTIC_THRESHOLD` в `js/search.js`).
 - Ссылки в результатах строятся от корня сайта, поэтому работают с любой
   глубины страницы.
+
+
+
+DokaProgress.getRead()
+DokaProgress.isRead('content/csharp/osnovy/hello-world.md')
+DokaProgress.markRead('content/...')
+DokaProgress.markUnread('content/...')
+DokaProgress.reset()   // сбросить весь прогресс

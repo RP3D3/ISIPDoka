@@ -171,11 +171,15 @@
       sep();
     }
     if (ctx.groupName) {
-      // Отдельной страницы у группы нет — ссылка ведёт в область.
+      // Отдельной страницы у группы нет — ссылка ведёт в область
+      // и подсвечивает нужную группу.
       if (domainUrl) {
         const groupLink = document.createElement('a');
-        groupLink.href = domainUrl;
+        groupLink.href = ctx.groupId
+          ? `${domainUrl}#group-${encodeURIComponent(ctx.groupId)}`
+          : domainUrl;
         groupLink.textContent = ctx.groupName;
+        groupLink.title = 'Показать группу в области';
         crumbs.appendChild(groupLink);
       } else {
         const group = document.createElement('span');
@@ -200,9 +204,215 @@
     searchBtn.innerHTML = 'Поиск <kbd>/</kbd>';
     right.appendChild(searchBtn);
 
+    mountAdminEditButton(ctx, right);
+
     header.appendChild(left);
     header.appendChild(right);
     document.body.insertBefore(header, document.body.firstChild);
+  }
+
+  async function mountAdminEditButton(ctx, right) {
+    if (!ctx || !ctx.urlKey || ctx.preview) return;
+
+    try {
+      const res = await fetch(new URL('api/admin/status', siteRoot).href, {
+        cache: 'no-store',
+        headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) return;
+
+      const data = await res.json().catch(() => null);
+      if (!data || !data.admin) return;
+
+      const link = document.createElement('a');
+      link.className = 'search-trigger-btn admin-edit-btn';
+      link.href = new URL(
+        'admin.html?path=' + encodeURIComponent(ctx.urlKey),
+        siteRoot
+      ).href;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = '✎ Редактировать';
+      right.appendChild(link);
+    } catch (_) {
+      /* GitHub Pages или dev-сервер не запущен — кнопка не нужна */
+    }
+  }
+
+  function orderedTopics(structure) {
+    const topics = [];
+    const domains = Object.entries(structure || {}).sort(
+      (a, b) => (a[1].order ?? 0) - (b[1].order ?? 0)
+    );
+
+    for (const [domainId, domain] of domains) {
+      const groups = [...(domain.groups || [])].sort(
+        (a, b) => (a.order ?? 0) - (b.order ?? 0)
+      );
+      for (const group of groups) {
+        const groupTopics = [...(group.topics || [])].sort(
+          (a, b) => (a.order ?? 0) - (b.order ?? 0)
+        );
+        for (const topic of groupTopics) {
+          topics.push({ ...topic, domainId, groupId: group.id || '' });
+        }
+      }
+    }
+
+    return topics;
+  }
+
+  function topicLinkUrl(topic) {
+    const type =
+      topic.type || (/\.md$/i.test(topic.url || '') ? 'md' : 'html');
+    if (type === 'md') {
+      return new URL(
+        'theme.html?path=' + encodeURI(topic.url),
+        siteRoot
+      ).href;
+    }
+    return new URL(topic.url, siteRoot).href;
+  }
+
+  function createPagerControl(topic, direction) {
+    const isNext = direction === 'next';
+    const element = document.createElement(topic ? 'a' : 'div');
+    element.className = 'topic-pager-link topic-pager-' + direction;
+    element.dataset.topicNav = direction;
+
+    if (topic) {
+      element.href = topicLinkUrl(topic);
+      element.setAttribute(
+        'aria-keyshortcuts',
+        isNext ? 'Control+Alt+ArrowRight' : 'Control+Alt+ArrowLeft'
+      );
+    } else {
+      element.classList.add('is-disabled');
+      element.setAttribute('aria-disabled', 'true');
+    }
+
+    const arrow = document.createElement('span');
+    arrow.className = 'topic-pager-arrow';
+    arrow.textContent = isNext ? '→' : '←';
+
+    const body = document.createElement('span');
+    body.className = 'topic-pager-body';
+
+    const label = document.createElement('span');
+    label.className = 'topic-pager-label';
+    label.textContent = isNext ? 'Следующая тема' : 'Предыдущая тема';
+
+    const title = document.createElement('span');
+    title.className = 'topic-pager-title';
+    title.textContent = topic
+      ? topic.title || topic.url
+      : isNext
+        ? 'Только назад'
+        : 'Только вперёд';
+
+    const hotkeys = document.createElement('span');
+    hotkeys.className = 'topic-pager-hotkeys';
+    hotkeys.innerHTML =
+      '<kbd>ctrl</kbd><span>+</span><kbd>alt</kbd><span>+</span><kbd>' +
+      (isNext ? '→' : '←') +
+      '</kbd>';
+
+    body.appendChild(label);
+    body.appendChild(title);
+    body.appendChild(hotkeys);
+
+    if (isNext) {
+      element.appendChild(body);
+      element.appendChild(arrow);
+    } else {
+      element.appendChild(arrow);
+      element.appendChild(body);
+    }
+
+    return element;
+  }
+
+  function setupTopicPagerHotkeys(nav) {
+    const prev = nav.querySelector('a.topic-pager-prev');
+    const next = nav.querySelector('a.topic-pager-next');
+    if (!prev && !next) return;
+
+    window.addEventListener('keydown', (event) => {
+      if (!(event.ctrlKey || event.metaKey) || !event.altKey || event.shiftKey) {
+        return;
+      }
+
+      const target = event.target;
+      if (
+        target &&
+        (target.isContentEditable ||
+          /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName || ''))
+      ) {
+        return;
+      }
+
+      const isNext = event.code === 'ArrowRight' || event.key === 'ArrowRight';
+      const isPrev = event.code === 'ArrowLeft' || event.key === 'ArrowLeft';
+      const link = isNext ? next : isPrev ? prev : null;
+      if (!link) return;
+
+      event.preventDefault();
+      window.location.href = link.href;
+    });
+  }
+
+  function setupTopicPager(ctx, structure) {
+    if (!ctx || !ctx.urlKey || document.querySelector('.topic-pager')) return;
+
+    const topics = orderedTopics(structure);
+    const index = topics.findIndex((topic) => topic.url === ctx.urlKey);
+    if (index === -1) return;
+
+    const prev = topics[index - 1] || null;
+    const next = topics[index + 1] || null;
+    if (!prev && !next) return;
+
+    const layout = document.querySelector('.topic-main-layout');
+    const article = document.querySelector('.article-content');
+    const host = layout || article;
+    if (!host || !host.parentNode) return;
+
+    const nav = document.createElement('nav');
+    nav.className = 'topic-pager';
+    nav.setAttribute('aria-label', 'Переход между темами');
+    nav.appendChild(createPagerControl(prev, 'prev'));
+    nav.appendChild(createPagerControl(next, 'next'));
+    host.parentNode.insertBefore(nav, host.nextSibling);
+
+    setupTopicPagerHotkeys(nav);
+  }
+
+  function setupReadingProgress(ctx) {
+    if (!ctx || !ctx.urlKey || !window.DokaProgress) return;
+
+    let done = false;
+    const check = () => {
+      if (done) return;
+
+      const article = document.querySelector('.article-content');
+      const viewport =
+        window.innerHeight || document.documentElement.clientHeight;
+      const articleBottom = article
+        ? article.getBoundingClientRect().bottom + window.scrollY
+        : document.documentElement.scrollHeight;
+      const viewportBottom = window.scrollY + viewport;
+
+      if (viewportBottom >= articleBottom - 40) {
+        done = true;
+        window.DokaProgress.markRead(ctx.urlKey);
+        window.removeEventListener('scroll', check);
+        window.removeEventListener('resize', check);
+      }
+    };
+
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check);
+    check();
   }
 
   function ensureHero(ctx) {
@@ -515,10 +725,12 @@
     const assetVersion = '?v=20261108-1';
     const searchSrc = new URL('search.js' + assetVersion, jsDir).href;
     const highlightSrc = new URL('highlight.min.js' + assetVersion, jsDir).href;
+    const progressSrc = new URL('progress.js' + assetVersion, jsDir).href;
 
     const results = await Promise.allSettled([
       loadScriptOnce(searchSrc),
       loadScriptOnce(highlightSrc),
+      loadScriptOnce(progressSrc),
     ]);
 
     for (const result of results) {
@@ -556,12 +768,15 @@
 
     const structure = await fetchStructure();
     const ctx = findContext(structure, fallback.urlKey) || fallback;
+    if (fallback.preview) ctx.preview = true;
 
     applyTheme(ctx, structure);
     renderHeader(ctx);
     ensureSearchModal();
+    setupTopicPager(ctx, structure);
 
     await loadRuntime();
+    setupReadingProgress(ctx);
   }
 
   if (document.readyState === 'loading') {

@@ -48,6 +48,30 @@
             "keywords": "переменная переменные объявление инициализация присваивание область видимости scope скоуп именование camelCase синтаксис память CS0165 CS0128 CS0029 си шарп c# csharp",
             "type": "md",
             "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Правильный нейминг",
+            "url": "content/csharp/peremennye-i-hranenie/pravilnyy-neyming.md",
+            "keywords": "именование нейминг правила именования стиль кода code style camelCase PascalCase snake_case верблюжий регистр регистр транслит переменные CS1001 соглашения си шарп c# csharp",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "var",
+            "url": "content/csharp/peremennye-i-hranenie/var.md",
+            "keywords": "var неявная типизация вывод типа объявление переменной компилятор строгая типизация CS0818 CS0815 си шарп c# csharp синтаксический сахар",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "const",
+            "url": "content/csharp/peremennye-i-hranenie/const.md",
+            "keywords": "const константа константы неизменяемость compile-time магические числа readonly CS0131 CS0145 CS0133 CS0134 си шарп c# csharp",
+            "type": "md",
+            "interactive": false
           }
         ]
       },

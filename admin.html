@@ -9,12 +9,13 @@
   <!--
     Страница для администратора. В навигации сайта её нет.
     Работает только на локальном сервере (scripts/dev-server.js):
-    пароль и запись файлов проверяет бэкенд. На GitHub Pages
-    редактирование недоступно, страница покажет предупреждение.
+    бэкенд доступен только на 127.0.0.1 и проверяет запись файлов.
+    На GitHub Pages редактирование недоступно, страница покажет
+    предупреждение.
   -->
 
   <link rel="stylesheet" href="css/libs/atom-one-dark.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261109-1">
+  <link rel="stylesheet" href="css/style.css?v=20261109-4">
   <link rel="stylesheet" href="css/admin.css?v=20261109-5">
   <style>
     /* ===== Оболочка админки ===== */
@@ -121,6 +122,24 @@
       font-family: var(--font-accent);
       font-weight: 700;
       font-size: 15px;
+    }
+
+    .admin-field-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .admin-field-head label {
+      margin: 0;
+    }
+
+    .admin-link-btn {
+      padding: 6px 10px;
+      font-size: 13px;
+      line-height: 1.2;
+      white-space: nowrap;
     }
 
     .admin-hint {
@@ -315,48 +334,79 @@
       background: var(--bg-main);
     }
 
-    /* ===== Экран входа ===== */
-    .admin-gate {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      display: grid;
-      place-items: center;
-      padding: 20px;
-      background: radial-gradient(circle at 50% 0%, #1a1a22, #0b0b0d 60%);
-    }
-
-    .admin-gate[hidden] {
-      display: none;
-    }
-
-    .admin-gate-card {
-      width: min(440px, 100%);
-      padding: 28px;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      background: #121316;
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+    /* ===== Выбор внутренней ссылки ===== */
+    .admin-link-card {
+      width: min(680px, 100%);
+      max-height: min(760px, calc(100vh - 80px));
       display: flex;
       flex-direction: column;
-      gap: 14px;
     }
 
-    .admin-gate-card h1 {
-      font-size: 24px;
-      font-family: var(--font-accent);
+    .admin-link-search {
+      margin-top: 16px;
     }
 
-    .admin-gate-card p {
-      color: var(--text-muted);
+    .admin-link-list {
+      flex: 1 1 auto;
+      min-height: 160px;
+      max-height: 46vh;
+      margin-top: 12px;
+      padding: 6px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: #121316;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .admin-link-item {
+      width: 100%;
+      padding: 9px 10px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text-main);
+      font-family: var(--font-base);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: background-color 0.12s ease, border-color 0.12s ease;
+    }
+
+    .admin-link-item:hover,
+    .admin-link-item:focus-visible {
+      outline: none;
+      border-color: var(--border-color);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .admin-link-item[aria-selected="true"] {
+      border-color: var(--domain-accent);
+      background: color-mix(in srgb, var(--domain-accent) 18%, transparent);
+    }
+
+    .admin-link-item-title {
       font-size: 14px;
-      line-height: 1.5;
+      font-weight: 700;
+      line-height: 1.35;
     }
 
-    .admin-gate-error {
-      min-height: 20px;
-      color: #ff8f8f;
+    .admin-link-item-path {
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .admin-link-empty {
+      padding: 18px 12px;
+      color: var(--text-muted);
       font-size: 13px;
+      text-align: center;
     }
 
     /* ===== Узкие экраны ===== */
@@ -395,24 +445,6 @@
   </style>
 </head>
 <body>
-  <!-- Экран входа -->
-  <div class="admin-gate" id="adminGate">
-    <form class="admin-gate-card" id="adminGateForm">
-      <h1 id="gateTitle">Доступ только для администратора</h1>
-      <p id="gateText">Введите пароль, чтобы открыть редактор тем.</p>
-      <input
-        type="password"
-        class="admin-input"
-        id="adminPassword"
-        autocomplete="current-password"
-        placeholder="Пароль"
-        required
-      >
-      <p class="admin-gate-error" id="adminGateError" aria-live="polite"></p>
-      <button type="submit" class="admin-download">Войти</button>
-    </form>
-  </div>
-
   <header class="admin-header">
     <div class="admin-header-left">
       <a class="brand-badge" href="index.html">U•ᴥ•U Дока ИСИП</a>
@@ -422,7 +454,6 @@
     <div class="admin-header-right">
       <a class="admin-link" id="adminOpenTopic" href="#" target="_blank" rel="noopener" hidden>Открыть тему</a>
       <a class="admin-link" href="index.html">На главную</a>
-      <button type="button" class="admin-link" id="adminLogout">Выйти</button>
     </div>
   </header>
 
@@ -490,7 +521,12 @@
         </div>
 
         <div class="admin-field admin-field--grow" id="mdEditorField">
-          <label for="fieldMarkdown">Markdown</label>
+          <div class="admin-field-head">
+            <label for="fieldMarkdown">Markdown</label>
+            <button type="button" class="admin-secondary admin-link-btn" id="insertInternalLinkBtn">
+              🔗 Ссылка на тему
+            </button>
+          </div>
           <textarea
             class="admin-textarea admin-textarea--md"
             id="fieldMarkdown"
@@ -545,9 +581,41 @@
     </section>
   </main>
 
+  <!-- Выбор внутренней ссылки -->
+  <div class="doka-modal" id="linkPicker" hidden>
+    <div
+      class="doka-modal-card admin-link-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="linkPickerTitle"
+    >
+      <h2 id="linkPickerTitle">Внутренняя ссылка</h2>
+      <p class="doka-modal-desc">
+        Найдите тему в проекте и вставьте ссылку в Markdown. Если в поле
+        выделен текст, он станет названием ссылки.
+      </p>
+      <input
+        type="search"
+        class="doka-input admin-link-search"
+        id="linkPickerSearch"
+        placeholder="Поиск темы…"
+        autocomplete="off"
+      >
+      <div class="admin-link-list" id="linkPickerList" role="listbox" aria-label="Темы"></div>
+      <p class="doka-modal-error" id="linkPickerError" aria-live="polite"></p>
+      <div class="doka-modal-actions">
+        <button type="button" class="doka-btn" id="linkPickerCancel">Отмена</button>
+        <button type="button" class="doka-btn doka-btn-primary" id="linkPickerAdd" disabled>
+          Добавить
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script src="js/libs/marked.min.js"></script>
+  <script src="js/markdown-render.js?v=20261109-1"></script>
   <script src="js/markdown-alerts.js?v=20261109-1"></script>
-  <script src="js/admin.js?v=20261109-4"></script>
+  <script src="js/admin.js?v=20261109-5"></script>
   <script>
     (() => {
       'use strict';
@@ -558,17 +626,8 @@
       /* ================================================================ *
        * Элементы                                                         *
        * ================================================================ */
-      const gate = $('adminGate');
-      const gateForm = $('adminGateForm');
-      const gateTitle = $('gateTitle');
-      const gateText = $('gateText');
-      const gatePassword = $('adminPassword');
-      const gateError = $('adminGateError');
-      const gateSubmit = gateForm.querySelector('button[type="submit"]');
-
       const subtitle = $('adminSubtitle');
       const openTopicLink = $('adminOpenTopic');
-      const logoutBtn = $('adminLogout');
 
       const mdMetaFields = $('mdMetaFields');
       const mdEditorField = $('mdEditorField');
@@ -590,6 +649,14 @@
       const previewMode = $('previewMode');
       const previewWidth = $('previewWidth');
 
+      const insertInternalLinkBtn = $('insertInternalLinkBtn');
+      const linkPicker = $('linkPicker');
+      const linkPickerSearch = $('linkPickerSearch');
+      const linkPickerList = $('linkPickerList');
+      const linkPickerError = $('linkPickerError');
+      const linkPickerAdd = $('linkPickerAdd');
+      const linkPickerCancel = $('linkPickerCancel');
+
       /* ================================================================ *
        * Состояние                                                        *
        * ================================================================ */
@@ -600,6 +667,8 @@
       let loading = false;
       let saving = false;
       let unlocked = false;
+      let linkTopics = null;
+      let selectedLinkTopic = null;
 
       /* ================================================================ *
        * Служебные функции                                                *
@@ -699,6 +768,196 @@
           .replace(/^\n+/, '');
 
         return renderFrontmatter(data) + body + (body.endsWith('\n') ? '' : '\n');
+      }
+
+      /* ================================================================ *
+       * Выбор внутренней ссылки                                          *
+       * ================================================================ */
+      function flattenLinkTopics(structure) {
+        const topics = [];
+        const domains = Object.entries(structure || {}).sort(
+          (a, b) => (a[1].order ?? 0) - (b[1].order ?? 0)
+        );
+
+        for (const [domainId, domain] of domains) {
+          const groups = [...(domain.groups || [])].sort(
+            (a, b) => (a.order ?? 0) - (b.order ?? 0)
+          );
+          for (const group of groups) {
+            const groupTopics = [...(group.topics || [])].sort(
+              (a, b) => (a.order ?? 0) - (b.order ?? 0)
+            );
+            for (const topic of groupTopics) {
+              const url = topic.url || '';
+              const type = topic.type || (/\.md$/i.test(url) ? 'md' : 'html');
+              topics.push({
+                title: topic.title || url.split('/').pop() || 'Без названия',
+                url,
+                type,
+                domain: domain.title || domainId,
+                group: group.name || group.id || '',
+                search: [
+                  topic.title,
+                  topic.keywords,
+                  url,
+                  domain.title,
+                  domainId,
+                  group.name,
+                  group.id,
+                ]
+                  .filter(Boolean)
+                  .join(' ')
+                  .toLowerCase(),
+              });
+            }
+          }
+        }
+
+        return topics;
+      }
+
+      async function loadLinkTopics() {
+        if (linkTopics) return linkTopics;
+
+        const res = await fetch(new URL('data/structure.json', window.location.href), {
+          cache: 'no-store',
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error('Не удалось загрузить список тем.');
+        linkTopics = flattenLinkTopics(await res.json());
+        return linkTopics;
+      }
+
+      function selectLinkTopic(topic, item) {
+        selectedLinkTopic = topic;
+        linkPickerList.querySelectorAll('.admin-link-item').forEach((element) => {
+          element.setAttribute('aria-selected', String(element === item));
+        });
+        linkPickerAdd.disabled = false;
+      }
+
+      function renderLinkPickerList() {
+        const query = linkPickerSearch.value.trim().toLowerCase();
+        const topics = linkTopics || [];
+        const visible = topics.filter(
+          (topic) => !query || topic.search.includes(query)
+        );
+
+        if (
+          selectedLinkTopic &&
+          !visible.some((topic) => topic.url === selectedLinkTopic.url)
+        ) {
+          selectedLinkTopic = null;
+        }
+
+        linkPickerAdd.disabled = !selectedLinkTopic;
+        linkPickerList.innerHTML = '';
+
+        if (!visible.length) {
+          const empty = document.createElement('p');
+          empty.className = 'admin-link-empty';
+          empty.textContent = topics.length
+            ? 'Ничего не найдено.'
+            : 'В проекте пока нет тем.';
+          linkPickerList.appendChild(empty);
+          return;
+        }
+
+        for (const topic of visible) {
+          const item = document.createElement('button');
+          item.type = 'button';
+          item.className = 'admin-link-item';
+          item.dataset.url = topic.url;
+          item.setAttribute('role', 'option');
+          item.setAttribute(
+            'aria-selected',
+            String(selectedLinkTopic?.url === topic.url)
+          );
+
+          const title = document.createElement('span');
+          title.className = 'admin-link-item-title';
+          title.textContent = topic.title;
+
+          const path = document.createElement('span');
+          path.className = 'admin-link-item-path';
+          path.textContent = [topic.domain, topic.group]
+            .filter(Boolean)
+            .join(' / ');
+
+          item.appendChild(title);
+          item.appendChild(path);
+          item.addEventListener('click', () => selectLinkTopic(topic, item));
+          item.addEventListener('dblclick', () => {
+            selectLinkTopic(topic, item);
+            insertSelectedInternalLink();
+          });
+          linkPickerList.appendChild(item);
+        }
+      }
+
+      async function openLinkPicker() {
+        if (fileType !== 'md') return;
+
+        linkPicker.hidden = false;
+        document.body.classList.add('doka-modal-open');
+        linkPickerSearch.value = '';
+        linkPickerError.textContent = '';
+        selectedLinkTopic = null;
+        linkPickerAdd.disabled = true;
+        linkPickerList.innerHTML =
+          '<p class="admin-link-empty">Загружаю темы…</p>';
+
+        requestAnimationFrame(() => linkPickerSearch.focus());
+
+        try {
+          await loadLinkTopics();
+          renderLinkPickerList();
+          linkPickerSearch.focus();
+        } catch (error) {
+          linkPickerError.textContent = error.message;
+          linkPickerList.innerHTML =
+            '<p class="admin-link-empty">Список тем недоступен.</p>';
+        }
+      }
+
+      function closeLinkPicker(options = {}) {
+        if (linkPicker.hidden) return;
+        linkPicker.hidden = true;
+        document.body.classList.remove('doka-modal-open');
+        if (options.focus !== false) markdownInput.focus();
+      }
+
+      function escapeLinkLabel(value) {
+        return String(value ?? '')
+          .replace(/\\/g, '\\\\')
+          .replace(/\[/g, '\\[')
+          .replace(/\]/g, '\\]');
+      }
+
+      function topicLinkHref(topic) {
+        const url = encodeURI(topic.url || '');
+        return topic.type === 'md' ? `theme.html?path=${url}` : url;
+      }
+
+      function insertSelectedInternalLink() {
+        if (!selectedLinkTopic) return;
+
+        const value = markdownInput.value;
+        const start = markdownInput.selectionStart ?? value.length;
+        const end = markdownInput.selectionEnd ?? start;
+        const selectedText = value
+          .slice(start, end)
+          .replace(/\s+/g, ' ')
+          .trim();
+        const label = escapeLinkLabel(
+          selectedText || selectedLinkTopic.title || 'Тема'
+        );
+        const snippet = `[${label}](${topicLinkHref(selectedLinkTopic)})`;
+
+        markdownInput.setRangeText(snippet, start, end, 'end');
+        closeLinkPicker({ focus: false });
+        markdownInput.focus();
+        markdownInput.dispatchEvent(new Event('input', { bubbles: true }));
       }
 
       function setDirty(value) {
@@ -805,7 +1064,9 @@
       function buildArticle(markdown) {
         const article = document.createElement('article');
         article.className = 'article-content';
-        article.innerHTML = marked.parse(markdown || '');
+        article.innerHTML = window.DokaMarkdown
+          ? window.DokaMarkdown.render(markdown || '').html
+          : marked.parse(markdown || '');
         if (window.DokaMarkdownAlerts) {
           window.DokaMarkdownAlerts.enhance(article);
         }
@@ -880,7 +1141,7 @@
 
         const svg = svgInput.value.trim();
         const base = new URL('./', window.location.href);
-        const styleHref = new URL('css/style.css?v=20261109-1', base).href;
+        const styleHref = new URL('css/style.css?v=20261109-4', base).href;
         const atomHref = new URL('css/libs/atom-one-dark.min.css', base).href;
         const hljsSrc = new URL('js/highlight.min.js?v=20261107-2', base).href;
 
@@ -919,6 +1180,19 @@
 <style>
   html, body { min-height: 100%; }
   body { overflow-x: hidden; }
+  .md-preview-caret {
+    position: absolute;
+    z-index: 9999;
+    width: 2px;
+    border-radius: 1px;
+    background: var(--domain-accent, #c9baff);
+    pointer-events: none;
+    animation: md-preview-caret-blink 1s steps(1, end) infinite;
+  }
+  @keyframes md-preview-caret-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
 </style>
 </head>
 <body>
@@ -981,6 +1255,7 @@
 
         const context = {
           urlKey: filePath,
+          preview: true,
           domainId,
           domainTitle: domainId,
           groupId,
@@ -1002,7 +1277,7 @@
         if (!/style\.css/i.test(html)) {
           html = injectIntoHead(
             html,
-            `<link rel="stylesheet" href="${escapeHtml(rootHref)}css/style.css?v=20261109-1">`
+            `<link rel="stylesheet" href="${escapeHtml(rootHref)}css/style.css?v=20261109-4">`
           );
         }
 
@@ -1014,7 +1289,7 @@
         }
 
         if (!/page\.js/i.test(html)) {
-          const pageScript = `<script src="${escapeHtml(rootHref)}js/page.js?v=20261107-2"><\/script>`;
+          const pageScript = `<script src="${escapeHtml(rootHref)}js/page.js?v=20261109-2"><\/script>`;
           html = /<\/body>/i.test(html)
             ? html.replace(/<\/body>/i, pageScript + '\n</body>')
             : html + pageScript;
@@ -1037,8 +1312,19 @@
       /* ================================================================ *
        * Общий предпросмотр                                               *
        * ================================================================ */
-      function renderPreview() {
+      function renderPreview(options = {}) {
         if (!unlocked) return;
+
+        let previousScroll = 0;
+        try {
+          previousScroll = frame.contentWindow?.scrollY || 0;
+        } catch (_) {
+          previousScroll = 0;
+        }
+
+        previewScrollTarget = options.scrollToCaret
+          ? { caret: true, y: previousScroll }
+          : { y: previousScroll };
 
         if (fileType === 'html') {
           frame.srcdoc = buildHtmlPreviewDocument(htmlInput.value);
@@ -1049,10 +1335,219 @@
         previewWidth.textContent = `${frame.clientWidth || 0}px`;
       }
 
+      function markdownCaretPosition() {
+        const position = markdownInput.selectionStart;
+        if (position == null) return null;
+
+        const before = markdownInput.value.slice(0, position);
+        return {
+          line: before.split('\n').length,
+          column: position - (before.lastIndexOf('\n') + 1),
+        };
+      }
+
+      function hidePreviewCaret() {
+        let doc;
+        try {
+          doc = frame.contentDocument;
+        } catch (_) {
+          return;
+        }
+        if (!doc) return;
+        doc.querySelectorAll('.md-preview-caret').forEach((element) => element.remove());
+      }
+
+      function stripBlockPrefix(line) {
+        return String(line).replace(
+          /^\s*(?:#{1,6}\s+|>\s?|[-*+]\s+|\d+[.)]\s+)/,
+          ''
+        );
+      }
+
+      function stripInlineMarkdown(text) {
+        return String(text)
+          .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
+          .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+          .replace(/`([^`]*)`/g, '$1')
+          .replace(/(\*\*|__)(.*?)\1/g, '$2')
+          .replace(/(\*|_)(.*?)\1/g, '$2')
+          .replace(/~~([\s\S]*?)~~/g, '$1')
+          .replace(/\\([\\`*{}\[\]()#+\-.!_>])/g, '$1');
+      }
+
+      function findPreviewCaretTarget(doc, line) {
+        const nodes = Array.from(doc.querySelectorAll('[data-source-line]'));
+        let target = null;
+        let best = -Infinity;
+
+        for (const node of nodes) {
+          const value = Number(node.getAttribute('data-source-line'));
+          if (!Number.isFinite(value) || value > line) continue;
+
+          if (value > best || (value === best && target && target.contains(node))) {
+            best = value;
+            target = node;
+          }
+        }
+
+        return target || nodes[0] || null;
+      }
+
+      function rangeAtTextOffset(doc, root, offset) {
+        const walker = doc.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+        let remaining = Math.max(0, offset);
+        let last = null;
+
+        while (walker.nextNode()) {
+          const node = walker.currentNode;
+          const length = node.nodeValue.length;
+
+          if (remaining <= length) {
+            const range = doc.createRange();
+            range.setStart(node, remaining);
+            range.collapse(true);
+            return range;
+          }
+
+          remaining -= length;
+          last = node;
+        }
+
+        if (last) {
+          const range = doc.createRange();
+          range.setStart(last, last.nodeValue.length);
+          range.collapse(true);
+          return range;
+        }
+
+        return null;
+      }
+
+      function caretRectForTarget(doc, target, position) {
+        const sourceLine =
+          markdownInput.value.split('\n')[position.line - 1] || '';
+        const plainLine = stripInlineMarkdown(stripBlockPrefix(sourceLine));
+        const plainBefore = stripInlineMarkdown(
+          stripBlockPrefix(sourceLine.slice(0, position.column))
+        );
+        const text = target.textContent || '';
+        let offset = null;
+
+        if (text) {
+          if (!sourceLine.trim()) {
+            offset = text.length;
+          } else {
+            let index = plainLine ? text.indexOf(plainLine) : 0;
+            if (index === -1 && plainLine.trim()) {
+              index = text.indexOf(plainLine.trim());
+            }
+
+            if (index !== -1) {
+              offset = Math.min(text.length, index + plainBefore.length);
+            } else {
+              const ratio = sourceLine.length
+                ? Math.min(1, position.column / sourceLine.length)
+                : 0;
+              offset = Math.round(text.length * ratio);
+            }
+          }
+        }
+
+        if (offset != null) {
+          const range = rangeAtTextOffset(doc, target, offset);
+          if (range) {
+            const rect = range.getBoundingClientRect();
+            if (rect && (rect.height || rect.width || rect.top || rect.left)) {
+              return rect;
+            }
+          }
+        }
+
+        const targetRect = target.getBoundingClientRect();
+        const view = doc.defaultView;
+        const lineHeight =
+          (view && parseFloat(view.getComputedStyle(target).lineHeight)) || 20;
+        return {
+          left: targetRect.left,
+          top: targetRect.top,
+          height: Math.max(lineHeight, targetRect.height || 0),
+        };
+      }
+
+      function ensurePreviewCaretVisible(rect) {
+        const doc = frame.contentDocument;
+        const win = frame.contentWindow;
+        if (!doc || !win) return;
+
+        const header = doc.querySelector('.site-header');
+        const offset = (header ? header.getBoundingClientRect().height : 0) + 12;
+        const top = rect.top + (win.scrollY || 0);
+        const bottom = top + (rect.height || 20);
+        const viewTop = win.scrollY || 0;
+        const viewBottom = viewTop + win.innerHeight;
+
+        if (top < viewTop + offset || bottom > viewBottom - 24) {
+          win.scrollTo(0, Math.max(0, top - offset));
+        }
+      }
+
+      function placePreviewCaret(options = {}) {
+        if (fileType !== 'md') return;
+
+        if (document.activeElement !== markdownInput) {
+          hidePreviewCaret();
+          return;
+        }
+
+        let doc;
+        try {
+          doc = frame.contentDocument;
+        } catch (_) {
+          return;
+        }
+        if (!doc || !doc.body) return;
+
+        const position = markdownCaretPosition();
+        if (!position) {
+          hidePreviewCaret();
+          return;
+        }
+
+        const target = findPreviewCaretTarget(doc, position.line);
+        if (!target) {
+          hidePreviewCaret();
+          return;
+        }
+
+        const rect = caretRectForTarget(doc, target, position);
+        hidePreviewCaret();
+
+        const win = frame.contentWindow;
+        const caret = doc.createElement('div');
+        caret.className = 'md-preview-caret';
+        caret.setAttribute('aria-hidden', 'true');
+        caret.style.left = `${rect.left + (win.scrollX || 0)}px`;
+        caret.style.top = `${rect.top + (win.scrollY || 0)}px`;
+        caret.style.height = `${Math.max(14, rect.height || 0)}px`;
+        doc.body.appendChild(caret);
+
+        if (options.scroll) ensurePreviewCaretVisible(rect);
+      }
+
+      let previewScrollTarget = null;
       let previewTimer = null;
-      function schedulePreview() {
+
+      function schedulePreview(options = {}) {
         clearTimeout(previewTimer);
-        previewTimer = setTimeout(renderPreview, 180);
+        const scrollToCaret = Boolean(options.scrollToCaret);
+        // Ждём, пока автор перестанет печатать: частые перезагрузки iframe
+        // выглядели как постоянное моргание.
+        previewTimer = setTimeout(() => {
+          renderPreview({
+            scrollToCaret:
+              scrollToCaret && document.activeElement === markdownInput,
+          });
+        }, 1500);
       }
 
       /* ================================================================ *
@@ -1120,12 +1615,11 @@
       }
 
       /* ================================================================ *
-       * Вход и запуск                                                    *
+       * Запуск                                                           *
        * ================================================================ */
       async function unlock() {
         if (unlocked) return;
         unlocked = true;
-        gate.hidden = true;
 
         if (filePath) {
           await loadFile();
@@ -1134,42 +1628,87 @@
         }
       }
 
-      gateForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        gateError.textContent = '';
-        gateSubmit.disabled = true;
-        gateSubmit.textContent = 'Проверяю…';
+      saveBtn.addEventListener('click', saveFile);
+      downloadBtn.addEventListener('click', downloadFile);
+      insertInternalLinkBtn.addEventListener('click', openLinkPicker);
+      linkPickerAdd.addEventListener('click', insertSelectedInternalLink);
+      linkPickerCancel.addEventListener('click', () => closeLinkPicker());
+      linkPickerSearch.addEventListener('input', renderLinkPickerList);
 
-        try {
-          await DokaAdmin.login(gatePassword.value);
-          gatePassword.value = '';
-          await unlock();
-        } catch (error) {
-          gateError.textContent = error.message;
-          gatePassword.select();
-        } finally {
-          gateSubmit.disabled = false;
-          gateSubmit.textContent = 'Войти';
+      linkPickerSearch.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          const first = linkPickerList.querySelector('.admin-link-item');
+          if (!selectedLinkTopic && first) first.click();
+          insertSelectedInternalLink();
+        } else if (event.key === 'ArrowDown') {
+          const first = linkPickerList.querySelector('.admin-link-item');
+          if (first) {
+            event.preventDefault();
+            first.focus();
+          }
         }
       });
 
-      logoutBtn.addEventListener('click', () => {
-        DokaAdmin.clearPassword();
-        window.location.reload();
+      linkPickerList.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+        const items = Array.from(
+          linkPickerList.querySelectorAll('.admin-link-item')
+        );
+        const index = items.indexOf(document.activeElement);
+        if (index === -1) return;
+        event.preventDefault();
+        const next = items[index + (event.key === 'ArrowDown' ? 1 : -1)];
+        if (next) next.focus();
       });
 
-      saveBtn.addEventListener('click', saveFile);
-      downloadBtn.addEventListener('click', downloadFile);
+      linkPicker.addEventListener('click', (event) => {
+        if (event.target === linkPicker) closeLinkPicker();
+      });
+
+      linkPicker.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeLinkPicker();
+        }
+      });
 
       [titleInput, descriptionInput, keywordsInput, svgInput, markdownInput, htmlInput].forEach(
         (element) => {
           element.addEventListener('input', () => {
             if (loading) return;
             setDirty(true);
-            schedulePreview();
+
+            const isMarkdown = element === markdownInput;
+            if (isMarkdown) {
+              placePreviewCaret({ scroll: false });
+            } else {
+              hidePreviewCaret();
+            }
+
+            schedulePreview({ scrollToCaret: isMarkdown });
           });
         }
       );
+
+      // Клик или перемещение курсора стрелками не перезагружает превью,
+      // а сразу показывает мигающий курсор и прокручивает его в видимую зону.
+      function focusPreviewCaret() {
+        placePreviewCaret({ scroll: true });
+      }
+
+      markdownInput.addEventListener('click', focusPreviewCaret);
+      markdownInput.addEventListener('focus', focusPreviewCaret);
+      markdownInput.addEventListener('blur', hidePreviewCaret);
+      markdownInput.addEventListener('keyup', (event) => {
+        if (
+          ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'].includes(
+            event.key
+          )
+        ) {
+          focusPreviewCaret();
+        }
+      });
 
       window.addEventListener('resize', () => {
         previewWidth.textContent = `${frame.clientWidth || 0}px`;
@@ -1177,6 +1716,29 @@
 
       frame.addEventListener('load', () => {
         previewWidth.textContent = `${frame.clientWidth || 0}px`;
+
+        if (!previewScrollTarget) return;
+        const target = previewScrollTarget;
+        previewScrollTarget = null;
+
+        if (target.caret && document.activeElement === markdownInput) {
+          placePreviewCaret({ scroll: true });
+          return;
+        }
+
+        if (target.y) {
+          try {
+            frame.contentWindow.scrollTo(0, target.y);
+          } catch (_) {
+            /* iframe мог ещё не быть готов */
+          }
+        }
+
+        if (document.activeElement === markdownInput) {
+          placePreviewCaret({ scroll: false });
+        } else {
+          hidePreviewCaret();
+        }
       });
 
       window.addEventListener('beforeunload', (event) => {
@@ -1196,28 +1758,15 @@
         const available = await DokaAdmin.ready();
 
         if (!available) {
-          gateTitle.textContent = 'Локальный сервер не запущен';
-          gateText.textContent =
+          showNoFile(
             'Админ-редактор работает только на локальном сервере. ' +
-            'Запустите doka.bat или node scripts/dev-server.js. ' +
-            'На GitHub Pages редактирование недоступно.';
-          gatePassword.disabled = true;
-          gateSubmit.disabled = true;
+              'Запустите doka.bat или node scripts/dev-server.js. ' +
+              'На GitHub Pages редактирование недоступно.'
+          );
           return;
         }
 
-        const stored = DokaAdmin.getPassword();
-        if (stored) {
-          try {
-            await DokaAdmin.login(stored);
-            await unlock();
-            return;
-          } catch (_) {
-            DokaAdmin.clearPassword();
-          }
-        }
-
-        gatePassword.focus();
+        await unlock();
       })();
     })();
   </script>
