@@ -5,6 +5,8 @@
   <title>Админ-панель — Дока ИСИП</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="apple-touch-icon" href="./favicon.png">
 
   <!--
     Страница для администратора. В навигации сайта её нет.
@@ -15,7 +17,7 @@
   -->
 
   <link rel="stylesheet" href="css/libs/atom-one-dark.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261109-8">
+  <link rel="stylesheet" href="css/style.css?v=20261109-10">
   <link rel="stylesheet" href="css/admin.css?v=20261109-11">
   <style>
     /* ===== Оболочка админки ===== */
@@ -770,7 +772,7 @@
   <script src="js/admin.js?v=20261109-6"></script>
   <script src="js/admin-stats.js?v=20261109-7"></script>
   <script src="js/admin-guide.js?v=20261109-2"></script>
-  <script src="js/mascot.js?v=20261109-2"></script>
+  <script src="js/mascot.js?v=20261109-7"></script>
   <script>
     (() => {
       'use strict';
@@ -1296,10 +1298,10 @@
 
         const svg = svgInput.value.trim();
         const base = new URL('./', window.location.href);
-        const styleHref = new URL('css/style.css?v=20261109-8', base).href;
+        const styleHref = new URL('css/style.css?v=20261109-10', base).href;
         const atomHref = new URL('css/libs/atom-one-dark.min.css', base).href;
         const hljsSrc = new URL('js/highlight.min.js?v=20261107-2', base).href;
-        const mascotSrc = new URL('js/mascot.js?v=20261109-2', base).href;
+        const mascotSrc = new URL('js/mascot.js?v=20261109-7', base).href;
 
         const tocHtml = tocItems.length
           ? '<aside class="toc-nav"><ul>' +
@@ -1434,7 +1436,7 @@
         if (!/style\.css/i.test(html)) {
           html = injectIntoHead(
             html,
-            `<link rel="stylesheet" href="${escapeHtml(rootHref)}css/style.css?v=20261109-8">`
+            `<link rel="stylesheet" href="${escapeHtml(rootHref)}css/style.css?v=20261109-10">`
           );
         }
 
@@ -1453,7 +1455,7 @@
         }
 
         if (!/mascot\.js/i.test(html)) {
-          const mascotScript = `<script src="${escapeHtml(rootHref)}js/mascot.js?v=20261109-2"><\/script>`;
+          const mascotScript = `<script src="${escapeHtml(rootHref)}js/mascot.js?v=20261109-7"><\/script>`;
           html = /<\/body>/i.test(html)
             ? html.replace(/<\/body>/i, mascotScript + '\n</body>')
             : html + mascotScript;

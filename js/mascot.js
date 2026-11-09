@@ -1,13 +1,13 @@
 /* ==========================================================================
    МАСКОТ «ДОКА ИСИП» В ШАПКЕ
    --------------------------------------------------------------------------
-   Заменяет текстовый логотип «U•ᴥ•U» на ящерицу-маскота, сохраняя название
+   Заменяет текстовый логотип «U•ᴥ•U» на дракончика-маскота, сохраняя название
    проекта «Дока ИСИП» рядом. Скрипт общий для index.html, domain.html,
    admin.html и страниц тем (шапку там создаёт js/page.js асинхронно).
 
    Поведение:
-   - дыхание и моргание — лёгкая фоновая анимация;
-   - зрачки следят за курсором только пока курсор над логотипом;
+   - зрачки следят за курсором всегда;
+   - моргание — случайный интервал 4–8 секунд (иногда двойное);
    - язык дёргается только при наведении (это делает CSS в style.css).
    ========================================================================== */
 
@@ -16,49 +16,46 @@
 
   let uid = 0;
 
-  /* SVG из mascot_live_preview.html (компактная версия, viewBox 58×46).
-     id маски уникален для каждого экземпляра, чтобы несколько логотипов
-     на странице (например, в предпросмотре админки) не конфликтовали. */
+  /* SVG из Figma (Frame.svg, профиль, viewBox 60×44).
+     Цвета переведены на currentColor, id маски уникален для каждого
+     экземпляра, чтобы несколько логотипов на странице не конфликтовали. */
   function createMascot() {
-    const maskId = `doka-mascot-mask-${++uid}`;
+    const maskId = `doka-dragon-mask-${++uid}`;
 
     const wrapper = document.createElement('span');
     wrapper.className = 'brand-mascot';
     wrapper.setAttribute('aria-hidden', 'true');
     wrapper.innerHTML =
-      `<svg class="doka-mascot" xmlns="http://www.w3.org/2000/svg" ` +
-      // Сдвиг viewBox на 2.5 вниз компенсирует убранные антенну и уши:
-      // рисунок снова стоит по центру своей области.
-      `viewBox="0 2.5 58 46" fill="none" focusable="false">` +
+      `<svg class="dragon-mascot" xmlns="http://www.w3.org/2000/svg" ` +
+      // viewBox как в Figma: голова уже центрирована по вертикали.
+      `viewBox="0 0 60 44" fill="none" focusable="false">` +
       `<defs>` +
-      `<mask id="${maskId}">` +
-      `<rect width="58" height="46" fill="white"/>` +
-      `<circle cx="29" cy="14" r="1.3" fill="black"/>` +
-      `<circle cx="26" cy="17" r="1.1" fill="black"/>` +
-      `<circle cx="32" cy="17" r="1.1" fill="black"/>` +
-      `<g class="eyes-blinker">` +
-      `<ellipse cx="18" cy="22.5" rx="4.8" ry="3.6" transform="rotate(14 18 22.5)" fill="black"/>` +
-      `<ellipse cx="40" cy="22.5" rx="4.8" ry="3.6" transform="rotate(-14 40 22.5)" fill="black"/>` +
-      `<g class="pupils-layer">` +
-      `<ellipse cx="18.2" cy="22.5" rx="1.4" ry="3" fill="white"/>` +
-      `<circle cx="16.2" cy="21" r="1" fill="white"/>` +
-      `<ellipse cx="39.8" cy="22.5" rx="1.4" ry="3" fill="white"/>` +
-      `<circle cx="37.8" cy="21" r="1" fill="white"/>` +
+      `<mask id="${maskId}" maskUnits="userSpaceOnUse" x="0" y="-3" width="60" height="44">` +
+      `<path d="M60 -3H0V41H60V-3Z" fill="white"/>` +
+      `<g class="dragon-eye-socket">` +
+      `<path d="M29.1599 20.2422C31.7706 19.7819 33.5915 17.7332 33.2271 15.6664C32.8627 13.5996 30.4508 12.2973 27.8401 12.7577C25.2295 13.218 23.4085 15.2667 23.7729 17.3335C24.1374 19.4003 26.5492 20.7025 29.1599 20.2422Z" fill="black"/>` +
+      `<g class="dragon-pupil">` +
+      `<path d="M29.8 19.6C30.5732 19.6 31.2 18.212 31.2 16.5C31.2 14.7879 30.5732 13.4 29.8 13.4C29.0268 13.4 28.4 14.7879 28.4 16.5C28.4 18.212 29.0268 19.6 29.8 19.6Z" fill="white"/>` +
+      `<path d="M27.2 16.1C27.8075 16.1 28.3 15.6075 28.3 15C28.3 14.3925 27.8075 13.9 27.2 13.9C26.5925 13.9 26.1 14.3925 26.1 15C26.1 15.6075 26.5925 16.1 27.2 16.1Z" fill="white"/>` +
       `</g>` +
       `</g>` +
-      `<path d="M25.5 26C24.5 26.5 24.5 28 25.5 28.5" stroke="black" stroke-width="2" stroke-linecap="round"/>` +
-      `<path d="M32.5 26C33.5 26.5 33.5 28 32.5 28.5" stroke="black" stroke-width="2" stroke-linecap="round"/>` +
-      `<path d="M16.5 31C19.5 34 25 34 29 31.5C33 34 38.5 34 41.5 31" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>` +
+      `<path d="M23.5 12.2C24.1627 12.2 24.7 11.6627 24.7 11C24.7 10.3372 24.1627 9.79999 23.5 9.79999C22.8373 9.79999 22.3 10.3372 22.3 11C22.3 11.6627 22.8373 12.2 23.5 12.2Z" fill="black"/>` +
+      `<path d="M20 13.5C20.5523 13.5 21 13.0523 21 12.5C21 11.9477 20.5523 11.5 20 11.5C19.4477 11.5 19 11.9477 19 12.5C19 13.0523 19.4477 13.5 20 13.5Z" fill="black"/>` +
+      `<path d="M46.9104 19.6276C47.9484 19.2498 48.6061 18.4387 48.3794 17.8159C48.1527 17.1932 47.1275 16.9946 46.0896 17.3724C45.0516 17.7501 44.3939 18.5613 44.6206 19.184C44.8473 19.8068 45.8725 20.0054 46.9104 19.6276Z" fill="black"/>` +
+      `<path d="M52.5 24.5L44 26.5L38 24L31 27L25.5 24.5" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>` +
       `</mask>` +
       `</defs>` +
-      `<g class="mascot-breathe">` +
+      `<path d="M15.6516 12.2839L14.932 5.13752L21.5156 8.00891L15.6516 12.2839Z" fill="currentColor"/>` +
+      `<path d="M21 8.9L23.6 4L26.2 8.9H21Z" fill="currentColor"/>` +
+      `<path d="M26 9.3L28.6 5L31 10.4L26 9.3Z" fill="currentColor"/>` +
+      `<path d="M18 11.2414L13.2353 18L9 11L18 11.2414Z" fill="currentColor"/>` +
+      `<path d="M14.1818 15L16 21L10 19.6875L14.1818 15Z" fill="currentColor"/>` +
       `<g mask="url(#${maskId})">` +
-      `<path d="M18 9.5H40L47 16.5L53 21L48.5 24.5L52 28.5L45.5 30.5L41 37H17L12.5 30.5L6 28.5L9.5 24.5L5 21L11 16.5L18 9.5Z" fill="currentColor"/>` +
+      `<path d="M17 8H31.5L38 12.5L49.5 14.5L53 20.5L51.5 24.5L49 31.5L35 33.5L23.5 31L17 36L16 29.5L9.5 27.5L14 22.5L12 16L17 8Z" fill="currentColor"/>` +
       `</g>` +
-      `<polygon points="18.5,32 20.5,35.8 22.8,33" fill="currentColor"/>` +
-      `<polygon points="39.5,32 37.5,35.8 35.2,33" fill="currentColor"/>` +
-      `<path class="tongue-anim" d="M29 32.5V38.5M29 38.5L26.5 41.5M29 38.5L31.5 41.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>` +
-      `</g>` +
+      `<path d="M46 25.5L44 29.8L41.8 25.2L46 25.5Z" fill="currentColor"/>` +
+      `<path d="M35.5 25L33.5 29.2L31.5 26L35.5 25Z" fill="currentColor"/>` +
+      `<path class="dragon-tongue" d="M49 25.5L54.5 26.5M54.5 26.5L58 24M54.5 26.5L57.5 29.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>` +
       `</svg>`;
 
     return wrapper;
@@ -78,8 +75,8 @@
   /* Слежение зрачков за курсором — работает постоянно, без привязки к hover.
      Язык при этом по-прежнему реагирует только на наведение (см. style.css). */
   const mascots = new Set();
-  const MAX_X = 2.3;
-  const MAX_Y = 1.35;
+  const MAX_X = 1.0;
+  const MAX_Y = 1.2;
   const RADIUS = 280;
 
   let frame = 0;
@@ -91,14 +88,14 @@
 
     mascots.forEach((svg) => {
       const rect = svg.getBoundingClientRect();
-      const dx = pointer.clientX - (rect.left + rect.width / 2);
-      const dy = pointer.clientY - (rect.top + rect.height / 2);
+      const dx = pointer.clientX - (rect.left + rect.width * 0.48);
+      const dy = pointer.clientY - (rect.top + rect.height * 0.375);
       const distance = Math.hypot(dx, dy);
       const angle = Math.atan2(dy, dx);
       const factor = Math.min(1, distance / RADIUS);
 
-      svg.style.setProperty('--pupil-dx', `${(Math.cos(angle) * MAX_X * factor).toFixed(2)}px`);
-      svg.style.setProperty('--pupil-dy', `${(Math.sin(angle) * MAX_Y * factor).toFixed(2)}px`);
+      svg.style.setProperty('--pupil-x', `${(Math.cos(angle) * MAX_X * factor).toFixed(2)}px`);
+      svg.style.setProperty('--pupil-y', `${(Math.sin(angle) * MAX_Y * factor).toFixed(2)}px`);
     });
   }
 
@@ -109,8 +106,8 @@
       frame = 0;
     }
     mascots.forEach((svg) => {
-      svg.style.removeProperty('--pupil-dx');
-      svg.style.removeProperty('--pupil-dy');
+      svg.style.removeProperty('--pupil-x');
+      svg.style.removeProperty('--pupil-y');
     });
   }
 
@@ -127,6 +124,43 @@
   window.addEventListener('mouseleave', resetTracking);
   window.addEventListener('blur', resetTracking);
 
+  /* Моргание: случайный интервал 4–8 секунд, в 25% случаев — двойное.
+     Управляется классом .is-blinking на глазнице. */
+  const prefersReducedMotion =
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function triggerBlink(isDouble = false) {
+    const sockets = document.querySelectorAll('.dragon-eye-socket');
+    if (!sockets.length) return;
+
+    const setBlinking = (state) => {
+      sockets.forEach((socket) => socket.classList.toggle('is-blinking', state));
+    };
+
+    setBlinking(true);
+    setTimeout(() => {
+      setBlinking(false);
+
+      if (!isDouble) return;
+      setTimeout(() => {
+        setBlinking(true);
+        setTimeout(() => setBlinking(false), 100);
+      }, 120);
+    }, 110);
+  }
+
+  function scheduleBlink() {
+    if (prefersReducedMotion) return;
+    const delay = 4000 + Math.random() * 4000;
+    setTimeout(() => {
+      triggerBlink(Math.random() < 0.25);
+      scheduleBlink();
+    }, delay);
+  }
+
+  scheduleBlink();
+
   function mount(badge) {
     if (!badge || badge.dataset.mascotMounted === 'true') return;
 
@@ -141,7 +175,7 @@
     badge.appendChild(createMascot());
     badge.appendChild(label);
 
-    const svg = badge.querySelector('.doka-mascot');
+    const svg = badge.querySelector('.dragon-mascot');
     if (svg) mascots.add(svg);
   }
 
