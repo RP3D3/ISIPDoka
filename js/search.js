@@ -148,10 +148,23 @@
    * которого на диске нет. Скачиваем обе части, склеиваем их в Blob и   *
    * кладём готовый ответ в тот же кэш, который читает transformers.js.  *
    * ------------------------------------------------------------------ */
-  const modelDirUrl = new URL('models/rubert-tiny2/onnx/', siteRoot);
+  const modelRootUrl = new URL('models/rubert-tiny2/', siteRoot);
+  const modelDirUrl = new URL('onnx/', modelRootUrl);
   const modelUrl = new URL('model.onnx', modelDirUrl).href;
   // Порядок частей важен: файл склеивается именно в этой последовательности.
   const MODEL_PART_NAMES = ['part_aa', 'part_ab'];
+  // Файлы, которые transformers.js читает рядом с весами. Их тоже нужно
+  // положить в Cache API: иначе при повторном открытии поиска (особенно при
+  // недоступной сети) tokenizer.json запрашивается заново и может вернуть 403.
+  const MODEL_AUX_FILES = [
+    'config.json',
+    'tokenizer.json',
+    'tokenizer_config.json',
+  ];
+  const MODEL_AUX_URLS = MODEL_AUX_FILES.map((name) => ({
+    name,
+    url: new URL(name, modelRootUrl).href,
+  }));
   // Собственный кэш: подключаем его к transformers.js через env.customCache,
   // чтобы не зависеть от внутреннего имени кэша библиотеки.
   const MODEL_CACHE_NAME = 'rubert-local-cache-v1';
@@ -217,6 +230,54 @@
   }
 
   /**
+   * Кладёт в Cache API config.json, tokenizer.json и tokenizer_config.json. Без этого
+   * transformers.js после перезапуска снова идёт в сеть за токенизатором,
+   * хотя сама модель уже лежит в кэше.
+   */
+  async function ensureAuxCached(cache) {
+    const missing = [];
+    for (const asset of MODEL_AUX_URLS) {
+      if (!(await cache.match(asset.url))) missing.push(asset);
+    }
+    if (!missing.length) return;
+
+    console.log('[model] Кэширую служебные файлы токенизатора...');
+    for (const asset of missing) {
+      let res;
+      try {
+        // force-cache: если файл уже есть в HTTP-кэше браузера, берём его
+        // оттуда даже после истечения срока свежести. Это спасает при 403,
+        // когда сеть частично недоступна, а файл уже загружался ранее.
+        res = await fetch(asset.url, { cache: 'force-cache' });
+      } catch (err) {
+        throw new Error(`${asset.name}: ${err.message || 'сетевая ошибка'}`);
+      }
+      if (!res.ok) throw new Error(`${asset.name}: HTTP ${res.status}`);
+
+      // Защита от кэширования HTML-страницы ошибки (например, 403 от
+      // провайдера/антивируса): в кэш кладём только валидный JSON.
+      const text = await res.text();
+      if (!/^\s*\{/.test(text)) {
+        throw new Error(`${asset.name}: сервер вернул не JSON`);
+      }
+      try {
+        JSON.parse(text);
+      } catch {
+        throw new Error(`${asset.name}: некорректный JSON`);
+      }
+
+      await cache.put(
+        asset.url,
+        new Response(text, {
+          status: 200,
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        })
+      );
+    }
+    console.log('[model] Служебные файлы токенизатора в кэше.');
+  }
+
+  /**
    * Гарантирует, что в кэше браузера лежит собранный model.onnx.
    * При первом визите скачивает части и склеивает их, при повторном —
    * просто сообщает, что модель уже установлена.
@@ -235,6 +296,7 @@
       console.log(
         '[model] Модель уже скачана в браузер — повторная загрузка не нужна.'
       );
+      await ensureAuxCached(cache);
       return cache;
     }
 
@@ -274,6 +336,7 @@
     );
 
     console.log('[model] Модель сохранена в кэш браузера.');
+    await ensureAuxCached(cache);
     return cache;
   }
 
