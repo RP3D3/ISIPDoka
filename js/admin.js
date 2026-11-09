@@ -9,6 +9,7 @@
   'use strict';
 
   const PASSWORD_KEY = 'dokaAdminPassword';
+  const PREVIEW_KEY = 'dokaAdminPreview';
   const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
   const TRANSLIT = {
@@ -76,6 +77,120 @@
   function clearPassword() {
     password = '';
     sessionStorage.removeItem(PASSWORD_KEY);
+  }
+
+  /* ====================================================================== *
+   * Переключение «админ-режим / просмотр»                                 *
+   * ====================================================================== */
+
+  function readPreviewMode() {
+    try {
+      return localStorage.getItem(PREVIEW_KEY) === '1';
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function writePreviewMode(enabled) {
+    try {
+      localStorage.setItem(PREVIEW_KEY, enabled ? '1' : '0');
+    } catch (_) {
+      /* приватный режим может запрещать localStorage */
+    }
+  }
+
+  function applyPreviewMode(enabled) {
+    if (!document.body) return;
+    document.body.classList.toggle('doka-preview-mode', Boolean(enabled));
+
+    document.querySelectorAll('.doka-mode-toggle').forEach((button) => {
+      button.setAttribute('aria-pressed', String(Boolean(enabled)));
+      button.textContent = enabled ? '✎ Админ-режим' : '👁 Просмотр';
+      button.title = enabled
+        ? 'Вернуться в режим редактирования'
+        : 'Скрыть кнопки редактирования и поля порядка';
+    });
+  }
+
+  function mountModeToggle() {
+    const host =
+      document.querySelector('.header-right') ||
+      document.querySelector('.site-header') ||
+      document.body;
+    if (!host) return;
+
+    let button = host.querySelector('.doka-mode-toggle');
+    if (!button) {
+      button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'doka-mode-toggle';
+      button.addEventListener('click', () => {
+        const next = !document.body.classList.contains('doka-preview-mode');
+        writePreviewMode(next);
+        applyPreviewMode(next);
+      });
+      host.appendChild(button);
+    }
+
+    applyPreviewMode(readPreviewMode());
+  }
+
+  /* ====================================================================== *
+   * Выпадающие меню действий                                             *
+   * ====================================================================== */
+
+  function closeActionMenus(except) {
+    document.querySelectorAll('.doka-actions[open]').forEach((details) => {
+      if (details !== except) details.open = false;
+    });
+  }
+
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest || !event.target.closest('.doka-actions')) {
+      closeActionMenus();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeActionMenus();
+  });
+
+  function createActionsMenu({ kind, data = {}, actions = [], ariaLabel = 'Действия' }) {
+    const details = document.createElement('details');
+    details.className = 'doka-actions';
+    details.dataset.kind = kind;
+
+    for (const [key, value] of Object.entries(data)) {
+      if (value !== undefined && value !== null) {
+        details.dataset[key] = String(value);
+      }
+    }
+
+    const summary = document.createElement('summary');
+    summary.className = 'doka-actions-toggle';
+    summary.title = ariaLabel;
+    summary.setAttribute('aria-label', ariaLabel);
+    summary.textContent = '›';
+
+    const menu = document.createElement('div');
+    menu.className = 'doka-actions-menu';
+    menu.setAttribute('role', 'menu');
+
+    for (const action of actions) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className =
+        'doka-actions-item' +
+        (action.danger ? ' doka-actions-item--danger' : '');
+      button.dataset.action = action.action;
+      button.setAttribute('role', 'menuitem');
+      button.textContent = action.label;
+      menu.appendChild(button);
+    }
+
+    details.appendChild(summary);
+    details.appendChild(menu);
+    return details;
   }
 
   async function login(value) {
@@ -556,6 +671,7 @@
     if (!(await ready())) return;
 
     let created = null;
+    let editorTab = null;
     const values = await openDialog({
       title: 'Новая тема',
       description: 'Тема появится в конце выбранной группы.',
@@ -592,16 +708,36 @@
         },
       ],
       onSubmit: async (data) => {
-        created = await request('/api/admin/topic', {
-          method: 'POST',
-          body: { ...data, domain: domainId, group: groupId },
-        });
-        toast('Тема создана, открываю редактор…', 'success');
+        // Вкладку открываем сразу по действию пользователя, иначе браузер
+        // может заблокировать popup после ожидания ответа сервера.
+        if (!editorTab || editorTab.closed) {
+          editorTab = window.open('about:blank', '_blank');
+          if (editorTab) editorTab.opener = null;
+        }
+
+        try {
+          created = await request('/api/admin/topic', {
+            method: 'POST',
+            body: { ...data, domain: domainId, group: groupId },
+          });
+          toast('Тема создана, открываю редактор…', 'success');
+        } catch (error) {
+          if (editorTab && !editorTab.closed) editorTab.close();
+          editorTab = null;
+          throw error;
+        }
       },
     });
 
     if (values && created?.path) {
-      window.location.href = 'admin.html?path=' + encodeURIComponent(created.path);
+      const target = 'admin.html?path=' + encodeURIComponent(created.path);
+      if (editorTab && !editorTab.closed) {
+        editorTab.location.href = target;
+      } else if (!window.open(target, '_blank')) {
+        window.location.href = target;
+      }
+    } else if (editorTab && !editorTab.closed) {
+      editorTab.close();
     }
   }
 
@@ -697,6 +833,159 @@
           body: { ...data, domain: domainId, group: id },
         });
         toast(`Группа «${data.title}» сохранена.`, 'success');
+      },
+    });
+
+    if (values) window.location.reload();
+  }
+
+  async function deleteDomainDialog(domain) {
+    if (!(await ready())) return;
+
+    const id = String(domain?.id || '');
+    const title = String(domain?.title || id).trim();
+    if (!id) return;
+
+    const values = await openDialog({
+      title: 'Удалить область?',
+      description:
+        `Область «${title}», все её группы и темы будут удалены. ` +
+        'Это действие нельзя отменить. Чтобы подтвердить, введите название области.',
+      submitLabel: 'Удалить область',
+      className: 'doka-modal--narrow doka-modal--danger',
+      fields: [
+        {
+          name: 'confirm',
+          label: 'Название области',
+          type: 'text',
+          placeholder: title,
+          required: true,
+          autofocus: true,
+          spellcheck: false,
+        },
+      ],
+      onSubmit: async (data) => {
+        if (data.confirm !== title) {
+          throw new Error('Название не совпадает. Удаление отменено.');
+        }
+        await request('/api/admin/delete', {
+          method: 'POST',
+          body: { kind: 'domain', domain: id },
+        });
+        toast(`Область «${title}» удалена.`, 'success');
+      },
+    });
+
+    if (values) window.location.reload();
+  }
+
+  async function deleteGroupDialog(domainId, group) {
+    if (!(await ready())) return;
+
+    const id = String(group?.id || '');
+    const title = String(group?.title || id).trim();
+    if (!id) return;
+
+    const values = await openDialog({
+      title: 'Удалить группу?',
+      description:
+        `Группа «${title}» и все её темы будут удалены. ` +
+        'Это действие нельзя отменить. Чтобы подтвердить, введите название группы.',
+      submitLabel: 'Удалить группу',
+      className: 'doka-modal--narrow doka-modal--danger',
+      fields: [
+        {
+          name: 'confirm',
+          label: 'Название группы',
+          type: 'text',
+          placeholder: title,
+          required: true,
+          autofocus: true,
+          spellcheck: false,
+        },
+      ],
+      onSubmit: async (data) => {
+        if (data.confirm !== title) {
+          throw new Error('Название не совпадает. Удаление отменено.');
+        }
+        await request('/api/admin/delete', {
+          method: 'POST',
+          body: { kind: 'group', domain: domainId, group: id },
+        });
+        toast(`Группа «${title}» удалена.`, 'success');
+      },
+    });
+
+    if (values) window.location.reload();
+  }
+
+  async function deleteTopicDialog(topic) {
+    if (!(await ready())) return;
+
+    const filePath = String(topic?.path || '');
+    const title = String(topic?.title || filePath).trim();
+    if (!filePath) return;
+
+    const values = await openDialog({
+      title: 'Удалить тему?',
+      description:
+        `Тема «${title}» будет удалена вместе с файлом. ` +
+        'Это действие нельзя отменить.',
+      submitLabel: 'Удалить тему',
+      className: 'doka-modal--narrow doka-modal--danger',
+      onSubmit: async () => {
+        await request('/api/admin/delete', {
+          method: 'POST',
+          body: { kind: 'topic', path: filePath },
+        });
+        toast(`Тема «${title}» удалена.`, 'success');
+      },
+    });
+
+    if (values) window.location.reload();
+  }
+
+  async function moveTopicDialog(topic, groups) {
+    if (!(await ready())) return;
+
+    const filePath = String(topic?.path || '');
+    const sourceGroup = String(topic?.group || '');
+    const title = String(topic?.title || filePath).trim();
+    if (!filePath) return;
+
+    const targets = (Array.isArray(groups) ? groups : [])
+      .filter((group) => group && group.id && group.id !== sourceGroup)
+      .map((group) => ({
+        value: String(group.id),
+        label: String(group.name || group.id),
+      }));
+
+    if (!targets.length) {
+      toast('В этой области нет других групп для перемещения.', 'error');
+      return;
+    }
+
+    const values = await openDialog({
+      title: 'Переместить тему',
+      description:
+        `Тема «${title}» будет перемещена в выбранную группу. ` +
+        'Её порядок в новой группе будет назначен автоматически.',
+      submitLabel: 'Переместить',
+      fields: [
+        {
+          name: 'target',
+          label: 'Группа назначения',
+          type: 'select',
+          value: targets[0].value,
+          options: targets,
+        },
+      ],
+      onSubmit: async (data) => {
+        await request('/api/admin/topic/move', {
+          method: 'POST',
+          body: { path: filePath, targetGroup: data.target },
+        });
+        toast(`Тема «${title}» перемещена.`, 'success');
       },
     });
 
@@ -811,6 +1100,8 @@
     const list = document.getElementById('domainsList');
     if (!list) return;
 
+    mountModeToggle();
+
     const byId = new Map(
       (Array.isArray(domains) ? domains : []).map((domain) => [
         String(domain.id || ''),
@@ -858,33 +1149,52 @@
       orderInput.dataset.order = String(data.order ?? 0);
       orderInput.setAttribute('aria-label', `Порядок области «${data.title || id}»`);
 
-      const editButton = document.createElement('button');
-      editButton.type = 'button';
-      editButton.className = 'doka-edit-domain';
-      editButton.textContent = '✎';
-      editButton.title = 'Редактировать область';
-      editButton.setAttribute('aria-label', `Редактировать область «${data.title || id}»`);
-      editButton.dataset.domain = id;
+      const actions = createActionsMenu({
+        kind: 'domain',
+        data: { domain: id, title: data.title || id },
+        ariaLabel: `Действия с областью «${data.title || id}»`,
+        actions: [
+          { action: 'edit', label: 'Изменить' },
+          { action: 'delete', label: 'Удалить', danger: true },
+        ],
+      });
 
       controls.appendChild(orderInput);
-      controls.appendChild(editButton);
+      controls.appendChild(actions);
       row.appendChild(controls);
     });
 
     if (!list.dataset.dokaBound) {
       list.dataset.dokaBound = '1';
       list.addEventListener('click', (event) => {
-        const edit = event.target.closest('.doka-edit-domain');
-        if (!edit) return;
-        const item = edit.closest('.domain-item');
-        const id = edit.dataset.domain || item?.dataset.domain || '';
+        const toggle = event.target.closest('.doka-actions-toggle');
+        if (toggle) {
+          closeActionMenus(toggle.closest('.doka-actions'));
+          return;
+        }
+
+        const action = event.target.closest('.doka-actions-item');
+        if (!action) return;
+
+        const menu = action.closest('.doka-actions');
+        if (!menu) return;
+
+        const id = menu.dataset.domain || '';
+        const title = menu.dataset.title || byId.get(id)?.title || id;
         if (!id) return;
-        editDomainDialog({
-          id,
-          title: item?.querySelector('a')?.textContent || id,
-          accent: byId.get(id)?.accent || '#6c47ff',
-          description: byId.get(id)?.description || '',
-        });
+
+        menu.open = false;
+
+        if (action.dataset.action === 'edit') {
+          editDomainDialog({
+            id,
+            title,
+            accent: byId.get(id)?.accent || '#6c47ff',
+            description: byId.get(id)?.description || '',
+          });
+        } else if (action.dataset.action === 'delete') {
+          deleteDomainDialog({ id, title });
+        }
       });
     }
     bindOrderInputs(list);
@@ -904,31 +1214,65 @@
     }
   }
 
-  function bindDomainPage(domainId) {
+  function bindDomainPage(domainId, groups = []) {
     const container = document.getElementById('groupsContainer');
     if (!container) return;
 
+    mountModeToggle();
     bindOrderInputs(container);
 
     if (container.dataset.dokaBound === '1') return;
     container.dataset.dokaBound = '1';
 
     container.addEventListener('click', (event) => {
-      const editTopic = event.target.closest('.doka-edit-topic');
-      if (editTopic) {
-        const path = editTopic.dataset.path;
-        if (path) {
-          window.location.href = 'admin.html?path=' + encodeURIComponent(path);
-        }
+      const toggle = event.target.closest('.doka-actions-toggle');
+      if (toggle) {
+        closeActionMenus(toggle.closest('.doka-actions'));
         return;
       }
 
-      const editGroup = event.target.closest('.doka-edit-group');
-      if (editGroup) {
-        editGroupDialog(domainId, {
-          id: editGroup.dataset.group || '',
-          title: editGroup.dataset.title || '',
-        });
+      const action = event.target.closest('.doka-actions-item');
+      if (action) {
+        const menu = action.closest('.doka-actions');
+        if (!menu) return;
+
+        const kind = menu.dataset.kind;
+        const actionName = action.dataset.action;
+        menu.open = false;
+
+        if (kind === 'topic') {
+          const topic = {
+            path: menu.dataset.path || '',
+            title: menu.dataset.title || '',
+            group: menu.dataset.group || '',
+          };
+
+          if (actionName === 'edit') {
+            if (topic.path) {
+              window.open(
+                'admin.html?path=' + encodeURIComponent(topic.path),
+                '_blank',
+                'noopener'
+              );
+            }
+          } else if (actionName === 'move') {
+            moveTopicDialog(topic, groups);
+          } else if (actionName === 'delete') {
+            deleteTopicDialog(topic);
+          }
+        } else if (kind === 'group') {
+          const group = {
+            id: menu.dataset.group || '',
+            title: menu.dataset.title || '',
+          };
+
+          if (actionName === 'edit') {
+            editGroupDialog(domainId, group);
+          } else if (actionName === 'delete') {
+            deleteGroupDialog(domainId, group);
+          }
+        }
+
         return;
       }
 
@@ -944,6 +1288,8 @@
       }
     });
   }
+
+  applyPreviewMode(readPreviewMode());
 
   window.DokaAdmin = {
     ready,
@@ -964,6 +1310,10 @@
     createTopicDialog,
     editDomainDialog,
     editGroupDialog,
+    deleteDomainDialog,
+    deleteGroupDialog,
+    deleteTopicDialog,
+    moveTopicDialog,
     changeOrder,
   };
 })();

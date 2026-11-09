@@ -12,14 +12,14 @@
         "topics": [
           {
             "order": 10,
-            "title": "Привет, мир!",
+            "title": "Привет, мир!ва",
             "url": "content/csharp/osnovy/hello-world.md",
             "keywords": "привет мир консоль WriteLine C# топ-уровневые инструкции Program.Main синтаксис",
             "type": "md",
             "interactive": false
           },
           {
-            "order": 20,
+            "order": 30,
             "title": "Интерактив: цикл for по шагам",
             "url": "content/csharp/osnovy/interactive-example.html",
             "keywords": "цикл интерактив шагам демо итерация кнопка сброс сумма счётчик текущее увеличивается шаге блокируется возвращает выполняется должна",
@@ -35,12 +35,39 @@
             "interactive": false
           }
         ]
+      },
+      {
+        "id": "peremennye-i-hranenie",
+        "order": 20,
+        "name": "Переменные и хранение",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Переменные",
+            "url": "content/csharp/peremennye-i-hranenie/peremennye.md",
+            "keywords": "переменная переменные объявление инициализация присваивание область видимости scope скоуп именование camelCase синтаксис память CS0165 CS0128 CS0029 си шарп c# csharp",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "bazovye-tipy",
+        "order": 30,
+        "name": "Базовые типы",
+        "topics": []
+      },
+      {
+        "id": "kollekcii",
+        "order": 40,
+        "name": "Коллекции",
+        "topics": []
       }
     ]
   },
   "sql": {
     "order": 20,
-    "title": "Базы данных (SQL)",
+    "title": "Базы данных",
     "accent": "#3b82f6",
     "description": "Реляционные базы данных и язык SQL: таблицы, выборки, фильтрация, агрегаты и связи между данными.",
     "groups": []

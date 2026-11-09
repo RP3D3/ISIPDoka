@@ -28,6 +28,7 @@ import {
   readFileSync,
   readdirSync,
   renameSync,
+  unlinkSync,
   writeFileSync,
 } from 'node:fs';
 import { spawnSync } from 'node:child_process';
@@ -72,11 +73,34 @@ function readJson(file, fallback = null) {
   }
 }
 
+function sleepSync(ms) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+}
+
 function atomicWrite(file, content) {
   mkdirSync(path.dirname(file), { recursive: true });
   const tmp = `${file}.tmp-${process.pid}`;
   writeFileSync(tmp, content, 'utf8');
-  renameSync(tmp, file);
+
+  // На Windows rename поверх файла может падать с EPERM/EBUSY, если файл
+  // в этот момент читает браузер, редактор или антивирус. Пробуем ещё раз,
+  // а в крайнем случае пишем напрямую.
+  for (let attempt = 0; attempt < 6; attempt += 1) {
+    try {
+      renameSync(tmp, file);
+      return;
+    } catch (err) {
+      if (!['EPERM', 'EACCES', 'EBUSY'].includes(err.code)) throw err;
+      sleepSync(30);
+    }
+  }
+
+  writeFileSync(file, content, 'utf8');
+  try {
+    unlinkSync(tmp);
+  } catch {
+    /* временный файл мог уже исчезнуть */
+  }
 }
 
 function decodeEntities(value) {

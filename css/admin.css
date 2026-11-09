@@ -6,6 +6,217 @@
    админ-элементы не создаются, поэтому стили просто не используются.
    ========================================================================== */
 
+/* ===== Переключатель «админ-режим / просмотр» ===== */
+
+.doka-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.doka-mode-toggle:hover {
+  border-color: var(--domain-accent);
+  color: #fff;
+  background-color: color-mix(in srgb, var(--domain-accent) 14%, transparent);
+}
+
+.doka-mode-toggle:focus-visible {
+  outline: 2px solid var(--domain-accent);
+  outline-offset: 2px;
+}
+
+.doka-mode-toggle[aria-pressed='true'] {
+  border-color: var(--domain-accent);
+  background-color: color-mix(in srgb, var(--domain-accent) 18%, transparent);
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .doka-mode-toggle {
+    padding: 5px 9px;
+    font-size: 12px;
+  }
+}
+
+/* В режиме просмотра прячем всё, что нужно только редактору. */
+body.doka-preview-mode .doka-domain-controls,
+body.doka-preview-mode .doka-add-domain-item,
+body.doka-preview-mode .doka-order-input,
+body.doka-preview-mode .doka-edit-topic,
+body.doka-preview-mode .doka-delete-topic,
+body.doka-preview-mode .doka-delete-domain,
+body.doka-preview-mode .doka-delete-group,
+body.doka-preview-mode .doka-add-topic,
+body.doka-preview-mode .doka-group-tools,
+body.doka-preview-mode .doka-actions,
+body.doka-preview-mode .doka-add-group {
+  display: none !important;
+}
+
+/* ===== Выпадающие меню действий ===== */
+
+.doka-actions {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  z-index: 1;
+}
+
+.doka-actions[open] {
+  z-index: 80;
+}
+
+.doka-actions-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  font-family: var(--font-base);
+  line-height: 1;
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease,
+    background-color 0.15s ease, transform 0.15s ease;
+}
+
+.doka-actions[open] > .doka-actions-toggle {
+  transform: rotate(90deg);
+}
+
+.doka-actions-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.doka-actions-toggle::marker {
+  content: '';
+}
+
+.doka-actions-toggle:focus-visible {
+  outline: 2px solid var(--domain-accent);
+  outline-offset: 2px;
+}
+
+.doka-domain-controls .doka-actions-toggle {
+  width: 34px;
+  height: 34px;
+  color: var(--text-muted);
+  font-size: 20px;
+}
+
+.doka-group-tools .doka-actions-toggle {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 17px;
+  opacity: 0.72;
+}
+
+.topic-row .doka-actions-toggle {
+  width: 30px;
+  height: 30px;
+  color: var(--text-muted);
+  font-size: 19px;
+  opacity: 0.55;
+}
+
+.doka-actions-toggle:hover {
+  color: var(--domain-accent);
+  border-color: var(--border-color);
+  background-color: color-mix(in srgb, var(--domain-accent) 12%, transparent);
+}
+
+.doka-group-tools .doka-actions-toggle:hover,
+.doka-group-tools .doka-actions[open] .doka-actions-toggle {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.18);
+  opacity: 1;
+}
+
+.topic-row:hover .doka-actions-toggle,
+.doka-actions[open] .doka-actions-toggle {
+  opacity: 1;
+}
+
+.doka-actions-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 170px;
+  padding: 4px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: #17181c;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.doka-group-tools .doka-actions-menu {
+  right: auto;
+  left: 0;
+}
+
+.doka-actions-item {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-main);
+  font-family: var(--font-base);
+  font-size: 14px;
+  line-height: 1.25;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.doka-actions-item:hover,
+.doka-actions-item:focus-visible {
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.doka-actions-item:focus-visible {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--domain-accent) 35%, transparent);
+}
+
+.doka-actions-item--danger {
+  color: #ff8f8f;
+}
+
+.doka-actions-item--danger:hover,
+.doka-actions-item--danger:focus-visible {
+  background: rgba(255, 80, 80, 0.14);
+}
+
+@media (max-width: 600px) {
+  .doka-actions-menu {
+    min-width: 150px;
+  }
+}
+
 /* ===== Кнопки добавления ===== */
 
 .doka-add-domain-item {
@@ -158,6 +369,35 @@
   outline-offset: 2px;
 }
 
+.doka-delete-domain {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.doka-delete-domain:hover {
+  color: #ff8f8f;
+  border-color: rgba(255, 143, 143, 0.45);
+  background-color: rgba(255, 80, 80, 0.12);
+}
+
+.doka-delete-domain:focus-visible {
+  outline: 2px solid #ff8f8f;
+  outline-offset: 2px;
+}
+
 /* ===== Группа: название + порядок + редактирование ===== */
 
 .group-header {
@@ -218,6 +458,38 @@
   outline-offset: 2px;
 }
 
+.doka-delete-group {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.72;
+  transition: opacity 0.15s ease, background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.doka-delete-group:hover,
+.doka-delete-group:focus-visible {
+  opacity: 1;
+  border-color: rgba(255, 143, 143, 0.5);
+  background-color: rgba(255, 80, 80, 0.2);
+}
+
+.doka-delete-group:focus-visible {
+  outline: 2px solid #ff8f8f;
+  outline-offset: 2px;
+}
+
 /* ===== Строка темы с кнопкой редактирования ===== */
 
 .topic-row {
@@ -265,6 +537,41 @@
 
 .doka-edit-topic:focus-visible {
   outline: 2px solid var(--domain-accent);
+  outline-offset: 2px;
+}
+
+.doka-delete-topic {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.topic-row:hover .doka-delete-topic,
+.doka-delete-topic:focus-visible {
+  opacity: 1;
+}
+
+.doka-delete-topic:hover {
+  color: #ff8f8f;
+  border-color: rgba(255, 143, 143, 0.45);
+  background-color: rgba(255, 80, 80, 0.12);
+}
+
+.doka-delete-topic:focus-visible {
+  outline: 2px solid #ff8f8f;
   outline-offset: 2px;
 }
 
@@ -409,6 +716,18 @@ body.doka-modal-open {
 .doka-btn-primary:disabled {
   opacity: 0.6;
   cursor: wait;
+}
+
+.doka-modal-card.doka-modal--danger h2 {
+  color: #ffb4ab;
+}
+
+.doka-modal--danger .doka-btn-primary {
+  background: #b42318;
+}
+
+.doka-modal--danger .doka-btn-primary:hover {
+  background: #912018;
 }
 
 .doka-btn-ghost {

@@ -14,8 +14,8 @@
   -->
 
   <link rel="stylesheet" href="css/libs/atom-one-dark.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261107-3">
-  <link rel="stylesheet" href="css/admin.css?v=20261108-2">
+  <link rel="stylesheet" href="css/style.css?v=20261109-1">
+  <link rel="stylesheet" href="css/admin.css?v=20261109-5">
   <style>
     /* ===== Оболочка админки ===== */
     body {
@@ -415,7 +415,7 @@
 
   <header class="admin-header">
     <div class="admin-header-left">
-      <span class="brand-badge">U•ᴥ•U Дока ИСИП</span>
+      <a class="brand-badge" href="index.html">U•ᴥ•U Дока ИСИП</a>
       <span class="admin-title">Админ-панель</span>
       <span class="admin-subtitle" id="adminSubtitle">редактор темы</span>
     </div>
@@ -546,7 +546,8 @@
   </main>
 
   <script src="js/libs/marked.min.js"></script>
-  <script src="js/admin.js?v=20261108-2"></script>
+  <script src="js/markdown-alerts.js?v=20261109-1"></script>
+  <script src="js/admin.js?v=20261109-4"></script>
   <script>
     (() => {
       'use strict';
@@ -805,6 +806,9 @@
         const article = document.createElement('article');
         article.className = 'article-content';
         article.innerHTML = marked.parse(markdown || '');
+        if (window.DokaMarkdownAlerts) {
+          window.DokaMarkdownAlerts.enhance(article);
+        }
 
         const firstH1 = article.querySelector('h1');
         let heroTitle = titleInput.value.trim() || 'Без названия';
@@ -876,7 +880,7 @@
 
         const svg = svgInput.value.trim();
         const base = new URL('./', window.location.href);
-        const styleHref = new URL('css/style.css?v=20261107-3', base).href;
+        const styleHref = new URL('css/style.css?v=20261109-1', base).href;
         const atomHref = new URL('css/libs/atom-one-dark.min.css', base).href;
         const hljsSrc = new URL('js/highlight.min.js?v=20261107-2', base).href;
 
@@ -920,7 +924,7 @@
 <body>
 <header class="site-header">
   <div class="header-left">
-    <span class="brand-badge">U•ᴥ•U Дока ИСИП</span>
+    <a class="brand-badge" href="index.html" target="_blank" rel="noopener">U•ᴥ•U Дока ИСИП</a>
     <div class="breadcrumbs">${crumbs}</div>
   </div>
 </header>
@@ -998,7 +1002,7 @@
         if (!/style\.css/i.test(html)) {
           html = injectIntoHead(
             html,
-            `<link rel="stylesheet" href="${escapeHtml(rootHref)}css/style.css?v=20261107-3">`
+            `<link rel="stylesheet" href="${escapeHtml(rootHref)}css/style.css?v=20261109-1">`
           );
         }
 

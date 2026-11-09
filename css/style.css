@@ -812,6 +812,83 @@ b {
   font-weight: 700;
 }
 
+/* --- 8.3.2. GitHub-style alert-блоки ---
+   Синтаксис: > [!NOTE] ... (см. js/markdown-alerts.js). */
+.markdown-alert {
+  --alert-color: #4493f8;
+  margin: 24px 0;
+  padding: 14px 18px;
+  /* border-left: 4px solid var(--alert-color); */
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--alert-color) 12%, transparent);
+}
+
+.markdown-alert > *:first-child {
+  margin-top: 0;
+}
+
+.markdown-alert > *:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-alert-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  color: var(--alert-color);
+  font-family: var(--font-accent);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.markdown-alert-title::before {
+  flex: 0 0 auto;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.markdown-alert-note {
+  --alert-color: #4493f8;
+}
+
+.markdown-alert-tip {
+  --alert-color: #3fb950;
+}
+
+.markdown-alert-important {
+  --alert-color: #ab7df8;
+}
+
+.markdown-alert-warning {
+  --alert-color: #d29922;
+}
+
+.markdown-alert-caution {
+  --alert-color: #f85149;
+}
+
+.markdown-alert-note .markdown-alert-title::before {
+  content: "ℹ";
+}
+
+.markdown-alert-tip .markdown-alert-title::before {
+  content: "💡";
+}
+
+.markdown-alert-important .markdown-alert-title::before {
+  content: "❗";
+}
+
+.markdown-alert-warning .markdown-alert-title::before {
+  content: "⚠";
+}
+
+.markdown-alert-caution .markdown-alert-title::before {
+  content: "🛑";
+}
+
 /* --- 8.4. Блоки кода ---
    Разметка: <pre><code class="language-csharp">...</code></pre>.
    Цвета токенов задаёт atom-one-dark.min.css, фон и отступы — здесь. */

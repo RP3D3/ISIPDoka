@@ -56,7 +56,7 @@ function newestContent(dir) {
     if (entry.isDirectory()) {
       const sub = newestContent(abs);
       if (sub && (!newest || sub.mtime > newest.mtime)) newest = sub;
-    } else if (entry.isFile() && /\.(html|json)$/i.test(entry.name)) {
+    } else if (entry.isFile() && /\.(html|md|json)$/i.test(entry.name)) {
       const mtime = getMtime(abs);
       if (mtime && (!newest || mtime > newest.mtime)) {
         newest = { file: path.relative(ROOT, abs).split(path.sep).join('/'), mtime };

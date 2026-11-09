@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <title>Дока ИСИП</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="./css/style.css?v=20261107-3">
-  <link rel="stylesheet" href="./css/admin.css?v=20261108-2">
+<link rel="stylesheet" href="./css/style.css?v=20261109-1">
+  <link rel="stylesheet" href="./css/admin.css?v=20261109-5">
   <style>:root { --domain-accent: #614fa8; }</style>
 </head>
 <body>
@@ -41,7 +41,7 @@
   </div>
 
   <script src="./js/search.js?v=20261108-1"></script>
-  <script src="./js/admin.js?v=20261108-2"></script>
+  <script src="./js/admin.js?v=20261109-4"></script>
   <script>
     (function () {
       function escapeHtml(value) {
@@ -109,13 +109,26 @@
                         data-order="${Number(t.order ?? 0)}"
                         aria-label="Порядок темы «${escapeHtml(t.title)}»">`
                     : '';
-                  const editButton = adminAvailable
-                    ? `<button type="button" class="doka-edit-topic" data-path="${escapeHtml(t.url)}" title="Редактировать тему" aria-label="Редактировать тему">✎</button>`
+                  const actions = adminAvailable
+                    ? `<details class="doka-actions"
+                        data-kind="topic"
+                        data-path="${escapeHtml(t.url)}"
+                        data-title="${escapeHtml(t.title)}"
+                        data-group="${escapeHtml(group.id || '')}">
+                        <summary class="doka-actions-toggle" aria-haspopup="menu"
+                          title="Действия с темой"
+                          aria-label="Действия с темой «${escapeHtml(t.title)}»">›</summary>
+                        <div class="doka-actions-menu" role="menu">
+                          <button type="button" class="doka-actions-item" data-action="edit">Изменить</button>
+                          <button type="button" class="doka-actions-item" data-action="move">Переместить</button>
+                          <button type="button" class="doka-actions-item doka-actions-item--danger" data-action="delete">Удалить</button>
+                        </div>
+                      </details>`
                     : '';
                   return `<div class="topic-row">
                     <a class="topic-link" href="${href}">${escapeHtml(t.title)}${badge}</a>
                     ${orderInput}
-                    ${editButton}
+                    ${actions}
                   </div>`;
                 })
                 .join('');
@@ -133,11 +146,18 @@
                       data-group="${escapeHtml(group.id || '')}"
                       data-order="${Number(group.order ?? 0)}"
                       aria-label="Порядок группы «${escapeHtml(group.name)}»">
-                    <button type="button" class="doka-edit-group"
+                    <details class="doka-actions"
+                      data-kind="group"
                       data-group="${escapeHtml(group.id || '')}"
-                      data-title="${escapeHtml(group.name)}"
-                      title="Редактировать группу"
-                      aria-label="Редактировать группу «${escapeHtml(group.name)}»">✎</button>
+                      data-title="${escapeHtml(group.name)}">
+                      <summary class="doka-actions-toggle" aria-haspopup="menu"
+                        title="Действия с группой"
+                        aria-label="Действия с группой «${escapeHtml(group.name)}»">›</summary>
+                      <div class="doka-actions-menu" role="menu">
+                        <button type="button" class="doka-actions-item" data-action="edit">Изменить</button>
+                        <button type="button" class="doka-actions-item doka-actions-item--danger" data-action="delete">Удалить</button>
+                      </div>
+                    </details>
                   </span>`
                 : '';
 
@@ -173,7 +193,10 @@
           }
 
           if (adminAvailable && window.DokaAdmin) {
-            window.DokaAdmin.bindDomainPage(domainId);
+            window.DokaAdmin.bindDomainPage(
+              domainId,
+              groups.map((group) => ({ id: group.id, name: group.name }))
+            );
           }
         } catch (err) {
           console.error('[domain] Не удалось загрузить structure.json:', err);

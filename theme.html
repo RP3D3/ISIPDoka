@@ -6,7 +6,7 @@
   <title>Тема — Дока ИСИП</title>
 
   <link rel="stylesheet" href="css/libs/atom-one-dark.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261107-3">
+  <link rel="stylesheet" href="css/style.css?v=20261109-1">
 </head>
 <body>
   <section class="topic-hero">
@@ -21,6 +21,7 @@
   </article>
 
   <script src="js/libs/marked.min.js"></script>
+  <script src="js/markdown-alerts.js?v=20261109-1"></script>
   <script>
     (() => {
       'use strict';
@@ -153,6 +154,9 @@
 
           const article = document.getElementById('theme-article');
           article.innerHTML = html;
+          if (window.DokaMarkdownAlerts) {
+            window.DokaMarkdownAlerts.enhance(article);
+          }
 
           // Выносим первый h1 и первый абзац после него из markdown в hero-секцию
           const firstH1 = article.querySelector('h1');
