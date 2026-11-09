@@ -1,98 +1,67 @@
 /*
  * Общий рендер Markdown для theme.html и админского предпросмотра.
  *
- * Отличия от «голого» marked:
- *  1. Лишние пустые строки между блоками не схлопываются, а превращаются
- *     в вертикальные отступы. Автор темы может управлять «воздухом»
- *     обычными переносами строк.
- *  2. Блокам проставляется data-source-line — по нему предпросмотр
+ * Правила:
+ *  1. Несколько пустых строк подряд — это обычный разделитель блоков,
+ *     а не «дополнительный воздух». Так же работает GitHub: вертикальный
+ *     ритм задаёт CSS (см. .article-content в css/style.css).
+ *  2. Явный отступ задаётся маркером на отдельной строке:
+ *
+ *         :::gap        — одна дополнительная пустая строка
+ *         :::gap 2      — две
+ *         :::gap:2      — то же самое
+ *
+ *     Маркер — обычный блок, поэтому перед ним нужна пустая строка.
+ *     Внутри блоков кода маркер не срабатывает.
+ *  3. Блокам проставляется data-source-line — по нему предпросмотр
  *     в админке находит место, где стоит курсор.
  */
 (() => {
   'use strict';
 
-  const SPACER_CLASS = 'md-blank-line';
-  const SPACER_RE = new RegExp(`\\b${SPACER_CLASS}\\b`);
+  const GAP_RE =
+    /^[ \t]{0,3}:::gap(?:[ \t]*[:=]?[ \t]*(\d+(?:\.\d+)?))?[ \t]*(?:\n+|$)/i;
+  const GAP_UNIT_EM = 1.5;
+  const GAP_MIN = 0.5;
+  const GAP_MAX = 20;
 
   function normalize(source) {
     return String(source ?? '').replace(/\r\n?/g, '\n');
   }
 
-  // Строки, внутри которых пустая строка — часть синтаксиса, а не «воздух».
-  function isStructural(line) {
-    return (
-      /^\s{2,}/.test(line) ||
-      /^\s*(?:[-*+]|\d+[.)])(?:\s|$)/.test(line) ||
-      /^\s*>/.test(line) ||
-      /^\s*\|/.test(line)
-    );
-  }
-
   /*
-   * Заменяет серии пустых строк (2+) на обычный разделитель + блок-распорку.
-   * Внутри code fence и вложенных структур ничего не трогаем.
+   * Блочное расширение marked для маркера :::gap.
+   * Токенизатор срабатывает только в начале блока, поэтому внутри
+   * fenced-кода маркер остаётся обычным текстом.
    */
-  function preserveBlankLines(source) {
-    const lines = source.split('\n');
-    const out = [];
-    let inFence = false;
-    let fenceChar = '';
+  const gapExtension = {
+    name: 'gap',
+    level: 'block',
+    tokenizer(src) {
+      const match = GAP_RE.exec(src);
+      if (!match) return undefined;
 
-    for (let i = 0; i < lines.length; i += 1) {
-      const line = lines[i];
-      const fence = line.match(/^\s{0,3}(```+|~~~+)/);
+      const units = Math.min(
+        GAP_MAX,
+        Math.max(GAP_MIN, Number(match[1]) || 1)
+      );
+      const height = (units * GAP_UNIT_EM)
+        .toFixed(2)
+        .replace(/\.?0+$/, '');
 
-      if (fence) {
-        if (!inFence) {
-          inFence = true;
-          fenceChar = fence[1][0];
-        } else if (fence[1][0] === fenceChar) {
-          inFence = false;
-        }
-        out.push(line);
-        continue;
-      }
-
-      if (inFence || line.trim() !== '') {
-        out.push(line);
-        continue;
-      }
-
-      let end = i;
-      while (end < lines.length && lines[end].trim() === '') end += 1;
-
-      const blankCount = end - i;
-      const prev = i > 0 ? lines[i - 1] : '';
-      const next = end < lines.length ? lines[end] : '';
-      const canExpand =
-        blankCount > 1 &&
-        prev.trim() !== '' &&
-        next.trim() !== '' &&
-        !(isStructural(prev) && isStructural(next));
-
-      out.push('');
-      if (canExpand) {
-        const height = ((blankCount - 1) * 1.7).toFixed(2).replace(/\.?0+$/, '');
-        out.push(
-          `<div class="${SPACER_CLASS}" style="height:${height}em" aria-hidden="true"></div>`
-        );
-        out.push('');
-      }
-
-      i = end - 1;
-    }
-
-    return out.join('\n');
-  }
-
-  function isSpacerToken(token) {
-    return (
-      token &&
-      token.type === 'html' &&
-      typeof token.raw === 'string' &&
-      SPACER_RE.test(token.raw)
-    );
-  }
+      return {
+        type: 'gap',
+        raw: match[0],
+        height,
+      };
+    },
+    renderer(token) {
+      return (
+        `<div class="md-gap" style="height:${token.height}em" ` +
+        'aria-hidden="true"></div>\n'
+      );
+    },
+  };
 
   /*
    * Сопоставляет токены marked с номерами строк исходника.
@@ -130,45 +99,8 @@
     );
   }
 
-  function alignTokenLines(preparedTokens, originalTokens, originalLines, lineMap) {
-    let originalIndex = 0;
-    for (const token of preparedTokens) {
-      if (token.type === 'space' || isSpacerToken(token)) continue;
-      while (
-        originalIndex < originalTokens.length &&
-        originalTokens[originalIndex].type === 'space'
-      ) {
-        originalIndex += 1;
-      }
-
-      const original = originalTokens[originalIndex];
-      if (original) {
-        if (originalLines.has(original)) {
-          lineMap.set(token, originalLines.get(original));
-        }
-        if (Array.isArray(token.tokens) && Array.isArray(original.tokens)) {
-          alignTokenLines(token.tokens, original.tokens, originalLines, lineMap);
-        }
-        if (Array.isArray(token.items) && Array.isArray(original.items)) {
-          alignTokenLines(token.items, original.items, originalLines, lineMap);
-        }
-      }
-
-      originalIndex += 1;
-    }
-  }
-
   function render(markdown) {
     const source = normalize(markdown);
-    const prepared = preserveBlankLines(source);
-
-    const originalTokens = marked.lexer(source);
-    const originalLines = computeTokenLines(originalTokens, source);
-    const tokens = marked.lexer(prepared);
-
-    // Токены подготовленного текста → строки исходника (без учёта распорок).
-    const lineMap = new WeakMap();
-    alignTokenLines(tokens, originalTokens, originalLines, lineMap);
 
     const renderer = new marked.Renderer();
     const blockTypes = [
@@ -182,6 +114,7 @@
       'hr',
     ];
 
+    let lineMap = new WeakMap();
     for (const name of blockTypes) {
       const original = renderer[name];
       renderer[name] = function renderWithLine(token) {
@@ -190,16 +123,16 @@
     }
 
     const instance = new marked.Marked({ renderer });
+    instance.use({ extensions: [gapExtension] });
+
+    const tokens = instance.lexer(source);
+    lineMap = computeTokenLines(tokens, source);
+
     return {
       html: instance.parser(tokens),
       source,
-      spacerClass: SPACER_CLASS,
     };
   }
 
-  window.DokaMarkdown = {
-    render,
-    preserveBlankLines,
-    SPACER_CLASS,
-  };
+  window.DokaMarkdown = { render };
 })();

@@ -21,6 +21,7 @@ import { existsSync } from 'node:fs';
 import { execFile } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { collectTopics, MAX_TEXT_CHARS } from './content-text.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CONTENT_DIR = path.join(ROOT, 'content');
@@ -295,6 +296,16 @@ function rebuild(withEmbeddings) {
  * ========================================================================== */
 
 const STRUCTURE_PATH = path.join(ROOT, 'data', 'structure.json');
+const LOCAL_STRUCTURE_PATH = path.join(ROOT, 'data', 'structure.local.json');
+const EMBEDDINGS_PATH = path.join(ROOT, 'data', 'embeddings.json');
+const LOCAL_EMBEDDINGS_PATH = path.join(ROOT, 'data', 'embeddings.local.json');
+const LOCAL_ADMIN_DIR = path.join(CONTENT_DIR, 'admin');
+const MODEL_CONFIG_PATH = path.join(
+  ROOT,
+  'models',
+  'rubert-tiny2',
+  'config.json'
+);
 
 async function readStructure() {
   let raw;
@@ -308,15 +319,108 @@ async function readStructure() {
     if (!data || typeof data !== 'object' || Array.isArray(data)) {
       throw new Error('корневой элемент должен быть объектом');
     }
+    const local = await readJsonObject(LOCAL_STRUCTURE_PATH, {});
+    for (const [id, domain] of Object.entries(local)) {
+      if (domain && typeof domain === 'object') {
+        data[id] = { ...domain, localOnly: true };
+      }
+    }
     return data;
-  } catch (_) {
+  } catch (error) {
+    if (error instanceof HttpError) throw error;
     throw new HttpError(500, 'data/structure.json повреждён.');
   }
 }
 
 async function writeStructure(structure) {
   await mkdir(path.dirname(STRUCTURE_PATH), { recursive: true });
-  await writeFile(STRUCTURE_PATH, JSON.stringify(structure, null, 2) + '\n', 'utf8');
+
+  const publicStructure = {};
+  const localStructure = {};
+  for (const [id, domain] of Object.entries(structure)) {
+    if (domain && domain.localOnly) {
+      const { localOnly, ...rest } = domain;
+      localStructure[id] = rest;
+    } else {
+      publicStructure[id] = domain;
+    }
+  }
+
+  await writeFile(
+    STRUCTURE_PATH,
+    JSON.stringify(publicStructure, null, 2) + '\n',
+    'utf8'
+  );
+
+  if (Object.keys(localStructure).length) {
+    await writeFile(
+      LOCAL_STRUCTURE_PATH,
+      JSON.stringify(localStructure, null, 2) + '\n',
+      'utf8'
+    );
+  }
+}
+
+async function readEmbeddings() {
+  const readArray = async (file) => {
+    try {
+      const parsed = JSON.parse(await readFile(file, 'utf8'));
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (_) {
+      return [];
+    }
+  };
+
+  const [publicVectors, localVectors] = await Promise.all([
+    readArray(EMBEDDINGS_PATH),
+    readArray(LOCAL_EMBEDDINGS_PATH),
+  ]);
+  return [...publicVectors, ...localVectors];
+}
+
+/* ========================================================================== *
+ * Локальная область «Админка»                                               *
+ * ========================================================================== */
+
+const LOCAL_ADMIN_META = {
+  title: 'Админка',
+  accent: '#6b8e23',
+  description:
+    'Локальная область: видна только на dev-сервере. Удалить область нельзя, ' +
+    'а группы и темы — можно.',
+  localOnly: true,
+  order: 9990,
+};
+
+async function writeIfMissing(file, content) {
+  if (existsSync(file)) return false;
+  await mkdir(path.dirname(file), { recursive: true });
+  await writeFile(file, content, 'utf8');
+  return true;
+}
+
+async function ensureLocalAdminArea() {
+  // Создаём только саму область. Группы и темы пользователь заводит сам.
+  const metaPath = path.join(LOCAL_ADMIN_DIR, 'meta.json');
+  return writeIfMissing(
+    metaPath,
+    JSON.stringify(LOCAL_ADMIN_META, null, 2) + '\n'
+  );
+}
+
+async function bootstrapLocalArea() {
+  try {
+    const created = await ensureLocalAdminArea();
+    if (created || !existsSync(LOCAL_STRUCTURE_PATH)) {
+      await runNodeScript('sync-structure.js');
+      console.log('[dev-server] локальная область «Админка» синхронизирована.');
+    }
+  } catch (error) {
+    console.warn(
+      '[dev-server] не удалось подготовить локальную область:',
+      error.message
+    );
+  }
 }
 
 function findTopic(structure, url) {
@@ -348,6 +452,185 @@ async function readJsonObject(file, fallback = {}) {
 }
 
 /* ========================================================================== *
+ * Статистика сайта для админ-футера                                        *
+ * ========================================================================== */
+
+function countKeywords(docs) {
+  const counts = docs.map((doc) => {
+    const value = String(doc.keywords || '').trim();
+    return value ? value.split(/[,\s]+/).filter(Boolean).length : 0;
+  });
+  const nonEmpty = counts.filter((count) => count > 0);
+
+  return {
+    empty: counts.filter((count) => count === 0).length,
+    min: nonEmpty.length ? Math.min(...nonEmpty) : 0,
+    max: nonEmpty.length ? Math.max(...nonEmpty) : 0,
+    avg: nonEmpty.length
+      ? Number(
+          (nonEmpty.reduce((sum, count) => sum + count, 0) / nonEmpty.length).toFixed(1)
+        )
+      : 0,
+    overloaded: docs
+      .map((doc, index) => ({
+        title: doc.title,
+        url: doc.url,
+        count: counts[index],
+      }))
+      .filter((item) => item.count > 20)
+      .sort((a, b) => b.count - a.count),
+  };
+}
+
+async function buildSiteStats() {
+  const structure = await readStructure();
+
+  let modelMaxTokens = null;
+  try {
+    const config = JSON.parse(await readFile(MODEL_CONFIG_PATH, 'utf8'));
+    if (Number.isFinite(config.max_position_embeddings)) {
+      modelMaxTokens = config.max_position_embeddings;
+    }
+  } catch (_) {
+    /* конфиг модели может отсутствовать — не критично для статистики */
+  }
+
+  let embeddings = [];
+  let embeddingsError = null;
+  try {
+    embeddings = await readEmbeddings();
+  } catch (err) {
+    embeddingsError = err.message;
+  }
+
+  const docs = collectTopics(structure, ROOT);
+  const topicUrls = new Set(docs.map((doc) => doc.url));
+  const embUrls = new Set(embeddings.map((item) => item.url));
+
+  const missingVectors = docs
+    .filter((doc) => !embUrls.has(doc.url))
+    .map((doc) => ({
+      title: doc.title,
+      url: doc.url,
+      domain: doc.domain,
+      group: doc.group,
+    }));
+
+  const orphanVectors = embeddings
+    .filter((item) => !topicUrls.has(item.url))
+    .map((item) => ({ title: item.title || '', url: item.url || '' }));
+
+  let groups = 0;
+  for (const domain of Object.values(structure)) {
+    groups += (domain.groups || []).length;
+  }
+
+  const totalChars = docs.reduce((sum, doc) => sum + doc.fullTextLength, 0);
+  const usedChars = docs.reduce(
+    (sum, doc) => sum + Math.min(doc.fullTextLength, MAX_TEXT_CHARS),
+    0
+  );
+  const lostChars = totalChars - usedChars;
+  const truncatedTopics = docs
+    .filter((doc) => doc.fullTextLength > MAX_TEXT_CHARS)
+    .map((doc) => ({
+      title: doc.title,
+      url: doc.url,
+      chars: doc.fullTextLength,
+      lost: doc.fullTextLength - MAX_TEXT_CHARS,
+    }))
+    .sort((a, b) => b.lost - a.lost);
+
+  const [structureStat, embeddingsStat, localEmbeddingsStat] = await Promise.all([
+    stat(STRUCTURE_PATH).catch(() => null),
+    stat(EMBEDDINGS_PATH).catch(() => null),
+    stat(LOCAL_EMBEDDINGS_PATH).catch(() => null),
+  ]);
+
+  const newestEmbeddings = Math.max(
+    embeddingsStat?.mtimeMs || 0,
+    localEmbeddingsStat?.mtimeMs || 0
+  );
+
+  let newestContent = 0;
+  for (const doc of docs) {
+    const info = await stat(path.join(ROOT, doc.url)).catch(() => null);
+    if (info && info.mtimeMs > newestContent) newestContent = info.mtimeMs;
+  }
+
+  const reasons = [];
+  if (!embeddingsStat) reasons.push('data/embeddings.json не найден');
+  else if (embeddingsError) reasons.push(embeddingsError);
+  if (missingVectors.length) {
+    reasons.push(`нет векторов для ${missingVectors.length} тем`);
+  }
+  if (orphanVectors.length) {
+    reasons.push(`${orphanVectors.length} векторов от удалённых тем`);
+  }
+  if (
+    newestEmbeddings &&
+    newestContent &&
+    newestContent > newestEmbeddings + 1000
+  ) {
+    reasons.push('контент новее, чем data/embeddings.json');
+  }
+  if (embeddings.length && docs.length && embeddings.length !== docs.length) {
+    reasons.push(`векторов ${embeddings.length}, а тем ${docs.length}`);
+  }
+
+  return {
+    generatedAt: new Date().toISOString(),
+    domains: Object.keys(structure).length,
+    groups,
+    topics: docs.length,
+    vectors: embeddings.length,
+    dimensions: embeddings[0]?.embedding?.length || 0,
+    missingVectors,
+    orphanVectors,
+    needsEmbeddings: reasons.length > 0,
+    reasons,
+    context: {
+      limitChars: MAX_TEXT_CHARS,
+      modelMaxTokens,
+      totalChars,
+      usedChars,
+      lostChars,
+      lostPercent: totalChars
+        ? Number(((lostChars / totalChars) * 100).toFixed(1))
+        : 0,
+      topics: docs
+        .map((doc) => ({
+          title: doc.title,
+          url: doc.url,
+          domainId: doc.domainId,
+          domain: doc.domain,
+          group: doc.group,
+          chars: doc.fullTextLength,
+          limit: MAX_TEXT_CHARS,
+          remaining: Math.max(0, MAX_TEXT_CHARS - doc.fullTextLength),
+          lost: Math.max(0, doc.fullTextLength - MAX_TEXT_CHARS),
+          percent: Math.min(
+            100,
+            Math.round((doc.fullTextLength / MAX_TEXT_CHARS) * 100)
+          ),
+        }))
+        .sort((a, b) => b.chars - a.chars),
+      truncatedTopics,
+    },
+    keywords: countKeywords(docs),
+    files: {
+      structureMtime: structureStat ? structureStat.mtime.toISOString() : null,
+      embeddingsMtime: newestEmbeddings
+        ? new Date(newestEmbeddings).toISOString()
+        : null,
+      newestContentMtime: newestContent
+        ? new Date(newestContent).toISOString()
+        : null,
+    },
+  };
+}
+
+/* ========================================================================== *
  * Админ-API                                                                  *
  * ========================================================================== */
 
@@ -356,6 +639,12 @@ async function handleApi(req, res, url) {
 
   if (pathname === '/api/admin/status' && req.method === 'GET') {
     sendJson(res, 200, { ok: true, admin: true });
+    return;
+  }
+
+  if (pathname === '/api/admin/stats' && req.method === 'GET') {
+    const stats = await buildSiteStats();
+    sendJson(res, 200, { ok: true, ...stats });
     return;
   }
 
@@ -630,6 +919,14 @@ async function handleApi(req, res, url) {
       const domainDir = path.join(CONTENT_DIR, domain);
       await ensureDirectory(domainDir, `Область «${domain}» не найдена.`);
 
+      const structure = await readStructure();
+      if (structure[domain]?.localOnly) {
+        throw new HttpError(
+          400,
+          `Область «${domain}» локальная: удалять её нельзя. Удалите группы или темы внутри.`
+        );
+      }
+
       await rm(domainDir, { recursive: true, force: true });
       const logs = await rebuild(true);
 
@@ -777,6 +1074,25 @@ async function serveStatic(req, res, url) {
     throw new HttpError(400, 'Некорректный URL.');
   }
 
+  // Локальные данные не отдаём напрямую: браузер получает уже объединённую
+  // структуру и векторы, включая область «Админка».
+  if (
+    relativePath === '/data/structure.local.json' ||
+    relativePath === '/data/embeddings.local.json'
+  ) {
+    throw new HttpError(404, 'Not Found');
+  }
+
+  if (relativePath === '/data/structure.json') {
+    sendJson(res, 200, await readStructure());
+    return;
+  }
+
+  if (relativePath === '/data/embeddings.json') {
+    sendJson(res, 200, await readEmbeddings());
+    return;
+  }
+
   if (relativePath === '/' || relativePath.endsWith('/')) {
     relativePath += 'index.html';
   }
@@ -822,7 +1138,7 @@ async function serveStatic(req, res, url) {
  * Сервер                                                                     *
  * ========================================================================== */
 
-createServer(async (req, res) => {
+const server = createServer(async (req, res) => {
   const url = new URL(req.url || '/', `http://127.0.0.1:${PORT}`);
 
   try {
@@ -845,6 +1161,10 @@ createServer(async (req, res) => {
       console.error('[dev-server]', error);
     }
   }
-}).listen(PORT, '127.0.0.1', () => {
-  console.log(`[dev-server] http://127.0.0.1:${PORT}/  (root: ${ROOT})`);
+});
+
+bootstrapLocalArea().finally(() => {
+  server.listen(PORT, '127.0.0.1', () => {
+    console.log(`[dev-server] http://127.0.0.1:${PORT}/  (root: ${ROOT})`);
+  });
 });

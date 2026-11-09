@@ -270,7 +270,9 @@ a {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 4px;
-  padding: 6px 12px;
+  box-sizing: border-box;
+  height: 32px;
+  padding: 0 12px;
   color: var(--text-main);
   cursor: pointer;
   display: flex;
@@ -278,6 +280,7 @@ a {
   gap: 8px;
   font-family: var(--font-mono);
   font-size: 15px;
+  line-height: 1;
   transition: all 0.15s ease;
 }
 
@@ -861,10 +864,22 @@ a {
    при обычном переходе по якорю. */
 .topic-section {
   scroll-margin-top: 68px;
-  padding: 16px 20px;
-  margin: 0 -20px 24px -20px;
+  /* Вертикальные отступы секции задают ритм между заголовками.
+     Горизонтальный padding нужен только чтобы фон вспышки не лип к тексту. */
+  padding: 8px 20px;
+  margin: 0 -20px 16px;
   border-radius: 8px;
   background-color: transparent;
+}
+
+/* Отступы первого/последнего блока внутри секции не должны
+   складываться с padding секции — иначе снова «космос». */
+.topic-section > :first-child {
+  margin-top: 0;
+}
+
+.topic-section > :last-child {
+  margin-bottom: 0;
 }
 
 /* Вспышка секции после клика по оглавлению.
@@ -911,11 +926,23 @@ a {
   font-family: var(--font-accent);
   font-weight: 700;
   letter-spacing: -0.4px;
-  margin: 0 0 16px;
+  line-height: 1.25;
+  /* Сверху воздух даёт отступ секции, снизу — собственный margin заголовка. */
+  margin: 0 0 14px;
 }
 
 .topic-section h2 {
   font-size: 28px;
+}
+
+.topic-section h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.topic-section h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
 }
 
 /* При переходе по якорю заголовок не должен прятаться под шапкой */
@@ -926,8 +953,14 @@ a {
 
 /* --- 8.3. Абзацы и выделения --- */
 .article-content p {
-  margin-bottom: 20px;
+  margin: 0 0 16px;
   color: #d1d2d6;
+}
+
+/* Списки: тот же ритм, что и у абзацев */
+.article-content ul,
+.article-content ol {
+  margin: 0 0 16px;
 }
 
 /* --- 8.3.1. Горизонтальная линия ---
@@ -939,11 +972,30 @@ a {
   border-top: 1px solid var(--border-color);
 }
 
-/* Распорка для дополнительных пустых строк в Markdown.
-   Создаётся js/markdown-render.js: автор темы управляет отступом
-   обычными переносами строк. */
-.md-blank-line {
-  height: 1.7em;
+/* --- 8.3.1.1. Цитата ---
+   Обычный blockquote (не GitHub-alert, тот превращается в .markdown-alert). */
+.article-content blockquote {
+  margin: 18px 0;
+  padding: 12px 18px;
+  border-left: 3px solid color-mix(in srgb, var(--domain-accent) 60%, transparent);
+  border-radius: 0 8px 8px 0;
+  background: color-mix(in srgb, var(--domain-accent) 6%, transparent);
+  color: #d1d2d6;
+}
+
+.article-content blockquote > :first-child {
+  margin-top: 0;
+}
+
+.article-content blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* Явный отступ из Markdown-маркера :::gap (см. js/markdown-render.js).
+   Высота задаётся inline-стилем, здесь только поведение блока. */
+.article-content .md-gap {
+  display: block;
+  width: 100%;
   pointer-events: none;
 }
 
@@ -973,7 +1025,7 @@ b {
    Синтаксис: > [!NOTE] ... (см. js/markdown-alerts.js). */
 .markdown-alert {
   --alert-color: #4493f8;
-  margin: 24px 0;
+  margin: 18px 0;
   padding: 14px 18px;
   /* border-left: 4px solid var(--alert-color); */
   border-radius: 8px;
@@ -1057,7 +1109,7 @@ b {
   overflow-x: auto;
   font-family: var(--font-mono);
   font-size: 15px;
-  margin: 20px 0;
+  margin: 18px 0;
   color: #f1f1f1;
 }
 
@@ -1081,7 +1133,7 @@ b {
 .compare-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0 24px;
+  margin: 18px 0;
   font-size: 15px;
 }
 
@@ -1311,8 +1363,9 @@ b {
   }
 
   .search-trigger-btn {
+    height: 32px;
+    padding: 0 9px;
     font-size: 13px;
-    padding: 5px 9px;
   }
 
   .search-trigger-btn kbd {

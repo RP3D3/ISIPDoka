@@ -16,12 +16,15 @@ import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pipeline, env } from '@xenova/transformers';
+import { collectTopics } from './content-text.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 
 const STRUCTURE_PATH = path.join(ROOT, 'data', 'structure.json');
+const LOCAL_STRUCTURE_PATH = path.join(ROOT, 'data', 'structure.local.json');
 const OUTPUT_PATH = path.join(ROOT, 'data', 'embeddings.json');
+const LOCAL_OUTPUT_PATH = path.join(ROOT, 'data', 'embeddings.local.json');
 const MODEL_ID = 'rubert-tiny2';
 const MODEL_ONNX_PATH = path.join(ROOT, 'models', MODEL_ID, 'onnx', 'model.onnx');
 const MODEL_PART_NAMES = ['part_aa', 'part_ab'];
@@ -71,88 +74,21 @@ env.allowRemoteModels = false;
 env.localModelPath = path.join(ROOT, 'models');
 env.cacheDir = path.join(ROOT, '.cache'); // сюда HF-токенайзер мог бы кэшить; не используется
 
-function decodeEntities(value) {
-  return String(value)
-    .replace(/&nbsp;/gi, ' ')
-    .replace(/&lt;/gi, '<')
-    .replace(/&gt;/gi, '>')
-    .replace(/&quot;/gi, '"')
-    .replace(/&#39;|&#x27;/gi, "'")
-    .replace(/&amp;/gi, '&')
-    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
-    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)));
-}
-
-function parseFrontmatter(md) {
-  const frontmatterRe = /^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?/;
-  const match = md.match(frontmatterRe);
-  if (!match) return { data: {}, body: md };
-  const raw = match[1];
-  const body = md.slice(match[0].length);
-  const data = {};
-  for (const line of raw.split(/\r?\n/)) {
-    const idx = line.indexOf(':');
-    if (idx === -1) continue;
-    const key = line.slice(0, idx).trim();
-    const value = line.slice(idx + 1).trim();
-    data[key] = value;
-  }
-  return { data, body };
-}
-
-function extractArticleText(html) {
-  const article = html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i);
-  let body = article ? article[1] : html;
-  body = body
-    .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<svg\b[\s\S]*?<\/svg>/gi, ' ')
-    .replace(/<[^>]+>/g, ' ');
-  return decodeEntities(body).replace(/\s+/g, ' ').trim();
-}
-
-function extractMdBody(md) {
-  const { body } = parseFrontmatter(md);
-  return body.replace(/\s+/g, ' ').trim();
-}
-
-function collectTopics(structure) {
-  const docs = [];
-  for (const [domainId, domain] of Object.entries(structure)) {
-    (domain.groups || []).forEach((group) => {
-      (group.topics || []).forEach((topic) => {
-        let pageText = '';
-        try {
-          const abs = path.join(ROOT, topic.url);
-          const raw = readFileSync(abs, 'utf8');
-          pageText = topic.type === 'md'
-            ? extractMdBody(raw)
-            : extractArticleText(raw);
-        } catch (err) {
-          console.warn(`[build-embeddings] Не удалось прочитать ${topic.url}: ${err.message}`);
-        }
-
-        docs.push({
-          id: `${domainId}::${topic.url}`,
-          domain: domain.title || domainId,
-          group: group.name || '',
-          title: topic.title || '',
-          url: topic.url,
-          keywords: topic.keywords || '',
-          text: `${domain.title} ${group.name} ${topic.title} ${topic.keywords || ''} ${pageText}`.slice(
-            0,
-            6000
-          )
-        });
-      });
-    });
-  }
-  return docs;
-}
-
 async function main() {
-  const structure = JSON.parse(readFileSync(STRUCTURE_PATH, 'utf8'));
-  const docs = collectTopics(structure);
+  const publicStructure = JSON.parse(readFileSync(STRUCTURE_PATH, 'utf8'));
+  let localStructure = {};
+  if (existsSync(LOCAL_STRUCTURE_PATH)) {
+    try {
+      localStructure = JSON.parse(readFileSync(LOCAL_STRUCTURE_PATH, 'utf8'));
+    } catch (err) {
+      throw new Error(
+        `Не удалось прочитать data/structure.local.json: ${err.message}`
+      );
+    }
+  }
+
+  const structure = { ...publicStructure, ...localStructure };
+  const docs = collectTopics(structure, ROOT);
 
   if (docs.length === 0) {
     console.error('[build-embeddings] data/structure.json не содержит ни одной темы.');
@@ -188,10 +124,31 @@ async function main() {
     group: doc.group,
     url: doc.url,
     embedding: vectors[i],
+    localOnly: Boolean(structure[doc.domainId]?.localOnly),
   }));
 
-  writeFileSync(OUTPUT_PATH, JSON.stringify(result, null, 0));
-  console.log(`[build-embeddings] Готово → data/embeddings.json (${vectors[0].length}-мерные векторы).`);
+  const publicVectors = result
+    .filter((item) => !item.localOnly)
+    .map(({ localOnly, ...rest }) => rest);
+  const localVectors = result
+    .filter((item) => item.localOnly)
+    .map(({ localOnly, ...rest }) => rest);
+
+  writeFileSync(OUTPUT_PATH, JSON.stringify(publicVectors, null, 0));
+  console.log(
+    `[build-embeddings] Готово → data/embeddings.json ` +
+      `(${publicVectors.length} тем, ${vectors[0].length}-мерные векторы).`
+  );
+
+  if (localVectors.length) {
+    writeFileSync(LOCAL_OUTPUT_PATH, JSON.stringify(localVectors, null, 0));
+    console.log(
+      `[build-embeddings] Локальные векторы → data/embeddings.local.json ` +
+        `(${localVectors.length} тем).`
+    );
+  } else if (existsSync(LOCAL_OUTPUT_PATH)) {
+    writeFileSync(LOCAL_OUTPUT_PATH, '[]');
+  }
 }
 
 main().catch((err) => {

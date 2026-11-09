@@ -6,7 +6,8 @@
   <title>Тема — Дока ИСИП</title>
 
   <link rel="stylesheet" href="css/libs/atom-one-dark.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261109-4">
+  <link rel="stylesheet" href="css/style.css?v=20261109-6">
+  <link rel="stylesheet" href="css/admin.css?v=20261109-11">
 </head>
 <body>
   <section class="topic-hero">
@@ -21,7 +22,7 @@
   </article>
 
   <script src="js/libs/marked.min.js"></script>
-  <script src="js/markdown-render.js?v=20261109-1"></script>
+  <script src="js/markdown-render.js?v=20261109-3"></script>
   <script src="js/markdown-alerts.js?v=20261109-1"></script>
   <script>
     (() => {
@@ -109,6 +110,21 @@
       }
 
       /* ------------------------------------------------------------------ *
+       * Проверяет, доступен ли локальный админ-бэкенд                    *
+       * ------------------------------------------------------------------ */
+      async function hasAdminBackend() {
+        try {
+          const res = await fetch(
+            new URL('api/admin/status', window.location.href).href,
+            { cache: 'no-store' }
+          );
+          return res.ok;
+        } catch (_) {
+          return false;
+        }
+      }
+
+      /* ------------------------------------------------------------------ *
        * Загружает .md, конвертирует в HTML, вставляет в страницу          *
        * ------------------------------------------------------------------ */
       async function loadTheme() {
@@ -117,6 +133,19 @@
           document.getElementById('theme-title').textContent = 'Не указан путь к теме';
           document.getElementById('theme-article').textContent =
             'Используйте: theme.html?path=content/csharp/osnovy/hello-world.md';
+          window.dispatchEvent(new Event('themeContentLoaded'));
+          return;
+        }
+
+        // Локальная область «Админка» существует только на dev-сервере.
+        // На статичном хостинге не отдаём её темы даже по прямой ссылке.
+        if (/^\.?\/?content\/admin\//i.test(path) && !(await hasAdminBackend())) {
+          document.title = 'Тема недоступна';
+          document.getElementById('theme-title').textContent =
+            'Тема недоступна';
+          document.getElementById('theme-article').textContent =
+            'Эта тема относится к локальной области «Админка» и открывается ' +
+            'только на локальном dev-сервере.';
           window.dispatchEvent(new Event('themeContentLoaded'));
           return;
         }
@@ -220,5 +249,6 @@
   </script>
 
   <script src="js/page.js?v=20261109-2"></script>
+  <script src="js/admin.js?v=20261109-6"></script>
 </body>
 </html>

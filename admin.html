@@ -15,8 +15,8 @@
   -->
 
   <link rel="stylesheet" href="css/libs/atom-one-dark.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261109-4">
-  <link rel="stylesheet" href="css/admin.css?v=20261109-5">
+  <link rel="stylesheet" href="css/style.css?v=20261109-6">
+  <link rel="stylesheet" href="css/admin.css?v=20261109-11">
   <style>
     /* ===== Оболочка админки ===== */
     body {
@@ -142,6 +142,93 @@
       white-space: nowrap;
     }
 
+    /* ===== Кнопка «Мануал» и руководство ===== */
+    .admin-field-head-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .admin-guide-card {
+      width: min(860px, 100%);
+      max-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .admin-guide-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .admin-guide-close {
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .admin-guide-close:hover {
+      color: var(--text-main);
+      border-color: var(--text-muted);
+    }
+
+    .admin-guide-body {
+      flex: 1;
+      min-height: 0;
+      max-width: none;
+      overflow-y: auto;
+      margin-top: 14px;
+      padding-right: 8px;
+      overflow-wrap: anywhere;
+    }
+
+    .admin-guide-body h1 {
+      font-size: 26px;
+      margin: 0 0 14px;
+    }
+
+    .admin-guide-body h2 {
+      font-size: 21px;
+      margin: 24px 0 10px;
+    }
+
+    .admin-guide-body h3 {
+      font-size: 17px;
+      margin: 20px 0 8px;
+    }
+
+    .admin-guide-body h4 {
+      font-size: 15px;
+      margin: 16px 0 6px;
+    }
+
+    .admin-guide-body ul,
+    .admin-guide-body ol {
+      padding-left: 22px;
+    }
+
+    .admin-guide-body li {
+      margin-left: 0;
+    }
+
+    .admin-guide-status {
+      min-height: 18px;
+      margin-top: 6px;
+      color: #3fb950;
+      font-size: 12.5px;
+    }
+
     .admin-hint {
       color: var(--text-muted);
       font-size: 13px;
@@ -201,36 +288,39 @@
       min-height: 320px;
     }
 
-    /* ===== Нижняя панель ===== */
-    .admin-footer {
-      flex: 0 0 auto;
-      padding: 16px 24px;
-      border-top: 1px solid var(--border-color);
-      background: #101014;
+    /* ===== Файл и статус в шапке ===== */
+    .admin-file-info {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      align-items: flex-end;
+      gap: 1px;
+      min-width: 0;
+      max-width: 340px;
     }
 
     .admin-filename {
+      max-width: 100%;
       color: var(--text-muted);
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 11.5px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
     .admin-status {
-      min-height: 18px;
+      max-width: 100%;
       color: var(--text-muted);
-      font-size: 12px;
-      line-height: 1.35;
+      font-size: 11px;
+      line-height: 1.3;
+      text-align: right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    .admin-footer-actions {
-      display: flex;
-      gap: 10px;
+    .admin-status:empty {
+      display: none;
     }
 
     .admin-download {
@@ -291,6 +381,16 @@
     .admin-secondary:disabled {
       opacity: 0.55;
       cursor: not-allowed;
+    }
+
+    /* Кнопки в шапке: компактный единый размер */
+    .admin-download.admin-header-btn,
+    .admin-secondary.admin-header-btn {
+      flex: 0 0 auto;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 4px;
+      font-size: 14px;
     }
 
     /* ===== Правая колонка: предпросмотр ===== */
@@ -427,6 +527,10 @@
         display: none;
       }
 
+      .admin-file-info {
+        display: none;
+      }
+
       .admin-shell {
         grid-template-columns: 1fr;
         grid-template-rows: auto minmax(480px, 70vh);
@@ -452,6 +556,16 @@
       <span class="admin-subtitle" id="adminSubtitle">редактор темы</span>
     </div>
     <div class="admin-header-right">
+      <span class="admin-file-info">
+        <span class="admin-filename" id="adminFilename">Файл не выбран</span>
+        <span class="admin-status" id="adminStatus" aria-live="polite"></span>
+      </span>
+      <button type="button" class="admin-secondary admin-header-btn" id="adminDownload" disabled>
+        ⬇ Скачать
+      </button>
+      <button type="button" class="admin-download admin-header-btn" id="adminSave" disabled>
+        💾 Сохранить
+      </button>
       <a class="admin-link" id="adminOpenTopic" href="#" target="_blank" rel="noopener" hidden>Открыть тему</a>
       <a class="admin-link" href="index.html">На главную</a>
     </div>
@@ -499,8 +613,10 @@
               placeholder="циклы for while foreach C#"
             >
             <p class="admin-hint">
-              Через пробел или запятую. Используются поиском; если оставить
-              пустым, ключевые слова будут извлечены автоматически.
+              Через пробел или запятую. Оптимально 5–15 слов или коротких фраз,
+              максимум около 20. Фразы вроде «коллекция массивов» можно писать
+              слитно: поиск разобьёт их на слова, а смысловой слой учтёт
+              контекст. Пустое поле — слова извлекутся автоматически.
             </p>
           </div>
 
@@ -523,9 +639,20 @@
         <div class="admin-field admin-field--grow" id="mdEditorField">
           <div class="admin-field-head">
             <label for="fieldMarkdown">Markdown</label>
-            <button type="button" class="admin-secondary admin-link-btn" id="insertInternalLinkBtn">
-              🔗 Ссылка на тему
-            </button>
+            <div class="admin-field-head-actions">
+              <button type="button" class="admin-secondary admin-link-btn" id="insertInternalLinkBtn">
+                🔗 Ссылка на тему
+              </button>
+              <button
+                type="button"
+                class="admin-secondary admin-link-btn"
+                id="adminInfoBtn"
+                title="Руководство по Markdown"
+                aria-label="Открыть руководство по Markdown"
+              >
+                ⓘ Мануал
+              </button>
+            </div>
           </div>
           <textarea
             class="admin-textarea admin-textarea--md"
@@ -552,19 +679,6 @@
             <code>../../../css/…</code> и <code>../../../js/…</code> работают
             так же, как на странице темы.
           </p>
-        </div>
-      </div>
-
-      <div class="admin-footer">
-        <div class="admin-filename" id="adminFilename">Файл не выбран</div>
-        <div class="admin-status" id="adminStatus" aria-live="polite"></div>
-        <div class="admin-footer-actions">
-          <button type="button" class="admin-secondary" id="adminDownload" disabled>
-            ⬇ Скачать
-          </button>
-          <button type="button" class="admin-download" id="adminSave" disabled>
-            💾 Сохранить
-          </button>
         </div>
       </div>
     </section>
@@ -612,10 +726,46 @@
     </div>
   </div>
 
+  <!-- Руководство по Markdown -->
+  <div class="doka-modal" id="guideModal" hidden>
+    <div
+      class="doka-modal-card admin-guide-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="guideTitle"
+    >
+      <div class="admin-guide-head">
+        <h2 id="guideTitle">Мануал по Markdown</h2>
+        <button
+          type="button"
+          class="admin-guide-close"
+          id="guideCloseX"
+          aria-label="Закрыть руководство"
+        >×</button>
+      </div>
+      <p class="doka-modal-desc">
+        Все маркеры, которые понимает редактор. Мануал можно скопировать
+        целиком и вставить в тему.
+      </p>
+      <div class="admin-guide-body article-content" id="guideBody"></div>
+      <p class="admin-guide-status" id="guideStatus" aria-live="polite"></p>
+      <div class="doka-modal-actions">
+        <button type="button" class="doka-btn doka-btn-primary" id="guideCopy">
+          Скопировать мануал
+        </button>
+        <button type="button" class="doka-btn doka-btn-ghost" id="guideCloseBtn">
+          Закрыть
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script src="js/libs/marked.min.js"></script>
-  <script src="js/markdown-render.js?v=20261109-1"></script>
+  <script src="js/markdown-render.js?v=20261109-3"></script>
   <script src="js/markdown-alerts.js?v=20261109-1"></script>
-  <script src="js/admin.js?v=20261109-5"></script>
+  <script src="js/admin.js?v=20261109-6"></script>
+  <script src="js/admin-stats.js?v=20261109-7"></script>
+  <script src="js/admin-guide.js?v=20261109-2"></script>
   <script>
     (() => {
       'use strict';
@@ -1141,7 +1291,7 @@
 
         const svg = svgInput.value.trim();
         const base = new URL('./', window.location.href);
-        const styleHref = new URL('css/style.css?v=20261109-4', base).href;
+        const styleHref = new URL('css/style.css?v=20261109-6', base).href;
         const atomHref = new URL('css/libs/atom-one-dark.min.css', base).href;
         const hljsSrc = new URL('js/highlight.min.js?v=20261107-2', base).href;
 
@@ -1277,7 +1427,7 @@
         if (!/style\.css/i.test(html)) {
           html = injectIntoHead(
             html,
-            `<link rel="stylesheet" href="${escapeHtml(rootHref)}css/style.css?v=20261109-4">`
+            `<link rel="stylesheet" href="${escapeHtml(rootHref)}css/style.css?v=20261109-6">`
           );
         }
 

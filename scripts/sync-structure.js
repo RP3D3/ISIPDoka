@@ -39,6 +39,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const CONTENT_DIR = path.join(ROOT, 'content');
 const STRUCTURE_PATH = path.join(ROOT, 'data', 'structure.json');
+const LOCAL_STRUCTURE_PATH = path.join(ROOT, 'data', 'structure.local.json');
 
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes('--dry-run');
@@ -363,6 +364,7 @@ function scanContent() {
       title: metaData.title || domainId,
       accent: metaData.accent || '#6c47ff',
       description: metaData.description || '',
+      localOnly: Boolean(metaData.localOnly),
       seedOrder: isInteger(metaData.order) ? metaData.order : null,
       seedOrderValid: metaData.order === undefined || isInteger(metaData.order),
       order: null,
@@ -608,6 +610,7 @@ function buildStructure(domains) {
     };
     if (domain.accent) result.accent = domain.accent;
     if (domain.description) result.description = domain.description;
+    if (domain.localOnly) result.localOnly = true;
 
     result.groups = domain.groups.map((group) => ({
       id: group.id,
@@ -706,12 +709,24 @@ function printTree(domains) {
 
 function main() {
   const domains = scanContent();
-  const oldStructure = RESET ? null : readJson(STRUCTURE_PATH, null);
+  const oldStructure = RESET
+    ? null
+    : {
+        ...(readJson(LOCAL_STRUCTURE_PATH, null) || {}),
+        ...(readJson(STRUCTURE_PATH, null) || {}),
+      };
   const old = buildOldIndex(oldStructure);
 
   applyOrders(domains, old);
 
   const structure = buildStructure(domains);
+  const publicStructure = {};
+  const localStructure = {};
+  for (const [id, domain] of Object.entries(structure)) {
+    if (domain.localOnly) localStructure[id] = domain;
+    else publicStructure[id] = domain;
+  }
+
   const totalGroups = domains.reduce((sum, d) => sum + d.groups.length, 0);
   const totalTopics = domains.reduce(
     (sum, d) => sum + d.groups.reduce((s, g) => s + g.topics.length, 0),
@@ -721,13 +736,36 @@ function main() {
   console.log(
     `[sync] Найдено: ${domains.length} областей, ${totalGroups} групп, ${totalTopics} тем.`
   );
+  const localCount = Object.keys(localStructure).length;
+  if (localCount) {
+    console.log(
+      `[sync] Локальных областей: ${localCount} → ${path.relative(ROOT, LOCAL_STRUCTURE_PATH)}`
+    );
+  }
   if (VERBOSE || DRY_RUN) printTree(domains);
 
   if (DRY_RUN) {
     console.log('[sync] --dry-run: structure.json и исходные файлы не изменены.');
   } else {
-    atomicWrite(STRUCTURE_PATH, JSON.stringify(structure, null, 2) + '\n');
+    atomicWrite(STRUCTURE_PATH, JSON.stringify(publicStructure, null, 2) + '\n');
     console.log(`[sync] Записан ${path.relative(ROOT, STRUCTURE_PATH)}.`);
+
+    if (localCount) {
+      atomicWrite(
+        LOCAL_STRUCTURE_PATH,
+        JSON.stringify(localStructure, null, 2) + '\n'
+      );
+      console.log(`[sync] Записан ${path.relative(ROOT, LOCAL_STRUCTURE_PATH)}.`);
+    } else if (existsSync(LOCAL_STRUCTURE_PATH)) {
+      try {
+        unlinkSync(LOCAL_STRUCTURE_PATH);
+        console.log(
+          `[sync] Удалён пустой ${path.relative(ROOT, LOCAL_STRUCTURE_PATH)}.`
+        );
+      } catch (_) {
+        /* не критично */
+      }
+    }
 
     const cleanup = collectCleanup(domains);
     if (cleanup.length) {

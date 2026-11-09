@@ -12,14 +12,16 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
+  box-sizing: border-box;
+  height: 32px;
+  padding: 0 12px;
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 4px;
   background: transparent;
   color: var(--text-main);
   font-family: var(--font-mono);
   font-size: 14px;
-  line-height: 1.2;
+  line-height: 1;
   white-space: nowrap;
   cursor: pointer;
   transition: color 0.15s ease, border-color 0.15s ease,
@@ -45,7 +47,8 @@
 
 @media (max-width: 600px) {
   .doka-mode-toggle {
-    padding: 5px 9px;
+    height: 32px;
+    padding: 0 9px;
     font-size: 12px;
   }
 }
@@ -327,6 +330,19 @@ body.doka-preview-mode .doka-add-group {
   flex-wrap: wrap;
 }
 
+.doka-domain-badge {
+  padding: 1px 7px;
+  border: 1px solid #6b8e23;
+  border-radius: 999px;
+  color: #9acd32;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
 .doka-domain-controls {
   display: inline-flex;
   align-items: center;
@@ -594,6 +610,10 @@ body.doka-modal-open {
   backdrop-filter: blur(4px);
 }
 
+.doka-modal[hidden] {
+  display: none !important;
+}
+
 .doka-modal-card {
   width: min(540px, 100%);
   margin: auto;
@@ -848,5 +868,481 @@ body.doka-modal-open {
 
   .doka-btn {
     width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Футер статистики (виден только в админ-режиме)
+   ========================================================================== */
+
+.doka-stats-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 46px;
+  padding: 8px 18px;
+  border-top: 1px solid var(--border-color);
+  background: rgba(16, 16, 20, 0.96);
+  backdrop-filter: blur(8px);
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.doka-stats-footer[hidden] {
+  display: none !important;
+}
+
+body.doka-preview-mode .doka-stats-footer {
+  display: none !important;
+}
+
+body.doka-has-stats {
+  padding-bottom: 46px;
+}
+
+body.doka-preview-mode.doka-has-stats {
+  padding-bottom: 0;
+}
+
+body.doka-has-stats .admin-shell {
+  height: calc(100vh - 65px - 46px);
+}
+
+body.doka-preview-mode.doka-has-stats .admin-shell {
+  height: calc(100vh - 65px);
+}
+
+.doka-stats-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.doka-stats-brand {
+  font-family: var(--font-accent);
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.doka-stats-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.doka-stats-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 3px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  white-space: nowrap;
+}
+
+.doka-stats-item span {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.doka-stats-item b {
+  color: var(--text-main);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.doka-stats-status {
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.doka-stats-status.is-ok {
+  color: #3fb950;
+}
+
+.doka-stats-status.is-warn {
+  color: #d29922;
+}
+
+.doka-stats-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.doka-stats-btn {
+  padding: 5px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-base);
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.doka-stats-btn:hover {
+  color: var(--text-main);
+  border-color: var(--text-muted);
+}
+
+.doka-stats-btn--primary {
+  border-color: var(--domain-accent);
+  background: color-mix(in srgb, var(--domain-accent) 18%, transparent);
+  color: var(--text-main);
+}
+
+.doka-stats-btn--primary:hover {
+  background: color-mix(in srgb, var(--domain-accent) 30%, transparent);
+}
+
+.doka-stats-card {
+  width: min(760px, 100%);
+  max-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+}
+
+.doka-stats-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  margin-top: 16px;
+  padding-right: 6px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.doka-stats-body h3 {
+  margin: 18px 0 6px;
+  color: var(--text-main);
+  font-family: var(--font-accent);
+  font-size: 15px;
+}
+
+.doka-stats-body p {
+  margin: 0 0 8px;
+}
+
+.doka-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+}
+
+.doka-stats-grid .doka-stats-item {
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.doka-stats-list {
+  margin: 0 0 8px;
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.doka-stats-list li {
+  margin: 3px 0;
+}
+
+.doka-stats-topics {
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.doka-stats-topics li {
+  margin: 0 0 8px;
+}
+
+.doka-stats-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 8px;
+}
+
+.doka-stats-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px 0 10px;
+  padding: 5px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-main);
+  font-family: var(--font-base);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.doka-stats-more:hover {
+  border-color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.doka-stats-topics-panel[hidden] {
+  display: none !important;
+}
+
+.doka-stats-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-base);
+  font-size: 12px;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.doka-stats-filter span {
+  padding: 0 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text-main);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.doka-stats-filter:hover {
+  color: var(--text-main);
+  border-color: var(--text-muted);
+}
+
+.doka-stats-filter.is-active {
+  border-color: var(--domain-accent);
+  background: color-mix(in srgb, var(--domain-accent) 18%, transparent);
+  color: var(--text-main);
+}
+
+.doka-stats-filter.is-active span {
+  background: color-mix(in srgb, var(--domain-accent) 35%, transparent);
+}
+
+.doka-stats-smart {
+  margin: 4px 0 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.doka-stats-smart-title {
+  margin: 0 0 8px;
+  color: var(--text-main);
+  font-family: var(--font-accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.doka-stats-smart-row {
+  margin: 0 0 8px;
+}
+
+.doka-stats-smart-row:last-child {
+  margin-bottom: 0;
+}
+
+.doka-stats-smart-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 3px;
+}
+
+.doka-stats-smart-head b {
+  color: var(--text-main);
+  font-size: 12.5px;
+}
+
+.doka-stats-smart-head span {
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.doka-stats-smart-bar {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.doka-stats-smart-bar i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--domain-accent);
+}
+
+.doka-stats-smart-row.is-active .doka-stats-smart-head b {
+  color: var(--domain-accent);
+}
+
+.doka-stats-smart-row.is-over .doka-stats-smart-head b,
+.doka-stats-smart-row.is-over .doka-stats-smart-head span {
+  color: #ff6b6b;
+}
+
+.doka-stats-smart-row.is-over .doka-stats-smart-bar i {
+  background: #ff6b6b;
+}
+
+.doka-stats-topics-scroll {
+  max-height: min(46vh, 420px);
+  overflow-y: auto;
+  padding-right: 6px;
+  overscroll-behavior: contain;
+}
+
+.doka-stats-group {
+  margin: 0 0 14px;
+}
+
+.doka-stats-group-title {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 6px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-color);
+  background: #1b1c20;
+  color: var(--text-main);
+  font-family: var(--font-accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.doka-stats-group-title small {
+  color: var(--text-muted);
+  font-family: var(--font-base);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.doka-stats-topic-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.doka-stats-topic-head b {
+  color: var(--text-main);
+  font-size: 13px;
+}
+
+.doka-stats-topic-head span {
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.doka-stats-over-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 5px;
+  border-radius: 4px;
+  background: rgba(255, 107, 107, 0.16);
+  color: #ff6b6b;
+  font-size: 10.5px;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.doka-stats-topics li.is-over .doka-stats-topic-head b,
+.doka-stats-topics li.is-over .doka-stats-topic-head span {
+  color: #ff6b6b;
+}
+
+.doka-stats-bar {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.doka-stats-bar i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--domain-accent);
+}
+
+.doka-stats-topics li.is-over .doka-stats-bar i {
+  background: #ff6b6b;
+}
+
+.doka-stats-topic-link {
+  color: var(--text-main);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--domain-accent) 60%, transparent);
+  text-underline-offset: 2px;
+}
+
+.doka-stats-topic-link:hover {
+  color: var(--domain-accent);
+}
+
+.doka-stats-note {
+  color: var(--text-muted);
+  font-size: 12.5px;
+}
+
+.doka-stats-ok {
+  color: #3fb950;
+}
+
+.doka-stats-warn {
+  color: #d29922;
+}
+
+@media (max-width: 720px) {
+  .doka-stats-brand {
+    display: none;
+  }
+
+  .doka-stats-footer {
+    padding: 6px 12px;
+    gap: 8px;
+  }
+
+  .doka-stats-item span {
+    display: none;
   }
 }

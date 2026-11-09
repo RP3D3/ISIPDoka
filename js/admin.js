@@ -1042,6 +1042,7 @@
       const data = byId.get(id) || { id, title: link.textContent, order: 0 };
       item.dataset.domain = id;
       item.dataset.order = String(data.order ?? 0);
+      if (data.localOnly) item.classList.add('doka-domain-local');
 
       if (item.querySelector('.doka-domain-controls')) return;
 
@@ -1051,6 +1052,14 @@
         row.className = 'doka-domain-row';
         link.before(row);
         row.appendChild(link);
+      }
+
+      if (data.localOnly && !row.querySelector('.doka-domain-badge')) {
+        const badge = document.createElement('span');
+        badge.className = 'doka-domain-badge';
+        badge.textContent = 'локальная';
+        badge.title = 'Область существует только на локальном сервере';
+        link.after(badge);
       }
 
       const controls = document.createElement('div');
@@ -1067,14 +1076,16 @@
       orderInput.dataset.order = String(data.order ?? 0);
       orderInput.setAttribute('aria-label', `Порядок области «${data.title || id}»`);
 
+      const actionsList = [{ action: 'edit', label: 'Изменить' }];
+      if (!data.localOnly) {
+        actionsList.push({ action: 'delete', label: 'Удалить', danger: true });
+      }
+
       const actions = createActionsMenu({
         kind: 'domain',
         data: { domain: id, title: data.title || id },
         ariaLabel: `Действия с областью «${data.title || id}»`,
-        actions: [
-          { action: 'edit', label: 'Изменить' },
-          { action: 'delete', label: 'Удалить', danger: true },
-        ],
+        actions: actionsList,
       });
 
       controls.appendChild(orderInput);

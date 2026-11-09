@@ -19,7 +19,7 @@
             "interactive": false
           },
           {
-            "order": 30,
+            "order": 20,
             "title": "Интерактив: цикл for по шагам",
             "url": "content/csharp/osnovy/interactive-example.html",
             "keywords": "цикл интерактив шагам демо итерация кнопка сброс сумма счётчик текущее увеличивается шаге блокируется возвращает выполняется должна",

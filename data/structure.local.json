@@ -1,0 +1,26 @@
+{
+  "admin": {
+    "order": 9990,
+    "title": "Админка",
+    "accent": "#6b8e23",
+    "description": "Локальная область: видна только на dev-сервере. Удалить область нельзя, а группы и темы — можно.",
+    "localOnly": true,
+    "groups": [
+      {
+        "id": "2345532",
+        "order": 10,
+        "name": "2345532",
+        "topics": [
+          {
+            "order": 10,
+            "title": "ваприпав",
+            "url": "content/admin/2345532/vapripav.md",
+            "keywords": "ваприпав выделение краткое описание первый привет раздел раздела ссылки текст темы узнает читатель console.writeline example.com https",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      }
+    ]
+  }
+}
