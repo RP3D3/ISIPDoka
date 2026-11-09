@@ -165,6 +165,10 @@
     name,
     url: new URL(name, modelRootUrl).href,
   }));
+  // Единый gzip-бандл с этими JSON-файлами. Нейтральное имя и Content-Type
+  // application/octet-stream помогают обойти фильтры, которые отдают 403
+  // именно на tokenizer.json (например, антивирус/провайдер).
+  const MODEL_AUX_BUNDLE_URL = new URL('meta.bin', modelRootUrl).href;
   // Собственный кэш: подключаем его к transformers.js через env.customCache,
   // чтобы не зависеть от внутреннего имени кэша библиотеки.
   const MODEL_CACHE_NAME = 'rubert-local-cache-v1';
@@ -229,10 +233,38 @@
     return out;
   }
 
+  function jsonCacheResponse(value) {
+    return new Response(JSON.stringify(value), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    });
+  }
+
+  /** Читает gzip-бандл meta.bin и возвращает объект {имя файла: JSON}. */
+  async function fetchModelMetaBundle() {
+    const res = await fetch(MODEL_AUX_BUNDLE_URL, { cache: 'force-cache' });
+    if (!res.ok) throw new Error(`meta.bin: HTTP ${res.status}`);
+
+    // Если сервер сам применил Content-Encoding: gzip, браузер уже отдал
+    // распакованный body. Иначе внутри meta.bin лежит gzip-поток.
+    const encoding = (res.headers.get('content-encoding') || '').toLowerCase();
+    let text;
+    if (encoding.includes('gzip')) {
+      text = await res.text();
+    } else {
+      if (typeof DecompressionStream === 'undefined' || !res.body) {
+        throw new Error('DecompressionStream недоступен');
+      }
+      const stream = res.body.pipeThrough(new DecompressionStream('gzip'));
+      text = await new Response(stream).text();
+    }
+    return JSON.parse(text);
+  }
+
   /**
-   * Кладёт в Cache API config.json, tokenizer.json и tokenizer_config.json. Без этого
-   * transformers.js после перезапуска снова идёт в сеть за токенизатором,
-   * хотя сама модель уже лежит в кэше.
+   * Кладёт в Cache API config.json, tokenizer.json и tokenizer_config.json.
+   * Без этого transformers.js после перезапуска снова идёт в сеть за
+   * токенизатором, хотя сама модель уже лежит в кэше.
    */
   async function ensureAuxCached(cache) {
     const missing = [];
@@ -241,13 +273,34 @@
     }
     if (!missing.length) return;
 
-    console.log('[model] Кэширую служебные файлы токенизатора...');
+    // 1) Основной путь — один meta.bin. Так мы не запрашиваем tokenizer.json
+    // напрямую: некоторые фильтры отдают на него 403, хотя .bin проходит.
+    try {
+      console.log(
+        '[model] Загружаю служебные файлы токенизатора (meta.bin)...'
+      );
+      const meta = await fetchModelMetaBundle();
+      const found = missing.filter((asset) => meta[asset.name] !== undefined);
+      if (found.length !== missing.length) {
+        throw new Error('в meta.bin нет части файлов');
+      }
+      for (const asset of found) {
+        await cache.put(asset.url, jsonCacheResponse(meta[asset.name]));
+      }
+      console.log('[model] Служебные файлы токенизатора в кэше.');
+      return;
+    } catch (err) {
+      console.warn(
+        '[model] meta.bin недоступен, пробую отдельные файлы:',
+        err.message || err
+      );
+    }
+
+    // 2) Резервный путь — отдельные файлы (может сработать из HTTP-кэша).
     for (const asset of missing) {
+      if (await cache.match(asset.url)) continue;
       let res;
       try {
-        // force-cache: если файл уже есть в HTTP-кэше браузера, берём его
-        // оттуда даже после истечения срока свежести. Это спасает при 403,
-        // когда сеть частично недоступна, а файл уже загружался ранее.
         res = await fetch(asset.url, { cache: 'force-cache' });
       } catch (err) {
         throw new Error(`${asset.name}: ${err.message || 'сетевая ошибка'}`);
@@ -260,19 +313,13 @@
       if (!/^\s*\{/.test(text)) {
         throw new Error(`${asset.name}: сервер вернул не JSON`);
       }
+      let value;
       try {
-        JSON.parse(text);
+        value = JSON.parse(text);
       } catch {
         throw new Error(`${asset.name}: некорректный JSON`);
       }
-
-      await cache.put(
-        asset.url,
-        new Response(text, {
-          status: 200,
-          headers: { 'Content-Type': 'application/json; charset=utf-8' },
-        })
-      );
+      await cache.put(asset.url, jsonCacheResponse(value));
     }
     console.log('[model] Служебные файлы токенизатора в кэше.');
   }

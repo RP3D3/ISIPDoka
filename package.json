@@ -8,6 +8,7 @@
     "sync": "node scripts/sync-structure.js",
     "sync:embeddings": "node scripts/sync-structure.js --embeddings",
     "build:embeddings": "node scripts/build-embeddings.js",
+    "bundle:model": "node scripts/bundle-model-meta.js",
     "test:semantic": "node scripts/test-semantic.js",
     "dev": "node scripts/dev-server.js"
   },
