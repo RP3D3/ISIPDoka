@@ -73,8 +73,25 @@ body.doka-preview-mode .doka-add-group {
 .doka-actions {
   position: relative;
   display: inline-flex;
+  align-items: center;
+  gap: 2px;
   flex: 0 0 auto;
   z-index: 1;
+}
+
+.doka-actions[data-order]::before {
+  content: attr(data-order);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  color: currentColor;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  opacity: 0.55;
+  pointer-events: none;
 }
 
 .doka-actions[open] {
@@ -179,7 +196,9 @@ body.doka-preview-mode .doka-add-group {
 }
 
 .doka-actions-item {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   width: 100%;
   padding: 8px 10px;
   border: 0;
@@ -193,6 +212,48 @@ body.doka-preview-mode .doka-add-group {
   white-space: nowrap;
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.doka-actions-item::before {
+  content: '';
+  display: none;
+  flex: 0 0 14px;
+  width: 14px;
+  height: 14px;
+  background-color: currentColor;
+  opacity: 0.85;
+  -webkit-mask: var(--doka-action-icon) center / 14px 14px no-repeat;
+  mask: var(--doka-action-icon) center / 14px 14px no-repeat;
+}
+
+.doka-actions-item[data-action='edit']::before,
+.doka-actions-item[data-action='move']::before,
+.doka-actions-item[data-action='delete']::before,
+.doka-actions[data-kind='domain'] .doka-actions-item[data-action='rename']::before,
+.doka-actions[data-kind='group'] .doka-actions-item[data-action='rename']::before,
+.doka-actions[data-kind='topic'] .doka-actions-item[data-action='rename']::before {
+  display: block;
+}
+
+.doka-actions[data-kind='domain'] .doka-actions-item[data-action='rename'] {
+  --doka-action-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'black'%20stroke-width%3D'1.8'%20stroke-linecap%3D'round'%3E%3Cpath%20d%3D'M4%207h10M18%207h2M4%2017h2M10%2017h10'%2F%3E%3Ccircle%20cx%3D'16'%20cy%3D'7'%20r%3D'2'%2F%3E%3Ccircle%20cx%3D'8'%20cy%3D'17'%20r%3D'2'%2F%3E%3C%2Fsvg%3E");
+}
+
+.doka-actions[data-kind='group'] .doka-actions-item[data-action='rename'],
+.doka-actions[data-kind='topic'] .doka-actions-item[data-action='rename'] {
+  --doka-action-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'black'%20stroke-width%3D'1.8'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Cpath%20d%3D'M12%2020h9'%2F%3E%3Cpath%20d%3D'M16.5%203.5a2.1%202.1%200%200%201%203%203L7%2019l-4%201%201-4Z'%2F%3E%3C%2Fsvg%3E");
+}
+
+.doka-actions-item[data-action='edit'] {
+  --doka-action-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'black'%20stroke-width%3D'1.8'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Cpath%20d%3D'M14%202H6a2%202%200%200%200-2%202v16a2%202%200%200%200%202%202h12a2%202%200%200%200%202-2V8Z'%2F%3E%3Cpath%20d%3D'M14%202v6h6'%2F%3E%3Cpath%20d%3D'm12%2018%201-4%204%204-4%201Z'%2F%3E%3C%2Fsvg%3E");
+}
+
+.doka-actions-item[data-action='move'] {
+  --doka-action-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'black'%20stroke-width%3D'1.8'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Cpath%20d%3D'M8%203%204%207l4%204'%2F%3E%3Cpath%20d%3D'M4%207h16'%2F%3E%3Cpath%20d%3D'm16%2021%204-4-4-4'%2F%3E%3Cpath%20d%3D'M20%2017H4'%2F%3E%3C%2Fsvg%3E");
+}
+
+.doka-actions-item[data-action='delete'] {
+  --doka-action-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'black'%20stroke-width%3D'1.8'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Cpath%20d%3D'M3%206h18'%2F%3E%3Cpath%20d%3D'M8%206V4h8v2'%2F%3E%3Cpath%20d%3D'M19%206l-1%2014H6L5%206'%2F%3E%3Cpath%20d%3D'M10%2011v5M14%2011v5'%2F%3E%3C%2Fsvg%3E");
 }
 
 .doka-actions-item:hover,
@@ -321,7 +382,75 @@ body.doka-preview-mode .doka-add-group {
   cursor: wait;
 }
 
-/* ===== Область на главной: ссылка + порядок + редактирование ===== */
+/* ===== Порядок внутри меню действий ===== */
+
+.doka-actions-order {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 2px 2px 8px;
+  margin-bottom: 2px;
+}
+
+.doka-actions-order:not(:last-child) {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.doka-actions-order .doka-order-input {
+  flex: 0 0 54px;
+  width: 54px;
+  height: 30px;
+  padding: 0 4px;
+  border-radius: 4px;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.doka-actions-order .doka-order-input::-webkit-outer-spin-button,
+.doka-actions-order .doka-order-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.doka-order-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: #121316;
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.doka-order-step:hover,
+.doka-order-step:focus-visible {
+  border-color: var(--domain-accent);
+  color: #fff;
+  background: color-mix(in srgb, var(--domain-accent) 18%, #121316);
+}
+
+.doka-order-step:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--domain-accent) 55%, transparent);
+  outline-offset: 1px;
+}
+
+.doka-order-step:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+/* ===== Область на главной: ссылка + действия ===== */
 
 .doka-domain-row {
   display: flex;
@@ -414,7 +543,7 @@ body.doka-preview-mode .doka-add-group {
   outline-offset: 2px;
 }
 
-/* ===== Группа: название + порядок + редактирование ===== */
+/* ===== Группа: название + действия ===== */
 
 .group-header {
   display: inline-flex;
@@ -426,20 +555,6 @@ body.doka-preview-mode .doka-add-group {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-}
-
-.group-header .doka-order-input {
-  width: 58px;
-  padding: 3px 4px;
-  border-color: rgba(255, 255, 255, 0.34);
-  background: rgba(0, 0, 0, 0.24);
-  color: #fff;
-  font-size: 12px;
-}
-
-.group-header .doka-order-input:focus {
-  border-color: #fff;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
 }
 
 .doka-edit-group {
@@ -697,6 +812,11 @@ body.doka-modal-open {
   color: var(--text-muted);
   font-size: 12.5px;
   line-height: 1.45;
+}
+
+.doka-hint-preview {
+  color: var(--text-main);
+  font-style: italic;
 }
 
 .doka-modal-error {

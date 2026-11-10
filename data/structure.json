@@ -6,37 +6,6 @@
     "description": "Объектно-ориентированный строго типизированный язык программирования для платформы .NET.",
     "groups": [
       {
-        "id": "osnovy",
-        "order": 10,
-        "name": "Основы",
-        "topics": [
-          {
-            "order": 10,
-            "title": "Привет, мир!ва",
-            "url": "content/csharp/osnovy/hello-world.md",
-            "keywords": "привет мир консоль WriteLine C# топ-уровневые инструкции Program.Main синтаксис",
-            "type": "md",
-            "interactive": false
-          },
-          {
-            "order": 20,
-            "title": "Интерактив: цикл for по шагам",
-            "url": "content/csharp/osnovy/interactive-example.html",
-            "keywords": "цикл интерактив шагам демо итерация кнопка сброс сумма счётчик текущее увеличивается шаге блокируется возвращает выполняется должна",
-            "type": "html",
-            "interactive": true
-          },
-          {
-            "order": 30,
-            "title": "Тестовая тема для деплоя",
-            "url": "content/csharp/osnovy/testovaya-tema-dlya-deploya.md",
-            "keywords": "повидло",
-            "type": "md",
-            "interactive": false
-          }
-        ]
-      },
-      {
         "id": "peremennye-i-hranenie",
         "order": 20,
         "name": "Переменные и хранение",
@@ -72,6 +41,14 @@
             "keywords": "const константа константы неизменяемость compile-time магические числа readonly CS0131 CS0145 CS0133 CS0134 си шарп c# csharp",
             "type": "md",
             "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Области видимости scope",
+            "url": "content/csharp/peremennye-i-hranenie/oblasti-vidimosti.md",
+            "keywords": "видимости scope области внутри класса метода count блока область сборки name using классах локальная наследниках переменная",
+            "type": "md",
+            "interactive": false
           }
         ]
       },
@@ -88,12 +65,5 @@
         "topics": []
       }
     ]
-  },
-  "sql": {
-    "order": 20,
-    "title": "Базы данных",
-    "accent": "#3b82f6",
-    "description": "Реляционные базы данных и язык SQL: таблицы, выборки, фильтрация, агрегаты и связи между данными.",
-    "groups": []
   }
 }

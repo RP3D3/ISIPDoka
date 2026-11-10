@@ -143,10 +143,50 @@
     if (event.key === 'Escape') closeActionMenus();
   });
 
-  function createActionsMenu({ kind, data = {}, actions = [], ariaLabel = 'Действия' }) {
+  function createOrderField({ kind, domain, group, url, order, ariaLabel }) {
+    const wrap = document.createElement('div');
+    wrap.className = 'doka-actions-order';
+
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.min = '0';
+    input.step = '10';
+    input.className = 'doka-order-input';
+    input.value = String(order ?? 0);
+    input.dataset.kind = kind;
+    if (domain) input.dataset.domain = String(domain);
+    if (group) input.dataset.group = String(group);
+    if (url) input.dataset.url = String(url);
+    input.dataset.order = String(order ?? 0);
+    input.setAttribute('aria-label', ariaLabel);
+
+    const makeStep = (step, label, text) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'doka-order-step';
+      button.dataset.step = String(step);
+      button.setAttribute('aria-label', label);
+      button.textContent = text;
+      return button;
+    };
+
+    wrap.appendChild(makeStep(-10, 'Уменьшить порядок на 10', '<'));
+    wrap.appendChild(input);
+    wrap.appendChild(makeStep(10, 'Увеличить порядок на 10', '>'));
+    return wrap;
+  }
+
+  function createActionsMenu({
+    kind,
+    data = {},
+    actions = [],
+    ariaLabel = 'Действия',
+    order = null,
+  }) {
     const details = document.createElement('details');
     details.className = 'doka-actions';
     details.dataset.kind = kind;
+    if (order) details.dataset.order = String(order.order ?? 0);
 
     for (const [key, value] of Object.entries(data)) {
       if (value !== undefined && value !== null) {
@@ -163,6 +203,8 @@
     const menu = document.createElement('div');
     menu.className = 'doka-actions-menu';
     menu.setAttribute('role', 'menu');
+
+    if (order) menu.appendChild(createOrderField(order));
 
     for (const action of actions) {
       const button = document.createElement('button');
@@ -332,6 +374,13 @@
 
         wrap.appendChild(input);
 
+        let previewEl = null;
+        if (field.preview) {
+          previewEl = document.createElement('p');
+          previewEl.className = 'doka-hint doka-hint-preview';
+          wrap.appendChild(previewEl);
+        }
+
         if (field.hint) {
           const hint = document.createElement('p');
           hint.className = 'doka-hint';
@@ -340,7 +389,9 @@
         }
 
         form.appendChild(wrap);
-        controls.set(field.name, { input, getValue, field });
+        const control = { input, getValue, field };
+        if (previewEl) control.previewEl = previewEl;
+        controls.set(field.name, control);
 
         if (field.slug) {
           input.spellcheck = false;
@@ -355,20 +406,49 @@
         const source = controls.get(field.derive);
         if (!target || !source || target.field.type === 'color') continue;
 
-        let touched = Boolean(String(target.getValue() || '').trim());
+        const initialTitle = source.input.value;
+        let touched = field.deriveUpdateValue
+          ? false
+          : Boolean(String(target.getValue() || '').trim());
         const refresh = () => {
           if (touched) return;
           const generated = slugify(source.input.value);
-          target.input.placeholder = generated || field.placeholder || '';
+          if (field.deriveUpdateValue) {
+            // При переименовании не трогаем старое имя файла, пока
+            // пользователь не изменил название.
+            if (source.input.value !== initialTitle) {
+              target.input.value = generated || field.value || '';
+            }
+          } else {
+            target.input.placeholder = generated || field.placeholder || '';
+          }
         };
 
         source.input.addEventListener('input', refresh);
         target.input.addEventListener('input', () => {
-          touched = Boolean(target.input.value.trim());
-          refresh();
+          touched = true;
         });
         refresh();
       }
+
+      // Подсказка «старое имя > новое имя» под полями переименования.
+      function refreshPreviews() {
+        for (const [name, control] of controls) {
+          if (!control.field.preview) continue;
+          const oldName = String(control.field.preview.old ?? '');
+          let nextName = control.getValue();
+          if (name === 'slug' && !nextName) {
+            const titleControl = controls.get('title');
+            nextName = slugify(titleControl ? titleControl.getValue() : '');
+          }
+          if (control.previewEl) {
+            control.previewEl.textContent = `"${oldName}" > "${nextName || ''}"`;
+          }
+        }
+      }
+
+      form.addEventListener('input', refreshPreviews);
+      refreshPreviews();
 
       const errorEl = document.createElement('p');
       errorEl.className = 'doka-modal-error';
@@ -659,16 +739,16 @@
     }
   }
 
-  async function editDomainDialog(domain) {
+  async function renameDomainDialog(domain) {
     if (!(await ready())) return;
 
     const id = String(domain?.id || '');
     if (!id) return;
 
     const values = await openDialog({
-      title: 'Редактировать область',
+      title: 'Свойства',
       description: 'Название, цвет и описание обновятся на сайте.',
-      submitLabel: 'Сохранить',
+      submitLabel: 'Изменить',
       fields: [
         {
           name: 'title',
@@ -677,16 +757,20 @@
           value: domain.title || '',
           required: true,
           autofocus: true,
+          preview: { old: domain.title || id },
         },
         {
           name: 'slug',
-          label: 'Фактическое имя',
+          label: 'Фактическое название',
           type: 'text',
           value: id,
+          derive: 'title',
+          deriveUpdateValue: true,
           slug: true,
           required: true,
+          preview: { old: id },
           hint:
-            'Имя папки области. При изменении изменится адрес страницы области.',
+            'Имя папки. Если оставить пустым — подставится транслит названия.',
         },
         {
           name: 'accent',
@@ -708,23 +792,23 @@
           method: 'PUT',
           body: { ...data, domain: id },
         });
-        toast(`Область «${data.title}» сохранена.`, 'success');
+        toast(`Свойства области «${data.title}» сохранены.`, 'success');
       },
     });
 
     if (values) window.location.reload();
   }
 
-  async function editGroupDialog(domainId, group) {
+  async function renameGroupDialog(domainId, group) {
     if (!(await ready())) return;
 
     const id = String(group?.id || '');
     if (!id) return;
 
     const values = await openDialog({
-      title: 'Редактировать группу',
-      description: 'Название группы появится в списке тем области.',
-      submitLabel: 'Сохранить',
+      title: 'Переименовать группу',
+      description: 'Изменятся отображаемое имя и имя папки группы.',
+      submitLabel: 'Изменить',
       fields: [
         {
           name: 'title',
@@ -733,16 +817,20 @@
           value: group.title || '',
           required: true,
           autofocus: true,
+          preview: { old: group.title || id },
         },
         {
           name: 'slug',
-          label: 'Фактическое имя',
+          label: 'Фактическое название',
           type: 'text',
           value: id,
+          derive: 'title',
+          deriveUpdateValue: true,
           slug: true,
           required: true,
+          preview: { old: id },
           hint:
-            'Имя папки группы. При изменении изменится адрес страниц внутри неё.',
+            'Имя папки группы. Если оставить пустым — подставится транслит названия.',
         },
       ],
       onSubmit: async (data) => {
@@ -750,7 +838,57 @@
           method: 'PUT',
           body: { ...data, domain: domainId, group: id },
         });
-        toast(`Группа «${data.title}» сохранена.`, 'success');
+        toast(`Группа «${data.title}» переименована.`, 'success');
+      },
+    });
+
+    if (values) window.location.reload();
+  }
+
+  async function renameTopicDialog(topic) {
+    if (!(await ready())) return;
+
+    const filePath = String(topic?.path || '');
+    const title = String(topic?.title || filePath).trim();
+    if (!filePath) return;
+
+    const fileName = filePath.split('/').pop();
+    const oldSlug = fileName.replace(/\.(md|html)$/i, '');
+
+    const values = await openDialog({
+      title: 'Переименовать тему',
+      description: 'Изменятся отображаемое имя и имя файла темы.',
+      submitLabel: 'Изменить',
+      fields: [
+        {
+          name: 'title',
+          label: 'Название',
+          type: 'text',
+          value: title,
+          required: true,
+          autofocus: true,
+          preview: { old: title },
+        },
+        {
+          name: 'slug',
+          label: 'Фактическое название',
+          type: 'text',
+          value: oldSlug,
+          derive: 'title',
+          deriveUpdateValue: true,
+          slug: true,
+          required: true,
+          preview: { old: oldSlug },
+          hint:
+            'Имя файла без расширения. Если оставить пустым — подставится транслит названия.',
+        },
+      ],
+      onSubmit: async (data) => {
+        await request('/api/admin/topic', {
+          method: 'PUT',
+          body: { ...data, path: filePath },
+        });
+        toast(`Тема «${data.title}» переименована.`, 'success');
       },
     });
 
@@ -974,7 +1112,16 @@
       return;
     }
 
+    const orderField = input.closest('.doka-actions-order');
+    const stepButtons = orderField
+      ? [...orderField.querySelectorAll('.doka-order-step')]
+      : [];
+
     input.disabled = true;
+    stepButtons.forEach((button) => {
+      button.disabled = true;
+    });
+
     try {
       await request('/api/admin/order', {
         method: 'POST',
@@ -989,6 +1136,8 @@
 
       input.dataset.order = String(next);
       input.value = String(next);
+      const menu = input.closest('.doka-actions');
+      if (menu) menu.dataset.order = String(next);
       reorderAfterOrderChange(input);
       toast('Порядок обновлён.', 'success');
     } catch (error) {
@@ -996,7 +1145,30 @@
       toast(error?.message || String(error), 'error');
     } finally {
       input.disabled = false;
+      stepButtons.forEach((button) => {
+        button.disabled = false;
+      });
     }
+  }
+
+  function stepOrder(button) {
+    const field = button.closest('.doka-actions-order');
+    const input = field?.querySelector('.doka-order-input');
+    if (!input || input.disabled) return;
+
+    const step = Number(button.dataset.step);
+    if (!Number.isFinite(step)) return;
+
+    const raw = input.value.trim();
+    const typed = raw === '' ? NaN : Number(raw);
+    const current = Number.isFinite(typed)
+      ? typed
+      : Number(input.dataset.order ?? 0) || 0;
+    const next = Math.max(0, current + step);
+
+    if (next === current) return;
+    input.value = String(next);
+    changeOrder(input);
   }
 
   function bindOrderInputs(root) {
@@ -1005,6 +1177,12 @@
     root.addEventListener('change', (event) => {
       const input = event.target.closest('.doka-order-input');
       if (input) changeOrder(input);
+    });
+    root.addEventListener('click', (event) => {
+      const step = event.target.closest('.doka-order-step');
+      if (!step) return;
+      event.preventDefault();
+      stepOrder(step);
     });
   }
 
@@ -1065,19 +1243,9 @@
       const controls = document.createElement('div');
       controls.className = 'doka-domain-controls';
 
-      const orderInput = document.createElement('input');
-      orderInput.type = 'number';
-      orderInput.min = '0';
-      orderInput.step = '10';
-      orderInput.className = 'doka-order-input';
-      orderInput.value = String(data.order ?? 0);
-      orderInput.dataset.kind = 'domain';
-      orderInput.dataset.domain = id;
-      orderInput.dataset.order = String(data.order ?? 0);
-      orderInput.setAttribute('aria-label', `Порядок области «${data.title || id}»`);
-
-      const actionsList = [{ action: 'edit', label: 'Изменить' }];
+      const actionsList = [];
       if (!data.localOnly) {
+        actionsList.push({ action: 'rename', label: 'Свойства' });
         actionsList.push({ action: 'delete', label: 'Удалить', danger: true });
       }
 
@@ -1086,10 +1254,15 @@
         data: { domain: id, title: data.title || id },
         ariaLabel: `Действия с областью «${data.title || id}»`,
         actions: actionsList,
+        order: {
+          kind: 'domain',
+          domain: id,
+          order: data.order ?? 0,
+          ariaLabel: `Порядок области «${data.title || id}»`,
+        },
       });
-
-      controls.appendChild(orderInput);
       controls.appendChild(actions);
+
       row.appendChild(controls);
     });
 
@@ -1114,8 +1287,8 @@
 
         menu.open = false;
 
-        if (action.dataset.action === 'edit') {
-          editDomainDialog({
+        if (action.dataset.action === 'rename') {
+          renameDomainDialog({
             id,
             title,
             accent: byId.get(id)?.accent || '#6c47ff',
@@ -1143,12 +1316,18 @@
     }
   }
 
-  function bindDomainPage(domainId, groups = []) {
+  function bindDomainPage(domainId, groups = [], options = {}) {
     const container = document.getElementById('groupsContainer');
     if (!container) return;
 
     mountModeToggle();
     bindOrderInputs(container);
+
+    if (options.localOnly) {
+      container
+        .querySelectorAll('.doka-actions-item[data-action="rename"]')
+        .forEach((button) => button.remove());
+    }
 
     if (container.dataset.dokaBound === '1') return;
     container.dataset.dokaBound = '1';
@@ -1184,6 +1363,8 @@
                 'noopener'
               );
             }
+          } else if (actionName === 'rename') {
+            if (!options.localOnly) renameTopicDialog(topic);
           } else if (actionName === 'move') {
             moveTopicDialog(topic, groups);
           } else if (actionName === 'delete') {
@@ -1195,8 +1376,8 @@
             title: menu.dataset.title || '',
           };
 
-          if (actionName === 'edit') {
-            editGroupDialog(domainId, group);
+          if (actionName === 'rename') {
+            if (!options.localOnly) renameGroupDialog(domainId, group);
           } else if (actionName === 'delete') {
             deleteGroupDialog(domainId, group);
           }
@@ -1233,8 +1414,9 @@
     createDomainDialog,
     createGroupDialog,
     createTopicDialog,
-    editDomainDialog,
-    editGroupDialog,
+    renameDomainDialog,
+    renameGroupDialog,
+    renameTopicDialog,
     deleteDomainDialog,
     deleteGroupDialog,
     deleteTopicDialog,

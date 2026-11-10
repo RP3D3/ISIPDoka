@@ -7,15 +7,38 @@
     "localOnly": true,
     "groups": [
       {
-        "id": "2345532",
+        "id": "svalka",
         "order": 10,
-        "name": "2345532",
+        "name": "Свалка",
         "topics": [
           {
             "order": 10,
-            "title": "ваприпав",
-            "url": "content/admin/2345532/vapripav.md",
-            "keywords": "ваприпав выделение краткое описание первый привет раздел раздела ссылки текст темы узнает читатель console.writeline example.com https",
+            "title": "Тестовая тема",
+            "url": "content/admin/svalka/testovaya-tema.md",
+            "keywords": "тема тестовая верхнего метод привет пункт уровня dotnet main вложенный входа класс списки level statements весь",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Интерактив: цикл for по шагам",
+            "url": "content/admin/svalka/testovyy-interaktiv.html",
+            "keywords": "цикл интерактив шагам демо итерация кнопка сброс сумма счётчик текущее увеличивается шаге блокируется возвращает выполняется должна",
+            "type": "html",
+            "interactive": true
+          }
+        ]
+      },
+      {
+        "id": "prompty",
+        "order": 20,
+        "name": "Промпты",
+        "topics": [
+          {
+            "order": 10,
+            "title": "SVG",
+            "url": "content/admin/prompty/svg.md",
+            "keywords": "transform грабля никаких width должна height hero important none opacity origin rules stroke viewbox анимация анимировать",
             "type": "md",
             "interactive": false
           }

@@ -224,7 +224,7 @@ a {
 .brand-badge {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   box-sizing: border-box;
   /* Логотип занимает 90% высоты шапки */
   height: calc(var(--header-height) * 0.90);
@@ -1446,7 +1446,7 @@ b {
   .brand-badge {
     height: 40px;
     padding: 0 10px;
-    gap: 7px;
+    gap: 10px;
     font-size: 16px;
   }
 

@@ -248,6 +248,49 @@ function htmlTopicTemplate(title, description) {
 }
 
 /* ========================================================================== *
+ * Переименование темы: обновление заголовка в файле                          *
+ * ========================================================================== */
+
+function updateMdTitle(text, title) {
+  const safeTitle = String(title).replace(/\r?\n/g, ' ').trim();
+  const fmRe = /^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?/;
+  const match = text.match(fmRe);
+
+  if (match) {
+    const raw = match[1];
+    const rawStart = match.index + match[0].indexOf(raw);
+    const rawEnd = rawStart + raw.length;
+    const titleRe = /^title:[^\r\n]*(?:\r?\n[ \t]+[^\r\n]*)*\r?\n?/m;
+    const newRaw = titleRe.test(raw)
+      ? raw.replace(titleRe, `title: ${safeTitle}\n`)
+      : `title: ${safeTitle}\n` + raw;
+    return text.slice(0, rawStart) + newRaw + text.slice(rawEnd);
+  }
+
+  const h1Re = /^#\s+([^\r\n]+)\r?\n?/m;
+  if (h1Re.test(text)) {
+    return text.replace(h1Re, `# ${safeTitle}\n`);
+  }
+
+  return `---\ntitle: ${safeTitle}\n---\n\n${text}`;
+}
+
+function updateHtmlTitle(text, title) {
+  const safeTitle = escapeHtml(String(title).replace(/\r?\n/g, ' ').trim());
+  const titleRe = /(<title[^>]*>)([\s\S]*?)(<\/title>)/i;
+  if (titleRe.test(text)) {
+    return text.replace(titleRe, (m, open, _old, close) => open + safeTitle + close);
+  }
+
+  const headRe = /(<head[^>]*>)/i;
+  if (headRe.test(text)) {
+    return text.replace(headRe, (m, open) => open + `\n  <title>${safeTitle}</title>`);
+  }
+
+  return `<title>${safeTitle}</title>\n${text}`;
+}
+
+/* ========================================================================== *
  * Запуск sync-structure / build-embeddings                                   *
  * ========================================================================== */
 
@@ -852,6 +895,69 @@ async function handleApi(req, res, url) {
 
     console.log(`[admin] создана тема ${relPath}`);
     sendJson(res, 200, { ok: true, path: relPath, type, ...logs });
+    return;
+  }
+
+  if (pathname === '/api/admin/topic' && req.method === 'PUT') {
+    const body = await readJsonBody(req);
+    const info = resolveContentFile(body.path);
+    const title = requireTitle(body.title);
+    const nextSlug = requireSlug(body.slug, 'новое фактическое имя темы');
+
+    const parts = info.rel.split('/');
+    if (parts.length !== 4 || parts[0] !== 'content') {
+      throw new HttpError(400, 'Ожидается путь content/<область>/<группа>/<файл>.');
+    }
+
+    const domain = requireSlug(parts[1], 'фактическое имя области');
+    const group = requireSlug(parts[2], 'фактическое имя группы');
+    const fileName = parts[3];
+    const ext = path.extname(fileName).toLowerCase();
+    if (ext !== '.md' && ext !== '.html') {
+      throw new HttpError(400, 'Тема должна быть .md или .html.');
+    }
+    const type = ext.slice(1);
+
+    const sourceStat = await stat(info.abs).catch(() => null);
+    if (!sourceStat || !sourceStat.isFile()) {
+      throw new HttpError(404, 'Файл темы не найден.');
+    }
+
+    const nextFileName = `${nextSlug}.${type}`;
+    const targetAbs = path.join(path.dirname(info.abs), nextFileName);
+    if (nextFileName !== fileName && existsSync(targetAbs)) {
+      throw new HttpError(409, `Файл «${nextFileName}» уже существует.`);
+    }
+
+    const oldText = await readFile(info.abs, 'utf8');
+    const newText =
+      type === 'md'
+        ? updateMdTitle(oldText, title)
+        : updateHtmlTitle(oldText, title);
+
+    if (nextFileName !== fileName) {
+      await writeFile(targetAbs, newText, 'utf8');
+      await rm(info.abs);
+    } else {
+      await writeFile(info.abs, newText, 'utf8');
+    }
+
+    // Сохраняем порядок темы: обновляем URL и title в structure.json
+    // до пересборки, чтобы sync-structure не поставил её в конец.
+    const structure = await readStructure();
+    const topic = structure[domain]?.groups
+      ?.find((item) => item.id === group)
+      ?.topics?.find((item) => item.url === info.rel);
+    if (topic) {
+      topic.url = `content/${domain}/${group}/${nextFileName}`;
+      topic.title = title;
+      await writeStructure(structure);
+    }
+
+    const logs = await rebuild(true);
+    const targetRel = `content/${domain}/${group}/${nextFileName}`;
+    console.log(`[admin] тема переименована ${info.rel} → ${targetRel}`);
+    sendJson(res, 200, { ok: true, path: targetRel, ...logs });
     return;
   }
 

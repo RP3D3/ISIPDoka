@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="./favicon.png">
   <link rel="apple-touch-icon" href="./favicon.png">
 <link rel="stylesheet" href="./css/style.css?v=20261109-10">
-  <link rel="stylesheet" href="./css/admin.css?v=20261109-11">
+  <link rel="stylesheet" href="./css/admin.css?v=20261109-15">
   <style>:root { --domain-accent: #614fa8; }</style>
 </head>
 <body>
@@ -44,7 +44,7 @@
 
   <script src="./js/search.js?v=20261109-3"></script>
   <script src="./js/progress.js?v=20261109-1"></script>
-  <script src="./js/admin.js?v=20261109-6"></script>
+  <script src="./js/admin.js?v=20261109-12"></script>
   <script src="./js/admin-stats.js?v=20261109-7"></script>
   <script src="./js/mascot.js?v=20261109-7"></script>
   <script>
@@ -56,6 +56,30 @@
           .replace(/>/g, '&gt;')
           .replace(/"/g, '&quot;')
           .replace(/'/g, '&#39;');
+      }
+
+      function orderControlHtml({ kind, domain, group, url, order, label }) {
+        const attrs = [
+          'type="number"',
+          'class="doka-order-input"',
+          'min="0"',
+          'step="10"',
+          `value="${Number(order ?? 0)}"`,
+          `data-kind="${escapeHtml(kind)}"`,
+          domain ? `data-domain="${escapeHtml(domain)}"` : '',
+          group ? `data-group="${escapeHtml(group)}"` : '',
+          url ? `data-url="${escapeHtml(url)}"` : '',
+          `data-order="${Number(order ?? 0)}"`,
+          `aria-label="${escapeHtml(label)}"`,
+        ]
+          .filter(Boolean)
+          .join(' ');
+
+        return `<div class="doka-actions-order">
+          <button type="button" class="doka-order-step" data-step="-10" aria-label="Уменьшить порядок на 10">&lt;</button>
+          <input ${attrs}>
+          <button type="button" class="doka-order-step" data-step="10" aria-label="Увеличить порядок на 10">&gt;</button>
+        </div>`;
       }
 
       async function loadDomain() {
@@ -86,6 +110,7 @@
           const groups = [...(domain.groups || [])].sort(
             (a, b) => (a.order ?? 0) - (b.order ?? 0)
           );
+          const allowRename = !domain.localOnly;
 
           const adminAvailable = window.DokaAdmin
             ? await window.DokaAdmin.ready()
@@ -108,27 +133,27 @@
                     ? window.DokaProgress.isRead(t.url)
                     : true;
                   const linkClass = 'topic-link' + (isRead ? '' : ' is-unread');
-                  const orderInput = adminAvailable
-                    ? `<input type="number" class="doka-order-input" min="0" step="10"
-                        value="${Number(t.order ?? 0)}"
-                        data-kind="topic"
-                        data-domain="${escapeHtml(domainId)}"
-                        data-group="${escapeHtml(group.id || '')}"
-                        data-url="${escapeHtml(t.url)}"
-                        data-order="${Number(t.order ?? 0)}"
-                        aria-label="Порядок темы «${escapeHtml(t.title)}»">`
-                    : '';
                   const actions = adminAvailable
                     ? `<details class="doka-actions"
                         data-kind="topic"
                         data-path="${escapeHtml(t.url)}"
                         data-title="${escapeHtml(t.title)}"
-                        data-group="${escapeHtml(group.id || '')}">
+                        data-group="${escapeHtml(group.id || '')}"
+                        data-order="${Number(t.order ?? 0)}">
                         <summary class="doka-actions-toggle" aria-haspopup="menu"
                           title="Действия с темой"
                           aria-label="Действия с темой «${escapeHtml(t.title)}»">›</summary>
                         <div class="doka-actions-menu" role="menu">
-                          <button type="button" class="doka-actions-item" data-action="edit">Изменить</button>
+                          ${orderControlHtml({
+                            kind: 'topic',
+                            domain: domainId,
+                            group: group.id || '',
+                            url: t.url,
+                            order: t.order,
+                            label: `Порядок темы «${t.title}»`,
+                          })}
+                          <button type="button" class="doka-actions-item" data-action="edit">Редактировать</button>
+                          ${allowRename ? '<button type="button" class="doka-actions-item" data-action="rename">Переименовать</button>' : ''}
                           <button type="button" class="doka-actions-item" data-action="move">Переместить</button>
                           <button type="button" class="doka-actions-item doka-actions-item--danger" data-action="delete">Удалить</button>
                         </div>
@@ -136,7 +161,6 @@
                     : '';
                   return `<div class="topic-row">
                     <a class="${linkClass}" data-topic-url="${escapeHtml(t.url)}" href="${href}">${escapeHtml(t.title)}${badge}</a>
-                    ${orderInput}
                     ${actions}
                   </div>`;
                 })
@@ -148,22 +172,23 @@
 
               const groupTools = adminAvailable
                 ? `<span class="doka-group-tools">
-                    <input type="number" class="doka-order-input" min="0" step="10"
-                      value="${Number(group.order ?? 0)}"
-                      data-kind="group"
-                      data-domain="${escapeHtml(domainId)}"
-                      data-group="${escapeHtml(group.id || '')}"
-                      data-order="${Number(group.order ?? 0)}"
-                      aria-label="Порядок группы «${escapeHtml(group.name)}»">
                     <details class="doka-actions"
                       data-kind="group"
                       data-group="${escapeHtml(group.id || '')}"
-                      data-title="${escapeHtml(group.name)}">
+                      data-title="${escapeHtml(group.name)}"
+                      data-order="${Number(group.order ?? 0)}">
                       <summary class="doka-actions-toggle" aria-haspopup="menu"
                         title="Действия с группой"
                         aria-label="Действия с группой «${escapeHtml(group.name)}»">›</summary>
                       <div class="doka-actions-menu" role="menu">
-                        <button type="button" class="doka-actions-item" data-action="edit">Изменить</button>
+                        ${orderControlHtml({
+                          kind: 'group',
+                          domain: domainId,
+                          group: group.id || '',
+                          order: group.order,
+                          label: `Порядок группы «${group.name}»`,
+                        })}
+                        ${allowRename ? '<button type="button" class="doka-actions-item" data-action="rename">Переименовать</button>' : ''}
                         <button type="button" class="doka-actions-item doka-actions-item--danger" data-action="delete">Удалить</button>
                       </div>
                     </details>
@@ -260,7 +285,8 @@
           if (adminAvailable && window.DokaAdmin) {
             window.DokaAdmin.bindDomainPage(
               domainId,
-              groups.map((group) => ({ id: group.id, name: group.name }))
+              groups.map((group) => ({ id: group.id, name: group.name })),
+              { localOnly: Boolean(domain.localOnly) }
             );
           }
         } catch (err) {
