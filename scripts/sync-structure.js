@@ -136,13 +136,65 @@ function parseFrontmatter(md) {
   const raw = match[1];
   const body = md.slice(match[0].length);
   const data = {};
+  let currentKey = null;
+  let currentValue = [];
+  let svgClosed = false;
+
+  // Поля, которые понимает сборка. Всё остальное после закрывающего
+  // </svg> — мусор от старых версий парсера.
+  const knownKeys = new Set([
+    'title',
+    'description',
+    'keywords',
+    'order',
+    'svg',
+    'accent',
+  ]);
+
+  const flush = () => {
+    if (currentKey === null) return;
+    const value = currentValue.join('\n').trim();
+    data[currentKey] = value;
+    if (currentKey === 'svg' && /<\/svg>\s*$/i.test(value)) {
+      svgClosed = true;
+    }
+    currentKey = null;
+    currentValue = [];
+  };
+
   for (const line of raw.split(/\r?\n/)) {
+    // Блок-скаляр | : строки с отступом (и пустые строки) — часть значения.
+    if (currentKey !== null) {
+      if (line.trim() === '') {
+        currentValue.push('');
+        continue;
+      }
+      if (/^\s{2}/.test(line)) {
+        currentValue.push(line.slice(2));
+        continue;
+      }
+    }
+
+    flush();
+
     const idx = line.indexOf(':');
     if (idx === -1) continue;
     const key = line.slice(0, idx).trim();
     const value = line.slice(idx + 1).trim();
-    data[key] = value;
+
+    if (svgClosed && !knownKeys.has(key)) continue;
+
+    if (value === '|' || value === '|-' || value === '|+') {
+      currentKey = key;
+      currentValue = [];
+    } else {
+      data[key] = value;
+      if (key === 'svg' && /<\/svg>\s*$/i.test(value)) svgClosed = true;
+    }
   }
+
+  flush();
+
   return { data, body };
 }
 

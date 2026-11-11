@@ -231,6 +231,96 @@
       font-size: 12.5px;
     }
 
+    /* ===== Промпт для SVG ===== */
+    .admin-svg-prompt-mode {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.4;
+      cursor: pointer;
+    }
+
+    .admin-svg-prompt-mode input {
+      flex: 0 0 auto;
+      accent-color: var(--domain-accent);
+    }
+
+    .admin-svg-prompt-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      margin-top: 10px;
+    }
+
+    .admin-svg-prompt-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .admin-svg-prompt-select {
+      width: auto;
+      min-width: 210px;
+      padding: 6px 8px;
+      font-size: 13px;
+    }
+
+    .admin-svg-prompt-meta {
+      margin-top: 8px;
+      color: var(--text-muted);
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .admin-svg-prompt-warn {
+      margin-top: 4px;
+      color: #d29922;
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .admin-svg-prompt-body {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      margin-top: 10px;
+      padding-right: 6px;
+    }
+
+    .admin-svg-prompt-label {
+      display: block;
+      margin: 14px 0 6px;
+      font-family: var(--font-accent);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .admin-textarea.admin-svg-prompt-text {
+      height: 220px;
+      min-height: 140px;
+      max-height: 40vh;
+      margin-top: 0;
+      resize: vertical;
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    .admin-textarea.admin-svg-prompt-svg {
+      height: 180px;
+      min-height: 120px;
+      max-height: 32vh;
+      margin-top: 0;
+      resize: vertical;
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
     .admin-hint {
       color: var(--text-muted);
       font-size: 13px;
@@ -627,7 +717,19 @@
           </div>
 
           <div class="admin-field">
-            <label for="fieldSvg">SVG для hero-блока</label>
+            <div class="admin-field-head">
+              <label for="fieldSvg">SVG для hero-блока</label>
+              <div class="admin-field-head-actions">
+                <button
+                  type="button"
+                  class="admin-secondary admin-link-btn"
+                  id="svgPromptBtn"
+                  title="Собрать промпт для нейросети с текущей палитрой"
+                >
+                  ✨ Промпт для SVG
+                </button>
+              </div>
+            </div>
             <textarea
               class="admin-textarea admin-textarea--code"
               id="fieldSvg"
@@ -637,7 +739,10 @@
             ></textarea>
             <p class="admin-hint">
               Вставляется как есть в начало hero-секции. Если поле пустое,
-              <code>svg</code> в frontmatter не добавляется.
+              <code>svg</code> в frontmatter не добавляется. Цвета лучше
+              задавать через <code>var(--text-main)</code>,
+              <code>var(--bg-main)</code> и <code>var(--domain-accent)</code> —
+              тогда иллюстрация подстроится под акцент области.
             </p>
           </div>
         </div>
@@ -766,12 +871,105 @@
     </div>
   </div>
 
+  <!-- Промпт для SVG -->
+  <div class="doka-modal" id="svgPromptModal" hidden>
+    <div
+      class="doka-modal-card admin-guide-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="svgPromptTitle"
+    >
+      <div class="admin-guide-head">
+        <h2 id="svgPromptTitle">Промпт для SVG</h2>
+        <button
+          type="button"
+          class="admin-guide-close"
+          id="svgPromptCloseX"
+          aria-label="Закрыть промпт"
+        >×</button>
+      </div>
+      <div class="admin-svg-prompt-body">
+        <p class="doka-modal-desc">
+          Готовый промпт для нейросети из раздела «Промпты». Скопируйте его
+          и вставьте в чат с моделью. Шаблон лежит в
+          <code>content/admin/prompty/svg.md</code>.
+        </p>
+        <label class="admin-svg-prompt-mode" for="svgPromptRecolor">
+          <input type="checkbox" id="svgPromptRecolor">
+          <span>Перекрасить текущую иллюстрацию — не менять композицию</span>
+        </label>
+        <div class="admin-svg-prompt-options">
+          <label class="admin-svg-prompt-option" for="svgPromptStyle">
+            <span>Стиль</span>
+            <select
+              class="doka-input doka-select admin-svg-prompt-select"
+              id="svgPromptStyle"
+            >
+              <option value="1">1 — Геометрический флэт</option>
+              <option value="2">2 — Инженерный чертёж</option>
+              <option value="3">3 — Монохромная изометрия</option>
+              <option value="4" selected>4 — Редакционный «Доки»</option>
+            </select>
+          </label>
+          <label class="admin-svg-prompt-option" for="svgPromptAnimation">
+            <span>Анимация</span>
+            <select
+              class="doka-input doka-select admin-svg-prompt-select"
+              id="svgPromptAnimation"
+            >
+              <option value="Да" selected>Да</option>
+              <option value="Нет">Нет</option>
+            </select>
+          </label>
+        </div>
+        <p class="admin-svg-prompt-meta" id="svgPromptMeta"></p>
+        <p class="admin-svg-prompt-warn" id="svgPromptWarn"></p>
+        <label class="admin-svg-prompt-label" for="svgPromptText">
+          Промпт для нейросети
+        </label>
+        <textarea
+          class="admin-textarea admin-textarea--code admin-svg-prompt-text"
+          id="svgPromptText"
+          readonly
+          spellcheck="false"
+          aria-label="Текст промпта"
+        ></textarea>
+        <label class="admin-svg-prompt-label" for="svgPromptSvg">
+          SVG-код
+        </label>
+        <p class="admin-hint">
+          Вставьте сюда ответ модели — он сразу попадёт в основное поле SVG.
+          Кнопка «Сохранить и закрыть» запишет файл темы.
+        </p>
+        <textarea
+          class="admin-textarea admin-textarea--code admin-svg-prompt-svg"
+          id="svgPromptSvg"
+          spellcheck="false"
+          aria-label="SVG-код"
+        ></textarea>
+      </div>
+      <p class="admin-guide-status" id="svgPromptStatus" aria-live="polite"></p>
+      <div class="doka-modal-actions">
+        <button type="button" class="doka-btn doka-btn-ghost" id="svgPromptCopy">
+          Скопировать промпт
+        </button>
+        <button type="button" class="doka-btn doka-btn-primary" id="svgPromptSave">
+          Сохранить и закрыть
+        </button>
+        <button type="button" class="doka-btn doka-btn-ghost" id="svgPromptCloseBtn">
+          Закрыть
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script src="js/libs/marked.min.js"></script>
   <script src="js/markdown-render.js?v=20261109-3"></script>
   <script src="js/markdown-alerts.js?v=20261109-1"></script>
   <script src="js/admin.js?v=20261109-12"></script>
   <script src="js/admin-stats.js?v=20261109-7"></script>
   <script src="js/admin-guide.js?v=20261109-2"></script>
+  <script src="js/admin-svg-prompt.js?v=20261111-3"></script>
   <script src="js/mascot.js?v=20261109-7"></script>
   <script>
     (() => {
@@ -826,6 +1024,9 @@
       let unlocked = false;
       let linkTopics = null;
       let selectedLinkTopic = null;
+      let structureData = null;
+      let structurePromise = null;
+      let domainAccent = '';
 
       /* ================================================================ *
        * Служебные функции                                                *
@@ -845,35 +1046,63 @@
         const lines = raw.split(/\r?\n/);
         let currentKey = null;
         let currentValue = [];
+        let svgClosed = false;
+
+        // Поля, которые редактор действительно понимает. Всё остальное
+        // после закрывающего </svg> — мусор от старых версий парсера.
+        const knownKeys = new Set([
+          'title',
+          'description',
+          'keywords',
+          'order',
+          'svg',
+          'accent',
+        ]);
+
+        const flush = () => {
+          if (currentKey === null) return;
+          const value = currentValue.join('\n').trim();
+          data[currentKey] = value;
+          if (currentKey === 'svg' && /<\/svg>\s*$/i.test(value)) {
+            svgClosed = true;
+          }
+          currentKey = null;
+          currentValue = [];
+        };
 
         for (const line of lines) {
-          if (currentKey !== null && /^\s{2}/.test(line) && line.trim() !== '') {
-            currentValue.push(line.slice(2));
-            continue;
+          if (currentKey !== null) {
+            // Пустая строка внутри блока | — часть значения (например,
+            // отступы и пустые строки в SVG), а не конец блока.
+            if (line.trim() === '') {
+              currentValue.push('');
+              continue;
+            }
+            if (/^\s{2}/.test(line)) {
+              currentValue.push(line.slice(2));
+              continue;
+            }
           }
 
-          if (currentKey !== null) {
-            data[currentKey] = currentValue.join('\n').trim();
-            currentKey = null;
-            currentValue = [];
-          }
+          flush();
 
           const idx = line.indexOf(':');
           if (idx === -1) continue;
           const key = line.slice(0, idx).trim();
           const value = line.slice(idx + 1).trim();
 
-          if (value === '|') {
+          if (svgClosed && !knownKeys.has(key)) continue;
+
+          if (value === '|' || value === '|-' || value === '|+') {
             currentKey = key;
             currentValue = [];
           } else {
             data[key] = value;
+            if (key === 'svg' && /<\/svg>\s*$/i.test(value)) svgClosed = true;
           }
         }
 
-        if (currentKey !== null) {
-          data[currentKey] = currentValue.join('\n').trim();
-        }
+        flush();
 
         return { data, body };
       }
@@ -1167,6 +1396,41 @@
       }
 
       /* ================================================================ *
+       * Акцент области для предпросмотра                                 *
+       * ================================================================ */
+      async function ensureDomainAccent() {
+        const domainId = (filePath.split('/')[1] || '').toLowerCase();
+
+        if (!structureData) {
+          if (!structurePromise) {
+            structurePromise = fetch(
+              new URL('data/structure.json', window.location.href),
+              { cache: 'no-store', headers: { Accept: 'application/json' } }
+            )
+              .then((res) => (res.ok ? res.json() : {}))
+              .catch(() => ({}))
+              .then((data) => {
+                structureData = data && typeof data === 'object' ? data : {};
+                return structureData;
+              })
+              .finally(() => {
+                structurePromise = null;
+              });
+          }
+          await structurePromise;
+        }
+
+        const accent = structureData?.[domainId]?.accent;
+        domainAccent = /^#[0-9a-f]{6}$/i.test(accent || '')
+          ? accent.toLowerCase()
+          : getComputedStyle(document.documentElement)
+              .getPropertyValue('--domain-accent')
+              .trim() || '#6c47ff';
+
+        return domainAccent;
+      }
+
+      /* ================================================================ *
        * Загрузка файла                                                   *
        * ================================================================ */
       async function loadFile() {
@@ -1184,6 +1448,7 @@
 
           filePath = data.path;
           setMode(data.type);
+          await ensureDomainAccent();
 
           if (data.type === 'md') {
             const parsed = parseFrontmatter(data.content);
@@ -1336,6 +1601,7 @@
 <link rel="stylesheet" href="${atomHref}">
 <link rel="stylesheet" href="${styleHref}">
 <style>
+  :root { --domain-accent: ${escapeHtml(domainAccent || '#6c47ff')}; }
   html, body { min-height: 100%; }
   body { overflow-x: hidden; }
   .md-preview-caret {
@@ -1420,7 +1686,7 @@
           groupId,
           groupName: groupId,
           topicTitle: titleFromHtml(String(code || '')) || topicSlug,
-          accent: '',
+          accent: domainAccent || '',
         };
         const contextJson = JSON.stringify(context).replace(/</g, '\\u003c');
 

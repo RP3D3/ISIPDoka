@@ -6,6 +6,61 @@
     "description": "Объектно-ориентированный строго типизированный язык программирования для платформы .NET.",
     "groups": [
       {
+        "id": "start-i-konsol",
+        "order": 0,
+        "name": "Старт и консоль",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Структура программы",
+            "url": "content/csharp/start-i-konsol/struktura-programmy.md",
+            "keywords": "точка входа top-level statements Program.cs args код возврата запуск приложения компиляция Roslyn асинхронный Task",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Вывод в консоль",
+            "url": "content/csharp/start-i-konsol/vyvod-v-konsol.md",
+            "keywords": "вывод консоль console.writeline строку строки текст console.write вывода результат writeline вместо символ внутри вызов игрок консоли",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Форматирование строк и спецсимволы",
+            "url": "content/csharp/start-i-konsol/formatirovanie-strok-i-specsimvoly.md",
+            "keywords": "интерполяция escape экранирование плейсхолдеры выравнивание спецификаторы литералы табуляция возврат каретки CultureInfo консоли",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Продвинутый терминал",
+            "url": "content/csharp/start-i-konsol/prodvinutyy-terminal.md",
+            "keywords": "Console SetCursorPosition ReadKey ForegroundColor CursorVisible KeyAvailable координаты курсор цвета клавиатура анимация консоль ANSI",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Ввод с клавиатуры",
+            "url": "content/csharp/start-i-konsol/vvod-s-klaviatury.md",
+            "keywords": "чтение консоль stdin буфер ConsoleKeyInfo TryParse Parse нажатие клавиш поток интерактивность терминал символы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Комментарии",
+            "url": "content/csharp/start-i-konsol/kommentarii.md",
+            "keywords": "однострочные многострочные XML документация summary IntelliSense TODO заметки пояснения отладка синтаксис Roslyn",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
         "id": "peremennye-i-hranenie",
         "order": 20,
         "name": "Переменные и хранение",
@@ -56,13 +111,456 @@
         "id": "bazovye-tipy",
         "order": 30,
         "name": "Базовые типы",
-        "topics": []
+        "topics": [
+          {
+            "order": 10,
+            "title": "Целые числа",
+            "url": "content/csharp/bazovye-tipy/celye-chisla.md",
+            "keywords": "диапазон переполнение checked unchecked суффикс литералы разрядность размер память uint short sbyte ulong BigInteger арифметика",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Дробные числа",
+            "url": "content/csharp/bazovye-tipy/drobnye-chisla.md",
+            "keywords": "плавающая точка точность округление суффикс финансы IEEE754 погрешность NaN бесконечность Infinity мантисса сравнение деление",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Логический тип",
+            "url": "content/csharp/bazovye-tipy/logicheskiy-tip.md",
+            "keywords": "истина ложь true false условия сравнение операторы отрицание дизъюнкция конъюнкция nullable BitArray флаг",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Символы и строки",
+            "url": "content/csharp/bazovye-tipy/simvoly-i-stroki.md",
+            "keywords": "текст неизменяемость immutability StringBuilder UTF-16 кавычки индекс конкатенация интернирование литералы Length ToUpper эмодзи",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Базовые методы строк",
+            "url": "content/csharp/bazovye-tipy/bazovye-metody-strok.md",
+            "keywords": "подстрока поиск пробелы разделение массив индекс StringComparison Join StartsWith EndsWith IndexOf Span парсинг очистка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Преобразование типов",
+            "url": "content/csharp/bazovye-tipy/preobrazovanie-tipov.md",
+            "keywords": "кастинг неявное конвертация строки число округление CultureInfo FormatException OverflowException Span парсинг типизация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Перечисления (enum)",
+            "url": "content/csharp/bazovye-tipy/perechisleniya.md",
+            "keywords": "константы магические числа Flags битовые флаги IsDefined TryParse GetValues HasFlag статусы byte приведение именованные",
+            "type": "md",
+            "interactive": false
+          }
+        ]
       },
       {
         "id": "kollekcii",
         "order": 40,
         "name": "Коллекции",
-        "topics": []
+        "topics": [
+          {
+            "order": 10,
+            "title": "Одномерные массивы",
+            "url": "content/csharp/kollekcii/odnomernye-massivy.md",
+            "keywords": "индекс Length foreach срезы куча сортировка IndexOutOfRangeException Span коллекции память копирование диапазоны",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Многомерные и зубчатые массивы",
+            "url": "content/csharp/kollekcii/mnogomernye-i-zubchatye-massivy.md",
+            "keywords": "матрица таблица двумерный GetLength Rank сетка координаты вложенные индексация память кэш локальность производительность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Динамический список",
+            "url": "content/csharp/kollekcii/dinamicheskiy-spisok.md",
+            "keywords": "коллекции Add Remove Insert Count Capacity generics дженерики массив память аллокация поиск индекс перебор",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Словарь",
+            "url": "content/csharp/kollekcii/slovar.md",
+            "keywords": "хэш-таблица ключ значение TryGetValue KeyNotFoundException коллекции поиск сложность коллизии ContainsKey деконструкция кэш StringComparer",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Очередь и Стек",
+            "url": "content/csharp/kollekcii/ochered-i-stek.md",
+            "keywords": "FIFO LIFO Enqueue Dequeue Push Pop Peek кольцевой буфер коллекции отмена задач PriorityQueue сложность алгоритм",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Множество",
+            "url": "content/csharp/kollekcii/mnozhestvo.md",
+            "keywords": "уникальность дубликаты хэш-таблица поиск Contains пересечение объединение разность коллекции сложность SortedSet компаратор фильтрация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Индексы и срезы",
+            "url": "content/csharp/kollekcii/indeksy-i-srezy.md",
+            "keywords": "диапазоны массив подстрока Span Slice Substring коллекция память аллокация System.Index System.Range отступ",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "operatory-i-vetvlenie",
+        "order": 50,
+        "name": "Операторы и ветвление",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Арифметические операторы и Math",
+            "url": "content/csharp/operatory-i-vetvlenie/arifmeticheskie-operatory-i-math.md",
+            "keywords": "инкремент декремент остаток деление округление степень корень модуль тригонометрия Clamp MathF приоритет радианы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Операторы сравнения и логики",
+            "url": "content/csharp/operatory-i-vetvlenie/operatory-sravneniya-i-logiki.md",
+            "keywords": "условия равенство неравенство отрицание приоритет ленивые вычисления паттерны is not and or true false SequenceEqual",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "if / else",
+            "url": "content/csharp/operatory-i-vetvlenie/if-else.md",
+            "keywords": "ветвление условия логика сравнение блок скобки вложенность переходы паттерны guard return истина ложь",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Тернарный оператор ? :",
+            "url": "content/csharp/operatory-i-vetvlenie/ternarnyy-operator.md",
+            "keywords": "условие ветвление выражение сокращенный присваивание интерполяция типизация ленивое вычисление скобки выбор ссылку",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "switch / case",
+            "url": "content/csharp/operatory-i-vetvlenie/switch-case.md",
+            "keywords": "ветвление условия break default выражение паттерны сопоставление диапазоны when таблица переходов оптимизация выбор",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "cikly",
+        "order": 60,
+        "name": "Циклы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "while и do..while",
+            "url": "content/csharp/cikly/while-i-do-while.md",
+            "keywords": "итерации условие предусловие постусловие бесконечный break continue повторение счетчик перебор ветвление управление",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Цикл со счетчиком for",
+            "url": "content/csharp/cikly/cikl-so-schetchikom-for.md",
+            "keywords": "итерации индекс инкремент декремент массив перебор break continue условие область видимости замыкание оптимизация JIT",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Перебор коллекций foreach",
+            "url": "content/csharp/cikly/perebor-kollekciy-foreach.md",
+            "keywords": "итератор перебор коллекции IEnumerable GetEnumerator MoveNext деконструкция Index цикл массив список словарь упаковка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Управление циклом break:continue",
+            "url": "content/csharp/cikly/upravlenie-ciklom-break-continue.md",
+            "keywords": "циклы прерывание пропуск итерация выход вложенные return goto switch бесконечный поиск условие счетчик управление",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "metody",
+        "order": 70,
+        "name": "Методы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Объявление и вызов метода",
+            "url": "content/csharp/metody/obyavlenie-i-vyzov-metoda.md",
+            "keywords": "функции void return параметры аргументы сигнатура стек вызовов PascalCase DRY локальные функции переполнение рекурсия",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "return void кортежи",
+            "url": "content/csharp/metody/return-void-kortezhi.md",
+            "keywords": "return void кортежи ValueTuple деконструкция результат выход сигнатура Item1 discard структура стек",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Параметры по умолчанию и params",
+            "url": "content/csharp/metody/parametry-po-umolchaniyu-i-params.md",
+            "keywords": "аргументы необязательные именованные перегрузка массив коллекция Span компиляция константа вызов сигнатура модификатор",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "ref, out, in",
+            "url": "content/csharp/metody/ref-out-in.md",
+            "keywords": "ссылка значение указатель копирование структура стек память TryParse модификатор инициализация readonly адрес",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "oop-osnovy",
+        "order": 80,
+        "name": "ООП Основы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Классы и объекты class, new",
+            "url": "content/csharp/oop-osnovy/klassy-i-obekty-class-new.md",
+            "keywords": "ооп экземпляр ссылка куча стек null инициализатор поля методы struct память сборщик мусора",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Поля и свойства get, set, init",
+            "url": "content/csharp/oop-osnovy/polya-i-svoystva-get-set-init.md",
+            "keywords": "инкапсуляция автосвойство аксессор value валидация рекурсия required приватное поле модификатор доступа инициализатор компиляция",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Конструкторы и this",
+            "url": "content/csharp/oop-osnovy/konstruktory-i-this.md",
+            "keywords": "конструктор инициализация экземпляр ссылка перегрузка цепочка поле параметр модификатор статический первичный память сборка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Модификаторы доступа public, private, protected, internal",
+            "url": "content/csharp/oop-osnovy/modifikatory-dostupa-public-private-protected-internal.md",
+            "keywords": "инкапсуляция видимость область сборка наследование класс структура закрытый открытый защита доступа рефлексия file",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Статичные члены и классы static",
+            "url": "content/csharp/oop-osnovy/statichnye-chleny-i-klassy-static.md",
+            "keywords": "модификатор экземпляр память куча конструктор константа утилиты метод поле свойство Singleton расширение",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "oop-pamyat-i-arhitektura",
+        "order": 90,
+        "name": "ООП Память и архитектура",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Значимые и ссылочные типы стек и куча",
+            "url": "content/csharp/oop-pamyat-i-arhitektura/znachimye-i-ssylochnye-tipy-stek-i-kucha.md",
+            "keywords": "память стек куча struct class boxing unboxing сборщик мусора ссылка копирование типы null",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "null и Nullable-типы ?, ??, ?.",
+            "url": "content/csharp/oop-pamyat-i-arhitektura/null-i-nullable-tipy.md",
+            "keywords": "null nullable ссылка исключение NullReferenceException оператор проверка значение структура компилятор паттерны делегат",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Наследование :, base",
+            "url": "content/csharp/oop-pamyat-i-arhitektura/nasledovanie-base.md",
+            "keywords": "наследование родитель базовый дочерний конструктор sealed object protected virtual override иерархия композиция",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Полиморфизм virtual, override",
+            "url": "content/csharp/oop-pamyat-i-arhitektura/polimorfizm-virtual-override.md",
+            "keywords": "полиморфизм наследование virtual override new sealed диспетчеризация vtable класс метод переопределение",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Абстрактные классы abstract",
+            "url": "content/csharp/oop-pamyat-i-arhitektura/abstraktnye-klassy-abstract.md",
+            "keywords": "абстракция наследование полиморфизм override virtual интерфейс конструктор контракт класс метод свойство",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Интерфейсы",
+            "url": "content/csharp/oop-pamyat-i-arhitektura/interfeysy.md",
+            "keywords": "контракт полиморфизм реализация наследование абстракция класс структура IEnumerable IDisposable явная реализация множественное",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Структуры и записи struct, record",
+            "url": "content/csharp/oop-pamyat-i-arhitektura/struktury-i-zapisi-struct-record.md",
+            "keywords": "структура запись значимый ссылочный неизменяемость равенство копирование with стек куча деконструкция readonly",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Обобщения (Generics)",
+            "url": "content/csharp/oop-pamyat-i-arhitektura/obobscheniya-generics.md",
+            "keywords": "параметр типа шаблон коллекция ограничения where упаковка компиляция типизация класс метод интерфейс список",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "isklyucheniya-i-fayly",
+        "order": 100,
+        "name": "Исключения и файлы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Перехват ошибок (try / catch / finally)",
+            "url": "content/csharp/isklyucheniya-i-fayly/perehvat-oshibok-try-catch-finally.md",
+            "keywords": "исключения exception обработка ошибок сбой StackTrace finally фильтрация when TryParse отладка стек",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Генерация исключений (throw)",
+            "url": "content/csharp/isklyucheniya-i-fayly/generaciya-isklyucheniy-throw.md",
+            "keywords": "исключения throw exception валидация аргументы StackTrace nameof ArgumentException проверка ошибки отладка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Освобождение ресурсов (using)",
+            "url": "content/csharp/isklyucheniya-i-fayly/osvobozhdenie-resursov-using.md",
+            "keywords": "ресурсы память IDisposable файл поток очистка finally исключения утечка Dispose",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Работа с файлами и папками (File, Path, Directory)",
+            "url": "content/csharp/isklyucheniya-i-fayly/rabota-s-faylami-i-papkami-file-path-directory.md",
+            "keywords": "файлы папки пути System.IO File Directory Path FileInfo чтение запись поток кодировка",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "delegaty-i-linq",
+        "order": 110,
+        "name": "Делегаты и LINQ",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Делегаты и лямбда-выражения (Action, Func, =>)",
+            "url": "content/csharp/delegaty-i-linq/delegaty-i-lyambda-vyrazheniya-action-func.md",
+            "keywords": "делегаты лямбда Action Func замыкание MulticastDelegate колбэк функция стрелка Invoke",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "События (event)",
+            "url": "content/csharp/delegaty-i-linq/sobytiya-event.md",
+            "keywords": "события делегат подписка издатель подписчик Action EventHandler утечка памяти инкапсуляция invoke ивент",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Фильтрация и поиск (Where, FirstOrDefault, Any, All)",
+            "url": "content/csharp/delegaty-i-linq/filtraciya-i-poisk-where-firstordefault-any-all.md",
+            "keywords": "linq фильтрация поиск коллекции предикат лямбда IEnumerable отложенное запрос итератор список",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Сортировка и выборка (OrderBy, Select)",
+            "url": "content/csharp/delegaty-i-linq/sortirovka-i-vyborka-orderby-select.md",
+            "keywords": "linq сортировка выборка проекция OrderBy OrderByDescending ThenBy Select SelectMany коллекции список преобразование",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Агрегация (Count, Sum, Min, Max)",
+            "url": "content/csharp/delegaty-i-linq/agregaciya-count-sum-min-max.md",
+            "keywords": "linq агрегация коллекции Count Sum Min Max Average MaxBy статистика подсчет переполнение",
+            "type": "md",
+            "interactive": false
+          }
+        ]
       }
     ]
   }

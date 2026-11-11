@@ -26,6 +26,14 @@
             "keywords": "цикл интерактив шагам демо итерация кнопка сброс сумма счётчик текущее увеличивается шаге блокируется возвращает выполняется должна",
             "type": "html",
             "interactive": true
+          },
+          {
+            "order": 30,
+            "title": "TODO",
+            "url": "content/admin/svalka/todo.md",
+            "keywords": "todo понимание core асинхронность асинхронный базового базы бэкенда бэкенде вакууме внедрение востребован выбрать вызывать геймдева главный",
+            "type": "md",
+            "interactive": false
           }
         ]
       },
@@ -38,11 +46,25 @@
             "order": 10,
             "title": "SVG",
             "url": "content/admin/prompty/svg.md",
-            "keywords": "transform грабля никаких width должна height hero important none opacity origin rules stroke viewbox анимация анимировать",
+            "keywords": "fill main opacity text внутри stroke transform стиль text_hex анимация style никаких грань строго domain hero",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Темы",
+            "url": "content/admin/prompty/temy.md",
+            "keywords": "темы напиши оглавления статьи таблицы блоки вопрос заголовок исип используй какая название отдельной ошибки рабочий синтаксис",
             "type": "md",
             "interactive": false
           }
         ]
+      },
+      {
+        "id": "todo",
+        "order": 30,
+        "name": "TODO",
+        "topics": []
       }
     ]
   }
