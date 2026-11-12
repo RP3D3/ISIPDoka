@@ -2,6 +2,518 @@
   "csharp": {
     "order": 10,
     "title": "C#",
+    "accent": "#953dac",
+    "description": "Объектно-ориентированный строго типизированный язык программирования для платформы .NET",
+    "groups": [
+      {
+        "id": "konsol",
+        "order": 10,
+        "name": "Консоль",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Console.Write()",
+            "url": "content/csharp/konsol/console-write.md",
+            "keywords": "Console.Write System.Console Console.WriteLine Console.ReadLine вывод в консоль C# вывод текста на экран печать без переноса строки вывод в одну строку перенос строки \\n стандартный поток вывода stdout консольный ввод-вывод приглашение ко вводу курсор в консоли форматирование вывода интерполяция строк",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Console.WriteLine()",
+            "url": "content/csharp/konsol/console-writeline.md",
+            "keywords": "Console.WriteLine System.Console Console.Write вывод консоль перенос строки новая строка пустая строка Environment.NewLine stdout форматирование интерполяция",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Console.ReadLine()",
+            "url": "content/csharp/konsol/console-readline.md",
+            "keywords": "Console.ReadLine System.Console Console.Read Console.ReadKey ввод с клавиатуры C# чтение строки из консоли стандартный поток ввода stdin консольный ввод C# получение данных от пользователя ввод чисел в консоли преобразование строки в число int.Parse int.TryParse ожидание нажатия Enter возврат null ReadLine чтение текста C#",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Console.ReadKey()",
+            "url": "content/csharp/konsol/console-readkey.md",
+            "keywords": "Console.ReadKey System.Console ConsoleKeyInfo ConsoleKey KeyChar нажатие клавиши без Enter консольное меню стрелки скрытый пароль intercept пауза",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Console.Read()",
+            "url": "content/csharp/konsol/console-read.md",
+            "keywords": "Console.Read System.Console Console.ReadLine Console.ReadKey код символа Юникод char int буфер ввода stdin поток чтение консоль",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Console.Clear()",
+            "url": "content/csharp/konsol/console-clear.md",
+            "keywords": "Console.Clear System.Console очистка консоли буфер вывода курсор SetCursorPosition BackgroundColor IOException перерисовка меню экран терминал",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Console.ForegroundColor",
+            "url": "content/csharp/konsol/console-foregroundcolor.md",
+            "keywords": "Console.ForegroundColor System.Console ConsoleColor Console.ResetColor цвет текста шрифт консоль покраска подсветка вывод терминал перечисление",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Console.BackgroundColor",
+            "url": "content/csharp/konsol/console-backgroundcolor.md",
+            "keywords": "Console.BackgroundColor ConsoleColor цвет фона заливка консоли фон текста выделение строки покраска экрана оформление консоль терминал",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Console.ResetColor()",
+            "url": "content/csharp/konsol/console-resetcolor.md",
+            "keywords": "console.resetcolor текст консоли цвета вернуть метод цвет обычный оформление одновременно отдельности параметров работы сброс сбросить сохранены",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Как красить текст и фон в консоли",
+            "url": "content/csharp/konsol/kak-krasit-tekst-i-fon-v-konsoli.md",
+            "keywords": "Console.ForegroundColor Console.BackgroundColor Console.ResetColor ConsoleColor как покрасить текст цвет шрифта заливка фона цветная консоль оформление вывода",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 110,
+            "title": "Перенос строки",
+            "url": "content/csharp/konsol/perenos-stroki.md",
+            "keywords": "перенос строки символ текст внутри выберите выход действие завершена загрузка клавишу консоли любую настройки одном пустую",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 120,
+            "title": "Табуляция",
+            "url": "content/csharp/konsol/tabulyaciya.md",
+            "keywords": "табуляция \\t отступ в тексте выравнивание столбцов таблица в консоли пробел клавиша Tab управляющие символы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 130,
+            "title": "Экранирование кавычек и обратного слэша",
+            "url": "content/csharp/konsol/ekranirovanie-kavychek-i-obratnogo-slesha.md",
+            "keywords": "экранирование символов \" \\ кавычки в строке обратный слэш путь к файлу спецсимволы ошибка компиляции",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 140,
+            "title": "Интерполяция строк",
+            "url": "content/csharp/konsol/interpolyaciya-strok.md",
+            "keywords": "интерполяция строк $ знак доллара подстановка переменных в текст фигурные скобки склеивание строк вывод переменных",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 150,
+            "title": "Буквальные строки",
+            "url": "content/csharp/konsol/bukvalnye-stroki.md",
+            "keywords": "буквальные строки @ собачка перед строкой путь к файлу без экранирования многострочный текст двойные кавычки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 160,
+            "title": "Управляющие последовательности",
+            "url": "content/csharp/konsol/upravlyayuschie-posledovatelnosti.md",
+            "keywords": "управляющие последовательности escape символы спецсимволы в строках перенос строки табуляция экранирование кавычек обратный слэш форматирование текста",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 170,
+            "title": "Кодировка консоли",
+            "url": "content/csharp/konsol/kodirovka-konsoli.md",
+            "keywords": "Console.OutputEncoding Console.InputEncoding Encoding.UTF8 System.Text кодировка консоли знаки вопроса вместо букв кириллица русский текст шрифт символы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 180,
+            "title": "Console.Title",
+            "url": "content/csharp/konsol/console-title.md",
+            "keywords": "Console.Title System.Console заголовок окна название программы верхняя рамка шапка консоли изменить текст вкладки оформление терминал",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 190,
+            "title": "Позиционирование и курсор",
+            "url": "content/csharp/konsol/pozicionirovanie-i-kursor.md",
+            "keywords": "Console.SetCursorPosition Console.CursorVisible координаты курсора позиция текста убрать мигание скрыть курсор вывод по координатам экран консоль",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "chislennye-tipy",
+        "order": 20,
+        "name": "Численные типы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "int",
+            "url": "content/csharp/chislennye-tipy/int.md",
+            "keywords": "int System.Int32 целые числа тип данных целочисленное деление диапазон значений отрицательные числа счетчик переполнение переменная",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "long",
+            "url": "content/csharp/chislennye-tipy/long.md",
+            "keywords": "long System.Int64 большие целые числа тип данных суффикс L диапазон значений 64 бита переменная квинтиллион",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "double",
+            "url": "content/csharp/chislennye-tipy/double.md",
+            "keywords": "double System.Double дробные числа вещественный тип плавающая точка десятичная дробь погрешность вычислений точность деление остаток",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "float",
+            "url": "content/csharp/chislennye-tipy/float.md",
+            "keywords": "float System.Single дробные числа суффикс f плавающая точка одинарная точность вещественный тип координаты игры переменная",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "decimal",
+            "url": "content/csharp/chislennye-tipy/decimal.md",
+            "keywords": "decimal System.Decimal деньги финансы точные вычисления суффикс m дробные числа без погрешности округление бухгалтерия цена",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "byte и short",
+            "url": "content/csharp/chislennye-tipy/byte-i-short.md",
+            "keywords": "byte short sbyte ushort компактные целые числа экономия памяти диапазон значений переполнение приведение типов переменная",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "MinValue и MaxValue",
+            "url": "content/csharp/chislennye-tipy/minvalue-i-maxvalue.md",
+            "keywords": "MinValue MaxValue диапазон значений границы числовых типов максимальное число минимальное число переполнение константы размер типа",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Выбор типа",
+            "url": "content/csharp/chislennye-tipy/vybor-tipa.md",
+            "keywords": "выбор числового типа int long double float decimal byte суффиксы чисел точность переполнение типы данных",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "bazovye-nechislovye-tipy",
+        "order": 30,
+        "name": "Базовые нечисловые типы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "string",
+            "url": "content/csharp/bazovye-nechislovye-tipy/string.md",
+            "keywords": "string System.String строковый тип данных текст двойные кавычки длина строки склеивание строк пустая строка переменная",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "char",
+            "url": "content/csharp/bazovye-nechislovye-tipy/char.md",
+            "keywords": "char System.Char символьный тип данных одиночный символ одинарные кавычки таблица Unicode код символа буква переменная",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "bool",
+            "url": "content/csharp/bazovye-nechislovye-tipy/bool.md",
+            "keywords": "bool System.Boolean логический тип данных true false истина ложь условие сравнение проверка да нет переменная",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "preobrazovanie-tipov",
+        "order": 40,
+        "name": "Преобразование типов",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Приведение типов",
+            "url": "content/csharp/preobrazovanie-tipov/yavnoe-i-neyavnoe-privedenie-tipov.md",
+            "keywords": "приведение типов неявное преобразование явное приведение кастинг int double потеря точности деление целых чисел округление",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Parse и TryParse",
+            "url": "content/csharp/preobrazovanie-tipov/parse-i-tryparse.md",
+            "keywords": "Parse TryParse перевод строки в число преобразование типов ввод чисел с клавиатуры защита от ошибок out",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Convert",
+            "url": "content/csharp/preobrazovanie-tipov/convert.md",
+            "keywords": "Convert ToInt32 ToDouble ToBoolean преобразование типов конвертация данных перевод строки в число округление логический тип",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "ToString()",
+            "url": "content/csharp/preobrazovanie-tipov/tostring.md",
+            "keywords": "ToString перевод в строку форматирование чисел знаки после запятой округление вывода разделитель тысяч ведущие нули",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Преобразование типов",
+            "url": "content/csharp/preobrazovanie-tipov/preobrazovanie-tipov.md",
+            "keywords": "преобразование типов приведение типов Parse TryParse Convert ToString кастинг перевод строки в число округление ошибка ввода",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "var",
+            "url": "content/csharp/preobrazovanie-tipov/var.md",
+            "keywords": "неявная типизация ключевое слово var вывод типов объявление переменной строгая типизация инициализация компилятор сокращение кода",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "arifmetika-i-matematika",
+        "order": 50,
+        "name": "Арифметика и математика",
+        "topics": [
+          {
+            "order": 10,
+            "title": "+, -, *. /, %",
+            "url": "content/csharp/arifmetika-i-matematika/arifm-operator-base.md",
+            "keywords": "арифметические операторы сложение вычитание умножение деление остаток от деления целочисленное деление приоритет операций математика вычисления",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Сокращённое присваивание",
+            "url": "content/csharp/arifmetika-i-matematika/short-prisvaivanie.md",
+            "keywords": "сокращённое присваивание составные операторы обновление переменной сложение с присваиванием вычитание умножение деление остаток компактный код",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Инкремент\\декремент",
+            "url": "content/csharp/arifmetika-i-matematika/inkrement-dekrement.md",
+            "keywords": "инкремент декремент префиксный постфиксный увеличение на единицу уменьшение переменной счётчик цикла порядок вычисления шаг оператор",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Math",
+            "url": "content/csharp/arifmetika-i-matematika/math.md",
+            "keywords": "Math степень квадратный корень модуль числа округление дроби минимум максимум число Пи математические функции вычисления",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "operatory-sravneniya-i-logika",
+        "order": 60,
+        "name": "Операторы сравнения и логика",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Операторы сравнения",
+            "url": "content/csharp/operatory-sravneniya-i-logika/operatory-sravneniya.md",
+            "keywords": "операторы сравнения равно не равно больше меньше логический тип true false условие проверка равенство присваивание",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "И\\ИЛИ\\НЕ",
+            "url": "content/csharp/operatory-sravneniya-i-logika/i-ili-ne.md",
+            "keywords": "логические операторы логическое И логическое ИЛИ логическое НЕ сложное условие true false инверсия проверка ветвление",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Приоритет операторов",
+            "url": "content/csharp/operatory-sravneniya-i-logika/prioritet-operatorov.md",
+            "keywords": "приоритет операторов порядок выполнения круглые скобки арифметика сравнение логика присваивание инкремент выражение вычисления условие новичок",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "uslovnye-konstrukcii",
+        "order": 70,
+        "name": "Условные конструкции",
+        "topics": [
+          {
+            "order": 10,
+            "title": "if \\ else",
+            "url": "content/csharp/uslovnye-konstrukcii/if-else.md",
+            "keywords": "условный оператор if else ветвление условие логическое выражение фигурные скобки область видимости проверка выбор действие",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "else if",
+            "url": "content/csharp/uslovnye-konstrukcii/else-if.md",
+            "keywords": "else score условия console.writeline вложенные внутри оценка дверь условие цепочка haskey isdoorlocked вниз выбор друг друга",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Тернарный оператор",
+            "url": "content/csharp/uslovnye-konstrukcii/ternarnyy-operator.md",
+            "keywords": "тернарный оператор условный оператор сокращённый if else выбор значения условие ветвление компактный код присваивание проверка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "switch",
+            "url": "content/csharp/uslovnye-konstrukcii/switch.md",
+            "keywords": "конструкция switch оператор выбора case break default ветвление сравнение значений группировка условий переключатель выбор варианта",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Современный switch",
+            "url": "content/csharp/uslovnye-konstrukcii/sovremennyy-switch.md",
+            "keywords": "современный switch сопоставление с образцом выбор значения диапазон чисел ветвление условие шаблон стрелка компактный код",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Ветвления",
+            "url": "content/csharp/uslovnye-konstrukcii/vetvleniya.md",
+            "keywords": "условные конструкции ветвление if else тернарный оператор switch выбор значения условие проверка сравнение диапазон логика",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "cikly",
+        "order": 80,
+        "name": "Циклы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "while",
+            "url": "content/csharp/cikly/while.md",
+            "keywords": "цикл while предусловие повторение действий итерация бесконечный цикл условие выхода проверка счётчик тело цикла остановка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "do while",
+            "url": "content/csharp/cikly/do-while.md",
+            "keywords": "цикл постусловие повторение действий итерация консольное меню ввод данных условие выхода проверка тело цикла выполнение",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "for",
+            "url": "content/csharp/cikly/for.md",
+            "keywords": "цикл for счётчик итерация повторение действий шаг цикла условие выхода обратный отсчёт область видимости переменная",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "foreach",
+            "url": "content/csharp/cikly/foreach.md",
+            "keywords": "цикл foreach перебор элементов коллекция массив список строка итерация только чтение переменная цикла проход данных",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "break & continue",
+            "url": "content/csharp/cikly/break-continue.md",
+            "keywords": "управление циклом оператор break оператор continue прерывание цикла пропуск итерации досрочный выход фильтрация поиск условие",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Вложенные циклы",
+            "url": "content/csharp/cikly/vlozhennye-cikly.md",
+            "keywords": "вложенные циклы внешний цикл внутренний цикл итерация таблица умножения строки столбцы счётчик сетка координаты повторение",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Циклы",
+            "url": "content/csharp/cikly/cikly.md",
+            "keywords": "циклы повторение действий итерация while for foreach счётчик предусловие постусловие перебор элементов условие выхода выбор",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      }
+    ]
+  },
+  "csharp-old": {
+    "order": 10,
+    "title": "C# old",
     "accent": "#614fa8",
     "description": "Объектно-ориентированный строго типизированный язык программирования для платформы .NET.",
     "groups": [
@@ -13,7 +525,7 @@
           {
             "order": 10,
             "title": "Структура программы",
-            "url": "content/csharp/start-i-konsol/struktura-programmy.md",
+            "url": "content/csharp-old/start-i-konsol/struktura-programmy.md",
             "keywords": "точка входа top-level statements Program.cs args код возврата запуск приложения компиляция Roslyn асинхронный Task",
             "type": "md",
             "interactive": false
@@ -21,7 +533,7 @@
           {
             "order": 20,
             "title": "Вывод в консоль",
-            "url": "content/csharp/start-i-konsol/vyvod-v-konsol.md",
+            "url": "content/csharp-old/start-i-konsol/vyvod-v-konsol.md",
             "keywords": "вывод консоль console.writeline строку строки текст console.write вывода результат writeline вместо символ внутри вызов игрок консоли",
             "type": "md",
             "interactive": false
@@ -29,7 +541,7 @@
           {
             "order": 30,
             "title": "Форматирование строк и спецсимволы",
-            "url": "content/csharp/start-i-konsol/formatirovanie-strok-i-specsimvoly.md",
+            "url": "content/csharp-old/start-i-konsol/formatirovanie-strok-i-specsimvoly.md",
             "keywords": "интерполяция escape экранирование плейсхолдеры выравнивание спецификаторы литералы табуляция возврат каретки CultureInfo консоли",
             "type": "md",
             "interactive": false
@@ -37,7 +549,7 @@
           {
             "order": 40,
             "title": "Продвинутый терминал",
-            "url": "content/csharp/start-i-konsol/prodvinutyy-terminal.md",
+            "url": "content/csharp-old/start-i-konsol/prodvinutyy-terminal.md",
             "keywords": "Console SetCursorPosition ReadKey ForegroundColor CursorVisible KeyAvailable координаты курсор цвета клавиатура анимация консоль ANSI",
             "type": "md",
             "interactive": false
@@ -45,7 +557,7 @@
           {
             "order": 50,
             "title": "Ввод с клавиатуры",
-            "url": "content/csharp/start-i-konsol/vvod-s-klaviatury.md",
+            "url": "content/csharp-old/start-i-konsol/vvod-s-klaviatury.md",
             "keywords": "чтение консоль stdin буфер ConsoleKeyInfo TryParse Parse нажатие клавиш поток интерактивность терминал символы",
             "type": "md",
             "interactive": false
@@ -53,7 +565,7 @@
           {
             "order": 60,
             "title": "Комментарии",
-            "url": "content/csharp/start-i-konsol/kommentarii.md",
+            "url": "content/csharp-old/start-i-konsol/kommentarii.md",
             "keywords": "однострочные многострочные XML документация summary IntelliSense TODO заметки пояснения отладка синтаксис Roslyn",
             "type": "md",
             "interactive": false
@@ -68,7 +580,7 @@
           {
             "order": 10,
             "title": "Переменные",
-            "url": "content/csharp/peremennye-i-hranenie/peremennye.md",
+            "url": "content/csharp-old/peremennye-i-hranenie/peremennye.md",
             "keywords": "переменная переменные объявление инициализация присваивание область видимости scope скоуп именование camelCase синтаксис память CS0165 CS0128 CS0029 си шарп c# csharp",
             "type": "md",
             "interactive": false
@@ -76,7 +588,7 @@
           {
             "order": 20,
             "title": "Правильный нейминг",
-            "url": "content/csharp/peremennye-i-hranenie/pravilnyy-neyming.md",
+            "url": "content/csharp-old/peremennye-i-hranenie/pravilnyy-neyming.md",
             "keywords": "именование нейминг правила именования стиль кода code style camelCase PascalCase snake_case верблюжий регистр регистр транслит переменные CS1001 соглашения си шарп c# csharp",
             "type": "md",
             "interactive": false
@@ -84,7 +596,7 @@
           {
             "order": 30,
             "title": "var",
-            "url": "content/csharp/peremennye-i-hranenie/var.md",
+            "url": "content/csharp-old/peremennye-i-hranenie/var.md",
             "keywords": "var неявная типизация вывод типа объявление переменной компилятор строгая типизация CS0818 CS0815 си шарп c# csharp синтаксический сахар",
             "type": "md",
             "interactive": false
@@ -92,7 +604,7 @@
           {
             "order": 40,
             "title": "const",
-            "url": "content/csharp/peremennye-i-hranenie/const.md",
+            "url": "content/csharp-old/peremennye-i-hranenie/const.md",
             "keywords": "const константа константы неизменяемость compile-time магические числа readonly CS0131 CS0145 CS0133 CS0134 си шарп c# csharp",
             "type": "md",
             "interactive": false
@@ -100,7 +612,7 @@
           {
             "order": 50,
             "title": "Области видимости scope",
-            "url": "content/csharp/peremennye-i-hranenie/oblasti-vidimosti.md",
+            "url": "content/csharp-old/peremennye-i-hranenie/oblasti-vidimosti.md",
             "keywords": "видимости scope области внутри класса метода count блока область сборки name using классах локальная наследниках переменная",
             "type": "md",
             "interactive": false
@@ -115,7 +627,7 @@
           {
             "order": 10,
             "title": "Целые числа",
-            "url": "content/csharp/bazovye-tipy/celye-chisla.md",
+            "url": "content/csharp-old/bazovye-tipy/celye-chisla.md",
             "keywords": "диапазон переполнение checked unchecked суффикс литералы разрядность размер память uint short sbyte ulong BigInteger арифметика",
             "type": "md",
             "interactive": false
@@ -123,7 +635,7 @@
           {
             "order": 20,
             "title": "Дробные числа",
-            "url": "content/csharp/bazovye-tipy/drobnye-chisla.md",
+            "url": "content/csharp-old/bazovye-tipy/drobnye-chisla.md",
             "keywords": "плавающая точка точность округление суффикс финансы IEEE754 погрешность NaN бесконечность Infinity мантисса сравнение деление",
             "type": "md",
             "interactive": false
@@ -131,7 +643,7 @@
           {
             "order": 30,
             "title": "Логический тип",
-            "url": "content/csharp/bazovye-tipy/logicheskiy-tip.md",
+            "url": "content/csharp-old/bazovye-tipy/logicheskiy-tip.md",
             "keywords": "истина ложь true false условия сравнение операторы отрицание дизъюнкция конъюнкция nullable BitArray флаг",
             "type": "md",
             "interactive": false
@@ -139,7 +651,7 @@
           {
             "order": 40,
             "title": "Символы и строки",
-            "url": "content/csharp/bazovye-tipy/simvoly-i-stroki.md",
+            "url": "content/csharp-old/bazovye-tipy/simvoly-i-stroki.md",
             "keywords": "текст неизменяемость immutability StringBuilder UTF-16 кавычки индекс конкатенация интернирование литералы Length ToUpper эмодзи",
             "type": "md",
             "interactive": false
@@ -147,7 +659,7 @@
           {
             "order": 50,
             "title": "Базовые методы строк",
-            "url": "content/csharp/bazovye-tipy/bazovye-metody-strok.md",
+            "url": "content/csharp-old/bazovye-tipy/bazovye-metody-strok.md",
             "keywords": "подстрока поиск пробелы разделение массив индекс StringComparison Join StartsWith EndsWith IndexOf Span парсинг очистка",
             "type": "md",
             "interactive": false
@@ -155,7 +667,7 @@
           {
             "order": 60,
             "title": "Преобразование типов",
-            "url": "content/csharp/bazovye-tipy/preobrazovanie-tipov.md",
+            "url": "content/csharp-old/bazovye-tipy/preobrazovanie-tipov.md",
             "keywords": "кастинг неявное конвертация строки число округление CultureInfo FormatException OverflowException Span парсинг типизация",
             "type": "md",
             "interactive": false
@@ -163,7 +675,7 @@
           {
             "order": 70,
             "title": "Перечисления (enum)",
-            "url": "content/csharp/bazovye-tipy/perechisleniya.md",
+            "url": "content/csharp-old/bazovye-tipy/perechisleniya.md",
             "keywords": "константы магические числа Flags битовые флаги IsDefined TryParse GetValues HasFlag статусы byte приведение именованные",
             "type": "md",
             "interactive": false
@@ -178,7 +690,7 @@
           {
             "order": 10,
             "title": "Одномерные массивы",
-            "url": "content/csharp/kollekcii/odnomernye-massivy.md",
+            "url": "content/csharp-old/kollekcii/odnomernye-massivy.md",
             "keywords": "индекс Length foreach срезы куча сортировка IndexOutOfRangeException Span коллекции память копирование диапазоны",
             "type": "md",
             "interactive": false
@@ -186,7 +698,7 @@
           {
             "order": 20,
             "title": "Многомерные и зубчатые массивы",
-            "url": "content/csharp/kollekcii/mnogomernye-i-zubchatye-massivy.md",
+            "url": "content/csharp-old/kollekcii/mnogomernye-i-zubchatye-massivy.md",
             "keywords": "матрица таблица двумерный GetLength Rank сетка координаты вложенные индексация память кэш локальность производительность",
             "type": "md",
             "interactive": false
@@ -194,7 +706,7 @@
           {
             "order": 30,
             "title": "Динамический список",
-            "url": "content/csharp/kollekcii/dinamicheskiy-spisok.md",
+            "url": "content/csharp-old/kollekcii/dinamicheskiy-spisok.md",
             "keywords": "коллекции Add Remove Insert Count Capacity generics дженерики массив память аллокация поиск индекс перебор",
             "type": "md",
             "interactive": false
@@ -202,7 +714,7 @@
           {
             "order": 40,
             "title": "Словарь",
-            "url": "content/csharp/kollekcii/slovar.md",
+            "url": "content/csharp-old/kollekcii/slovar.md",
             "keywords": "хэш-таблица ключ значение TryGetValue KeyNotFoundException коллекции поиск сложность коллизии ContainsKey деконструкция кэш StringComparer",
             "type": "md",
             "interactive": false
@@ -210,7 +722,7 @@
           {
             "order": 50,
             "title": "Очередь и Стек",
-            "url": "content/csharp/kollekcii/ochered-i-stek.md",
+            "url": "content/csharp-old/kollekcii/ochered-i-stek.md",
             "keywords": "FIFO LIFO Enqueue Dequeue Push Pop Peek кольцевой буфер коллекции отмена задач PriorityQueue сложность алгоритм",
             "type": "md",
             "interactive": false
@@ -218,7 +730,7 @@
           {
             "order": 60,
             "title": "Множество",
-            "url": "content/csharp/kollekcii/mnozhestvo.md",
+            "url": "content/csharp-old/kollekcii/mnozhestvo.md",
             "keywords": "уникальность дубликаты хэш-таблица поиск Contains пересечение объединение разность коллекции сложность SortedSet компаратор фильтрация",
             "type": "md",
             "interactive": false
@@ -226,7 +738,7 @@
           {
             "order": 70,
             "title": "Индексы и срезы",
-            "url": "content/csharp/kollekcii/indeksy-i-srezy.md",
+            "url": "content/csharp-old/kollekcii/indeksy-i-srezy.md",
             "keywords": "диапазоны массив подстрока Span Slice Substring коллекция память аллокация System.Index System.Range отступ",
             "type": "md",
             "interactive": false
@@ -241,7 +753,7 @@
           {
             "order": 10,
             "title": "Арифметические операторы и Math",
-            "url": "content/csharp/operatory-i-vetvlenie/arifmeticheskie-operatory-i-math.md",
+            "url": "content/csharp-old/operatory-i-vetvlenie/arifmeticheskie-operatory-i-math.md",
             "keywords": "инкремент декремент остаток деление округление степень корень модуль тригонометрия Clamp MathF приоритет радианы",
             "type": "md",
             "interactive": false
@@ -249,7 +761,7 @@
           {
             "order": 20,
             "title": "Операторы сравнения и логики",
-            "url": "content/csharp/operatory-i-vetvlenie/operatory-sravneniya-i-logiki.md",
+            "url": "content/csharp-old/operatory-i-vetvlenie/operatory-sravneniya-i-logiki.md",
             "keywords": "условия равенство неравенство отрицание приоритет ленивые вычисления паттерны is not and or true false SequenceEqual",
             "type": "md",
             "interactive": false
@@ -257,7 +769,7 @@
           {
             "order": 30,
             "title": "if / else",
-            "url": "content/csharp/operatory-i-vetvlenie/if-else.md",
+            "url": "content/csharp-old/operatory-i-vetvlenie/if-else.md",
             "keywords": "ветвление условия логика сравнение блок скобки вложенность переходы паттерны guard return истина ложь",
             "type": "md",
             "interactive": false
@@ -265,7 +777,7 @@
           {
             "order": 40,
             "title": "Тернарный оператор ? :",
-            "url": "content/csharp/operatory-i-vetvlenie/ternarnyy-operator.md",
+            "url": "content/csharp-old/operatory-i-vetvlenie/ternarnyy-operator.md",
             "keywords": "условие ветвление выражение сокращенный присваивание интерполяция типизация ленивое вычисление скобки выбор ссылку",
             "type": "md",
             "interactive": false
@@ -273,7 +785,7 @@
           {
             "order": 50,
             "title": "switch / case",
-            "url": "content/csharp/operatory-i-vetvlenie/switch-case.md",
+            "url": "content/csharp-old/operatory-i-vetvlenie/switch-case.md",
             "keywords": "ветвление условия break default выражение паттерны сопоставление диапазоны when таблица переходов оптимизация выбор",
             "type": "md",
             "interactive": false
@@ -288,7 +800,7 @@
           {
             "order": 10,
             "title": "while и do..while",
-            "url": "content/csharp/cikly/while-i-do-while.md",
+            "url": "content/csharp-old/cikly/while-i-do-while.md",
             "keywords": "итерации условие предусловие постусловие бесконечный break continue повторение счетчик перебор ветвление управление",
             "type": "md",
             "interactive": false
@@ -296,7 +808,7 @@
           {
             "order": 20,
             "title": "Цикл со счетчиком for",
-            "url": "content/csharp/cikly/cikl-so-schetchikom-for.md",
+            "url": "content/csharp-old/cikly/cikl-so-schetchikom-for.md",
             "keywords": "итерации индекс инкремент декремент массив перебор break continue условие область видимости замыкание оптимизация JIT",
             "type": "md",
             "interactive": false
@@ -304,7 +816,7 @@
           {
             "order": 30,
             "title": "Перебор коллекций foreach",
-            "url": "content/csharp/cikly/perebor-kollekciy-foreach.md",
+            "url": "content/csharp-old/cikly/perebor-kollekciy-foreach.md",
             "keywords": "итератор перебор коллекции IEnumerable GetEnumerator MoveNext деконструкция Index цикл массив список словарь упаковка",
             "type": "md",
             "interactive": false
@@ -312,7 +824,7 @@
           {
             "order": 40,
             "title": "Управление циклом break:continue",
-            "url": "content/csharp/cikly/upravlenie-ciklom-break-continue.md",
+            "url": "content/csharp-old/cikly/upravlenie-ciklom-break-continue.md",
             "keywords": "циклы прерывание пропуск итерация выход вложенные return goto switch бесконечный поиск условие счетчик управление",
             "type": "md",
             "interactive": false
@@ -327,7 +839,7 @@
           {
             "order": 10,
             "title": "Объявление и вызов метода",
-            "url": "content/csharp/metody/obyavlenie-i-vyzov-metoda.md",
+            "url": "content/csharp-old/metody/obyavlenie-i-vyzov-metoda.md",
             "keywords": "функции void return параметры аргументы сигнатура стек вызовов PascalCase DRY локальные функции переполнение рекурсия",
             "type": "md",
             "interactive": false
@@ -335,7 +847,7 @@
           {
             "order": 20,
             "title": "return void кортежи",
-            "url": "content/csharp/metody/return-void-kortezhi.md",
+            "url": "content/csharp-old/metody/return-void-kortezhi.md",
             "keywords": "return void кортежи ValueTuple деконструкция результат выход сигнатура Item1 discard структура стек",
             "type": "md",
             "interactive": false
@@ -343,7 +855,7 @@
           {
             "order": 30,
             "title": "Параметры по умолчанию и params",
-            "url": "content/csharp/metody/parametry-po-umolchaniyu-i-params.md",
+            "url": "content/csharp-old/metody/parametry-po-umolchaniyu-i-params.md",
             "keywords": "аргументы необязательные именованные перегрузка массив коллекция Span компиляция константа вызов сигнатура модификатор",
             "type": "md",
             "interactive": false
@@ -351,7 +863,7 @@
           {
             "order": 40,
             "title": "ref, out, in",
-            "url": "content/csharp/metody/ref-out-in.md",
+            "url": "content/csharp-old/metody/ref-out-in.md",
             "keywords": "ссылка значение указатель копирование структура стек память TryParse модификатор инициализация readonly адрес",
             "type": "md",
             "interactive": false
@@ -366,7 +878,7 @@
           {
             "order": 10,
             "title": "Классы и объекты class, new",
-            "url": "content/csharp/oop-osnovy/klassy-i-obekty-class-new.md",
+            "url": "content/csharp-old/oop-osnovy/klassy-i-obekty-class-new.md",
             "keywords": "ооп экземпляр ссылка куча стек null инициализатор поля методы struct память сборщик мусора",
             "type": "md",
             "interactive": false
@@ -374,7 +886,7 @@
           {
             "order": 20,
             "title": "Поля и свойства get, set, init",
-            "url": "content/csharp/oop-osnovy/polya-i-svoystva-get-set-init.md",
+            "url": "content/csharp-old/oop-osnovy/polya-i-svoystva-get-set-init.md",
             "keywords": "инкапсуляция автосвойство аксессор value валидация рекурсия required приватное поле модификатор доступа инициализатор компиляция",
             "type": "md",
             "interactive": false
@@ -382,7 +894,7 @@
           {
             "order": 30,
             "title": "Конструкторы и this",
-            "url": "content/csharp/oop-osnovy/konstruktory-i-this.md",
+            "url": "content/csharp-old/oop-osnovy/konstruktory-i-this.md",
             "keywords": "конструктор инициализация экземпляр ссылка перегрузка цепочка поле параметр модификатор статический первичный память сборка",
             "type": "md",
             "interactive": false
@@ -390,7 +902,7 @@
           {
             "order": 40,
             "title": "Модификаторы доступа public, private, protected, internal",
-            "url": "content/csharp/oop-osnovy/modifikatory-dostupa-public-private-protected-internal.md",
+            "url": "content/csharp-old/oop-osnovy/modifikatory-dostupa-public-private-protected-internal.md",
             "keywords": "инкапсуляция видимость область сборка наследование класс структура закрытый открытый защита доступа рефлексия file",
             "type": "md",
             "interactive": false
@@ -398,7 +910,7 @@
           {
             "order": 50,
             "title": "Статичные члены и классы static",
-            "url": "content/csharp/oop-osnovy/statichnye-chleny-i-klassy-static.md",
+            "url": "content/csharp-old/oop-osnovy/statichnye-chleny-i-klassy-static.md",
             "keywords": "модификатор экземпляр память куча конструктор константа утилиты метод поле свойство Singleton расширение",
             "type": "md",
             "interactive": false
@@ -413,7 +925,7 @@
           {
             "order": 10,
             "title": "Значимые и ссылочные типы стек и куча",
-            "url": "content/csharp/oop-pamyat-i-arhitektura/znachimye-i-ssylochnye-tipy-stek-i-kucha.md",
+            "url": "content/csharp-old/oop-pamyat-i-arhitektura/znachimye-i-ssylochnye-tipy-stek-i-kucha.md",
             "keywords": "память стек куча struct class boxing unboxing сборщик мусора ссылка копирование типы null",
             "type": "md",
             "interactive": false
@@ -421,7 +933,7 @@
           {
             "order": 20,
             "title": "null и Nullable-типы ?, ??, ?.",
-            "url": "content/csharp/oop-pamyat-i-arhitektura/null-i-nullable-tipy.md",
+            "url": "content/csharp-old/oop-pamyat-i-arhitektura/null-i-nullable-tipy.md",
             "keywords": "null nullable ссылка исключение NullReferenceException оператор проверка значение структура компилятор паттерны делегат",
             "type": "md",
             "interactive": false
@@ -429,7 +941,7 @@
           {
             "order": 30,
             "title": "Наследование :, base",
-            "url": "content/csharp/oop-pamyat-i-arhitektura/nasledovanie-base.md",
+            "url": "content/csharp-old/oop-pamyat-i-arhitektura/nasledovanie-base.md",
             "keywords": "наследование родитель базовый дочерний конструктор sealed object protected virtual override иерархия композиция",
             "type": "md",
             "interactive": false
@@ -437,7 +949,7 @@
           {
             "order": 40,
             "title": "Полиморфизм virtual, override",
-            "url": "content/csharp/oop-pamyat-i-arhitektura/polimorfizm-virtual-override.md",
+            "url": "content/csharp-old/oop-pamyat-i-arhitektura/polimorfizm-virtual-override.md",
             "keywords": "полиморфизм наследование virtual override new sealed диспетчеризация vtable класс метод переопределение",
             "type": "md",
             "interactive": false
@@ -445,7 +957,7 @@
           {
             "order": 50,
             "title": "Абстрактные классы abstract",
-            "url": "content/csharp/oop-pamyat-i-arhitektura/abstraktnye-klassy-abstract.md",
+            "url": "content/csharp-old/oop-pamyat-i-arhitektura/abstraktnye-klassy-abstract.md",
             "keywords": "абстракция наследование полиморфизм override virtual интерфейс конструктор контракт класс метод свойство",
             "type": "md",
             "interactive": false
@@ -453,7 +965,7 @@
           {
             "order": 60,
             "title": "Интерфейсы",
-            "url": "content/csharp/oop-pamyat-i-arhitektura/interfeysy.md",
+            "url": "content/csharp-old/oop-pamyat-i-arhitektura/interfeysy.md",
             "keywords": "контракт полиморфизм реализация наследование абстракция класс структура IEnumerable IDisposable явная реализация множественное",
             "type": "md",
             "interactive": false
@@ -461,7 +973,7 @@
           {
             "order": 70,
             "title": "Структуры и записи struct, record",
-            "url": "content/csharp/oop-pamyat-i-arhitektura/struktury-i-zapisi-struct-record.md",
+            "url": "content/csharp-old/oop-pamyat-i-arhitektura/struktury-i-zapisi-struct-record.md",
             "keywords": "структура запись значимый ссылочный неизменяемость равенство копирование with стек куча деконструкция readonly",
             "type": "md",
             "interactive": false
@@ -469,7 +981,7 @@
           {
             "order": 80,
             "title": "Обобщения (Generics)",
-            "url": "content/csharp/oop-pamyat-i-arhitektura/obobscheniya-generics.md",
+            "url": "content/csharp-old/oop-pamyat-i-arhitektura/obobscheniya-generics.md",
             "keywords": "параметр типа шаблон коллекция ограничения where упаковка компиляция типизация класс метод интерфейс список",
             "type": "md",
             "interactive": false
@@ -484,7 +996,7 @@
           {
             "order": 10,
             "title": "Перехват ошибок (try / catch / finally)",
-            "url": "content/csharp/isklyucheniya-i-fayly/perehvat-oshibok-try-catch-finally.md",
+            "url": "content/csharp-old/isklyucheniya-i-fayly/perehvat-oshibok-try-catch-finally.md",
             "keywords": "исключения exception обработка ошибок сбой StackTrace finally фильтрация when TryParse отладка стек",
             "type": "md",
             "interactive": false
@@ -492,7 +1004,7 @@
           {
             "order": 20,
             "title": "Генерация исключений (throw)",
-            "url": "content/csharp/isklyucheniya-i-fayly/generaciya-isklyucheniy-throw.md",
+            "url": "content/csharp-old/isklyucheniya-i-fayly/generaciya-isklyucheniy-throw.md",
             "keywords": "исключения throw exception валидация аргументы StackTrace nameof ArgumentException проверка ошибки отладка",
             "type": "md",
             "interactive": false
@@ -500,7 +1012,7 @@
           {
             "order": 30,
             "title": "Освобождение ресурсов (using)",
-            "url": "content/csharp/isklyucheniya-i-fayly/osvobozhdenie-resursov-using.md",
+            "url": "content/csharp-old/isklyucheniya-i-fayly/osvobozhdenie-resursov-using.md",
             "keywords": "ресурсы память IDisposable файл поток очистка finally исключения утечка Dispose",
             "type": "md",
             "interactive": false
@@ -508,7 +1020,7 @@
           {
             "order": 40,
             "title": "Работа с файлами и папками (File, Path, Directory)",
-            "url": "content/csharp/isklyucheniya-i-fayly/rabota-s-faylami-i-papkami-file-path-directory.md",
+            "url": "content/csharp-old/isklyucheniya-i-fayly/rabota-s-faylami-i-papkami-file-path-directory.md",
             "keywords": "файлы папки пути System.IO File Directory Path FileInfo чтение запись поток кодировка",
             "type": "md",
             "interactive": false
@@ -523,7 +1035,7 @@
           {
             "order": 10,
             "title": "Делегаты и лямбда-выражения (Action, Func, =>)",
-            "url": "content/csharp/delegaty-i-linq/delegaty-i-lyambda-vyrazheniya-action-func.md",
+            "url": "content/csharp-old/delegaty-i-linq/delegaty-i-lyambda-vyrazheniya-action-func.md",
             "keywords": "делегаты лямбда Action Func замыкание MulticastDelegate колбэк функция стрелка Invoke",
             "type": "md",
             "interactive": false
@@ -531,7 +1043,7 @@
           {
             "order": 20,
             "title": "События (event)",
-            "url": "content/csharp/delegaty-i-linq/sobytiya-event.md",
+            "url": "content/csharp-old/delegaty-i-linq/sobytiya-event.md",
             "keywords": "события делегат подписка издатель подписчик Action EventHandler утечка памяти инкапсуляция invoke ивент",
             "type": "md",
             "interactive": false
@@ -539,7 +1051,7 @@
           {
             "order": 30,
             "title": "Фильтрация и поиск (Where, FirstOrDefault, Any, All)",
-            "url": "content/csharp/delegaty-i-linq/filtraciya-i-poisk-where-firstordefault-any-all.md",
+            "url": "content/csharp-old/delegaty-i-linq/filtraciya-i-poisk-where-firstordefault-any-all.md",
             "keywords": "linq фильтрация поиск коллекции предикат лямбда IEnumerable отложенное запрос итератор список",
             "type": "md",
             "interactive": false
@@ -547,7 +1059,7 @@
           {
             "order": 40,
             "title": "Сортировка и выборка (OrderBy, Select)",
-            "url": "content/csharp/delegaty-i-linq/sortirovka-i-vyborka-orderby-select.md",
+            "url": "content/csharp-old/delegaty-i-linq/sortirovka-i-vyborka-orderby-select.md",
             "keywords": "linq сортировка выборка проекция OrderBy OrderByDescending ThenBy Select SelectMany коллекции список преобразование",
             "type": "md",
             "interactive": false
@@ -555,7 +1067,7 @@
           {
             "order": 50,
             "title": "Агрегация (Count, Sum, Min, Max)",
-            "url": "content/csharp/delegaty-i-linq/agregaciya-count-sum-min-max.md",
+            "url": "content/csharp-old/delegaty-i-linq/agregaciya-count-sum-min-max.md",
             "keywords": "linq агрегация коллекции Count Sum Min Max Average MaxBy статистика подсчет переполнение",
             "type": "md",
             "interactive": false
