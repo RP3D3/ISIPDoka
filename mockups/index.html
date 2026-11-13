@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Макеты: страница области C#</title>
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #fff;
+    --text: #1d1f24;
+    --muted: #6b7280;
+    --border: #e2e5ea;
+    --accent: #614fa8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 24px 80px;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  h1 { font-size: 30px; margin: 0 0 8px; letter-spacing: -0.3px; }
+  .lead { color: var(--muted); margin: 0 0 28px; max-width: 900px; }
+  .note {
+    background: #fff8e1;
+    border: 1px solid #f2dfa6;
+    border-left: 4px solid #e0b341;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin: 0 0 32px;
+    font-size: 14px;
+  }
+  .note code { background: rgba(0,0,0,.05); padding: 1px 4px; border-radius: 3px; }
+  .mock {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 0 0 40px;
+    box-shadow: 0 6px 24px rgba(20, 22, 30, .06);
+  }
+  .mock-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 16px;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--border);
+  }
+  .mock-head h2 { font-size: 20px; margin: 0; }
+  .tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #eee9fb;
+    color: var(--accent);
+  }
+  .tag.rec { background: #e6f6ec; color: #1c7b3f; }
+  .mock-meta { margin-left: auto; font-size: 13px; color: var(--muted); }
+  .mock-body { padding: 18px 22px 24px; }
+  .mock-body p { margin: 0 0 10px; }
+  .mock-body ul { margin: 0 0 16px; padding-left: 20px; }
+  .mock-body li { margin: 2px 0; }
+  .mock-body img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+  }
+  .caption { font-size: 13px; color: var(--muted); margin-top: 8px !important; }
+  .good { color: #1c7b3f; font-weight: 600; }
+  .bad { color: #b3261e; font-weight: 600; }
+  table { border-collapse: collapse; width: 100%; margin: 0 0 32px; background: #fff; font-size: 14px; }
+  th, td { border: 1px solid var(--border); padding: 9px 12px; text-align: left; }
+  th { background: #f1f2f5; }
+  @media (max-width: 720px) {
+    body { padding: 24px 12px 60px; }
+    .mock-meta { margin-left: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Макеты страницы области (C#)</h1>
+  <p class="lead">
+    Одна и та же страница <code>domain.html?id=csharp</code> в четырёх вариантах раскладки.
+    Пунктирная красная линия — условный низ первого экрана (1080p).
+  </p>
+
+  <div class="note">
+    Скриншоты сняты для ширины <b>1920 px</b> и уменьшены, чтобы влезть в макет.
+    Пунктир — низ экрана 1080p (≈970 px). На уменьшенном скриншоте он стоит примерно на 74% высоты.
+    Порядок групп везде одинаковый: Консоль → Численные типы → … → Циклы.
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Вариант</th>
+        <th>Где начинается 2-й ряд / последняя группа</th>
+        <th>Низ контента</th>
+        <th>Что с «Консолью» (19 тем)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Сейчас</td>
+        <td class="bad">y ≈ 1140 px — ниже экрана</td>
+        <td>≈ 1476 px</td>
+        <td>одна колонка, 996 px</td>
+      </tr>
+      <tr>
+        <td>1. Колонки</td>
+        <td class="good">все заголовки до y ≈ 729 px</td>
+        <td>≈ 1100 px</td>
+        <td>длинная колонка, 996 px</td>
+      </tr>
+      <tr>
+        <td>2. Широкая карточка</td>
+        <td class="good">все заголовки до y ≈ 837 px</td>
+        <td>≈ 1173 px</td>
+        <td>на всю ширину, 276 px, темы в 5 колонок</td>
+      </tr>
+      <tr>
+        <td>3. Группы строками</td>
+        <td class="good">последняя группа на y ≈ 913 px</td>
+        <td class="good">≈ 1013 px</td>
+        <td>на всю ширину, 250 px, темы в колонках</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section class="mock">
+    <div class="mock-head">
+      <h2>Сейчас</h2>
+      <span class="tag">как есть</span>
+      <span class="mock-meta">страница ≈ 1517 px</span>
+    </div>
+    <div class="mock-body">
+      <p>
+        CSS-grid: высота ряда равна самой высокой карточке. «Консоль» занимает 996 px,
+        поэтому следующий ряд групп начинается на <b>y ≈ 1140 px</b> — ниже пунктира.
+        Группы «Операторы…», «Условные…» и «Циклы» на первом экране не видны.
+      </p>
+      <img src="./current.png" alt="Текущая раскладка страницы области">
+      <p class="caption">Видно пунктир и огромный пустой правый низ первой строки.</p>
+    </div>
+  </section>
+
+  <section class="mock">
+    <div class="mock-head">
+      <h2>Вариант 1 — многоколоночная кладка</h2>
+      <span class="tag">минимум кода</span>
+      <span class="mock-meta">контент ≈ 1100 px</span>
+    </div>
+    <div class="mock-body">
+      <ul>
+        <li><b>Плюсы:</b> только CSS (~4 правила), ничего в JS/разметке; короткие группы сами подтягиваются рядом с длинной; все заголовки групп выше пунктира.</li>
+        <li><b>Минусы:</b> низ колонок рваный; «Консоль» остаётся длинной колонкой — её темы всё равно надо долистать; порядок читается сверху вниз по колонкам.</li>
+      </ul>
+      <img src="./v1-columns.png" alt="Вариант 1: многоколоночная кладка">
+    </div>
+  </section>
+
+  <section class="mock">
+    <div class="mock-head">
+      <h2>Вариант 2 — широкая карточка для длинных групп</h2>
+      <span class="tag">минимальные изменения</span>
+      <span class="mock-meta">контент ≈ 1173 px</span>
+    </div>
+    <div class="mock-body">
+      <ul>
+        <li><b>Плюсы:</b> внешний вид карточек сохраняется; порядок строго слева-направо, как сейчас; «Консоль» из 996 px превращается в 276 px и больше не растягивает ряд.</li>
+        <li><b>Минусы:</b> нужно правило-эвристика (например, «&gt; 8 тем — на всю ширину»); если широкая группа окажется в середине ряда, возможны пустые места.</li>
+      </ul>
+      <img src="./v2-wide.png" alt="Вариант 2: широкая карточка для длинных групп">
+    </div>
+  </section>
+
+  <section class="mock">
+    <div class="mock-head">
+      <h2>Вариант 3 — группы строками (оглавление)</h2>
+      <span class="tag rec">рекомендую</span>
+      <span class="mock-meta">контент ≈ 1013 px</span>
+    </div>
+    <div class="mock-body">
+      <ul>
+        <li><b>Плюсы:</b> самый компактный; все 57 тем почти в один экран; строгий порядок сверху вниз; нет пустот между группами.</li>
+        <li><b>Минусы:</b> сильнее всего меняет вид страницы — название группы уходит в левую колонку (на узких экранах снова встанет над темами).</li>
+      </ul>
+      <img src="./v3-rows.png" alt="Вариант 3: группы строками">
+    </div>
+  </section>
+
+  <p class="lead">
+    Все три варианта убирают главную проблему: вторая строка групп больше не прячется за первым экраном.
+    Если важнее сохранить нынешний вид — вариант 2; если важнее компактность — вариант 3; если нужен минимум кода — вариант 1.
+  </p>
+</div>
+</body>
+</html>

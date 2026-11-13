@@ -691,6 +691,25 @@ a {
   padding: 10px;
 }
 
+/* Длинные группы (много тем) занимают всю ширину ряда, а темы внутри
+   раскладываются в колонки. Иначе одна такая группа растягивает весь ряд
+   по высоте и прячет соседние группы за нижней границей экрана. */
+.group-section.is-wide {
+  grid-column: 1 / -1;
+}
+
+.group-section.is-wide .topics-columns {
+  display: block;
+  width: 100%;
+  columns: 260px;
+  column-gap: 32px;
+}
+
+.group-section.is-wide .topic-row {
+  break-inside: avoid;
+  margin: 0 0 10px;
+}
+
 /* Плашка с названием группы, «прилипает» под шапкой */
 .group-header {
   position: sticky;
@@ -776,14 +795,16 @@ a {
   max-width: 1240px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 260px 1fr;
+  /* minmax(0, …) не даёт широкому контенту (таблицы, код) растягивать
+     колонку и вызывать горизонтальную прокрутку всей страницы */
+  grid-template-columns: 260px minmax(0, 1fr);
   padding: 40px;
   gap: 40px;
 }
 
 /* Одиночная колонка — если в статье нет h2/h3 и оглавление не нужно */
 .topic-main-layout--single {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 /* --- 7.2.1. Переход между темами (создаёт js/page.js) --- */
@@ -941,11 +962,25 @@ a {
 .article-content {
   max-width: 760px;
   line-height: 1.7;
+  /* Не даём длинным словам/ссылкам вылезать за колонку */
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 /* Отступ у пунктов списков */
 .article-content li {
   margin-left: 50px;
+}
+
+/* Медиа не должно вылезать за пределы колонки на узких экранах */
+.article-content img,
+.article-content video {
+  max-width: 100%;
+  height: auto;
+}
+
+.article-content iframe {
+  max-width: 100%;
 }
 
 /* --- 8.1. Секция темы ---
@@ -1367,24 +1402,63 @@ b {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 28px;
   }
+
+  /* Широкие таблицы прокручиваем внутри блока, а не всей страницей */
+  .article-content table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .article-content table th,
+  .article-content table td {
+    white-space: nowrap;
+  }
+
+  /* Кнопка редактирования — инструмент разработчика, на узких экранах
+     она отнимает место у навигации */
+  .admin-edit-btn {
+    display: none;
+  }
 }
 
 @media (max-width: 960px) {
+  /* Шапка на половине экрана и планшетах: даём ей расти по высоте,
+     если хлебные крошки не помещаются в одну строку */
+  .site-header {
+    height: auto;
+    min-height: var(--header-height);
+    padding: 0 24px;
+  }
+
+  .header-left {
+    min-width: 0;
+  }
+
+  .breadcrumbs {
+    min-width: 0;
+  }
+
   .topic-main-layout {
-    grid-template-columns: 1fr;
+    /* minmax(0, 1fr) обязателен: иначе таблица или длинная строка кода
+       растягивают колонку и появляется горизонтальная прокрутка страницы */
+    grid-template-columns: minmax(0, 1fr);
     padding: 28px 24px;
     gap: 20px;
+  }
+
+  /* Оглавление — горизонтальная лента; по ширине выравниваем со статьёй */
+  .toc-nav {
+    max-width: 760px;
+    position: static;
+    top: auto;
   }
 
   .topic-pager {
     padding: 0 24px;
     gap: 12px;
-  }
-
-  /* Оглавление — горизонтальная лента */
-  .toc-nav {
-    position: static;
-    top: auto;
   }
 
   .toc-nav ul {
@@ -1432,13 +1506,13 @@ b {
   .site-header {
     height: auto;
     min-height: 64px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 8px;
     padding: 10px 16px;
   }
 
   .header-left {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 8px;
     min-width: 0;
   }
@@ -1450,9 +1524,12 @@ b {
     font-size: 16px;
   }
 
-  .breadcrumbs {
-    font-size: 14px;
-    flex-wrap: wrap;
+  /* На телефоне хлебные крошки и кнопка админки не помещаются в одну
+     строку с брендом и поиском — прячем их, чтобы шапка оставалась
+     компактной и не перекрывала контент */
+  .breadcrumbs,
+  .admin-edit-btn {
+    display: none;
   }
 
   .search-trigger-btn {
@@ -1488,15 +1565,15 @@ b {
   }
 
   .topic-hero {
-    padding: 32px 16px;
+    padding: 28px 16px;
   }
 
   .topic-hero h1 {
-    font-size: clamp(28px, 9vw, 38px);
+    font-size: clamp(26px, 8vw, 34px);
   }
 
   .topic-hero .summary {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .topic-main-layout {
@@ -1507,6 +1584,11 @@ b {
   .article-content {
     max-width: 100%;
     line-height: 1.65;
+  }
+
+  /* На узком экране 50px отступа у списков — слишком много */
+  .article-content li {
+    margin-left: 26px;
   }
 
   .topic-section {
@@ -1522,12 +1604,6 @@ b {
   .article-content pre {
     font-size: 13px;
     padding: 14px;
-  }
-
-  .compare-table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
   }
 
   .search-modal {

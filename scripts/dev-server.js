@@ -223,7 +223,7 @@ function htmlTopicTemplate(title, description) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="../../../css/libs/atom-one-dark.min.css">
-  <link rel="stylesheet" href="../../../css/style.css?v=20261109-4">
+  <link rel="stylesheet" href="../../../css/style.css?v=20261113-4">
 </head>
 <body>
   <section class="topic-hero">

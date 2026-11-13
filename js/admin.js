@@ -9,6 +9,7 @@
   'use strict';
 
   const PREVIEW_KEY = 'dokaAdminPreview';
+  const STRUCTURE_UPDATE_KEY = 'doka:structure-updated';
   const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
   const TRANSLIT = {
@@ -248,7 +249,33 @@
     if (!res.ok) {
       throw new Error(data.error || `Ошибка ${res.status}.`);
     }
+
+    // Любое изменение через админку (создание, сохранение, удаление,
+    // порядок) должно обновить открытые вкладки со списками тем.
+    if (String(method).toUpperCase() !== 'GET') {
+      notifyStructureChanged();
+    }
+
     return data;
+  }
+
+  function notifyStructureChanged() {
+    try {
+      localStorage.setItem(STRUCTURE_UPDATE_KEY, String(Date.now()));
+    } catch (_) {
+      /* приватный режим может запрещать localStorage */
+    }
+  }
+
+  // Вызывается в других вкладках (событие storage не приходит в ту же вкладку).
+  function onStructureChange(handler) {
+    if (typeof handler !== 'function') return () => {};
+
+    const listener = (event) => {
+      if (event.key === STRUCTURE_UPDATE_KEY) handler(event);
+    };
+    window.addEventListener('storage', listener);
+    return () => window.removeEventListener('storage', listener);
   }
 
   /* ====================================================================== *
@@ -729,10 +756,22 @@
 
     if (values && created?.path) {
       const target = 'admin.html?path=' + encodeURIComponent(created.path);
+      let editorOpened = false;
       if (editorTab && !editorTab.closed) {
         editorTab.location.href = target;
-      } else if (!window.open(target, '_blank')) {
+        editorOpened = true;
+      } else if (window.open(target, '_blank')) {
+        editorOpened = true;
+      } else {
+        // Всплывающее окно заблокировано — открываем редактор в текущей вкладке.
         window.location.href = target;
+        return;
+      }
+
+      // Обновляем страницу области, чтобы новая тема появилась сразу,
+      // без ручного F5. Даём браузеру сначала открыть вкладку редактора.
+      if (editorOpened && document.body?.dataset.domain) {
+        window.setTimeout(() => window.location.reload(), 80);
       }
     } else if (editorTab && !editorTab.closed) {
       editorTab.close();
@@ -1422,5 +1461,6 @@
     deleteTopicDialog,
     moveTopicDialog,
     changeOrder,
+    onStructureChange,
   };
 })();

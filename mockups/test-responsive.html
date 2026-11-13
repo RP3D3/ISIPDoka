@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Responsive check</title>
+<style>
+  body { margin: 0; padding: 16px; background: #222; color: #eee; font: 13px/1.4 monospace; }
+  .row { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+  .frame { border: 2px solid #555; background: #fff; }
+  .lbl { margin: 0 0 6px; color: #9fe; }
+  #out { white-space: pre-wrap; background: #111; padding: 12px; border: 1px solid #444; margin-bottom: 20px; max-width: 1200px; }
+</style>
+</head>
+<body>
+<pre id="out">loading…</pre>
+<div class="row">
+  <div>
+    <div class="lbl">960 × 900 — половина FullHD по ширине</div>
+    <iframe class="frame" id="f960" width="960" height="900"
+      src="../theme.html?path=content%2Fcsharp%2Foperatory-sravneniya-i-logika%2Fprioritet-operatorov.md"></iframe>
+  </div>
+  <div>
+    <div class="lbl">375 × 812 — мобильный</div>
+    <iframe class="frame" id="f375" width="375" height="812"
+      src="../theme.html?path=content%2Fcsharp%2Foperatory-sravneniya-i-logika%2Fprioritet-operatorov.md"></iframe>
+  </div>
+</div>
+<script>
+  const FRAMES = [
+    { id: 'f960', w: 960, h: 900 },
+    { id: 'f375', w: 375, h: 812 },
+  ];
+
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  async function waitReady(frame) {
+    const win = frame.contentWindow;
+    const doc = frame.contentDocument;
+    for (let i = 0; i < 100; i++) {
+      if (doc.readyState === 'complete' && doc.querySelector('.topic-main-layout')) return;
+      await sleep(100);
+    }
+  }
+
+  async function metrics(frame) {
+    await waitReady(frame);
+    await sleep(600);
+    const win = frame.contentWindow;
+    const doc = frame.contentDocument;
+    const q = (sel) => {
+      const el = doc.querySelector(sel);
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      const s = win.getComputedStyle(el);
+      return {
+        x: Math.round(r.x), y: Math.round(r.y + win.scrollY),
+        w: Math.round(r.width), h: Math.round(r.height),
+        scrollW: el.scrollWidth, clientW: el.clientWidth,
+        display: s.display, position: s.position,
+        fontSize: s.fontSize, padding: s.padding,
+        maxWidth: s.maxWidth, flexDir: s.flexDirection,
+      };
+    };
+    return {
+      viewport: `${win.innerWidth}×${win.innerHeight}`,
+      docW: doc.documentElement.scrollWidth,
+      overflowX: doc.documentElement.scrollWidth > win.innerWidth,
+      bodyFont: win.getComputedStyle(doc.body).fontSize,
+      header: q('.site-header'),
+      hero: q('.topic-hero'),
+      h1: q('.topic-hero h1'),
+      layout: q('.topic-main-layout'),
+      toc: q('.toc-nav'),
+      tocUl: q('.toc-nav ul'),
+      article: q('.article-content'),
+      h2: q('.topic-section h2'),
+      li: q('.article-content li'),
+      pre: q('.article-content pre'),
+      table: q('.article-content table'),
+      pager: q('.topic-pager'),
+    };
+  }
+
+  (async () => {
+    const out = [];
+    for (const f of FRAMES) {
+      out.push(await metrics(document.getElementById(f.id)));
+    }
+    document.getElementById('out').textContent = JSON.stringify(out, null, 2);
+    window.__metrics = out;
+  })();
+</script>
+</body>
+</html>

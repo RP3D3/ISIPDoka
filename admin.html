@@ -17,7 +17,7 @@
   -->
 
   <link rel="stylesheet" href="css/libs/atom-one-dark.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261109-10">
+  <link rel="stylesheet" href="css/style.css?v=20261113-4">
   <link rel="stylesheet" href="css/admin.css?v=20261109-15">
   <style>
     /* ===== Оболочка админки ===== */
@@ -72,6 +72,26 @@
     .admin-link:hover {
       color: var(--text-main);
       text-decoration: underline;
+    }
+
+    /* Кнопка «вернуться на страницу области» в шапке редактора */
+    .admin-back-link {
+      display: inline-flex;
+      align-items: center;
+      height: 32px;
+      padding: 0 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: var(--text-muted);
+      font-size: 14px;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .admin-back-link:hover {
+      color: var(--text-main);
+      border-color: var(--text-muted);
     }
 
     button.admin-link {
@@ -663,6 +683,7 @@
         💾 Сохранить
       </button>
       <a class="admin-link" id="adminOpenTopic" href="#" target="_blank" rel="noopener" hidden>Открыть тему</a>
+      <a class="admin-back-link" id="adminDomainLink" href="domain.html" hidden>← Область</a>
       <a class="admin-link" href="index.html">На главную</a>
     </div>
   </header>
@@ -966,7 +987,7 @@
   <script src="js/libs/marked.min.js"></script>
   <script src="js/markdown-render.js?v=20261109-3"></script>
   <script src="js/markdown-alerts.js?v=20261109-1"></script>
-  <script src="js/admin.js?v=20261109-12"></script>
+  <script src="js/admin.js?v=20261113-1"></script>
   <script src="js/admin-stats.js?v=20261109-7"></script>
   <script src="js/admin-guide.js?v=20261109-2"></script>
   <script src="js/admin-svg-prompt.js?v=20261111-3"></script>
@@ -983,6 +1004,7 @@
        * ================================================================ */
       const subtitle = $('adminSubtitle');
       const openTopicLink = $('adminOpenTopic');
+      const domainLink = $('adminDomainLink');
 
       const mdMetaFields = $('mdMetaFields');
       const mdEditorField = $('mdEditorField');
@@ -1377,6 +1399,25 @@
             : filePath;
       }
 
+      function domainIdFromPath(path) {
+        const parts = String(path || '').split('/');
+        return parts[0] === 'content' && parts[1] ? parts[1] : '';
+      }
+
+      function updateDomainLink() {
+        const domainId = domainIdFromPath(filePath);
+        if (!domainId) {
+          domainLink.hidden = true;
+          return;
+        }
+
+        const title = structureData?.[domainId]?.title || domainId;
+        domainLink.hidden = false;
+        domainLink.href = 'domain.html?id=' + encodeURIComponent(domainId);
+        domainLink.textContent = '← ' + title;
+        domainLink.title = `Вернуться на страницу области «${title}»`;
+      }
+
       function showNoFile(message) {
         setMode('md');
         mdMetaFields.hidden = true;
@@ -1387,6 +1428,7 @@
         saveBtn.disabled = true;
         downloadBtn.disabled = true;
         openTopicLink.hidden = true;
+        updateDomainLink();
         frame.srcdoc = `<!DOCTYPE html>
 <html lang="ru"><head><meta charset="UTF-8"><style>
   html, body { height: 100%; margin: 0; }
@@ -1449,6 +1491,7 @@
           filePath = data.path;
           setMode(data.type);
           await ensureDomainAccent();
+          updateDomainLink();
 
           if (data.type === 'md') {
             const parsed = parseFrontmatter(data.content);
@@ -1563,7 +1606,7 @@
 
         const svg = svgInput.value.trim();
         const base = new URL('./', window.location.href);
-        const styleHref = new URL('css/style.css?v=20261109-10', base).href;
+        const styleHref = new URL('css/style.css?v=20261113-4', base).href;
         const atomHref = new URL('css/libs/atom-one-dark.min.css', base).href;
         const hljsSrc = new URL('js/highlight.min.js?v=20261107-2', base).href;
         const mascotSrc = new URL('js/mascot.js?v=20261109-7', base).href;
@@ -1702,7 +1745,7 @@
         if (!/style\.css/i.test(html)) {
           html = injectIntoHead(
             html,
-            `<link rel="stylesheet" href="${escapeHtml(rootHref)}css/style.css?v=20261109-10">`
+            `<link rel="stylesheet" href="${escapeHtml(rootHref)}css/style.css?v=20261113-4">`
           );
         }
 

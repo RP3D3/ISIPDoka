@@ -1,4 +1,222 @@
 {
+  "principy-patterny-i-arhitektura": {
+    "order": 0,
+    "title": "Принципы, паттерны и архитектура",
+    "accent": "#2da958",
+    "groups": [
+      {
+        "id": "bazovye-principy-chistogo-koda",
+        "order": 10,
+        "name": "Базовые принципы чистого кода",
+        "topics": [
+          {
+            "order": 10,
+            "title": "DRY",
+            "url": "content/principy-patterny-i-arhitektura/bazovye-principy-chistogo-koda/dry.md",
+            "keywords": "принцип DRY дублирование кода копипаста рефакторинг повторное использование поддержка проекта единый источник правило трёх абстракция",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "KISS",
+            "url": "content/principy-patterny-i-arhitektura/bazovye-principy-chistogo-koda/kiss.md",
+            "keywords": "принцип KISS простота кода читаемость переусложнение декомпозиция понятная логика проектирование рефакторинг поддержка программ архитектура антипаттерн",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "YAGNI",
+            "url": "content/principy-patterny-i-arhitektura/bazovye-principy-chistogo-koda/yagni.md",
+            "keywords": "принцип YAGNI лишний функционал код на вырост проектирование переусложнение рефакторинг требования минимализм поддержка программы архитектура",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Soc & SSOT",
+            "url": "content/principy-patterny-i-arhitektura/bazovye-principy-chistogo-koda/soc-ssot.md",
+            "keywords": "разделение ответственности SoC единый источник истины SSOT архитектура логика интерфейс состояние данные рассинхрон проектирование модульность",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "sut-oop",
+        "order": 20,
+        "name": "Суть ООП",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Абстракция",
+            "url": "content/principy-patterny-i-arhitektura/sut-oop/abstrakciya.md",
+            "keywords": "абстракция модель объекта выделение главного отбрасывание деталей проектирование принципы ООП интерфейс упрощение архитектура класс поведение",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Инкапсуляция",
+            "url": "content/principy-patterny-i-arhitektura/sut-oop/inkapsulyaciya.md",
+            "keywords": "инкапсуляция сокрытие данных внутреннее состояние контроль доступа целостность защита инвариант принципы ООП проектирование безопасность класс",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Наследование vs Композиция",
+            "url": "content/principy-patterny-i-arhitektura/sut-oop/nasledovanie-vs-kompoziciya.md",
+            "keywords": "наследование композиция отношение is-a отношение has-a базовый класс компонент делегирование гибкость принципы ООП проектирование архитектура",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Полиморфизм",
+            "url": "content/principy-patterny-i-arhitektura/sut-oop/polimorfizm.md",
+            "keywords": "полиморфизм слабая связанность единый контракт интерфейс абстракция замена реализации гибкость кода принципы ООП проектирование архитектура",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "principy-solid",
+        "order": 30,
+        "name": "Принципы SOLID",
+        "topics": [
+          {
+            "order": 10,
+            "title": "S - SRP",
+            "url": "content/principy-patterny-i-arhitektura/principy-solid/s-srp.md",
+            "keywords": "принцип единственной ответственности SOLID SRP архитектура проектирование класс модуль причина изменения декомпозиция рефакторинг разделение обязанностей",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "O - OCP",
+            "url": "content/principy-patterny-i-arhitektura/principy-solid/o-ocp.md",
+            "keywords": "принцип открытости и закрытости SOLID OCP расширение кода модификация интерфейс полиморфизм архитектура проектирование рефакторинг гибкость",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "L - LSP",
+            "url": "content/principy-patterny-i-arhitektura/principy-solid/l-lsp.md",
+            "keywords": "принцип подстановки Барбары Лисков SOLID LSP наследование базовый класс наследник переопределение архитектура проектирование полиморфизм иерархия",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "I - ISP",
+            "url": "content/principy-patterny-i-arhitektura/principy-solid/i-isp.md",
+            "keywords": "принцип разделения интерфейсов SOLID ISP узкий контракт интерфейс декомпозиция заглушки архитектура проектирование гибкость полиморфизм классы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "D - DIP",
+            "url": "content/principy-patterny-i-arhitektura/principy-solid/d-dip.md",
+            "keywords": "принцип инверсии зависимостей SOLID DIP абстракция интерфейс конструктор слабая связанность подмена реализации архитектура проектирование тестирование",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "bazovye-patterny-proektirovaniya",
+        "order": 40,
+        "name": "Базовые паттерны проектирования",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Зачем?",
+            "url": "content/principy-patterny-i-arhitektura/bazovye-patterny-proektirovaniya/zachem.md",
+            "keywords": "паттерны проектирования шаблоны архитектура порождающие структурные поведенческие типовые решения болезнь паттернов переусложнение гибкость кода ООП",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Singleton",
+            "url": "content/principy-patterny-i-arhitektura/bazovye-patterny-proektirovaniya/singleton.md",
+            "keywords": "паттерн Одиночка Singleton единственный экземпляр глобальная точка доступа статическое поле закрытый конструктор антипаттерн скрытые зависимости архитектура",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Simple Factory \\ Factory Method",
+            "url": "content/principy-patterny-i-arhitektura/bazovye-patterny-proektirovaniya/simple-factory-factory-method.md",
+            "keywords": "паттерн Фабрика Simple Factory Factory Method создание объектов оператор new интерфейс слабая связанность архитектура проектирование",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Strategy",
+            "url": "content/principy-patterny-i-arhitektura/bazovye-patterny-proektirovaniya/strategy.md",
+            "keywords": "паттерн Стратегия Strategy подмена алгоритма поведение объекта интерфейс композиция отказ от условий гибкость кода архитектура",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Observer",
+            "url": "content/principy-patterny-i-arhitektura/bazovye-patterny-proektirovaniya/observer.md",
+            "keywords": "паттерн Наблюдатель Observer подписка на события издатель подписчик автоматическое оповещение слабая связанность архитектура проектирование ООП",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Adapter & Facade",
+            "url": "content/principy-patterny-i-arhitektura/bazovye-patterny-proektirovaniya/adapter-facade.md",
+            "keywords": "паттерн Адаптер паттерн Фасад структурные паттерны несовместимые интерфейсы сложная подсистема обёртка упрощение кода архитектура проектирование",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "algoritmy-i-pamyat",
+        "order": 50,
+        "name": "Алгоритмы и память",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Stack & Heap",
+            "url": "content/principy-patterny-i-arhitektura/algoritmy-i-pamyat/stack-heap.md",
+            "keywords": "память программы стек куча Stack Heap типы значений ссылочные типы сборщик мусора переполнение стека архитектура",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Big O",
+            "url": "content/principy-patterny-i-arhitektura/algoritmy-i-pamyat/big-o.md",
+            "keywords": "сложность алгоритмов нотация Big O оценка скорости константная линейная квадратичная логарифмическая оптимизация вложенные циклы производительность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Хеш-таблицы",
+            "url": "content/principy-patterny-i-arhitektura/algoritmy-i-pamyat/hesh-tablicy.md",
+            "keywords": "хеш-таблица хеш-функция хеш-код коллизия корзина словарь множество ключ мгновенный поиск уникальность неизменяемость производительность структуры данных",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      }
+    ]
+  },
   "csharp": {
     "order": 10,
     "title": "C#",
@@ -504,6 +722,211 @@
             "title": "Циклы",
             "url": "content/csharp/cikly/cikly.md",
             "keywords": "циклы повторение действий итерация while for foreach счётчик предусловие постусловие перебор элементов условие выхода выбор",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "massivy",
+        "order": 90,
+        "name": "Массивы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Одномерные массивы",
+            "url": "content/csharp/massivy/odnomernye-massivy.md",
+            "keywords": "одномерный массив индекс элемента нумерация с нуля свойство Length длина массива объявление инициализация фиксированный размер",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Перебор элементов",
+            "url": "content/csharp/massivy/perebor-elementov.md",
+            "keywords": "перебор массива изменение элементов цикл for цикл foreach обращение с конца обратный порядок перезапись индексы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Базовые алгоритмы",
+            "url": "content/csharp/massivy/bazovye-algoritmy.md",
+            "keywords": "базовые алгоритмы массив сумма элементов среднее арифметическое минимум максимум линейный поиск значений индекс цикл проверка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Array",
+            "url": "content/csharp/massivy/array.md",
+            "keywords": "методы класса Array сортировка массива разворот элементов поиск индекса очистка ячеек копирование массивов ссылочный тип",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Двумерные массивы",
+            "url": "content/csharp/massivy/dvumernye-massivy.md",
+            "keywords": "двумерный массив матрица таблица данных строки столбцы координаты ячейки вложенные циклы метод GetLength обход сетки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Зубчатые массивы",
+            "url": "content/csharp/massivy/zubchatye-massivy.md",
+            "keywords": "зубчатый массив массив массивов разная длина строк вложенные массивы двойные скобки индексация свойство Length инициализация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Массивы",
+            "url": "content/csharp/massivy/massivy.md",
+            "keywords": "массивы одномерный массив двумерный массив матрица зубчатый массив индексы длина строки столбцы таблица данных выбор",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "metody",
+        "order": 100,
+        "name": "Методы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "void",
+            "url": "content/csharp/metody/void.md",
+            "keywords": "объявление метода вызов метода ключевое слово void параметры аргументы подпрограмма локальные переменные область видимости сигнатура",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "return",
+            "url": "content/csharp/metody/return.md",
+            "keywords": "возврат значения оператор return тип результата вызов метода вычисления подпрограмма сохранение ответа досрочный выход ветвление",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Области видимости",
+            "url": "content/csharp/metody/oblasti-vidimosti.md",
+            "keywords": "область видимости локальные переменные блочная видимость фигурные скобки время жизни переменной метод цикл условие изоляция",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 31,
+            "title": "Параметры и аргументы",
+            "url": "content/csharp/metody/parametry-i-argumenty.md",
+            "keywords": "необязательные параметры значения по умолчанию именованные аргументы вызов метода передача данных сигнатура порядок читаемость кода",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "ref, out, in",
+            "url": "content/csharp/metody/ref-out-in.md",
+            "keywords": "передача параметров по значению по ссылке модификатор ref модификатор out модификатор in копия оригинал метод",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "params",
+            "url": "content/csharp/metody/params.md",
+            "keywords": "модификатор params переменное число параметров вызов метода аргументы через запятую одномерный массив передача данных гибкость",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Перегрузка",
+            "url": "content/csharp/metody/peregruzka.md",
+            "keywords": "перегрузка методов одинаковое имя сигнатура метода количество параметров типы данных порядок аргументов вызов компилятор дублирование кода",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Рекурсия",
+            "url": "content/csharp/metody/rekursiya.md",
+            "keywords": "рекурсия вызов метода базовый случай условие выхода рекурсивный шаг стек вызовов факториал зацикливание подзадача память",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Методы",
+            "url": "content/csharp/metody/metody.md",
+            "keywords": "методы сигнатура возврат значения void return параметры аргументы ссылка модификаторы ref out in params перегрузка",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "kollekcii",
+        "order": 110,
+        "name": "Коллекции",
+        "topics": [
+          {
+            "order": 10,
+            "title": "List",
+            "url": "content/csharp/kollekcii/list.md",
+            "keywords": "динамический список коллекция List добавление элементов удаление по значению удаление по индексу свойство Count индексация размер",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Работа с List",
+            "url": "content/csharp/kollekcii/rabota-s-list.md",
+            "keywords": "динамический список поиск элемента индекс проверка наличия сортировка разворот преобразование в массив безопасное удаление перебор",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Dictionary",
+            "url": "content/csharp/kollekcii/dictionary.md",
+            "keywords": "словарь Dictionary пара ключ значение уникальный ключ добавление записи обновление данных удаление быстрый поиск коллекция",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Работа с Dictionary",
+            "url": "content/csharp/kollekcii/rabota-s-dictionary.md",
+            "keywords": "словарь Dictionary безопасное чтение проверка наличия ключа метод ContainsKey метод TryGetValue перебор пар цикл foreach",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "HashSet",
+            "url": "content/csharp/kollekcii/hashset.md",
+            "keywords": "множество HashSet уникальные элементы удаление дубликатов проверка наличия быстрый поиск объединение пересечение разность наборов коллекция",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Queue & Stack",
+            "url": "content/csharp/kollekcii/queue-stack.md",
+            "keywords": "очередь Queue стек Stack принцип FIFO принцип LIFO добавление извлечение метод Peek порядок обработки коллекция",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Коллекции",
+            "url": "content/csharp/kollekcii/kollekcii.md",
+            "keywords": "коллекции массив динамический список словарь ключ значение множество уникальные элементы очередь стек порядок поиск выбор",
             "type": "md",
             "interactive": false
           }
