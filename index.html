@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="./favicon.png">
   <link rel="apple-touch-icon" href="./favicon.png">
-  <link rel="stylesheet" href="./css/style.css?v=20261115-1">
+  <link rel="stylesheet" href="./css/style.css?v=20261115-5">
   <link rel="stylesheet" href="./css/admin.css?v=20261109-15">
 </head>
 <body>
@@ -29,6 +29,11 @@
     <ul class="domains-list" id="domainsList">
       <li class="domain-item"><span style="color: var(--text-muted);">Загрузка...</span></li>
     </ul>
+
+    <section class="domains-soon" id="domainsSoon" hidden>
+      <h2 class="domains-section-title">Еще не готово</h2>
+      <ul class="domains-list domains-list--soon" id="domainsSoonList"></ul>
+    </section>
   </main>
 
   <div class="search-modal" id="searchModal">
@@ -39,7 +44,7 @@
   </div>
 
   <script src="./js/search.js?v=20261114-1"></script>
-  <script src="./js/admin.js?v=20261113-1"></script>
+  <script src="./js/admin.js?v=20261115-1"></script>
   <script src="./js/admin-stats.js?v=20261109-7"></script>
   <script src="./js/mascot.js?v=20261109-7"></script>
   <script src="./js/perf.js?v=20261114-2"></script>
@@ -54,6 +59,49 @@
           .replace(/'/g, '&#39;');
       }
 
+      let emptyDomains = [];
+      let adminAvailable = false;
+
+      function domainHasTopics(domain) {
+        return (domain.groups || []).some(
+          (group) => (group.topics || []).length > 0
+        );
+      }
+
+      function renderEmptyDomains() {
+        const section = document.getElementById('domainsSoon');
+        const list = document.getElementById('domainsSoonList');
+        if (!section || !list) return;
+
+        if (!emptyDomains.length) {
+          section.hidden = true;
+          list.innerHTML = '';
+          return;
+        }
+
+        const previewMode = document.body.classList.contains('doka-preview-mode');
+        const canOpen = adminAvailable && !previewMode;
+        section.hidden = false;
+
+        list.innerHTML = emptyDomains
+          .map(([id, domain]) => {
+            const accent = escapeHtml(domain.accent || '#6c47ff');
+            const title = escapeHtml(domain.title || id);
+
+            if (canOpen) {
+              return `<li class="domain-item is-empty" style="--domain-color: ${accent};">
+                <a href="domain.html?id=${encodeURIComponent(id)}">${title}</a>
+              </li>`;
+            }
+
+            return `<li class="domain-item is-disabled" style="--domain-color: ${accent};" title="Область пока пустая">
+              <span class="domain-link" aria-disabled="true">${title}</span>
+              <span class="domain-badge">скоро</span>
+            </li>`;
+          })
+          .join('');
+      }
+
       async function renderDomains() {
         const list = document.getElementById('domainsList');
         try {
@@ -64,8 +112,11 @@
             (a, b) => (a[1].order ?? 0) - (b[1].order ?? 0)
           );
 
-          list.innerHTML = domains.length
-            ? domains
+          const ready = domains.filter(([, domain]) => domainHasTopics(domain));
+          emptyDomains = domains.filter(([, domain]) => !domainHasTopics(domain));
+
+          list.innerHTML = ready.length
+            ? ready
                 .map(([id, domain]) => {
                   const accent = escapeHtml(domain.accent || '#6c47ff');
                   const title = escapeHtml(domain.title || id);
@@ -74,10 +125,18 @@
                   </li>`;
                 })
                 .join('')
-            : '<li class="domain-item"><span style="color: var(--text-muted);">Пока нет ни одной области.</span></li>';
+            : '<li class="domain-item"><span style="color: var(--text-muted);">Пока нет готовых областей.</span></li>';
+
+          renderEmptyDomains();
 
           // Локальная админка: поля порядка и редактирование областей.
           if (window.DokaAdmin) {
+            if (typeof window.DokaAdmin.ready === 'function') {
+              window.DokaAdmin.ready().then((available) => {
+                adminAvailable = available;
+                renderEmptyDomains();
+              });
+            }
             window.DokaAdmin.mountIndex(
               domains.map(([id, domain]) => ({ ...domain, id }))
             );
@@ -89,6 +148,8 @@
       }
 
       renderDomains();
+
+      window.addEventListener('doka-preview-mode-changed', renderEmptyDomains);
 
       // Обновляем список областей, если структура изменилась в другой вкладке.
       if (window.DokaAdmin && typeof window.DokaAdmin.onStructureChange === 'function') {

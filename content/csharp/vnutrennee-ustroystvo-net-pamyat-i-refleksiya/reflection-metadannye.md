@@ -13,10 +13,10 @@ keywords: рефлексия C#, System.Reflection, метаданные тип�
 
 | Инструмент / метод | Синтаксис / пример | Назначение и особенности |
 | --- | --- | --- |
-| **`typeof(T)` / `obj.GetType()**` | `Type t = typeof(ExportPlugin);` | Получает дескриптор метаданных типа на этапе компиляции (`typeof`) или по живому экземпляру (`GetType()`) |
+| **`typeof(T)` / `obj.GetType()`** | `Type t = typeof(ExportPlugin);` | Получает дескриптор метаданных типа на этапе компиляции (`typeof`) или по живому экземпляру (`GetType()`) |
 | **`Activator.CreateInstance`** | `object? inst = Activator.CreateInstance(type);` | Создаёт экземпляр типа в рантайме, вызывая подходящий конструктор (включая `nonPublic: true`) |
-| **`GetProperties()` / `PropertyInfo**` | `prop.GetValue(obj)` / `prop.SetValue(obj, val)` | Читает список свойств типа и позволяет получать или записывать их значения у конкретного объекта |
-| **`GetMethod()` / `MethodInfo**` | `method.Invoke(obj, new object[] { "A", 2 })` | Находит метод (в том числе закрытый через `BindingFlags`) и вызывает его с передачей аргументов |
+| **`GetProperties()` / `PropertyInfo`** | `prop.GetValue(obj)` / `prop.SetValue(obj, val)` | Читает список свойств типа и позволяет получать или записывать их значения у конкретного объекта |
+| **`GetMethod()` / `MethodInfo`** | `method.Invoke(obj, new object[] { "A", 2 })` | Находит метод (в том числе закрытый через `BindingFlags`) и вызывает его с передачей аргументов |
 | **`Assembly.GetExecutingAssembly()`** | `assembly.GetTypes()` | Сканирует текущую или загруженную `.dll`-сборку для поиска всех классов, реализующих нужный контракт |
 
 ## Пример кода

@@ -14,9 +14,9 @@ keywords: потоки Stream, FileStream, StreamReader и StreamWriter, код�
 | Инструмент / метод | Синтаксис / пример | Назначение и особенности |
 | --- | --- | --- |
 | **`FileStream`** | `using var fs = new FileStream(path, ...);` | Низкоуровневый поток байтов файла; обязательно освобождается через блок `using` |
-| **`StreamReader` / `StreamWriter**` | `using var reader = new StreamReader(fs, Encoding.UTF8);` | Построчное чтение и запись текста поверх потока с преобразованием символов по заданной кодировке |
-| **`UTF8Encoding` / `Encoding.UTF8**` | `new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)` | Определяет правила перевода символов в байты (UTF-8 без BOM — современный стандарт веба и Linux) |
-| **`JsonSerializer.Serialize` / `Deserialize**` | `JsonSerializer.Serialize(stream, obj, options)` | Сериализует C#-объекты в строку или напрямую в поток JSON и восстанавливает их обратно |
+| **`StreamReader` / `StreamWriter`** | `using var reader = new StreamReader(fs, Encoding.UTF8);` | Построчное чтение и запись текста поверх потока с преобразованием символов по заданной кодировке |
+| **`UTF8Encoding` / `Encoding.UTF8`** | `new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)` | Определяет правила перевода символов в байты (UTF-8 без BOM — современный стандарт веба и Linux) |
+| **`JsonSerializer.Serialize` / `Deserialize`** | `JsonSerializer.Serialize(stream, obj, options)` | Сериализует C#-объекты в строку или напрямую в поток JSON и восстанавливает их обратно |
 | **`JsonSerializerOptions`** | `new JsonSerializerOptions(JsonSerializerDefaults.Web)` | Настраивает стиль имён (`camelCase`), отступы (`WriteIndented`) и нечувствительность к регистру при чтении |
 
 ## Пример кода
@@ -104,5 +104,5 @@ record AppConfig(string AppName, int MaxRetries, List<string> AllowedRoles);
 * **Зачем нужен `using` и внутренний буфер потоков:** `StreamWriter` и `FileStream` не записывают каждый символ на диск мгновенно — они накапливают данные в промежуточном буфере в оперативной памяти (обычно 4 КБ) и сбрасывают их пачкой. Если забыть закрыть поток через блок `using`, последние данные из буфера останутся в памяти и не попадут в файл, а сам файл останется заблокированным операционной системой (`IOException`).
 * **Кодировка UTF-8 с BOM и без BOM:** стандартное свойство `Encoding.UTF8` в .NET добавляет в самое начало файла 3 служебных байта метки порядка байтов (BOM — `EF BB BF`), из-за чего некоторые Linux-утилиты и парсеры конфигураций могут выдавать ошибку. Чтобы записывать чистый UTF-8 без BOM, передавайте `new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)`.
 * **Особенности `System.Text.Json` (свойства, регистр и кириллица):** по умолчанию `JsonSerializer` сериализует только публичные свойства (`get; set;` или `init;`), игнорирует обычные поля класса, чувствителен к регистру имён при чтении и экранирует кириллицу в последовательности вида `\u0421...`. Чтобы включить стиль `camelCase` и нечувствительность к регистру, передавайте `new JsonSerializerOptions(JsonSerializerDefaults.Web)`, а для читаемой кириллицы в файле добавляйте `Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping`.
-* **Связь с теорией и следующей темой:** освобождение дескрипторов файлов в `FileStream` и `StreamReader` опирается на паттерн `IDisposable` из раздела управления ресурсами, а в следующей заключительной карточке группы мы сведём воедино все инструменты работы со строками, датами и файлами (*Строки, даты и файлы*).
+* **Связь со следующей темой:** освобождение дескрипторов файлов в `FileStream` и `StreamReader` опирается на паттерн `IDisposable` из раздела управления ресурсами, а в следующей заключительной карточке группы мы сведём воедино все инструменты работы со строками, датами и файлами (*Строки, даты и файлы*).
 

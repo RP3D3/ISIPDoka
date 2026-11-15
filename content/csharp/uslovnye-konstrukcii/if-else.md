@@ -1,5 +1,5 @@
 ---
-title: if \ else
+title: if / else
 keywords: условный оператор, if, else, ветвление, условие, логическое выражение, фигурные скобки, область видимости, проверка, выбор, действие
 svg: |
   <svg viewBox="0 0 900 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 900px; max-height: 280px; height: auto; display: block; margin: 0 auto 20px;">

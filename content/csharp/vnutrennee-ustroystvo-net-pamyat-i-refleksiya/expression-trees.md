@@ -15,9 +15,9 @@ keywords: Expression Trees, деревья выражений C#, System.Linq.Ex
 | --- | --- | --- |
 | **`Expression<TDelegate>`** | `Expression<Func<Product, bool>> expr = p => p.Price > 100;` | Оборачивает лямбду в дерево данных (`Body`, `Parameters`) вместо компиляции в IL |
 | **`Expression.Parameter`** | `var param = Expression.Parameter(typeof(Product), "p");` | Создаёт узел входного параметра (один и тот же экземпляр `param` должен использоваться во всём дереве) |
-| **`Expression.Property` / `Field**` | `MemberExpression prop = Expression.Property(param, "Price");` | Строит узел обращения к свойству или полю объекта без затрат `PropertyInfo.GetValue` в цикле |
+| **`Expression.Property` / `Field`** | `MemberExpression prop = Expression.Property(param, "Price");` | Строит узел обращения к свойству или полю объекта без затрат `PropertyInfo.GetValue` в цикле |
 | **`Expression.Constant`** | `ConstantExpression val = Expression.Constant(100m);` | Создаёт узел литерального значения или переданной константы нужного типа |
-| **`Expression.GreaterThan` / `AndAlso**` | `BinaryExpression cmp = Expression.GreaterThan(prop, val);` | Объединяет два подвыражения бинарным оператором сравнения или логическим `&&` (`AndAlso`) |
+| **`Expression.GreaterThan` / `AndAlso`** | `BinaryExpression cmp = Expression.GreaterThan(prop, val);` | Объединяет два подвыражения бинарным оператором сравнения или логическим `&&` (`AndAlso`) |
 | **`Expression.Lambda<T>(...).Compile()`** | `Func<Product, bool> fastFunc = lambda.Compile();` | Генерирует IL-код на лету (`DynamicMethod`) и возвращает скомпилированный делегат нативной скорости |
 
 ## Пример кода

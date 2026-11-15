@@ -1,5 +1,5 @@
 ---
-title: Инкремент\декремент
+title: Инкремент и декремент
 keywords: инкремент, декремент, префиксный, постфиксный, увеличение на единицу, уменьшение переменной, счётчик цикла, порядок вычисления, шаг, оператор
 svg: |
   <svg viewBox="0 0 900 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 900px; max-height: 280px; height: auto; display: block; margin: 0 auto 20px;">

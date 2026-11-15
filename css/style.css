@@ -643,119 +643,883 @@ a {
   opacity: 0;
 }
 
+/* Области без тем: отдельная группа «Еще не готово» */
+.domains-soon {
+  margin-top: 44px;
+}
+
+.domains-section-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 14px;
+  color: var(--text-muted);
+  font: 11px var(--font-mono);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.domains-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+}
+
+.domains-list--soon {
+  gap: 8px;
+}
+
+.domains-list--soon .domain-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.domains-list--soon .domain-item a,
+.domains-list--soon .domain-link {
+  display: inline-block;
+  position: relative;
+  padding: 3px 10px;
+  border-radius: 4px;
+  color: var(--text-muted);
+  font-family: var(--font-accent);
+  font-size: clamp(24px, 3.2vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  line-height: 1.1;
+  text-decoration: none;
+  opacity: 0.55;
+  transition: opacity 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.domains-list--soon .domain-item a::after,
+.domains-list--soon .domain-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  right: 10px;
+  height: 2px;
+  background-color: var(--domain-color);
+  opacity: 0.35;
+}
+
+.domains-list--soon .domain-item a:hover {
+  color: var(--text-main);
+  background-color: color-mix(in srgb, var(--domain-color) 14%, transparent);
+  opacity: 0.85;
+}
+
+.domains-list--soon .domain-item a:hover::after {
+  opacity: 0;
+}
+
+.domain-item.is-disabled .domain-link {
+  cursor: not-allowed;
+}
+
+.domain-badge {
+  display: inline-block;
+  padding: 1px 7px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font: 10px var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.8;
+}
+
 
 /* ==========================================================================
    6. СТРАНИЦА ОБЛАСТИ (domain.html)
    --------------------------------------------------------------------------
-   Группы и темы строит инлайн-скрипт в domain.html.
+   Вертикальный маршрут: слева карта глав с прогрессом, справа линия
+   с узлами глав и нумерованными темами. Главы и темы строит инлайн-скрипт
+   в domain.html.
    ========================================================================== */
 
 .domain-layout {
   display: grid;
-  /* На средних экранах сайдбар сужается, чтобы не съедать место у контента */
-  grid-template-columns: clamp(240px, 24vw, 320px) 1fr;
-  min-height: calc(100vh - 64px);
+  grid-template-columns: 300px minmax(0, 1fr);
+  max-width: 1480px;
+  margin: 0 auto;
+  min-height: calc(100vh - var(--header-height));
 }
 
-/* Левая колонка с названием и описанием области */
+/* Левая колонка: название области, общий прогресс и карта глав */
 .domain-sidebar {
-  padding: 40px 32px;
+  position: sticky;
+  top: var(--header-height);
+  align-self: start;
+  height: calc(100vh - var(--header-height));
+  overflow: auto;
+  padding: 32px 22px 40px 28px;
   border-right: 1px solid var(--border-color);
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--text-main) 20%, transparent) transparent;
+}
+
+.domain-sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.domain-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.domain-sidebar::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--text-main) 20%, transparent);
+  background-clip: content-box;
+}
+
+.domain-sidebar::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--text-main) 30%, transparent);
+  background-clip: content-box;
+}
+
+.route-rail-kicker {
+  font: 11px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--domain-accent);
 }
 
 .domain-sidebar h1 {
-  font-size: 36px;
+  margin: 8px 0 10px;
+  font-size: clamp(32px, 3vw, 44px);
   font-weight: 700;
   font-family: var(--font-accent);
-  letter-spacing: -0.4px;
-  margin-bottom: 16px;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
 }
 
 .domain-sidebar p {
+  margin: 0 0 20px;
   color: var(--text-muted);
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.55;
 }
 
-/* Правая часть: сетка групп */
-.domain-content {
-  padding: 40px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 40px;
-  align-items: start;
+.route-overall {
+  padding: 14px 14px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--bg-card) 92%, transparent);
 }
 
-.group-section {
+.route-overall-top {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 10px;
+  justify-content: space-between;
+  gap: 12px;
+  font: 11px var(--font-mono);
+  color: var(--text-muted);
 }
 
-/* Длинные группы (много тем) занимают всю ширину ряда, а темы внутри
-   раскладываются в колонки. Иначе одна такая группа растягивает весь ряд
-   по высоте и прячет соседние группы за нижней границей экрана. */
-.group-section.is-wide {
-  grid-column: 1 / -1;
+.route-overall-top b {
+  color: var(--text-main);
+  font-weight: 600;
 }
 
-.group-section.is-wide .topics-columns {
+.route-bar {
+  height: 6px;
+  margin-top: 10px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--text-main) 9%, transparent);
+  overflow: hidden;
+}
+
+.route-bar > span {
   display: block;
-  width: 100%;
-  columns: 260px;
-  column-gap: 32px;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: var(--domain-accent);
+  transition: width 0.3s ease;
 }
 
-.group-section.is-wide .topic-row {
-  break-inside: avoid;
-  margin: 0 0 10px;
+/* На широком экране карта всегда раскрыта, а на телефоне её можно
+   свернуть: сводка видна только в мобильной раскладке. */
+.route-map-details > summary {
+  display: none;
 }
 
-/* Плашка с названием группы, «прилипает» под шапкой */
-.group-header {
-  position: sticky;
-  top: 72px;
-  display: inline-block;
-  background-color: var(--domain-accent);
-  color: #fff;
-  padding: 4px 12px;
-  font-size: 15px;
-  font-family: var(--font-accent);
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  border-radius: 3px;
-  margin-bottom: 0;
-  z-index: 10;
+.route-map {
+  display: grid;
+  gap: 2px;
+  margin-top: 18px;
 }
 
-.topics-columns {
+/* UA-стиль details скрывает содержимое, но авторский display:grid его
+   перебивает — закрываем карту явно. */
+.route-map-details:not([open]) > .route-map {
+  display: none;
+}
+
+.route-map-item {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  gap: 9px;
+  align-items: center;
+  padding: 7px 9px;
+  border-radius: 9px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 12.5px;
+  line-height: 1.25;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.route-map-item:hover {
+  background: color-mix(in srgb, var(--text-main) 5%, transparent);
+  color: var(--text-main);
+}
+
+.route-map-item.is-active {
+  background: color-mix(in srgb, var(--domain-accent) 16%, transparent);
+  color: var(--text-main);
+}
+
+.route-map-item.is-done .route-map-num {
+  color: var(--domain-accent);
+}
+
+.route-map-num {
+  font: 11px var(--font-mono);
+  color: color-mix(in srgb, var(--text-main) 48%, transparent);
+}
+
+.route-map-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.route-map-count {
+  font: 10px var(--font-mono);
+  color: color-mix(in srgb, var(--text-main) 38%, transparent);
+}
+
+/* Правая часть: шапка маршрута и вертикальная линия глав */
+.domain-content {
+  min-width: 0;
+  padding: 42px clamp(22px, 4vw, 64px) 96px;
+}
+
+.route-hero {
   display: flex;
-  flex-direction: column;
+  align-items: end;
+  justify-content: space-between;
+  gap: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 38px;
+}
+
+.route-hero-kicker {
+  font: 11px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--domain-accent);
+}
+
+.route-hero h2 {
+  margin: 8px 0;
+  font-size: clamp(30px, 3.4vw, 46px);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.route-hero p {
+  max-width: 58ch;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.route-continue {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--domain-accent);
+  color: #fff;
+  text-decoration: none;
+  font: 600 13px var(--font-mono);
+  white-space: nowrap;
+  transition: filter 0.15s ease, background-color 0.15s ease;
+}
+
+.route-continue:hover {
+  filter: brightness(1.08);
+}
+
+.route-continue.is-complete {
+  border: 1px solid color-mix(in srgb, var(--domain-accent) 42%, var(--border-color));
+  background: color-mix(in srgb, var(--domain-accent) 18%, var(--bg-card));
+  color: var(--text-main);
+}
+
+.route {
+  position: relative;
+  max-width: 1000px;
+  --route-progress: 0%;
+}
+
+.route.is-empty::before {
+  display: none;
+}
+
+.route::before {
+  content: '';
+  position: absolute;
+  left: 27px;
+  top: 8px;
+  bottom: 54px;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--domain-accent) 0 var(--route-progress),
+    color-mix(in srgb, var(--text-main) 13%, transparent) var(--route-progress) 100%
+  );
+  border-radius: 99px;
+}
+
+.route-empty {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.route-start {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  padding-left: 76px;
+  font: 10px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--domain-accent);
+}
+
+.route-start::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--domain-accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--domain-accent) 16%, transparent);
+}
+
+.route-chapter {
+  position: relative;
+  padding-left: 76px;
+  margin-bottom: 28px;
+}
+
+.route-chapter::before {
+  content: '';
+  position: absolute;
+  left: 52px;
+  top: 27px;
+  width: 24px;
+  height: 2px;
+  background: color-mix(in srgb, var(--text-main) 13%, transparent);
+}
+
+.route-chapter.is-done::before,
+.route-chapter.is-active::before {
+  background: color-mix(in srgb, var(--domain-accent) 42%, transparent);
+}
+
+.route-node {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 2px solid color-mix(in srgb, var(--text-main) 13%, transparent);
+  border-radius: 50%;
+  background: var(--bg-main);
+  color: var(--text-muted);
+  font: 700 14px var(--font-mono);
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.route-chapter.is-done .route-node {
+  border-color: var(--domain-accent);
+  background: var(--domain-accent);
+  color: #fff;
+}
+
+.route-chapter.is-active .route-node {
+  border-color: var(--domain-accent);
+  color: var(--domain-accent);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--domain-accent) 16%, transparent);
+}
+
+.route-card {
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--bg-card) 92%, transparent);
+  padding: 18px 22px 10px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.route-chapter.is-active .route-card {
+  border-color: color-mix(in srgb, var(--domain-accent) 48%, var(--border-color));
+}
+
+/* Специфичность выше, чем у .group-header в admin.css: там старый
+   inline-flex для плашки группы, который иначе сжимает заголовок. */
+.route-card .group-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.route-card-heading {
+  min-width: 0;
+}
+
+.route-card-kicker {
+  font: 10px var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.group-name {
+  display: block;
+  margin: 5px 0 0;
+  font-family: var(--font-accent);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.route-card-side {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
   gap: 10px;
 }
 
-/* Ссылка на тему внутри группы */
-.topic-link {
-  font-family: var(--font-mono);
-  font-size: 20px;
+/* В маршруте порядок уже виден по номерам 01.01 — подпись из админки
+   рядом с кнопкой действий только дублирует её. Само поле порядка
+   остаётся в выпадающем меню. */
+.route-card-side .doka-actions[data-order]::before,
+.route-step .doka-actions[data-order]::before {
+  display: none;
+}
+
+.route-card-progress {
+  flex: 0 0 94px;
+  padding-top: 2px;
+  text-align: right;
+}
+
+.route-card-count {
+  font: 10px var(--font-mono);
+  color: var(--text-muted);
+}
+
+.route-card-progress i {
+  display: block;
+  height: 4px;
+  margin-top: 7px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--text-main) 9%, transparent);
+  overflow: hidden;
+}
+
+.route-card-progress b {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--domain-accent);
+  transition: width 0.3s ease;
+}
+
+.route-steps {
+  padding: 4px 0 0;
+}
+
+.topic-row.route-step {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  border-top: 1px solid color-mix(in srgb, var(--border-color) 58%, transparent);
+}
+
+.route-steps .topic-row:first-child {
+  border-top: 0;
+}
+
+.route-step-link {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: start;
+  padding: 10px 8px 10px 0;
+  border-radius: 8px;
   color: var(--text-main);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-  text-decoration-color: color-mix(in srgb, var(--domain-accent) 55%, transparent);
-  transition: color 0.15s ease, opacity 0.15s ease, text-decoration-color 0.15s ease;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease,
+    padding 0.15s ease, margin 0.15s ease;
 }
 
-.topic-link.is-unread {
-  opacity: 0.8;
+.route-step-link:hover {
+  padding-left: 8px;
+  margin-left: -8px;
+  padding-right: 8px;
+  background: color-mix(in srgb, var(--domain-accent) 9%, transparent);
 }
 
-.topic-link:hover {
+.route-step-num {
+  padding-top: 2px;
+  font: 10.5px var(--font-mono);
+  color: color-mix(in srgb, var(--text-main) 45%, transparent);
+  white-space: nowrap;
+}
+
+.route-step-title {
+  min-width: 0;
+  font-size: 15.5px;
+  line-height: 1.38;
+  overflow-wrap: anywhere;
+}
+
+.route-step-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 5px;
+  padding-top: 1px;
+}
+
+.route-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 7px;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--domain-accent) 16%, transparent);
   color: var(--domain-accent);
-  text-decoration-color: var(--domain-accent);
+  font: 9.5px var(--font-mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.route-badge--summary {
+  background: color-mix(in srgb, var(--text-main) 8%, transparent);
+  color: var(--text-muted);
+}
+
+.route-badge--now {
+  background: var(--domain-accent);
+  color: #fff;
+}
+
+.topic-row.is-done .route-step-num {
+  color: var(--domain-accent);
+}
+
+.topic-row.is-done .route-step-title {
+  opacity: 0.62;
+}
+
+.topic-row.is-current .route-step-link {
+  padding-left: 10px;
+  margin-left: -10px;
+  padding-right: 8px;
+  background: color-mix(in srgb, var(--domain-accent) 16%, transparent);
+  box-shadow: inset 3px 0 0 var(--domain-accent);
+}
+
+.topic-row.is-current .route-step-title {
+  font-weight: 600;
   opacity: 1;
+}
+
+.topic-row.is-summary .route-step-title {
+  font-weight: 600;
+}
+
+.route-steps .doka-add-topic {
+  margin: 10px 0 6px 54px;
+}
+
+.route > .doka-add-group {
+  padding-left: 76px;
+  margin: 6px 0 0;
+}
+
+.route-finish {
+  position: relative;
+  padding-left: 76px;
+  margin-top: 36px;
+}
+
+.route-finish::before {
+  content: '';
+  position: absolute;
+  left: 52px;
+  top: 27px;
+  width: 24px;
+  height: 2px;
+  background: color-mix(in srgb, var(--domain-accent) 42%, transparent);
+}
+
+.route-finish-node {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 2px dashed color-mix(in srgb, var(--domain-accent) 42%, transparent);
+  border-radius: 50%;
+  background: var(--bg-main);
+  color: var(--domain-accent);
+  font: 700 18px var(--font-mono);
+}
+
+.route-finish-card {
+  padding: 20px 22px;
+  border: 1px dashed color-mix(in srgb, var(--domain-accent) 42%, var(--border-color));
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--domain-accent) 5%, transparent);
+}
+
+.route-finish-card h3 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+
+.route-finish-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.route-finish-card a {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--domain-accent);
+  font: 600 12px var(--font-mono);
+  text-decoration: none;
+}
+
+.route-finish-card a:hover {
+  text-decoration: underline;
+}
+
+/* На средних экранах карта уезжает наверх горизонтальной лентой */
+@media (max-width: 1080px) {
+  .domain-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .domain-sidebar {
+    position: static;
+    height: auto;
+    padding: 26px 22px 20px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .domain-sidebar p {
+    max-width: 70ch;
+  }
+
+  /* Вместо горизонтальной ленты с системным скроллом — обычная сетка
+     компактных карточек. Все главы видны сразу, без прокрутки. */
+  .route-map {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 6px;
+  }
+
+  .route-map-item {
+    min-width: 0;
+    background: color-mix(in srgb, var(--text-main) 4%, transparent);
+  }
+
+  .domain-content {
+    padding: 30px 22px 72px;
+  }
+}
+
+/* Телефон: линия маршрута сдвигается влево, карточка занимает всю ширину */
+@media (max-width: 680px) {
+  .route-hero {
+    display: block;
+  }
+
+  .route-continue {
+    margin-top: 18px;
+  }
+
+  /* На телефоне карта сворачивается в компактную строку, а внутри
+     остаётся обычным вертикальным списком, как в левой колонке. */
+  .route-map-details {
+    margin-top: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--text-main) 4%, transparent);
+  }
+
+  .route-map-details > summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    color: var(--text-main);
+    font: 600 13px var(--font-mono);
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .route-map-details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .route-map-details > summary::after {
+    content: '▾';
+    margin-left: auto;
+    color: var(--text-muted);
+    transition: transform 0.15s ease;
+  }
+
+  .route-map-details[open] > summary::after {
+    transform: rotate(180deg);
+  }
+
+  .route-map-details[open] > summary {
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .route-map-summary-count {
+    padding: 1px 6px;
+    border-radius: 99px;
+    background: color-mix(in srgb, var(--domain-accent) 16%, transparent);
+    color: var(--domain-accent);
+    font: 10px var(--font-mono);
+  }
+
+  .route-map-details .route-map {
+    margin-top: 0;
+    padding: 4px 8px 8px;
+  }
+
+  .route-map {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .route-map-item {
+    padding: 7px 4px;
+    background: transparent;
+  }
+
+  .route::before {
+    left: 19px;
+  }
+
+  .route-start {
+    padding-left: 52px;
+  }
+
+  .route-start::before {
+    left: 12px;
+  }
+
+  .route-chapter,
+  .route-finish {
+    padding-left: 52px;
+  }
+
+  .route-chapter::before,
+  .route-finish::before {
+    left: 34px;
+    top: 19px;
+    width: 14px;
+  }
+
+  .route-node,
+  .route-finish-node {
+    width: 40px;
+    height: 40px;
+    font-size: 11px;
+  }
+
+  .route-card {
+    padding: 16px 14px 8px;
+  }
+
+  .route-card .group-header {
+    display: block;
+  }
+
+  .route-card-side {
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .route-card-progress {
+    flex: none;
+    width: 110px;
+    text-align: left;
+  }
+
+  .route-step-link {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .route-step-num {
+    grid-row: 1 / span 2;
+  }
+
+  .route-step-badges {
+    grid-column: 2;
+    justify-content: flex-start;
+  }
+
+  .route-step-title {
+    font-size: 15px;
+  }
+
+  .route-steps .doka-add-topic {
+    margin-left: 44px;
+  }
+
+  .route > .doka-add-group {
+    padding-left: 52px;
+  }
 }
 
 
@@ -1032,19 +1796,19 @@ a {
   animation: flareBurn 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Вспышка группы на странице области (domain.html).
-   Запускается при переходе по хлебной крошке группы: один сплошной
-   цветной блок ровно на 1 секунду, без пульсаций и без градиента.
+/* Вспышка главы на странице области (domain.html).
+   Запускается при переходе по хлебной крошке группы: подсвечиваем рамку
+   карточки ровно на 1 секунду, без пульсаций и без градиента.
    Класс снимается по animationend. */
 @keyframes groupFlareBurn {
   0%,
   100% {
-    background-color: color-mix(in srgb, var(--domain-accent) 18%, transparent);
+    border-color: var(--domain-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--domain-accent) 22%, transparent);
   }
 }
 
-.group-section.active-flash {
-  border-radius: 10px;
+.route-chapter.active-flash .route-card {
   animation: groupFlareBurn 1s steps(1, end) forwards;
 }
 
@@ -1384,43 +2148,7 @@ samp,
    и шрифты шапки.
    ========================================================================== */
 
-/* Страница области: сайдбар становится компактной горизонтальной плашкой
-   только когда двух колонок действительно не хватает */
 @media (max-width: 768px) {
-  .domain-layout {
-    grid-template-columns: 1fr;
-    /* Не даём единственной строке сайдбара растягиваться на всю высоту */
-    align-content: start;
-  }
-
-  .domain-sidebar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 4px 20px;
-    padding: 18px 20px;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .domain-sidebar h1 {
-    font-size: 28px;
-    margin-bottom: 0;
-  }
-
-  .domain-sidebar p {
-    flex: 1 1 300px;
-    min-width: 0;
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  .domain-content {
-    padding: 22px 20px;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 28px;
-  }
-
   /* Широкие таблицы прокручиваем внутри блока, а не всей страницей */
   .article-content table {
     display: block;
@@ -1566,20 +2294,6 @@ samp,
 
   .domain-item a {
     font-size: clamp(28px, 9vw, 40px);
-  }
-
-  .domain-sidebar h1 {
-    font-size: clamp(24px, 6.5vw, 28px);
-  }
-
-  .domain-content {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    padding: 24px 20px;
-  }
-
-  .group-header {
-    position: static;
   }
 
   .topic-hero {

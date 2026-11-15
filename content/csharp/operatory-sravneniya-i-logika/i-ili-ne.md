@@ -1,5 +1,5 @@
 ---
-title: И\ИЛИ\НЕ
+title: И, ИЛИ, НЕ
 keywords: логические операторы, логическое И, логическое ИЛИ, логическое НЕ, сложное условие, true, false, инверсия, проверка, ветвление
 svg: |
   <svg viewBox="0 0 900 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 900px; max-height: 280px; height: auto; display: block; margin: 0 auto 20px;">

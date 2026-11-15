@@ -99,6 +99,12 @@
         ? 'Вернуться в режим редактирования'
         : 'Скрыть кнопки редактирования и поля порядка';
     });
+
+    window.dispatchEvent(
+      new CustomEvent('doka-preview-mode-changed', {
+        detail: { enabled: Boolean(enabled) },
+      })
+    );
   }
 
   function mountModeToggle() {
@@ -1137,6 +1143,11 @@
         reorderChildren(column, '.topic-row', '.doka-add-topic');
       }
     }
+
+    // Страница области перерисовывает номера маршрута после сортировки.
+    window.dispatchEvent(
+      new CustomEvent('doka-order-changed', { detail: { kind } })
+    );
   }
 
   async function changeOrder(input) {

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="./favicon.png">
   <link rel="apple-touch-icon" href="./favicon.png">
-<link rel="stylesheet" href="./css/style.css?v=20261115-1">
+<link rel="stylesheet" href="./css/style.css?v=20261115-4">
   <link rel="stylesheet" href="./css/admin.css?v=20261109-15">
   <style>:root { --domain-accent: #614fa8; }</style>
 </head>
@@ -26,12 +26,43 @@
 
   <div class="domain-layout">
     <aside class="domain-sidebar">
+      <div class="route-rail-kicker" id="domainKicker">Маршрут</div>
       <h1 id="domainTitle">...</h1>
       <p id="domainDesc">...</p>
+
+      <div class="route-overall">
+        <div class="route-overall-top">
+          <span>Прогресс</span>
+          <span><b id="overallDone">0</b> / <span id="overallTotal">0</span></span>
+        </div>
+        <div class="route-bar"><span id="overallBar"></span></div>
+      </div>
+
+      <details class="route-map-details" id="routeMapDetails">
+        <summary class="route-map-summary">
+          <span>Карта глав</span>
+          <span class="route-map-summary-count" id="routeMapSummaryCount">0</span>
+        </summary>
+        <nav class="route-map" id="routeMap" aria-label="Карта маршрута"></nav>
+      </details>
     </aside>
 
-    <main class="domain-content" id="groupsContainer">
-      <!-- Группы и темы строятся скриптом -->
+    <main class="domain-content">
+      <div class="route-hero">
+        <div>
+          <div class="route-hero-kicker">Учебный маршрут</div>
+          <h2>Путь от начала до конца</h2>
+          <p id="routeHeroText"></p>
+        </div>
+        <a class="route-continue" id="continueLink" href="#">
+          <span>▶</span>
+          <span id="continueLabel">Продолжить</span>
+        </a>
+      </div>
+
+      <div class="route" id="groupsContainer">
+        <!-- Главы и темы строятся скриптом -->
+      </div>
     </main>
   </div>
 
@@ -44,7 +75,7 @@
 
   <script src="./js/search.js?v=20261114-1"></script>
   <script src="./js/progress.js?v=20261109-1"></script>
-  <script src="./js/admin.js?v=20261113-1"></script>
+  <script src="./js/admin.js?v=20261115-1"></script>
   <script src="./js/admin-stats.js?v=20261109-7"></script>
   <script src="./js/mascot.js?v=20261109-7"></script>
   <script src="./js/perf.js?v=20261114-2"></script>
@@ -59,9 +90,36 @@
           .replace(/'/g, '&#39;');
       }
 
-      // Группы с таким количеством тем (и больше) занимают всю ширину ряда,
-      // чтобы длинный список не растягивал соседние карточки по высоте.
-      const WIDE_GROUP_MIN_TOPICS = 9;
+      function pad2(value) {
+        return String(value).padStart(2, '0');
+      }
+
+      function pluralTopics(count) {
+        const mod10 = count % 10;
+        const mod100 = count % 100;
+        if (mod10 === 1 && mod100 !== 11) return 'тема';
+        if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) {
+          return 'темы';
+        }
+        return 'тем';
+      }
+
+      function pluralChapters(count) {
+        const mod10 = count % 10;
+        const mod100 = count % 100;
+        if (mod10 === 1 && mod100 !== 11) return 'глава';
+        if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) {
+          return 'главы';
+        }
+        return 'глав';
+      }
+
+      function normalizeTitle(value) {
+        return String(value == null ? '' : value)
+          .trim()
+          .replace(/\s+/g, ' ')
+          .toLowerCase();
+      }
 
       function orderControlHtml({ kind, domain, group, url, order, label }) {
         const attrs = [
@@ -111,6 +169,8 @@
           document.getElementById('headerBreadcrumb').textContent = domain.title || domainId;
           document.getElementById('domainTitle').textContent = domain.title || domainId;
           document.getElementById('domainDesc').textContent = domain.description || '';
+          document.getElementById('domainKicker').textContent =
+            `${domain.title || domainId} · маршрут`;
 
           const groups = [...(domain.groups || [])].sort(
             (a, b) => (a.order ?? 0) - (b.order ?? 0)
@@ -122,22 +182,88 @@
             : false;
 
           const container = document.getElementById('groupsContainer');
+          const routeMap = document.getElementById('routeMap');
 
-          const groupsHtml = groups
-            .map((group) => {
-              const topics = [...(group.topics || [])].sort(
-                (a, b) => (a.order ?? 0) - (b.order ?? 0)
-              );
+          const groupData = groups.map((group, index) => {
+            const topics = [...(group.topics || [])].sort(
+              (a, b) => (a.order ?? 0) - (b.order ?? 0)
+            );
+            return { group, topics, index };
+          });
+
+          const totalTopics = groupData.reduce(
+            (sum, item) => sum + item.topics.length,
+            0
+          );
+
+          document.getElementById('routeHeroText').textContent =
+            `${groupData.length} ${pluralChapters(groupData.length)} · ` +
+            `${totalTopics} ${pluralTopics(totalTopics)}. ` +
+            'Иди по маршруту сверху вниз — каждая глава заканчивается итогом.';
+
+          const mapHtml = groupData
+            .map(({ group, topics, index }) => {
+              const id = group.id || '';
+              return `<a href="#group-${escapeHtml(id)}" class="route-map-item" data-map-group="${escapeHtml(id)}">
+                <span class="route-map-num">${pad2(index + 1)}</span>
+                <span class="route-map-name">${escapeHtml(group.name)}</span>
+                <span class="route-map-count" title="Тем: ${topics.length}">${topics.length}</span>
+              </a>`;
+            })
+            .join('');
+
+          routeMap.innerHTML = mapHtml;
+
+          // На телефоне карта глав сворачивается в «Карта глав», чтобы
+          // не отодвигать маршрут на несколько экранов вниз.
+          const mapDetails = document.getElementById('routeMapDetails');
+          const mapSummaryCount = document.getElementById('routeMapSummaryCount');
+          if (mapSummaryCount) {
+            mapSummaryCount.textContent = String(groupData.length);
+          }
+          if (mapDetails && typeof window.matchMedia === 'function') {
+            const mobileMapQuery = window.matchMedia('(max-width: 680px)');
+            let lastMobileMap = mobileMapQuery.matches;
+            mapDetails.open = !lastMobileMap;
+            const syncMapDetails = () => {
+              const isMobile = mobileMapQuery.matches;
+              if (isMobile === lastMobileMap) return;
+              lastMobileMap = isMobile;
+              mapDetails.open = !isMobile;
+            };
+            if (typeof mobileMapQuery.addEventListener === 'function') {
+              mobileMapQuery.addEventListener('change', syncMapDetails);
+            } else if (typeof mobileMapQuery.addListener === 'function') {
+              mobileMapQuery.addListener(syncMapDetails);
+            }
+            // Страховка для браузеров, где change у matchMedia не срабатывает
+            // при изменении ширины iframe/окна.
+            window.addEventListener('resize', syncMapDetails);
+          }
+
+          const groupsHtml = groupData
+            .map(({ group, topics, index }) => {
+              const chapterNo = pad2(index + 1);
+
               const topicsHtml = topics
-                .map((t) => {
+                .map((t, topicIndex) => {
                   const href = t.type === 'md'
-                    ? `theme.html?path=${encodeURI(t.url)}`
+                    ? `theme.html?path=${encodeURIComponent(t.url)}`
                     : escapeHtml(t.url);
                   const badge = t.interactive ? ' 🔧' : '';
-                  const isRead = window.DokaProgress
-                    ? window.DokaProgress.isRead(t.url)
-                    : true;
-                  const linkClass = 'topic-link' + (isRead ? '' : ' is-unread');
+                  const isSummary =
+                    topicIndex === topics.length - 1 &&
+                    normalizeTitle(t.title) === normalizeTitle(group.name);
+                  const isPractice =
+                    !isSummary && /^Практик/i.test(String(t.title || '').trim());
+                  const badges = [
+                    isSummary
+                      ? '<span class="route-badge route-badge--summary">Итог</span>'
+                      : '',
+                    isPractice
+                      ? '<span class="route-badge">Практика</span>'
+                      : '',
+                  ].join('');
                   const actions = adminAvailable
                     ? `<details class="doka-actions"
                         data-kind="topic"
@@ -166,8 +292,13 @@
                         </template>
                       </details>`
                     : '';
-                  return `<div class="topic-row">
-                    <a class="${linkClass}" data-topic-url="${escapeHtml(t.url)}" href="${href}">${escapeHtml(t.title)}${badge}</a>
+
+                  return `<div class="topic-row route-step${isSummary ? ' is-summary' : ''}" data-topic-url="${escapeHtml(t.url)}">
+                    <a class="topic-link route-step-link" data-topic-url="${escapeHtml(t.url)}" href="${href}">
+                      <span class="route-step-num">${chapterNo}.${pad2(topicIndex + 1)}</span>
+                      <span class="route-step-title">${escapeHtml(t.title)}${badge}</span>
+                      <span class="route-step-badges">${badges}</span>
+                    </a>
                     ${actions}
                   </div>`;
                 })
@@ -204,18 +335,32 @@
                   </span>`
                 : '';
 
-              const isWide = topics.length >= WIDE_GROUP_MIN_TOPICS;
-              return `
-                <section class="group-section${isWide ? ' is-wide' : ''}" id="group-${escapeHtml(group.id || '')}">
-                  <div class="group-header">
-                    <span class="group-name">${escapeHtml(group.name)}</span>
-                    ${groupTools}
-                  </div>
-                  <div class="topics-columns">
+              return `<section class="group-section route-chapter" id="group-${escapeHtml(group.id || '')}"
+                data-group-id="${escapeHtml(group.id || '')}"
+                data-group-name="${escapeHtml(group.name)}"
+                data-chapter-index="${index + 1}"
+                data-total="${topics.length}">
+                <div class="route-node">${chapterNo}</div>
+                <div class="route-card">
+                  <header class="group-header route-card-head">
+                    <div class="route-card-heading">
+                      <div class="route-card-kicker">Глава ${chapterNo} · ${topics.length} ${pluralTopics(topics.length)}</div>
+                      <span class="group-name">${escapeHtml(group.name)}</span>
+                    </div>
+                    <div class="route-card-side">
+                      <div class="route-card-progress" title="Пройдено 0 из ${topics.length}">
+                        <span class="route-card-count">0 / ${topics.length}</span>
+                        <i><b style="width:0%"></b></i>
+                      </div>
+                      ${groupTools}
+                    </div>
+                  </header>
+                  <div class="topics-columns route-steps">
                     ${topicsHtml}
                     ${addTopic}
                   </div>
-                </section>`;
+                </div>
+              </section>`;
             })
             .join('');
 
@@ -225,30 +370,333 @@
                </div>`
             : '';
 
-          if (groups.length) {
-            container.innerHTML = groupsHtml + addGroup;
+          const startHtml = groupData.length
+            ? '<div class="route-start">старт</div>'
+            : '';
+
+          const finishHtml = groupData.length
+            ? `<div class="route-finish" id="routeFinish">
+                 <div class="route-finish-node">⚑</div>
+                 <div class="route-finish-card">
+                   <h3>Финиш маршрута</h3>
+                   <p id="finishText"></p>
+                   <a id="finishLink" href="#">Продолжить →</a>
+                 </div>
+               </div>`
+            : '';
+
+          container.classList.toggle('is-empty', !groupData.length);
+
+          if (groupData.length) {
+            container.innerHTML =
+              startHtml + groupsHtml + addGroup + finishHtml;
           } else if (adminAvailable) {
             container.innerHTML =
-              '<p style="color: var(--text-muted);">В этой области пока нет групп. Создайте первую группу.</p>' +
+              '<p class="route-empty">В этой области пока нет групп. Создайте первую группу.</p>' +
               addGroup;
           } else {
             container.innerHTML =
-              '<p style="color: var(--text-muted);">В этой области пока нет тем.</p>';
+              '<p class="route-empty">В этой области пока нет тем.</p>';
           }
 
-          function applyReadStates() {
-            if (!window.DokaProgress) return;
-            container
-              .querySelectorAll('.topic-link[data-topic-url]')
-              .forEach((link) => {
-                link.classList.toggle(
-                  'is-unread',
-                  !window.DokaProgress.isRead(link.dataset.topicUrl)
+          let scrollSpyActive = false;
+
+          function setActiveMap(groupId) {
+            if (!groupId) return;
+            document
+              .querySelectorAll('.route-map-item[data-map-group]')
+              .forEach((item) => {
+                item.classList.toggle(
+                  'is-active',
+                  item.dataset.mapGroup === groupId
                 );
               });
           }
 
-          applyReadStates();
+          function currentReadSet() {
+            if (!window.DokaProgress) return null;
+            try {
+              return new Set(window.DokaProgress.getRead());
+            } catch (_) {
+              return new Set();
+            }
+          }
+
+          function isUrlRead(url, readSet) {
+            if (!readSet) return true;
+            const key = window.DokaProgress.normalize(url);
+            return Boolean(key) && readSet.has(key);
+          }
+
+          function updateContinue(currentRow) {
+            const link = document.getElementById('continueLink');
+            const label = document.getElementById('continueLabel');
+            if (!link || !label) return;
+
+            const topicLink = currentRow
+              ? currentRow.querySelector('.route-step-link')
+              : null;
+
+            if (topicLink) {
+              link.href = topicLink.getAttribute('href') || '#';
+              label.textContent = 'Продолжить';
+              link.classList.remove('is-complete');
+            } else {
+              link.href = '#routeFinish';
+              label.textContent = 'Всё пройдено';
+              link.classList.add('is-complete');
+            }
+          }
+
+          function updateFinish(currentRow, doneTotal, total) {
+            const text = document.getElementById('finishText');
+            const link = document.getElementById('finishLink');
+            if (!text || !link) return;
+
+            const firstLink = container.querySelector('.route-step-link');
+            const currentLink = currentRow
+              ? currentRow.querySelector('.route-step-link')
+              : null;
+
+            if (total && doneTotal === total) {
+              text.textContent =
+                `Маршрут пройден: ${doneTotal} из ${total} тем. ` +
+                'Можно возвращаться к любому итогу главы.';
+              link.textContent = 'Вернуться к началу →';
+              link.href = firstLink ? firstLink.getAttribute('href') : '#';
+            } else {
+              text.textContent =
+                `Пройдено ${doneTotal} из ${total} тем. ` +
+                `Осталось ${Math.max(0, total - doneTotal)}.`;
+              link.textContent = 'Продолжить →';
+              link.href = currentLink
+                ? currentLink.getAttribute('href')
+                : firstLink
+                  ? firstLink.getAttribute('href')
+                  : '#';
+            }
+          }
+
+          function updateProgressUI() {
+            const readSet = currentReadSet();
+            const rows = [
+              ...container.querySelectorAll('.topic-row[data-topic-url]'),
+            ];
+            let total = 0;
+            let doneTotal = 0;
+            let currentRow = null;
+
+            rows.forEach((row) => {
+              const done = isUrlRead(row.dataset.topicUrl, readSet);
+              total += 1;
+              if (done) doneTotal += 1;
+
+              row.classList.toggle('is-done', done);
+              row.classList.remove('is-current');
+
+              const badges = row.querySelector('.route-step-badges');
+              if (badges) {
+                badges
+                  .querySelectorAll('.route-now-badge')
+                  .forEach((element) => element.remove());
+              }
+
+              if (!done && !currentRow) currentRow = row;
+            });
+
+            if (currentRow) {
+              currentRow.classList.add('is-current');
+              const badges = currentRow.querySelector('.route-step-badges');
+              if (badges) {
+                const now = document.createElement('span');
+                now.className = 'route-badge route-badge--now route-now-badge';
+                now.textContent = 'сейчас';
+                badges.appendChild(now);
+              }
+            }
+
+            const currentChapterId = currentRow
+              ? currentRow.closest('.route-chapter')?.dataset.groupId || ''
+              : '';
+
+            const chapters = [
+              ...container.querySelectorAll('.route-chapter'),
+            ];
+            const chapterStats = new Map();
+
+            chapters.forEach((chapter) => {
+              const chapterRows = [
+                ...chapter.querySelectorAll('.topic-row[data-topic-url]'),
+              ];
+              const totalC = chapterRows.length;
+              let doneC = 0;
+
+              chapterRows.forEach((row) => {
+                if (isUrlRead(row.dataset.topicUrl, readSet)) doneC += 1;
+              });
+
+              const groupId = chapter.dataset.groupId || '';
+              chapterStats.set(groupId, { done: doneC, total: totalC });
+
+              const isDone = totalC > 0 && doneC === totalC;
+              chapter.classList.toggle('is-done', isDone);
+              chapter.classList.toggle(
+                'is-active',
+                groupId === currentChapterId
+              );
+
+              const node = chapter.querySelector('.route-node');
+              if (node) {
+                node.textContent = isDone
+                  ? '✓'
+                  : pad2(Number(chapter.dataset.chapterIndex) || 0);
+              }
+
+              const count = chapter.querySelector('.route-card-count');
+              if (count) count.textContent = `${doneC} / ${totalC}`;
+
+              const bar = chapter.querySelector('.route-card-progress b');
+              if (bar) {
+                bar.style.width = totalC
+                  ? `${Math.round((doneC / totalC) * 100)}%`
+                  : '0%';
+              }
+
+              const progress = chapter.querySelector('.route-card-progress');
+              if (progress) {
+                progress.title = `Пройдено ${doneC} из ${totalC}`;
+              }
+            });
+
+            const mapItems = [
+              ...document.querySelectorAll(
+                '.route-map-item[data-map-group]'
+              ),
+            ];
+
+            mapItems.forEach((item, index) => {
+              const groupId = item.dataset.mapGroup || '';
+              const stats = chapterStats.get(groupId) || {
+                done: 0,
+                total: 0,
+              };
+              const isDone = stats.total > 0 && stats.done === stats.total;
+
+              item.classList.toggle('is-done', isDone);
+
+              const num = item.querySelector('.route-map-num');
+              if (num) num.textContent = isDone ? '✓' : pad2(index + 1);
+
+              const count = item.querySelector('.route-map-count');
+              if (count) {
+                count.textContent = String(stats.total);
+                count.title = `Пройдено ${stats.done} из ${stats.total}`;
+              }
+            });
+
+            const overallDone = document.getElementById('overallDone');
+            if (overallDone) overallDone.textContent = String(doneTotal);
+
+            const overallTotal = document.getElementById('overallTotal');
+            if (overallTotal) overallTotal.textContent = String(total);
+
+            const overallBar = document.getElementById('overallBar');
+            if (overallBar) {
+              overallBar.style.width = total
+                ? `${(doneTotal / total) * 100}%`
+                : '0%';
+            }
+
+            container.style.setProperty(
+              '--route-progress',
+              total ? `${(doneTotal / total) * 100}%` : '0%'
+            );
+
+            updateContinue(currentRow);
+            updateFinish(currentRow, doneTotal, total);
+
+            if (!scrollSpyActive) setActiveMap(currentChapterId);
+          }
+
+          function rebuildMap() {
+            const chapters = [
+              ...container.querySelectorAll('.route-chapter'),
+            ];
+            routeMap.innerHTML = chapters
+              .map((chapter, index) => {
+                const id = chapter.dataset.groupId || '';
+                const name = chapter.dataset.groupName || '';
+                const total = chapter.dataset.total || '0';
+                return `<a href="#group-${escapeHtml(id)}" class="route-map-item" data-map-group="${escapeHtml(id)}">
+                  <span class="route-map-num">${pad2(index + 1)}</span>
+                  <span class="route-map-name">${escapeHtml(name)}</span>
+                  <span class="route-map-count" title="Тем: ${escapeHtml(total)}">${escapeHtml(total)}</span>
+                </a>`;
+              })
+              .join('');
+          }
+
+          // Порядок мог измениться через админку без перезагрузки страницы:
+          // пересобираем номера глав, тем и карту маршрута.
+          function refreshRouteOrder() {
+            const chapters = [
+              ...container.querySelectorAll('.route-chapter'),
+            ];
+            chapters.forEach((chapter, index) => {
+              const chapterNo = pad2(index + 1);
+              const rows = [
+                ...chapter.querySelectorAll('.topic-row[data-topic-url]'),
+              ];
+
+              chapter.dataset.chapterIndex = String(index + 1);
+              chapter.dataset.total = String(rows.length);
+
+              const kicker = chapter.querySelector('.route-card-kicker');
+              if (kicker) {
+                kicker.textContent =
+                  `Глава ${chapterNo} · ${rows.length} ${pluralTopics(rows.length)}`;
+              }
+
+              rows.forEach((row, rowIndex) => {
+                const num = row.querySelector('.route-step-num');
+                if (num) num.textContent = `${chapterNo}.${pad2(rowIndex + 1)}`;
+              });
+
+              const node = chapter.querySelector('.route-node');
+              if (node && !chapter.classList.contains('is-done')) {
+                node.textContent = chapterNo;
+              }
+            });
+
+            scrollSpyActive = false;
+            rebuildMap();
+            updateProgressUI();
+          }
+
+          function setupScrollSpy() {
+            if (!('IntersectionObserver' in window)) return;
+            const chapters = [
+              ...container.querySelectorAll('.route-chapter'),
+            ];
+            if (!chapters.length) return;
+
+            const observer = new IntersectionObserver(
+              (entries) => {
+                const visible = entries.filter(
+                  (entry) => entry.isIntersecting
+                );
+                if (!visible.length) return;
+                scrollSpyActive = true;
+                setActiveMap(visible[0].target.dataset.groupId || '');
+              },
+              { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+            );
+
+            chapters.forEach((chapter) => observer.observe(chapter));
+          }
+
+          updateProgressUI();
+          setupScrollSpy();
 
           // Меню действий собираем лениво, при первом открытии: в области «csharp»
           // 99 тем, и если положить 99 <input type=number> прямо в разметку, то
@@ -300,14 +748,22 @@
           if (window.DokaProgress) {
             window.addEventListener(
               window.DokaProgress.changeEvent,
-              applyReadStates
+              updateProgressUI
             );
             window.addEventListener('storage', (event) => {
               if (!event.key || event.key === window.DokaProgress.key) {
-                applyReadStates();
+                updateProgressUI();
               }
             });
           }
+
+          // Возврат со страницы темы через «назад» может отдать страницу
+          // из bfcache — прогресс к этому моменту уже изменился.
+          window.addEventListener('pageshow', (event) => {
+            if (event.persisted) updateProgressUI();
+          });
+
+          window.addEventListener('doka-order-changed', refreshRouteOrder);
 
           function highlightGroupFromHash() {
             let raw = window.location.hash.slice(1);
@@ -349,7 +805,7 @@
         } catch (err) {
           console.error('[domain] Не удалось загрузить structure.json:', err);
           document.getElementById('groupsContainer').innerHTML =
-            '<p style="color: var(--text-muted);">Не удалось загрузить структуру.</p>';
+            '<p class="route-empty">Не удалось загрузить структуру.</p>';
         }
       }
 

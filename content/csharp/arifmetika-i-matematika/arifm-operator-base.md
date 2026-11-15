@@ -1,5 +1,5 @@
 ---
-title: +, -, *. /, %
+title: +, -, *, /, %
 keywords: арифметические операторы, сложение, вычитание, умножение, деление, остаток от деления, целочисленное деление, приоритет операций, математика, вычисления
 svg: |
   <svg viewBox="0 0 900 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 900px; max-height: 280px; height: auto; display: block; margin: 0 auto 20px;">

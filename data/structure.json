@@ -6,8 +6,39 @@
     "description": "Объектно-ориентированный строго типизированный язык программирования для платформы .NET",
     "groups": [
       {
-        "id": "konsol",
+        "id": "pervye-shagi",
         "order": 10,
+        "name": "Первые шаги",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Первая программа",
+            "url": "content/csharp/pervye-shagi/pervaya-programma.md",
+            "keywords": "первая программа на C# структура программы точка входа Main using System пространства имён class Program static void Main Console.WriteLine dotnet run top-level statements Hello World",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Переменные",
+            "url": "content/csharp/pervye-shagi/peremennye.md",
+            "keywords": "переменная в C# объявление переменной инициализация присваивание типы данных правила именования camelCase локальная переменная область видимости int string decimal",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "var",
+            "url": "content/csharp/pervye-shagi/var.md",
+            "keywords": "неявная типизация ключевое слово var вывод типов объявление переменной строгая типизация инициализация компилятор сокращение кода",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "konsol",
+        "order": 20,
         "name": "Консоль",
         "topics": [
           {
@@ -78,7 +109,7 @@
             "order": 90,
             "title": "Console.ResetColor()",
             "url": "content/csharp/konsol/console-resetcolor.md",
-            "keywords": "console.resetcolor текст консоли цвета вернуть метод цвет обычный оформление одновременно отдельности параметров работы сброс сбросить сохранены",
+            "keywords": "Console.ResetColor сброс цвета вернуть стандартный цвет обычный текст очистка стиля оформление фон шрифт консоль терминал",
             "type": "md",
             "interactive": false
           },
@@ -92,54 +123,6 @@
           },
           {
             "order": 110,
-            "title": "Перенос строки",
-            "url": "content/csharp/konsol/perenos-stroki.md",
-            "keywords": "перенос строки символ текст внутри выберите выход действие завершена загрузка клавишу консоли любую настройки одном пустую",
-            "type": "md",
-            "interactive": false
-          },
-          {
-            "order": 120,
-            "title": "Табуляция",
-            "url": "content/csharp/konsol/tabulyaciya.md",
-            "keywords": "табуляция \\t отступ в тексте выравнивание столбцов таблица в консоли пробел клавиша Tab управляющие символы",
-            "type": "md",
-            "interactive": false
-          },
-          {
-            "order": 130,
-            "title": "Экранирование кавычек и обратного слэша",
-            "url": "content/csharp/konsol/ekranirovanie-kavychek-i-obratnogo-slesha.md",
-            "keywords": "экранирование символов \" \\ кавычки в строке обратный слэш путь к файлу спецсимволы ошибка компиляции",
-            "type": "md",
-            "interactive": false
-          },
-          {
-            "order": 140,
-            "title": "Интерполяция строк",
-            "url": "content/csharp/konsol/interpolyaciya-strok.md",
-            "keywords": "интерполяция строк $ знак доллара подстановка переменных в текст фигурные скобки склеивание строк вывод переменных",
-            "type": "md",
-            "interactive": false
-          },
-          {
-            "order": 150,
-            "title": "Буквальные строки",
-            "url": "content/csharp/konsol/bukvalnye-stroki.md",
-            "keywords": "буквальные строки @ собачка перед строкой путь к файлу без экранирования многострочный текст двойные кавычки",
-            "type": "md",
-            "interactive": false
-          },
-          {
-            "order": 160,
-            "title": "Управляющие последовательности",
-            "url": "content/csharp/konsol/upravlyayuschie-posledovatelnosti.md",
-            "keywords": "управляющие последовательности escape символы спецсимволы в строках перенос строки табуляция экранирование кавычек обратный слэш форматирование текста",
-            "type": "md",
-            "interactive": false
-          },
-          {
-            "order": 170,
             "title": "Кодировка консоли",
             "url": "content/csharp/konsol/kodirovka-konsoli.md",
             "keywords": "Console.OutputEncoding Console.InputEncoding Encoding.UTF8 System.Text кодировка консоли знаки вопроса вместо букв кириллица русский текст шрифт символы",
@@ -147,7 +130,7 @@
             "interactive": false
           },
           {
-            "order": 180,
+            "order": 120,
             "title": "Console.Title",
             "url": "content/csharp/konsol/console-title.md",
             "keywords": "Console.Title System.Console заголовок окна название программы верхняя рамка шапка консоли изменить текст вкладки оформление терминал",
@@ -155,7 +138,7 @@
             "interactive": false
           },
           {
-            "order": 190,
+            "order": 130,
             "title": "Позиционирование и курсор",
             "url": "content/csharp/konsol/pozicionirovanie-i-kursor.md",
             "keywords": "Console.SetCursorPosition Console.CursorVisible координаты курсора позиция текста убрать мигание скрыть курсор вывод по координатам экран консоль",
@@ -166,7 +149,7 @@
       },
       {
         "id": "chislennye-tipy",
-        "order": 20,
+        "order": 30,
         "name": "Численные типы",
         "topics": [
           {
@@ -237,7 +220,7 @@
       },
       {
         "id": "bazovye-nechislovye-tipy",
-        "order": 30,
+        "order": 40,
         "name": "Базовые нечисловые типы",
         "topics": [
           {
@@ -268,7 +251,7 @@
       },
       {
         "id": "preobrazovanie-tipov",
-        "order": 40,
+        "order": 50,
         "name": "Преобразование типов",
         "topics": [
           {
@@ -310,25 +293,17 @@
             "keywords": "преобразование типов приведение типов Parse TryParse Convert ToString кастинг перевод строки в число округление ошибка ввода",
             "type": "md",
             "interactive": false
-          },
-          {
-            "order": 60,
-            "title": "var",
-            "url": "content/csharp/preobrazovanie-tipov/var.md",
-            "keywords": "неявная типизация ключевое слово var вывод типов объявление переменной строгая типизация инициализация компилятор сокращение кода",
-            "type": "md",
-            "interactive": false
           }
         ]
       },
       {
         "id": "arifmetika-i-matematika",
-        "order": 50,
+        "order": 60,
         "name": "Арифметика и математика",
         "topics": [
           {
             "order": 10,
-            "title": "+, -, *. /, %",
+            "title": "+, -, *, /, %",
             "url": "content/csharp/arifmetika-i-matematika/arifm-operator-base.md",
             "keywords": "арифметические операторы сложение вычитание умножение деление остаток от деления целочисленное деление приоритет операций математика вычисления",
             "type": "md",
@@ -344,7 +319,7 @@
           },
           {
             "order": 30,
-            "title": "Инкремент\\декремент",
+            "title": "Инкремент и декремент",
             "url": "content/csharp/arifmetika-i-matematika/inkrement-dekrement.md",
             "keywords": "инкремент декремент префиксный постфиксный увеличение на единицу уменьшение переменной счётчик цикла порядок вычисления шаг оператор",
             "type": "md",
@@ -362,7 +337,7 @@
       },
       {
         "id": "operatory-sravneniya-i-logika",
-        "order": 60,
+        "order": 70,
         "name": "Операторы сравнения и логика",
         "topics": [
           {
@@ -375,7 +350,7 @@
           },
           {
             "order": 20,
-            "title": "И\\ИЛИ\\НЕ",
+            "title": "И, ИЛИ, НЕ",
             "url": "content/csharp/operatory-sravneniya-i-logika/i-ili-ne.md",
             "keywords": "логические операторы логическое И логическое ИЛИ логическое НЕ сложное условие true false инверсия проверка ветвление",
             "type": "md",
@@ -393,12 +368,12 @@
       },
       {
         "id": "uslovnye-konstrukcii",
-        "order": 70,
+        "order": 80,
         "name": "Условные конструкции",
         "topics": [
           {
             "order": 10,
-            "title": "if \\ else",
+            "title": "if / else",
             "url": "content/csharp/uslovnye-konstrukcii/if-else.md",
             "keywords": "условный оператор if else ветвление условие логическое выражение фигурные скобки область видимости проверка выбор действие",
             "type": "md",
@@ -408,7 +383,7 @@
             "order": 20,
             "title": "else if",
             "url": "content/csharp/uslovnye-konstrukcii/else-if.md",
-            "keywords": "else score условия console.writeline вложенные внутри оценка дверь условие цепочка haskey isdoorlocked вниз выбор друг друга",
+            "keywords": "цепочка условий else if вложенные условия ветвление выбор варианта порядок проверок диапазон вложенность условие логика",
             "type": "md",
             "interactive": false
           },
@@ -448,7 +423,7 @@
       },
       {
         "id": "cikly",
-        "order": 80,
+        "order": 90,
         "name": "Циклы",
         "topics": [
           {
@@ -511,7 +486,7 @@
       },
       {
         "id": "massivy",
-        "order": 90,
+        "order": 100,
         "name": "Массивы",
         "topics": [
           {
@@ -574,12 +549,12 @@
       },
       {
         "id": "metody",
-        "order": 100,
+        "order": 110,
         "name": "Методы",
         "topics": [
           {
             "order": 10,
-            "title": "void",
+            "title": "Объявление и вызов методов",
             "url": "content/csharp/metody/void.md",
             "keywords": "объявление метода вызов метода ключевое слово void параметры аргументы подпрограмма локальные переменные область видимости сигнатура",
             "type": "md",
@@ -602,7 +577,7 @@
             "interactive": false
           },
           {
-            "order": 31,
+            "order": 40,
             "title": "Параметры и аргументы",
             "url": "content/csharp/metody/parametry-i-argumenty.md",
             "keywords": "необязательные параметры значения по умолчанию именованные аргументы вызов метода передача данных сигнатура порядок читаемость кода",
@@ -610,7 +585,7 @@
             "interactive": false
           },
           {
-            "order": 40,
+            "order": 50,
             "title": "ref, out, in",
             "url": "content/csharp/metody/ref-out-in.md",
             "keywords": "передача параметров по значению по ссылке модификатор ref модификатор out модификатор in копия оригинал метод",
@@ -618,7 +593,7 @@
             "interactive": false
           },
           {
-            "order": 50,
+            "order": 60,
             "title": "params",
             "url": "content/csharp/metody/params.md",
             "keywords": "модификатор params переменное число параметров вызов метода аргументы через запятую одномерный массив передача данных гибкость",
@@ -626,7 +601,7 @@
             "interactive": false
           },
           {
-            "order": 60,
+            "order": 70,
             "title": "Перегрузка",
             "url": "content/csharp/metody/peregruzka.md",
             "keywords": "перегрузка методов одинаковое имя сигнатура метода количество параметров типы данных порядок аргументов вызов компилятор дублирование кода",
@@ -634,7 +609,7 @@
             "interactive": false
           },
           {
-            "order": 70,
+            "order": 80,
             "title": "Рекурсия",
             "url": "content/csharp/metody/rekursiya.md",
             "keywords": "рекурсия вызов метода базовый случай условие выхода рекурсивный шаг стек вызовов факториал зацикливание подзадача память",
@@ -642,7 +617,7 @@
             "interactive": false
           },
           {
-            "order": 80,
+            "order": 90,
             "title": "Методы",
             "url": "content/csharp/metody/metody.md",
             "keywords": "методы сигнатура возврат значения void return параметры аргументы ссылка модификаторы ref out in params перегрузка",
@@ -653,7 +628,7 @@
       },
       {
         "id": "kollekcii",
-        "order": 110,
+        "order": 120,
         "name": "Коллекции",
         "topics": [
           {
@@ -715,14 +690,14 @@
         ]
       },
       {
-        "id": "klassy-i-obedki",
-        "order": 120,
-        "name": "Классы и Объедки",
+        "id": "klassy-i-obekty",
+        "order": 130,
+        "name": "Классы и объекты",
         "topics": [
           {
             "order": 10,
             "title": "new",
-            "url": "content/csharp/klassy-i-obedki/new.md",
+            "url": "content/csharp/klassy-i-obekty/new.md",
             "keywords": "экземпляр класса выделение памяти оператор new инициализатор объекта NullReferenceException не создан экземпляр ссылка на объект",
             "type": "md",
             "interactive": false
@@ -730,7 +705,7 @@
           {
             "order": 20,
             "title": "Поля и константы",
-            "url": "content/csharp/klassy-i-obedki/polya-i-konstanty.md",
+            "url": "content/csharp/klassy-i-obekty/polya-i-konstanty.md",
             "keywords": "состояние объекта поля класса const readonly неизменяемое поле значения по умолчанию запрет перезаписи защита данных",
             "type": "md",
             "interactive": false
@@ -738,7 +713,7 @@
           {
             "order": 30,
             "title": "Конструкторы и this",
-            "url": "content/csharp/klassy-i-obedki/konstruktory-i-this.md",
+            "url": "content/csharp/klassy-i-obekty/konstruktory-i-this.md",
             "keywords": "конструктор класса перегрузка конструкторов ключевое слово this цепочка вызова начальная инициализация параметры создания пустой конструктор",
             "type": "md",
             "interactive": false
@@ -746,7 +721,7 @@
           {
             "order": 40,
             "title": "Модификаторы доступа",
-            "url": "content/csharp/klassy-i-obedki/modifikatory-dostupa.md",
+            "url": "content/csharp/klassy-i-obekty/modifikatory-dostupa.md",
             "keywords": "модификаторы доступа public private internal protected область видимости уровень защиты сокрытие полей недоступен извне",
             "type": "md",
             "interactive": false
@@ -754,7 +729,7 @@
           {
             "order": 50,
             "title": "Свойства",
-            "url": "content/csharp/klassy-i-obedki/svoystva.md",
+            "url": "content/csharp/klassy-i-obekty/svoystva.md",
             "keywords": "свойство объекта аксессоры get set автосвойство валидация записи параметр value private set init вычисляемое свойство",
             "type": "md",
             "interactive": false
@@ -762,15 +737,15 @@
           {
             "order": 60,
             "title": "static",
-            "url": "content/csharp/klassy-i-obedki/static.md",
+            "url": "content/csharp/klassy-i-obekty/static.md",
             "keywords": "модификатор static статический класс статический метод вызов без экземпляра общее поле ссылка this ошибка CS0120",
             "type": "md",
             "interactive": false
           },
           {
             "order": 70,
-            "title": "Классы и объедки",
-            "url": "content/csharp/klassy-i-obedki/klassy-i-obedki.md",
+            "title": "Классы и объекты",
+            "url": "content/csharp/klassy-i-obekty/klassy-i-obekty.md",
             "keywords": "структура класса экземпляр объекта инкапсуляция данных конструктор свойства поля модификаторы доступа статические члены порядок элементов",
             "type": "md",
             "interactive": false
@@ -779,7 +754,7 @@
       },
       {
         "id": "polzovatelskie-tipy-i-pamyat",
-        "order": 130,
+        "order": 140,
         "name": "Пользовательские типы и память",
         "topics": [
           {
@@ -807,7 +782,7 @@
             "interactive": false
           },
           {
-            "order": 35,
+            "order": 40,
             "title": "null & Nullable",
             "url": "content/csharp/polzovatelskie-tipy-i-pamyat/null-nullable.md",
             "keywords": "значение null NullReferenceException пустая ссылка Nullable типы безопасный доступ значение по умолчанию предупреждение CS8602",
@@ -815,7 +790,7 @@
             "interactive": false
           },
           {
-            "order": 40,
+            "order": 50,
             "title": "record",
             "url": "content/csharp/polzovatelskie-tipy-i-pamyat/record.md",
             "keywords": "тип record сравнение по значению оператор with неизменяемая модель неразрушающее копирование позиционный конструктор деконструкция переопределение Equals",
@@ -823,7 +798,7 @@
             "interactive": false
           },
           {
-            "order": 50,
+            "order": 60,
             "title": "Пользовательские типы",
             "url": "content/csharp/polzovatelskie-tipy-i-pamyat/polzovatelskie-tipy.md",
             "keywords": "выбор типа данных class struct record enum Nullable стек и куча неизменяемость сравнение моделирование сущностей",
@@ -834,7 +809,7 @@
       },
       {
         "id": "nasledovanie-i-polimorfizm",
-        "order": 140,
+        "order": 150,
         "name": "Наследование и полиморфизм",
         "topics": [
           {
@@ -897,7 +872,7 @@
       },
       {
         "id": "obobscheniya-i-kontrakty",
-        "order": 150,
+        "order": 160,
         "name": "Обобщения и контракты",
         "topics": [
           {
@@ -960,7 +935,7 @@
       },
       {
         "id": "isklyucheniya-i-oshibki",
-        "order": 160,
+        "order": 170,
         "name": "Исключения и ошибки",
         "topics": [
           {
@@ -1023,7 +998,7 @@
       },
       {
         "id": "delegaty-lyambdy-i-sobytiya",
-        "order": 170,
+        "order": 180,
         "name": "Делегаты, лямбды и события",
         "topics": [
           {
@@ -1086,7 +1061,7 @@
       },
       {
         "id": "linq",
-        "order": 180,
+        "order": 190,
         "name": "LINQ",
         "topics": [
           {
@@ -1149,7 +1124,7 @@
       },
       {
         "id": "stroki-daty-i-fayly",
-        "order": 190,
+        "order": 200,
         "name": "Строки, даты и файлы",
         "topics": [
           {
@@ -1162,6 +1137,54 @@
           },
           {
             "order": 20,
+            "title": "Управляющие последовательности",
+            "url": "content/csharp/stroki-daty-i-fayly/upravlyayuschie-posledovatelnosti.md",
+            "keywords": "управляющие последовательности escape символы спецсимволы в строках перенос строки табуляция экранирование кавычек обратный слэш форматирование текста",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Перенос строки",
+            "url": "content/csharp/stroki-daty-i-fayly/perenos-stroki.md",
+            "keywords": "перенос строки \\n новая строка разрыв текста абзац в консоли перевод каретки управляющие символы вывод",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Табуляция",
+            "url": "content/csharp/stroki-daty-i-fayly/tabulyaciya.md",
+            "keywords": "табуляция \\t отступ в тексте выравнивание столбцов таблица в консоли пробел клавиша Tab управляющие символы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Экранирование кавычек и обратного слэша",
+            "url": "content/csharp/stroki-daty-i-fayly/ekranirovanie-kavychek-i-obratnogo-slesha.md",
+            "keywords": "экранирование символов \" \\ кавычки в строке обратный слэш путь к файлу спецсимволы ошибка компиляции",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Интерполяция строк",
+            "url": "content/csharp/stroki-daty-i-fayly/interpolyaciya-strok.md",
+            "keywords": "интерполяция строк $ знак доллара подстановка переменных в текст фигурные скобки склеивание строк вывод переменных",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Буквальные строки",
+            "url": "content/csharp/stroki-daty-i-fayly/bukvalnye-stroki.md",
+            "keywords": "буквальные строки @ собачка перед строкой путь к файлу без экранирования многострочный текст двойные кавычки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
             "title": "StringBuilder и Span<char>",
             "url": "content/csharp/stroki-daty-i-fayly/stringbuilder-i-span-char.md",
             "keywords": "StringBuilder Span и ReadOnlySpan работа без аллокаций AsSpan Substring сборка строк в цикле ref struct оптимизация памяти C#",
@@ -1169,7 +1192,7 @@
             "interactive": false
           },
           {
-            "order": 30,
+            "order": 90,
             "title": "Regex & Парсинг",
             "url": "content/csharp/stroki-daty-i-fayly/regex-parsing.md",
             "keywords": "регулярные выражения Regex GeneratedRegex парсинг текста группы захвата ReDoS таймаут Regex валидация строк",
@@ -1177,7 +1200,7 @@
             "interactive": false
           },
           {
-            "order": 40,
+            "order": 100,
             "title": "DateTime, DateTimeOffset и DateOnly",
             "url": "content/csharp/stroki-daty-i-fayly/datetime-datetimeoffset-i-dateonly.md",
             "keywords": "дата и время C# DateTime DateTimeOffset DateOnly и TimeOnly TimeSpan часовые пояса UTC TimeProvider парсинг дат",
@@ -1185,7 +1208,7 @@
             "interactive": false
           },
           {
-            "order": 50,
+            "order": 110,
             "title": "Path, File и Directory",
             "url": "content/csharp/stroki-daty-i-fayly/path-file-i-directory.md",
             "keywords": "файловая система C# System.IO Path.Combine File и Directory FileInfo EnumerateFiles кроссплатформенные пути чтение и запись файлов",
@@ -1193,7 +1216,7 @@
             "interactive": false
           },
           {
-            "order": 60,
+            "order": 120,
             "title": "Stream & JSON",
             "url": "content/csharp/stroki-daty-i-fayly/stream-json.md",
             "keywords": "потоки Stream FileStream StreamReader и StreamWriter кодировка UTF-8 System.Text.Json сериализация JSON JsonSerializerOptions управление ресурсами using",
@@ -1201,7 +1224,7 @@
             "interactive": false
           },
           {
-            "order": 70,
+            "order": 130,
             "title": "Строки, даты и файлы",
             "url": "content/csharp/stroki-daty-i-fayly/stroki-daty-i-fayly.md",
             "keywords": "строки даты и файлы StringBuilder и ReadOnlySpan GeneratedRegex DateTimeOffset и DateOnly Path и File потоки Stream System.Text.Json выбор инструмента C#",
@@ -1212,7 +1235,7 @@
       },
       {
         "id": "asinhronnost-i-mnogopotochnost",
-        "order": 200,
+        "order": 210,
         "name": "Асинхронность и многопоточность",
         "topics": [
           {
@@ -1275,7 +1298,7 @@
       },
       {
         "id": "vnutrennee-ustroystvo-net-pamyat-i-refleksiya",
-        "order": 210,
+        "order": 220,
         "name": "Внутреннее устройство .NET, память и рефлексия",
         "topics": [
           {
@@ -1344,107 +1367,1040 @@
     "accent": "#235ce1",
     "groups": [
       {
-        "id": "proektirovanie-bd-i-model-dannyh",
+        "id": "start",
         "order": 10,
-        "name": "Проектирование БД и модель данных",
+        "name": "База данных без страха",
         "topics": [
           {
             "order": 10,
-            "title": "Реляционная модель: таблицы, строки и столбцы",
-            "url": "content/sql/proektirovanie-bd-i-model-dannyh/relyacionnaya-model-tablicy-stroki-i-stolbcy.md",
-            "keywords": "реляционная модель базы данных sql postgresql таблица кортеж атрибут домен атомарность проектирование бд",
+            "title": "Зачем нужна база данных",
+            "url": "content/sql/start/zachem-nuzhna-baza-dannyh.md",
+            "keywords": "зачем нужна база данных excel файлы субд хранение данных конкурентный доступ целостность sql postgresql транзакции",
             "type": "md",
             "interactive": false
           },
           {
             "order": 20,
-            "title": "PK & FK",
-            "url": "content/sql/proektirovanie-bd-i-model-dannyh/pk-fk.md",
-            "keywords": "primary key foreign key первичный ключ внешний ключ ссылочная целостность identity uuid составной ключ postgresql проектирование бд",
+            "title": "Как устроена реляционная БД",
+            "url": "content/sql/start/ustroystvo-rellyacionnoy-bd.md",
+            "keywords": "реляционная база данных таблица строка столбец схема база данных сервер postgresql типы данных атомарность",
             "type": "md",
             "interactive": false
           },
           {
             "order": 30,
-            "title": "Типы связей между таблицами",
-            "url": "content/sql/proektirovanie-bd-i-model-dannyh/tipy-svyazey-mezhdu-tablicami.md",
-            "keywords": "типы связей бд один ко многим многие ко многим один к одному кардинальность промежуточная таблица foreign key postgresql проектирование бд er модель",
+            "title": "Ключи и связи на салфетке",
+            "url": "content/sql/start/klyuchi-i-svyazi.md",
+            "keywords": "primary key foreign key первичный ключ внешний ключ связи таблиц один ко многим многие ко многим промежуточная таблица идентификатор postgresql",
             "type": "md",
             "interactive": false
           },
           {
             "order": 40,
-            "title": "Нормализация: 1НФ, 2НФ и 3НФ",
-            "url": "content/sql/proektirovanie-bd-i-model-dannyh/normalizaciya-1nf-2nf-i-3nf.md",
-            "keywords": "нормализация выделение краткое описание первый привет раздел раздела ссылки текст темы узнает читатель console.writeline example.com https",
+            "title": "PostgreSQL за 5 минут",
+            "url": "content/sql/start/postgresql-za-5-minut.md",
+            "keywords": "postgresql установка docker psql dbeaver подключение к базе create database порт 5432 клиент базы данных локальная база sql практика",
             "type": "md",
             "interactive": false
           },
           {
             "order": 50,
-            "title": "Выбор типов данных в SQL (PostgreSQL)",
-            "url": "content/sql/proektirovanie-bd-i-model-dannyh/vybor-tipov-dannyh-v-sql-postgresql.md",
-            "keywords": "выбор типов postgresql выделение краткое описание первый привет раздел раздела ссылки текст темы узнает читатель console.writeline",
+            "title": "Первый SELECT и стиль SQL",
+            "url": "content/sql/start/pervyy-select.md",
+            "keywords": "select from limit первый запрос синтаксис sql псевдонимы as стиль кода комментарии postgresql выборка столбцов",
             "type": "md",
             "interactive": false
           },
           {
             "order": 60,
-            "title": "Проектирование БД и модель данных",
-            "url": "content/sql/proektirovanie-bd-i-model-dannyh/proektirovanie-bd-i-model-dannyh.md",
-            "keywords": "модель проектирование выделение краткое описание первый привет раздел раздела ссылки текст темы узнает читатель console.writeline example.com",
+            "title": "Порядок выполнения запроса",
+            "url": "content/sql/start/poryadok-vypolneniya-zaprosa.md",
+            "keywords": "порядок выполнения sql from where group by having select order by limit логический порядок алиасы агрегаты ошибки новичка postgresql как читает база",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "NULL — это не ноль",
+            "url": "content/sql/start/null-eto-ne-nol.md",
+            "keywords": "null is null is not null coalesce трёхзначная логика неизвестно пустая строка not in агрегаты postgresql ошибки новичка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Типы данных",
+            "url": "content/sql/start/tipy-dannyh.md",
+            "keywords": "типы данных sql integer bigint numeric text varchar timestamp timestamptz boolean uuid jsonb postgresql",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Схема кофейни «Зерно»",
+            "url": "content/sql/start/shema-kofeyni.md",
+            "keywords": "схема базы данных кофейня таблицы связи primary key foreign key order items многие ко многим postgresql учебный проект",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Диалекты SQL",
+            "url": "content/sql/start/dialekty-sql.md",
+            "keywords": "диалекты sql postgresql mysql sql server limit top fetch first ilike returning on conflict совместимость стандарт sql",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 110,
+            "title": "База данных без страха",
+            "url": "content/sql/start/start.md",
+            "keywords": "sql с нуля база данных реляционная модель таблицы ключи select null типы данных postgresql кофейня",
             "type": "md",
             "interactive": false
           }
         ]
       },
       {
-        "id": "ddl-struktura-bazy-i-tablic",
+        "id": "vyborka",
         "order": 20,
-        "name": "DDL: Структура базы и таблиц",
-        "topics": []
+        "name": "Выборка: WHERE, ORDER BY, LIMIT",
+        "topics": [
+          {
+            "order": 10,
+            "title": "WHERE",
+            "url": "content/sql/vyborka/where.md",
+            "keywords": "where sql фильтрация строк операторы сравнения and or not логические выражения null в where приоритет операторов postgresql выборка данных",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "BETWEEN, IN, LIKE",
+            "url": "content/sql/vyborka/between-in-like.md",
+            "keywords": "between sql in sql like sql ilike шаблоны диапазон значений список значений поиск по тексту подстановочные символы postgresql фильтрация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "ORDER BY",
+            "url": "content/sql/vyborka/order-by.md",
+            "keywords": "order by sql сортировка asc desc nulls first nulls last несколько столбцов сортировка по выражению collation postgresql стабильный порядок",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "LIMIT, OFFSET и пагинация",
+            "url": "content/sql/vyborka/limit-offset.md",
+            "keywords": "limit sql offset sql пагинация постраничный вывод keyset pagination курсорная пагинация fetch first order by limit дубли на страницах postgresql",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "DISTINCT",
+            "url": "content/sql/vyborka/distinct.md",
+            "keywords": "distinct sql уникальные значения distinct on group by дубли выборка категорий postgresql устранение повторов пагинация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Выражения, CAST и псевдонимы",
+            "url": "content/sql/vyborka/vyrazheniya-i-cast.md",
+            "keywords": "выражения sql cast приведение типов псевдонимы as арифметика integer division round конкатенация numeric postgresql вычисляемые столбцы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "CASE",
+            "url": "content/sql/vyborka/case.md",
+            "keywords": "case sql условная логика case when then else end простой case поисковый case сортировка по case null в case postgresql категории",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Даты и время",
+            "url": "content/sql/vyborka/daty-i-vremya.md",
+            "keywords": "даты sql время timestamp timestamptz date interval now date_trunc extract часовой пояс postgresql фильтр по дате",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Текстовые функции",
+            "url": "content/sql/vyborka/tekstovye-funkcii.md",
+            "keywords": "текстовые функции sql lower upper length substring replace trim concat split_part position postgresql обработка строк",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Практика: 10 запросов к кофейне",
+            "url": "content/sql/vyborka/praktika-vyborka.md",
+            "keywords": "практика sql запросы к базе where order by limit case даты текстовые функции кофейня задачи sql решения запросов",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 110,
+            "title": "Выборка: WHERE, ORDER BY, LIMIT",
+            "url": "content/sql/vyborka/vyborka.md",
+            "keywords": "выборка данных where order by limit offset фильтрация сортировка пагинация операторы сравнения like in between практика sql",
+            "type": "md",
+            "interactive": false
+          }
+        ]
       },
       {
-        "id": "dml-izmenenie-dannyh",
+        "id": "agregaciya",
         "order": 30,
-        "name": "DML: Изменение данных",
-        "topics": []
+        "name": "Агрегация и GROUP BY",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Агрегаты: COUNT, SUM, AVG, MIN, MAX",
+            "url": "content/sql/agregaciya/agregatnye-funkcii.md",
+            "keywords": "агрегатные функции count sum avg min max count distinct filter sql postgresql выручка средний чек",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "GROUP BY",
+            "url": "content/sql/agregaciya/group-by.md",
+            "keywords": "group by sql группировка агрегаты по группам count sum avg статусы заказов категории postgresql отчёты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "WHERE против HAVING",
+            "url": "content/sql/agregaciya/where-vs-having.md",
+            "keywords": "where и having фильтрация групп агрегаты group by having sql псевдонимы postgresql отчёты ошибки новичка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "GROUP BY по нескольким столбцам и ROLLUP",
+            "url": "content/sql/agregaciya/group-by-neskolkim-stolbcov.md",
+            "keywords": "group by несколько столбцов rollup grouping sets cube подытоги иерархия агрегация postgresql отчёты категории",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Деньги и NUMERIC",
+            "url": "content/sql/agregaciya/dengi-i-numeric.md",
+            "keywords": "numeric sql деньги в базе точность округление round to_char float integer division sum средний чек postgresql",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "NULL в агрегатах",
+            "url": "content/sql/agregaciya/null-v-agregatah.md",
+            "keywords": "null в агрегатах count null sum null avg null coalesce count distinct агрегатные функции postgresql отчёты пустые значения",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Отчёты кофейни",
+            "url": "content/sql/agregaciya/otchety-kofeyni.md",
+            "keywords": "отчёты sql выручка по дням топ напитков средний чек group by join date_trunc агрегаты postgresql кофейня аналитика",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: собираем отчёты",
+            "url": "content/sql/agregaciya/praktika-agregaciya.md",
+            "keywords": "практика sql агрегация group by having rollup отчёты выручка топ напитков средний чек кофейня задачи sql",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Агрегация и GROUP BY",
+            "url": "content/sql/agregaciya/agregaciya.md",
+            "keywords": "агрегация sql group by count sum avg min max having rollup отчёты postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          }
+        ]
       },
       {
-        "id": "dql-bazovaya-vyborka-select",
+        "id": "join",
         "order": 40,
-        "name": "DQL: Базовая выборка (SELECT)",
-        "topics": []
+        "name": "JOIN: собираем данные",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Зачем JOIN",
+            "url": "content/sql/join/zachem-join.md",
+            "keywords": "зачем нужен join соединение таблиц реляционная модель дублирование данных внешний ключ select postgresql кофейня нормализация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "INNER JOIN",
+            "url": "content/sql/join/inner-join.md",
+            "keywords": "inner join sql соединение по ключу on using псевдонимы таблиц порядок соединения postgresql заказы и клиенты выборка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "LEFT, RIGHT и FULL JOIN",
+            "url": "content/sql/join/left-right-full-join.md",
+            "keywords": "left join right join full join внешнее соединение строки без пары null is null postgresql поиск сирот кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "JOIN по нескольким условиям",
+            "url": "content/sql/join/join-po-neskolkim-usloviyam.md",
+            "keywords": "join несколько условий on составной ключ дополнительное условие join и where postgresql отзывы заказы кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Многие ко многим",
+            "url": "content/sql/join/mnogie-ko-mnogim.md",
+            "keywords": "многие ко многим промежуточная таблица drink_ingredients join три таблицы рецепт себестоимость postgresql кофейня нормализация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "SELF JOIN",
+            "url": "content/sql/join/self-join.md",
+            "keywords": "self join соединение таблицы с собой псевдонимы пары строк иерархия сравнение строк postgresql напитки кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "CROSS JOIN",
+            "url": "content/sql/join/cross-join.md",
+            "keywords": "cross join декартово произведение все комбинации join без on календарь тестовые данные postgresql кофейня ошибки join",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Ошибки JOIN и дубли",
+            "url": "content/sql/join/oshibki-join.md",
+            "keywords": "ошибки join дубли размножение строк sum завышен count distinct fan-out on и where null в join postgresql отчёты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: заказы с составом",
+            "url": "content/sql/join/praktika-join.md",
+            "keywords": "практика join заказы с составом inner join left join many to many self join cross join себестоимость postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "JOIN: собираем данные",
+            "url": "content/sql/join/join.md",
+            "keywords": "join sql соединение таблиц inner join left join many to many self join cross join внешний ключ postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          }
+        ]
       },
       {
-        "id": "agregaciya-i-gruppirovka",
+        "id": "ddl",
         "order": 50,
-        "name": "Агрегация и группировка",
-        "topics": []
+        "name": "DDL: создаём схему",
+        "topics": [
+          {
+            "order": 10,
+            "title": "CREATE DATABASE, SCHEMA, TABLE",
+            "url": "content/sql/ddl/create-database-schema-table.md",
+            "keywords": "create database create schema create table иерархия базы search_path identity postgresql ddl структура базы кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Ограничения",
+            "url": "content/sql/ddl/ogranicheniya.md",
+            "keywords": "ограничения sql not null unique check default primary key foreign key именованные ограничения postgresql ddl целостность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "PRIMARY KEY и FOREIGN KEY",
+            "url": "content/sql/ddl/primary-i-foreign-key.md",
+            "keywords": "primary key foreign key первичный ключ внешний ключ составной ключ on delete cascade restrict set null postgresql ddl связи",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "ALTER TABLE",
+            "url": "content/sql/ddl/alter-table.md",
+            "keywords": "alter table добавить столбец удалить столбец изменить тип set not null add constraint rename column postgresql ddl миграции",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "DROP и TRUNCATE",
+            "url": "content/sql/ddl/drop-i-truncate.md",
+            "keywords": "drop table truncate table delete cascade restart identity удаление таблицы очистка данных postgresql ddl опасные операции",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "VIEW",
+            "url": "content/sql/ddl/view.md",
+            "keywords": "view sql представление create view create or replace view материализованное представление active_drinks postgresql ddl упрощение запросов",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Индексы: первое знакомство",
+            "url": "content/sql/ddl/indeksy-pervoe-znakomstvo.md",
+            "keywords": "индексы sql create index b-tree составной индекс частичный индекс expression index explain postgresql производительность внешний ключ",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Миграции",
+            "url": "content/sql/ddl/migracii.md",
+            "keywords": "миграции sql версионирование схемы flyway liquibase prisma django rails ddl откат продакшен postgresql",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: кофейня с нуля",
+            "url": "content/sql/ddl/praktika-ddl.md",
+            "keywords": "практика ddl create database create table ограничения primary key foreign key alter table view index truncate postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "DDL: создаём схему",
+            "url": "content/sql/ddl/ddl.md",
+            "keywords": "ddl sql create table create database schema ограничения primary key foreign key alter table drop view индексы миграции postgresql",
+            "type": "md",
+            "interactive": false
+          }
+        ]
       },
       {
-        "id": "obedinenie-tablic-join",
+        "id": "dml",
         "order": 60,
-        "name": "Объединение таблиц (JOIN)",
-        "topics": []
+        "name": "DML: меняем данные",
+        "topics": [
+          {
+            "order": 10,
+            "title": "INSERT",
+            "url": "content/sql/dml/insert.md",
+            "keywords": "insert sql вставка строк multi-row insert insert select default identity returning postgresql dml кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "RETURNING",
+            "url": "content/sql/dml/returning.md",
+            "keywords": "returning sql insert returning update returning delete returning postgresql dml получить id приложение экономия запросов",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "UPDATE",
+            "url": "content/sql/dml/update.md",
+            "keywords": "update sql изменить данные where update from подзапрос потерянные изменения блокировки postgresql dml кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "DELETE",
+            "url": "content/sql/dml/delete.md",
+            "keywords": "delete sql удаление строк where delete using returning каскад мягкое удаление vacuum postgresql dml кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "UPSERT: ON CONFLICT",
+            "url": "content/sql/dml/upsert.md",
+            "keywords": "upsert sql on conflict do nothing do update excluded вставка или обновление уникальный индекс postgresql dml импорт",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Массовые операции и COPY",
+            "url": "content/sql/dml/massovye-operacii-i-copy.md",
+            "keywords": "copy sql массовая вставка insert select csv psql copy batch производительность postgresql dml импорт данных",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Аудит и мягкое удаление",
+            "url": "content/sql/dml/audit-i-soft-delete.md",
+            "keywords": "мягкое удаление soft delete deleted_at аудит история изменений price_history триггеры postgresql dml кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: наполняем кофейню",
+            "url": "content/sql/dml/praktika-dml.md",
+            "keywords": "практика dml insert returning update delete upsert copy мягкое удаление postgresql кофейня наполнение базы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "DML: меняем данные",
+            "url": "content/sql/dml/dml.md",
+            "keywords": "dml sql insert update delete returning upsert on conflict copy аудит мягкое удаление postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          }
+        ]
       },
       {
-        "id": "podzaprosy-cte-i-okonnye-funkcii",
+        "id": "advanced-queries",
         "order": 70,
         "name": "Подзапросы, CTE и оконные функции",
-        "topics": []
+        "topics": [
+          {
+            "order": 10,
+            "title": "Подзапросы: IN, EXISTS, скалярные",
+            "url": "content/sql/advanced-queries/podzaprosy-in-exists.md",
+            "keywords": "подзапросы sql in not in exists not exists скалярный подзапрос коррелированный подзапрос null postgresql аналитика",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Коррелированные подзапросы и LATERAL",
+            "url": "content/sql/advanced-queries/korrelirovannye-podzaprosy-i-lateral.md",
+            "keywords": "коррелированный подзапрос lateral cross join lateral left join lateral последний заказ подзапрос на строку postgresql аналитика",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Подзапрос в FROM",
+            "url": "content/sql/advanced-queries/podzapros-v-from.md",
+            "keywords": "подзапрос в from derived table производная таблица псевдоним вложенный запрос cte postgresql аналитика средняя цена",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "CTE: WITH",
+            "url": "content/sql/advanced-queries/cte.md",
+            "keywords": "cte sql with общие табличные выражения читаемость запроса материализация postgresql аналитика промежуточные результаты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Рекурсивный CTE",
+            "url": "content/sql/advanced-queries/recursive-cte.md",
+            "keywords": "recursive cte with recursive рекурсия sql генерация дат иерархия дерево календарь postgresql аналитика",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Оконные функции: зачем",
+            "url": "content/sql/advanced-queries/okonnye-funkcii.md",
+            "keywords": "оконные функции sql over partition by window functions avg over сравнение со средней postgresql аналитика group by",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "ROW_NUMBER, RANK, DENSE_RANK",
+            "url": "content/sql/advanced-queries/row-number-rank-dense-rank.md",
+            "keywords": "row_number rank dense_rank оконные функции нумерация строк топ-n ties postgresql аналитика категории",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "LAG и LEAD",
+            "url": "content/sql/advanced-queries/lag-i-lead.md",
+            "keywords": "lag sql lead sql оконные функции сравнение с предыдущей строкой динамика продаж рост выручки offset default postgresql аналитика",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Рамки окна и скользящие итоги",
+            "url": "content/sql/advanced-queries/ramki-okna.md",
+            "keywords": "рамки окна sql rows between range between unbounded preceding current row накопительный итог скользящее среднее оконные функции postgresql аналитика",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "UNION, INTERSECT, EXCEPT",
+            "url": "content/sql/advanced-queries/union-intersect-except.md",
+            "keywords": "union sql union all intersect except minus объединение запросов разница пересечение postgresql аналитика",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 110,
+            "title": "Практика: аналитика кофейни",
+            "url": "content/sql/advanced-queries/praktika-analitika.md",
+            "keywords": "практика sql аналитика подзапросы cte оконные функции top-n выручка средний чек retention postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 120,
+            "title": "Подзапросы, CTE и оконные функции",
+            "url": "content/sql/advanced-queries/advanced-queries.md",
+            "keywords": "подзапросы sql cte with оконные функции row_number rank lag lead union intersect except postgresql аналитика",
+            "type": "md",
+            "interactive": false
+          }
+        ]
       },
       {
-        "id": "obekty-bd-view-funkcii-i-triggery",
+        "id": "tranzakcii",
         "order": 80,
-        "name": "Объекты БД: View, функции и триггеры",
-        "topics": []
+        "name": "Транзакции и блокировки",
+        "topics": [
+          {
+            "order": 10,
+            "title": "ACID на примере заказа",
+            "url": "content/sql/tranzakcii/acid.md",
+            "keywords": "acid атомарность согласованность изолированность долговечность транзакции commit rollback postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "BEGIN, COMMIT, ROLLBACK, SAVEPOINT",
+            "url": "content/sql/tranzakcii/begin-commit-rollback.md",
+            "keywords": "begin sql commit rollback savepoint rollback to savepoint транзакции autocommit postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Уровни изоляции",
+            "url": "content/sql/tranzakcii/urovni-izolyacii.md",
+            "keywords": "уровни изоляции read committed repeatable read serializable read uncommitted транзакции postgresql конкурентность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Аномалии",
+            "url": "content/sql/tranzakcii/anomalii.md",
+            "keywords": "аномалии транзакций грязное чтение неповторяющееся чтение фантомы потерянные обновления уровни изоляции postgresql конкурентность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Блокировки и deadlock",
+            "url": "content/sql/tranzakcii/blokirovki-i-deadlock.md",
+            "keywords": "блокировки sql for update for share deadlock взаимная блокировка pg_locks lock timeout postgresql конкурентность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Оптимистичная и пессимистичная блокировка",
+            "url": "content/sql/tranzakcii/optimisticheskaya-i-pessimisticheskaya-blokirovka.md",
+            "keywords": "оптимистичная блокировка пессимистичная блокировка version for update конкурентность retry postgresql кофейня остатки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Целостность и каскады",
+            "url": "content/sql/tranzakcii/celostnost-i-kaskady.md",
+            "keywords": "целостность данных foreign key on delete cascade restrict set null транзакции ограничения postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: заказ атомарно",
+            "url": "content/sql/tranzakcii/praktika-tranzakcii.md",
+            "keywords": "практика транзакции атомарный заказ begin commit rollback savepoint for update остатки postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Транзакции и блокировки",
+            "url": "content/sql/tranzakcii/tranzakcii.md",
+            "keywords": "транзакции sql acid commit rollback уровни изоляции блокировки deadlock конкурентность postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          }
+        ]
       },
       {
-        "id": "tranzakcii-i-optimizaciya",
+        "id": "proizvoditelnost",
         "order": 90,
-        "name": "Транзакции и оптимизация",
-        "topics": []
+        "name": "Индексы и производительность",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Как база ищет строки",
+            "url": "content/sql/proizvoditelnost/kak-baza-ishchet-stroki.md",
+            "keywords": "seq scan index scan bitmap scan стоимость запроса планировщик поиск строк postgresql производительность explain",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "B-tree",
+            "url": "content/sql/proizvoditelnost/b-tree.md",
+            "keywords": "b-tree индекс дерево диапазон сортировка равенство postgresql производительность explain",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Составные индексы",
+            "url": "content/sql/proizvoditelnost/sostavnye-indeksy.md",
+            "keywords": "составной индекс composite index порядок столбцов index on multiple columns покрывающий индекс postgresql производительность explain",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Частичные, уникальные, expression-индексы",
+            "url": "content/sql/proizvoditelnost/chastichnye-unikalnye-expression-indeksy.md",
+            "keywords": "частичный индекс partial index уникальный индекс expression index функциональный индекс lower where postgresql производительность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "EXPLAIN и EXPLAIN ANALYZE",
+            "url": "content/sql/proizvoditelnost/explain.md",
+            "keywords": "explain sql explain analyze план запроса seq scan index scan buffers actual time rows postgresql производительность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Почему индекс не используется",
+            "url": "content/sql/proizvoditelnost/pochemu-indeks-ne-ispolzuetsya.md",
+            "keywords": "индекс не используется explain seq scan функция в where статистика analyze неявное приведение like postgresql производительность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "N+1 запросов",
+            "url": "content/sql/proizvoditelnost/n-plus-one.md",
+            "keywords": "n+1 запросов orm ленивая загрузка eager loading join batch производительность postgresql приложение",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Материализованные представления",
+            "url": "content/sql/proizvoditelnost/materializovannye-predstavleniya.md",
+            "keywords": "материализованное представление materialized view refresh concurrently кэш запроса агрегаты postgresql производительность отчёт",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: ускоряем отчёт",
+            "url": "content/sql/proizvoditelnost/praktika-proizvoditelnost.md",
+            "keywords": "практика sql оптимизация explain индекс составной индекс частичный индекс n+1 материализованное представление postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Индексы и производительность",
+            "url": "content/sql/proizvoditelnost/proizvoditelnost.md",
+            "keywords": "индексы sql производительность b-tree explain план запроса n+1 материализованные представления postgresql оптимизация",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "obekty-i-bezopasnost",
+        "order": 100,
+        "name": "Объекты БД и безопасность",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Функции и процедуры",
+            "url": "content/sql/obekty-i-bezopasnost/funkcii-i-procedury.md",
+            "keywords": "create function create procedure функции sql процедуры language sql plpgsql параметры возврат postgresql безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "PL/pgSQL минимум",
+            "url": "content/sql/obekty-i-bezopasnost/plpgsql-minimum.md",
+            "keywords": "plpgsql declare begin if loop return переменные исключения postgresql функции",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Триггеры",
+            "url": "content/sql/obekty-i-bezopasnost/triggery.md",
+            "keywords": "триггеры sql create trigger before after for each row when аудит updated_at postgresql автоматизация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Ошибки и RAISE",
+            "url": "content/sql/obekty-i-bezopasnost/oshibki-i-raise.md",
+            "keywords": "raise sql exception ошибки plpgsql sqlstate notice warning обработка ошибок postgresql триггеры",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "JSONB",
+            "url": "content/sql/obekty-i-bezopasnost/jsonb.md",
+            "keywords": "jsonb json хранение json операторы jsonb -> ->> #> @> jsonb_path_query gin postgresql гибкие данные",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Полнотекстовый поиск",
+            "url": "content/sql/obekty-i-bezopasnost/polnotekstovyy-poisk.md",
+            "keywords": "полнотекстовый поиск to_tsvector to_tsquery tsvector tsquery gin русский язык postgresql поиск по тексту",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Роли и права",
+            "url": "content/sql/obekty-i-bezopasnost/roli-i-prava.md",
+            "keywords": "роли postgresql create role grant revoke привилегии schema least privilege безопасность postgresql доступ",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "SQL-инъекции",
+            "url": "content/sql/obekty-i-bezopasnost/sql-inekcii.md",
+            "keywords": "sql-инъекции параметризованные запросы prepared statements конкатенация строк безопасность injection postgresql приложение",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: аудит цен",
+            "url": "content/sql/obekty-i-bezopasnost/praktika-audit.md",
+            "keywords": "практика sql аудит триггер plpgsql jsonb полнотекстовый поиск роли права безопасность postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Объекты БД и безопасность",
+            "url": "content/sql/obekty-i-bezopasnost/obekty-i-bezopasnost.md",
+            "keywords": "функции sql процедуры plpgsql триггеры jsonb полнотекстовый поиск роли права sql-инъекции postgresql безопасность",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "proektirovanie",
+        "order": 110,
+        "name": "Проектирование схемы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "От требований к сущностям",
+            "url": "content/sql/proektirovanie/ot-trebovaniy-k-suschnostyam.md",
+            "keywords": "проектирование бд сущности требования связи кардинальность один ко многим многие ко многим postgresql схема",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "ER-диаграмма",
+            "url": "content/sql/proektirovanie/er-diagramma.md",
+            "keywords": "er-диаграмма entity relationship связи кардинальность первичный ключ внешний ключ mermaid проектирование postgresql",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "1НФ",
+            "url": "content/sql/proektirovanie/1nf.md",
+            "keywords": "первая нормальная форма 1нф атомарные значения повторяющиеся группы список в столбце нормализация postgresql проектирование",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "2НФ",
+            "url": "content/sql/proektirovanie/2nf.md",
+            "keywords": "вторая нормальная форма 2нф составной ключ частичная зависимость нормализация order_items postgresql проектирование",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "3НФ",
+            "url": "content/sql/proektirovanie/3nf.md",
+            "keywords": "третья нормальная форма 3нф транзитивная зависимость нормализация справочники категории postgresql проектирование",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Когда денормализовать",
+            "url": "content/sql/proektirovanie/kogda-denormalizovat.md",
+            "keywords": "денормализация дублирование данных производительность материализованное представление отчеты кэш проектирование postgresql",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Именование, типы, audit-поля",
+            "url": "content/sql/proektirovanie/imenovanie-i-audit-poly.md",
+            "keywords": "именование таблиц типы данных audit-поля created_at updated_at created_by bigint timestamptz numeric postgresql проектирование",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: схема доставки",
+            "url": "content/sql/proektirovanie/praktika-proektirovanie.md",
+            "keywords": "практика проектирования схема доставки сущности er-диаграмма нормализация адреса курьеры postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Проектирование схемы",
+            "url": "content/sql/proektirovanie/proektirovanie.md",
+            "keywords": "проектирование бд сущности er-диаграмма нормализация 1нф 2нф 3нф денормализация именование audit-поля postgresql",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "praktikum",
+        "order": 120,
+        "name": "Практикум: SQL в реальной задаче",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Сценарий и требования",
+            "url": "content/sql/praktikum/scenariy-i-trebovaniya.md",
+            "keywords": "требования сценарий пользовательские истории каталог заказ отчеты проектирование postgresql практикум",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Схема и данные",
+            "url": "content/sql/praktikum/shema-i-dannye.md",
+            "keywords": "схема кофейни create table данные seed customers drinks orders order_items postgresql практикум",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Каталог: фильтры, сортировка, пагинация",
+            "url": "content/sql/praktikum/katalog.md",
+            "keywords": "каталог sql фильтры сортировка пагинация limit offset keyset postgresql практикум кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Заказы: корзина и оформление",
+            "url": "content/sql/praktikum/zakazy.md",
+            "keywords": "корзина sql оформление заказа транзакция order_items total returning postgresql практикум кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Отчёты: выручка, топ, средний чек",
+            "url": "content/sql/praktikum/otchety.md",
+            "keywords": "отчеты sql выручка топ напитков средний чек group by оконные функции postgresql практикум кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Аналитика: повторные покупки",
+            "url": "content/sql/praktikum/analitika.md",
+            "keywords": "повторные покупки retention когорты ltv аналитика sql group by having postgresql практикум кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Оптимизация: EXPLAIN и индексы",
+            "url": "content/sql/praktikum/optimizaciya.md",
+            "keywords": "оптимизация sql explain индексы составной индекс частичный индекс план запроса postgresql практикум кофейня",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Чек-лист продакшена",
+            "url": "content/sql/praktikum/chek-list-prodakshena.md",
+            "keywords": "чек-лист продакшен резервные копии миграции права мониторинг индексы postgresql практикум безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практикум: SQL в реальной задаче",
+            "url": "content/sql/praktikum/praktikum.md",
+            "keywords": "практикум sql реальная задача каталог заказы отчёты аналитика оптимизация чек-лист postgresql кофейня",
+            "type": "md",
+            "interactive": false
+          }
+        ]
       }
     ]
   },

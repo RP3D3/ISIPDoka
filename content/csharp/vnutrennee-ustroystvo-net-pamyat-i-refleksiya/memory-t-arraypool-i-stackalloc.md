@@ -13,9 +13,9 @@ keywords: Memory и Span, ArrayPool, stackalloc, zero-allocation, аренда �
 
 | Инструмент / метод | Синтаксис / пример | Назначение и особенности |
 | --- | --- | --- |
-| **`stackalloc` + `Span<T>**` | `Span<byte> buf = stackalloc byte[256];` | Выделяет память на стеке без `unsafe` и участия GC; освобождается автоматически при выходе из метода |
+| **`stackalloc` + `Span<T>`** | `Span<byte> buf = stackalloc byte[256];` | Выделяет память на стеке без `unsafe` и участия GC; освобождается автоматически при выходе из метода |
 | **`ArrayPool<T>.Shared`** | `byte[] buf = ArrayPool<byte>.Shared.Rent(4096);` | Берёт готовый массив из общего пула; требует обязательного возврата через `Return(buf)` в `finally` |
-| **`Memory<T>` / `ReadOnlyMemory<T>**` | `async Task ReadAsync(Memory<byte> buffer)` | Обычная структура (`struct`): может жить в куче и пересекать `await`, открывая доступ к `.Span` |
+| **`Memory<T>` / `ReadOnlyMemory<T>`** | `async Task ReadAsync(Memory<byte> buffer)` | Обычная структура (`struct`): может жить в куче и пересекать `await`, открывая доступ к `.Span` |
 | **`CollectionsMarshal.AsSpan`** | `Span<int> span = CollectionsMarshal.AsSpan(list);` | Возвращает прямое «окно» во внутренний массив `List<T>` без копирования для сверхбыстрого обхода |
 
 ## Пример кода

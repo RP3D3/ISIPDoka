@@ -127,8 +127,10 @@ Pages бесплатно.
 | `js/libs/` | MiniSearch, Transformers.js, ORT-WASM (локальные, без CDN) |
 | `models/rubert-tiny2/` | Модель `rubert-tiny2` (fp32, двумя частями `model.onnx.part_aa` + `model.onnx.part_ab`, ~111 МБ) |
 | `css/style.css` | Стили сайта (включая `@font-face`) |
+| `css/quiz.css` | Стили интерактивных мини-тестов |
 | `fonts/` | Локальные шрифты `Golos Text` и `JetBrains Mono` (woff2) |
 | `js/search.js` | Гибридный поиск (MiniSearch + векторный слой) |
+| `js/quiz.js` | Интерактивные мини-тесты из блоков `quiz` |
 | `js/page.js` | Сборка страницы темы: шапка, крошки, оглавление, поиск |
 | `index.html`, `domain.html` | Главная и страница области |
 
