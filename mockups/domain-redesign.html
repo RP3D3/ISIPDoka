@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL — маршрут · редизайн domain.html</title>
+  <link rel="stylesheet" href="../css/style.css?v=20261115-1">
+  <style>
+    :root {
+      --rd-line: color-mix(in srgb, var(--domain-accent) 42%, transparent);
+      --rd-line-soft: color-mix(in srgb, var(--text-main) 13%, transparent);
+      --rd-card: color-mix(in srgb, var(--bg-card) 92%, transparent);
+      --rd-soft: color-mix(in srgb, var(--domain-accent) 9%, transparent);
+      --rd-soft-strong: color-mix(in srgb, var(--domain-accent) 16%, transparent);
+      --rd-radius: 18px;
+    }
+    body { --domain-accent: #235ce1; }
+    .rd-shell {
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      max-width: 1480px;
+      margin: 0 auto;
+    }
+    .rd-rail {
+      position: sticky;
+      top: 64px;
+      align-self: start;
+      height: calc(100vh - 64px);
+      overflow: auto;
+      padding: 32px 22px 40px 28px;
+      border-right: 1px solid var(--border-color);
+      scrollbar-width: thin;
+    }
+    .rd-rail-kicker {
+      font: 11px var(--font-mono);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--domain-accent);
+    }
+    .rd-rail h1 {
+      margin: 8px 0 10px;
+      font-size: clamp(32px, 3vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -.04em;
+    }
+    .rd-rail-desc {
+      margin: 0 0 20px;
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .rd-overall {
+      padding: 14px 14px 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      background: var(--rd-card);
+    }
+    .rd-overall-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font: 11px var(--font-mono);
+      color: var(--text-muted);
+    }
+    .rd-overall-top b { color: var(--text-main); font-weight: 600; }
+    .rd-bar {
+      height: 6px;
+      margin-top: 10px;
+      border-radius: 99px;
+      background: color-mix(in srgb, var(--text-main) 9%, transparent);
+      overflow: hidden;
+    }
+    .rd-bar > span {
+      display: block;
+      height: 100%;
+      width: 10%;
+      border-radius: inherit;
+      background: var(--domain-accent);
+    }
+    .rd-map {
+      display: grid;
+      gap: 2px;
+      margin-top: 18px;
+    }
+    .rd-map-item {
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr) auto;
+      gap: 9px;
+      align-items: center;
+      padding: 7px 9px;
+      border-radius: 9px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 12.5px;
+      line-height: 1.25;
+      transition: background .15s ease, color .15s ease;
+    }
+    .rd-map-item:hover { background: color-mix(in srgb, var(--text-main) 5%, transparent); color: var(--text-main); }
+    .rd-map-item.is-active {
+      background: var(--rd-soft-strong);
+      color: var(--text-main);
+    }
+    .rd-map-item.is-done .rd-map-num { color: var(--domain-accent); }
+    .rd-map-num {
+      font: 11px var(--font-mono);
+      color: color-mix(in srgb, var(--text-main) 48%, transparent);
+    }
+    .rd-map-name { min-width: 0; }
+    .rd-map-count {
+      font: 10px var(--font-mono);
+      color: color-mix(in srgb, var(--text-main) 38%, transparent);
+    }
+    .rd-main {
+      min-width: 0;
+      padding: 42px clamp(22px, 4vw, 64px) 96px;
+    }
+    .rd-hero {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 38px;
+    }
+    .rd-hero-kicker {
+      font: 11px var(--font-mono);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--domain-accent);
+    }
+    .rd-hero h2 {
+      margin: 8px 0 8px;
+      font-size: clamp(30px, 3.4vw, 46px);
+      line-height: 1.05;
+      letter-spacing: -.035em;
+    }
+    .rd-hero p {
+      max-width: 58ch;
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+    .rd-continue {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: var(--domain-accent);
+      color: #fff;
+      text-decoration: none;
+      font: 600 13px var(--font-mono);
+      white-space: nowrap;
+    }
+    .rd-continue span { font-size: 16px; line-height: 1; }
+    .rd-route {
+      position: relative;
+      max-width: 1000px;
+      --rd-progress: 10%;
+    }
+    .rd-route::before {
+      content: '';
+      position: absolute;
+      left: 27px;
+      top: 8px;
+      bottom: 54px;
+      width: 2px;
+      background: linear-gradient(to bottom,
+        var(--domain-accent) 0 var(--rd-progress),
+        var(--rd-line-soft) var(--rd-progress) 100%);
+      border-radius: 99px;
+    }
+    .rd-start {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px 0;
+      padding-left: 76px;
+      font: 10px var(--font-mono);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--domain-accent);
+    }
+    .rd-start::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--domain-accent);
+      box-shadow: 0 0 0 5px var(--rd-soft-strong);
+    }
+    .rd-chapter {
+      position: relative;
+      padding-left: 76px;
+      margin-bottom: 28px;
+    }
+    .rd-chapter::before {
+      content: '';
+      position: absolute;
+      left: 52px;
+      top: 27px;
+      width: 24px;
+      height: 2px;
+      background: var(--rd-line-soft);
+    }
+    .rd-chapter.is-done::before,
+    .rd-chapter.is-active::before { background: var(--rd-line); }
+    .rd-node {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 2px solid var(--rd-line-soft);
+      background: var(--bg-main);
+      color: var(--text-muted);
+      font: 700 14px var(--font-mono);
+      z-index: 1;
+    }
+    .rd-chapter.is-done .rd-node {
+      background: var(--domain-accent);
+      border-color: var(--domain-accent);
+      color: #fff;
+    }
+    .rd-chapter.is-active .rd-node {
+      border-color: var(--domain-accent);
+      color: var(--domain-accent);
+      box-shadow: 0 0 0 6px var(--rd-soft-strong);
+    }
+    .rd-card {
+      border: 1px solid var(--border-color);
+      border-radius: var(--rd-radius);
+      background: var(--rd-card);
+      padding: 18px 22px 10px;
+      transition: border-color .15s ease, background .15s ease;
+    }
+    .rd-chapter.is-active .rd-card {
+      border-color: color-mix(in srgb, var(--domain-accent) 48%, var(--border-color));
+    }
+    .rd-card-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .rd-card-kicker {
+      font: 10px var(--font-mono);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .rd-card h3 {
+      margin: 5px 0 0;
+      font-size: clamp(20px, 2vw, 26px);
+      line-height: 1.18;
+      letter-spacing: -.02em;
+    }
+    .rd-card-progress {
+      flex: 0 0 94px;
+      text-align: right;
+      padding-top: 2px;
+    }
+    .rd-card-progress span {
+      font: 10px var(--font-mono);
+      color: var(--text-muted);
+    }
+    .rd-card-progress i {
+      display: block;
+      height: 4px;
+      margin-top: 7px;
+      border-radius: 99px;
+      background: color-mix(in srgb, var(--text-main) 9%, transparent);
+      overflow: hidden;
+    }
+    .rd-card-progress b {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--domain-accent);
+    }
+    .rd-steps {
+      list-style: none;
+      margin: 0;
+      padding: 4px 0 0;
+    }
+    .rd-step + .rd-step {
+      border-top: 1px solid color-mix(in srgb, var(--border-color) 58%, transparent);
+    }
+    .rd-step a {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: start;
+      padding: 10px 8px 10px 0;
+      border-radius: 8px;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: background .15s ease, color .15s ease;
+    }
+    .rd-step a:hover {
+      background: var(--rd-soft);
+      padding-left: 8px;
+      margin-left: -8px;
+      padding-right: 8px;
+    }
+    .rd-step-num {
+      padding-top: 2px;
+      font: 10.5px var(--font-mono);
+      color: color-mix(in srgb, var(--text-main) 45%, transparent);
+      white-space: nowrap;
+    }
+    .rd-step-title {
+      min-width: 0;
+      font-size: 15.5px;
+      line-height: 1.38;
+      overflow-wrap: anywhere;
+    }
+    .rd-step-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 5px;
+      padding-top: 1px;
+    }
+    .rd-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 7px;
+      border-radius: 5px;
+      background: var(--rd-soft-strong);
+      color: var(--domain-accent);
+      font: 9.5px var(--font-mono);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .rd-badge--summary {
+      background: color-mix(in srgb, var(--text-main) 8%, transparent);
+      color: var(--text-muted);
+    }
+    .rd-badge--now {
+      background: var(--domain-accent);
+      color: #fff;
+    }
+    .rd-step.is-done .rd-step-num { color: var(--domain-accent); }
+    .rd-step.is-done .rd-step-title { opacity: .62; }
+    .rd-step.is-current a {
+      background: var(--rd-soft-strong);
+      box-shadow: inset 3px 0 0 var(--domain-accent);
+      padding-left: 10px;
+      margin-left: -10px;
+      padding-right: 8px;
+    }
+    .rd-step.is-current .rd-step-title { font-weight: 600; }
+    .rd-step.is-summary .rd-step-title { font-weight: 600; }
+    .rd-finish {
+      position: relative;
+      padding-left: 76px;
+      margin-top: 36px;
+    }
+    .rd-finish::before {
+      content: '';
+      position: absolute;
+      left: 52px;
+      top: 27px;
+      width: 24px;
+      height: 2px;
+      background: var(--rd-line);
+    }
+    .rd-finish-node {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 2px dashed var(--rd-line);
+      color: var(--domain-accent);
+      font: 700 18px var(--font-mono);
+      background: var(--bg-main);
+    }
+    .rd-finish-card {
+      border: 1px dashed color-mix(in srgb, var(--domain-accent) 42%, var(--border-color));
+      border-radius: var(--rd-radius);
+      padding: 20px 22px;
+      background: color-mix(in srgb, var(--domain-accent) 5%, transparent);
+    }
+    .rd-finish-card h3 { margin: 0 0 6px; font-size: 20px; }
+    .rd-finish-card p { margin: 0; color: var(--text-muted); font-size: 14px; line-height: 1.5; }
+    .rd-finish-card a {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--domain-accent);
+      font: 600 12px var(--font-mono);
+      text-decoration: none;
+    }
+    @media (max-width: 1080px) {
+      .rd-shell { grid-template-columns: 1fr; }
+      .rd-rail {
+        position: static;
+        height: auto;
+        padding: 26px 22px 20px;
+        border-right: 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .rd-rail-desc { max-width: 70ch; }
+      .rd-map {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        scrollbar-width: thin;
+      }
+      .rd-map-item {
+        flex: 0 0 190px;
+        background: color-mix(in srgb, var(--text-main) 4%, transparent);
+      }
+      .rd-main { padding: 30px 22px 72px; }
+    }
+    @media (max-width: 680px) {
+      .rd-hero { display: block; }
+      .rd-continue { margin-top: 18px; }
+      .rd-route::before { left: 19px; }
+      .rd-start { padding-left: 52px; }
+      .rd-start::before { left: 12px; }
+      .rd-chapter, .rd-finish { padding-left: 52px; }
+      .rd-chapter::before, .rd-finish::before { left: 34px; width: 14px; }
+      .rd-node, .rd-finish-node { width: 40px; height: 40px; font-size: 11px; }
+      .rd-chapter::before, .rd-finish::before { top: 19px; }
+      .rd-card { padding: 16px 14px 8px; }
+      .rd-card-head { display: block; }
+      .rd-card-progress { flex: none; width: 110px; margin-top: 10px; text-align: left; }
+      .rd-step a { grid-template-columns: 44px minmax(0, 1fr); gap: 10px; }
+      .rd-step-badges { grid-column: 2; justify-content: flex-start; }
+      .rd-step-title { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-left">
+      <a href="../index.html" class="brand-badge">U•ᴥ•U Дока ИСИП</a>
+      <div class="breadcrumbs"><span>/</span><span class="current">SQL</span></div>
+    </div>
+    <div class="header-right">
+      <button class="search-trigger-btn">Поиск <kbd>/</kbd></button>
+    </div>
+  </header>
+
+  <div class="rd-shell">
+    <aside class="rd-rail">
+      <div class="rd-rail-kicker">SQL · маршрут</div>
+      <h1>SQL</h1>
+      <p class="rd-rail-desc">От первой таблицы до практикума: 12 глав, 119 тем. Иди по маршруту сверху вниз — каждая глава заканчивается итогом.</p>
+      <div class="rd-overall">
+        <div class="rd-overall-top"><span>Прогресс</span><span><b>12</b> / 119</span></div>
+        <div class="rd-bar"><span></span></div>
+      </div>
+      <nav class="rd-map" aria-label="Карта маршрута">
+        <a href="#group-start" class="rd-map-item is-done">
+    <span class="rd-map-num">✓</span>
+    <span class="rd-map-name">База данных без страха</span>
+    <span class="rd-map-count">11</span>
+  </a>
+<a href="#group-vyborka" class="rd-map-item is-active">
+    <span class="rd-map-num">02</span>
+    <span class="rd-map-name">Выборка: WHERE, ORDER BY, LIMIT</span>
+    <span class="rd-map-count">11</span>
+  </a>
+<a href="#group-agregaciya" class="rd-map-item">
+    <span class="rd-map-num">03</span>
+    <span class="rd-map-name">Агрегация и GROUP BY</span>
+    <span class="rd-map-count">9</span>
+  </a>
+<a href="#group-join" class="rd-map-item">
+    <span class="rd-map-num">04</span>
+    <span class="rd-map-name">JOIN: собираем данные</span>
+    <span class="rd-map-count">10</span>
+  </a>
+<a href="#group-ddl" class="rd-map-item">
+    <span class="rd-map-num">05</span>
+    <span class="rd-map-name">DDL: создаём схему</span>
+    <span class="rd-map-count">10</span>
+  </a>
+<a href="#group-dml" class="rd-map-item">
+    <span class="rd-map-num">06</span>
+    <span class="rd-map-name">DML: меняем данные</span>
+    <span class="rd-map-count">9</span>
+  </a>
+<a href="#group-advanced-queries" class="rd-map-item">
+    <span class="rd-map-num">07</span>
+    <span class="rd-map-name">Подзапросы, CTE и оконные функции</span>
+    <span class="rd-map-count">12</span>
+  </a>
+<a href="#group-tranzakcii" class="rd-map-item">
+    <span class="rd-map-num">08</span>
+    <span class="rd-map-name">Транзакции и блокировки</span>
+    <span class="rd-map-count">9</span>
+  </a>
+<a href="#group-proizvoditelnost" class="rd-map-item">
+    <span class="rd-map-num">09</span>
+    <span class="rd-map-name">Индексы и производительность</span>
+    <span class="rd-map-count">10</span>
+  </a>
+<a href="#group-obekty-i-bezopasnost" class="rd-map-item">
+    <span class="rd-map-num">10</span>
+    <span class="rd-map-name">Объекты БД и безопасность</span>
+    <span class="rd-map-count">10</span>
+  </a>
+<a href="#group-proektirovanie" class="rd-map-item">
+    <span class="rd-map-num">11</span>
+    <span class="rd-map-name">Проектирование схемы</span>
+    <span class="rd-map-count">9</span>
+  </a>
+<a href="#group-praktikum" class="rd-map-item">
+    <span class="rd-map-num">12</span>
+    <span class="rd-map-name">Практикум: SQL в реальной задаче</span>
+    <span class="rd-map-count">9</span>
+  </a>
+      </nav>
+    </aside>
+
+    <main class="rd-main">
+      <div class="rd-hero">
+        <div>
+          <div class="rd-hero-kicker">Учебный маршрут</div>
+          <h2>Путь от начала до конца</h2>
+          <p>Короткие темы занимают одну строку, длинные переносятся внутри той же строки. Порядок виден по номерам, линии и итогам глав.</p>
+        </div>
+        <a class="rd-continue" href="#group-vyborka"><span>▶</span> Продолжить</a>
+      </div>
+
+      <div class="rd-route">
+        <div class="rd-start">старт</div>
+        <section class="rd-chapter is-done" id="group-start">
+    <div class="rd-node">✓</div>
+    <div class="rd-card">
+      <header class="rd-card-head">
+        <div>
+          <div class="rd-card-kicker">Глава 01 · 11 тем</div>
+          <h3>База данных без страха</h3>
+        </div>
+        <div class="rd-card-progress" title="Пройдено 11 из 11">
+          <span>11 / 11</span>
+          <i><b style="width:100%"></b></i>
+        </div>
+      </header>
+      <ol class="rd-steps"><li class="rd-step is-done">
+      <a href="../theme.html?path=content%2Fsql%2Fstart%2Fzachem-nuzhna-baza-dannyh.md">
+        <span class="rd-step-num">01.01</span>
+        <span class="rd-step-title">Зачем нужна база данных</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step is-done">
+      <a href="../theme.html?path=content%2Fsql%2Fstart%2Fustroystvo-rellyacionnoy-bd.md">
+        <span class="rd-step-num">01.02</span>
+        <span class="rd-step-title">Как устроена реляционная БД</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step is-done">
+      <a href="../theme.html?path=content%2Fsql%2Fstart%2Fklyuchi-i-svyazi.md">
+        <span class="rd-step-num">01.03</span>
+        <span class="rd-step-title">Ключи и связи на салфетке</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step is-done">
+      <a href="../theme.html?path=content%2Fsql%2Fstart%2Fpostgresql-za-5-minut.md">
+        <span class="rd-step-num">01.04</span>
+        <span class="rd-step-title">PostgreSQL за 5 минут</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step is-done">
+      <a href="../theme.html?path=content%2Fsql%2Fstart%2Fpervyy-select.md">
+        <span class="rd-step-num">01.05</span>
+        <span class="rd-step-title">Первый SELECT и стиль SQL</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step is-done">
+      <a href="../theme.html?path=content%2Fsql%2Fstart%2Fporyadok-vypolneniya-zaprosa.md">
+        <span class="rd-step-num">01.06</span>
+        <span class="rd-step-title">Порядок выполнения запроса</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step is-done">
+      <a href="../theme.html?path=content%2Fsql%2Fstart%2Fnull-eto-ne-nol.md">
+        <span class="rd-step-num">01.07</span>
+        <span class="rd-step-title">NULL — это не ноль</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step is-done">
+      <a href="../theme.html?path=content%2Fsql%2Fstart%2Ftipy-dannyh.md">
+        <span class="rd-step-num">01.08</span>
+        <span class="rd-step-title">Типы данных</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step is-done">
+      <a href="../theme.html?path=content%2Fsql%2Fstart%2Fshema-kofeyni.md">
+        <span class="rd-step-num">01.09</span>
+        <span class="rd-step-title">Схема кофейни «Зерно»</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step is-done">
+      <a href="../theme.html?path=content%2Fsql%2Fstart%2Fdialekty-sql.md">
+        <span class="rd-step-num">01.10</span>
+        <span class="rd-step-title">Диалекты SQL</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step is-done is-summary">
+      <a href="../theme.html?path=content%2Fsql%2Fstart%2Fstart.md">
+        <span class="rd-step-num">01.11</span>
+        <span class="rd-step-title">База данных без страха</span>
+        <span class="rd-step-badges"><span class="rd-badge rd-badge--summary">Итог</span></span>
+      </a>
+    </li></ol>
+    </div>
+  </section>
+<section class="rd-chapter is-active" id="group-vyborka">
+    <div class="rd-node">02</div>
+    <div class="rd-card">
+      <header class="rd-card-head">
+        <div>
+          <div class="rd-card-kicker">Глава 02 · 11 тем</div>
+          <h3>Выборка: WHERE, ORDER BY, LIMIT</h3>
+        </div>
+        <div class="rd-card-progress" title="Пройдено 1 из 11">
+          <span>1 / 11</span>
+          <i><b style="width:9%"></b></i>
+        </div>
+      </header>
+      <ol class="rd-steps"><li class="rd-step is-done">
+      <a href="../theme.html?path=content%2Fsql%2Fvyborka%2Fwhere.md">
+        <span class="rd-step-num">02.01</span>
+        <span class="rd-step-title">WHERE</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step is-current">
+      <a href="../theme.html?path=content%2Fsql%2Fvyborka%2Fbetween-in-like.md">
+        <span class="rd-step-num">02.02</span>
+        <span class="rd-step-title">BETWEEN, IN, LIKE</span>
+        <span class="rd-step-badges"><span class="rd-badge rd-badge--now">сейчас</span></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fvyborka%2Forder-by.md">
+        <span class="rd-step-num">02.03</span>
+        <span class="rd-step-title">ORDER BY</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fvyborka%2Flimit-offset.md">
+        <span class="rd-step-num">02.04</span>
+        <span class="rd-step-title">LIMIT, OFFSET и пагинация</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fvyborka%2Fdistinct.md">
+        <span class="rd-step-num">02.05</span>
+        <span class="rd-step-title">DISTINCT</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fvyborka%2Fvyrazheniya-i-cast.md">
+        <span class="rd-step-num">02.06</span>
+        <span class="rd-step-title">Выражения, CAST и псевдонимы</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fvyborka%2Fcase.md">
+        <span class="rd-step-num">02.07</span>
+        <span class="rd-step-title">CASE</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fvyborka%2Fdaty-i-vremya.md">
+        <span class="rd-step-num">02.08</span>
+        <span class="rd-step-title">Даты и время</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fvyborka%2Ftekstovye-funkcii.md">
+        <span class="rd-step-num">02.09</span>
+        <span class="rd-step-title">Текстовые функции</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fvyborka%2Fpraktika-vyborka.md">
+        <span class="rd-step-num">02.10</span>
+        <span class="rd-step-title">Практика: 10 запросов к кофейне</span>
+        <span class="rd-step-badges"><span class="rd-badge">Практика</span></span>
+      </a>
+    </li><li class="rd-step is-summary">
+      <a href="../theme.html?path=content%2Fsql%2Fvyborka%2Fvyborka.md">
+        <span class="rd-step-num">02.11</span>
+        <span class="rd-step-title">Выборка: WHERE, ORDER BY, LIMIT</span>
+        <span class="rd-step-badges"><span class="rd-badge rd-badge--summary">Итог</span></span>
+      </a>
+    </li></ol>
+    </div>
+  </section>
+<section class="rd-chapter" id="group-agregaciya">
+    <div class="rd-node">03</div>
+    <div class="rd-card">
+      <header class="rd-card-head">
+        <div>
+          <div class="rd-card-kicker">Глава 03 · 9 тем</div>
+          <h3>Агрегация и GROUP BY</h3>
+        </div>
+        <div class="rd-card-progress" title="Пройдено 0 из 9">
+          <span>0 / 9</span>
+          <i><b style="width:0%"></b></i>
+        </div>
+      </header>
+      <ol class="rd-steps"><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fagregaciya%2Fagregatnye-funkcii.md">
+        <span class="rd-step-num">03.01</span>
+        <span class="rd-step-title">Агрегаты: COUNT, SUM, AVG, MIN, MAX</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fagregaciya%2Fgroup-by.md">
+        <span class="rd-step-num">03.02</span>
+        <span class="rd-step-title">GROUP BY</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fagregaciya%2Fwhere-vs-having.md">
+        <span class="rd-step-num">03.03</span>
+        <span class="rd-step-title">WHERE против HAVING</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fagregaciya%2Fgroup-by-neskolkim-stolbcov.md">
+        <span class="rd-step-num">03.04</span>
+        <span class="rd-step-title">GROUP BY по нескольким столбцам и ROLLUP</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fagregaciya%2Fdengi-i-numeric.md">
+        <span class="rd-step-num">03.05</span>
+        <span class="rd-step-title">Деньги и NUMERIC</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fagregaciya%2Fnull-v-agregatah.md">
+        <span class="rd-step-num">03.06</span>
+        <span class="rd-step-title">NULL в агрегатах</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fagregaciya%2Fotchety-kofeyni.md">
+        <span class="rd-step-num">03.07</span>
+        <span class="rd-step-title">Отчёты кофейни</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fagregaciya%2Fpraktika-agregaciya.md">
+        <span class="rd-step-num">03.08</span>
+        <span class="rd-step-title">Практика: собираем отчёты</span>
+        <span class="rd-step-badges"><span class="rd-badge">Практика</span></span>
+      </a>
+    </li><li class="rd-step is-summary">
+      <a href="../theme.html?path=content%2Fsql%2Fagregaciya%2Fagregaciya.md">
+        <span class="rd-step-num">03.09</span>
+        <span class="rd-step-title">Агрегация и GROUP BY</span>
+        <span class="rd-step-badges"><span class="rd-badge rd-badge--summary">Итог</span></span>
+      </a>
+    </li></ol>
+    </div>
+  </section>
+<section class="rd-chapter" id="group-join">
+    <div class="rd-node">04</div>
+    <div class="rd-card">
+      <header class="rd-card-head">
+        <div>
+          <div class="rd-card-kicker">Глава 04 · 10 тем</div>
+          <h3>JOIN: собираем данные</h3>
+        </div>
+        <div class="rd-card-progress" title="Пройдено 0 из 10">
+          <span>0 / 10</span>
+          <i><b style="width:0%"></b></i>
+        </div>
+      </header>
+      <ol class="rd-steps"><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fjoin%2Fzachem-join.md">
+        <span class="rd-step-num">04.01</span>
+        <span class="rd-step-title">Зачем JOIN</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fjoin%2Finner-join.md">
+        <span class="rd-step-num">04.02</span>
+        <span class="rd-step-title">INNER JOIN</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fjoin%2Fleft-right-full-join.md">
+        <span class="rd-step-num">04.03</span>
+        <span class="rd-step-title">LEFT, RIGHT и FULL JOIN</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fjoin%2Fjoin-po-neskolkim-usloviyam.md">
+        <span class="rd-step-num">04.04</span>
+        <span class="rd-step-title">JOIN по нескольким условиям</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fjoin%2Fmnogie-ko-mnogim.md">
+        <span class="rd-step-num">04.05</span>
+        <span class="rd-step-title">Многие ко многим</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fjoin%2Fself-join.md">
+        <span class="rd-step-num">04.06</span>
+        <span class="rd-step-title">SELF JOIN</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fjoin%2Fcross-join.md">
+        <span class="rd-step-num">04.07</span>
+        <span class="rd-step-title">CROSS JOIN</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fjoin%2Foshibki-join.md">
+        <span class="rd-step-num">04.08</span>
+        <span class="rd-step-title">Ошибки JOIN и дубли</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fjoin%2Fpraktika-join.md">
+        <span class="rd-step-num">04.09</span>
+        <span class="rd-step-title">Практика: заказы с составом</span>
+        <span class="rd-step-badges"><span class="rd-badge">Практика</span></span>
+      </a>
+    </li><li class="rd-step is-summary">
+      <a href="../theme.html?path=content%2Fsql%2Fjoin%2Fjoin.md">
+        <span class="rd-step-num">04.10</span>
+        <span class="rd-step-title">JOIN: собираем данные</span>
+        <span class="rd-step-badges"><span class="rd-badge rd-badge--summary">Итог</span></span>
+      </a>
+    </li></ol>
+    </div>
+  </section>
+<section class="rd-chapter" id="group-ddl">
+    <div class="rd-node">05</div>
+    <div class="rd-card">
+      <header class="rd-card-head">
+        <div>
+          <div class="rd-card-kicker">Глава 05 · 10 тем</div>
+          <h3>DDL: создаём схему</h3>
+        </div>
+        <div class="rd-card-progress" title="Пройдено 0 из 10">
+          <span>0 / 10</span>
+          <i><b style="width:0%"></b></i>
+        </div>
+      </header>
+      <ol class="rd-steps"><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fddl%2Fcreate-database-schema-table.md">
+        <span class="rd-step-num">05.01</span>
+        <span class="rd-step-title">CREATE DATABASE, SCHEMA, TABLE</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fddl%2Fogranicheniya.md">
+        <span class="rd-step-num">05.02</span>
+        <span class="rd-step-title">Ограничения</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fddl%2Fprimary-i-foreign-key.md">
+        <span class="rd-step-num">05.03</span>
+        <span class="rd-step-title">PRIMARY KEY и FOREIGN KEY</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fddl%2Falter-table.md">
+        <span class="rd-step-num">05.04</span>
+        <span class="rd-step-title">ALTER TABLE</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fddl%2Fdrop-i-truncate.md">
+        <span class="rd-step-num">05.05</span>
+        <span class="rd-step-title">DROP и TRUNCATE</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fddl%2Fview.md">
+        <span class="rd-step-num">05.06</span>
+        <span class="rd-step-title">VIEW</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fddl%2Findeksy-pervoe-znakomstvo.md">
+        <span class="rd-step-num">05.07</span>
+        <span class="rd-step-title">Индексы: первое знакомство</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fddl%2Fmigracii.md">
+        <span class="rd-step-num">05.08</span>
+        <span class="rd-step-title">Миграции</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fddl%2Fpraktika-ddl.md">
+        <span class="rd-step-num">05.09</span>
+        <span class="rd-step-title">Практика: кофейня с нуля</span>
+        <span class="rd-step-badges"><span class="rd-badge">Практика</span></span>
+      </a>
+    </li><li class="rd-step is-summary">
+      <a href="../theme.html?path=content%2Fsql%2Fddl%2Fddl.md">
+        <span class="rd-step-num">05.10</span>
+        <span class="rd-step-title">DDL: создаём схему</span>
+        <span class="rd-step-badges"><span class="rd-badge rd-badge--summary">Итог</span></span>
+      </a>
+    </li></ol>
+    </div>
+  </section>
+<section class="rd-chapter" id="group-dml">
+    <div class="rd-node">06</div>
+    <div class="rd-card">
+      <header class="rd-card-head">
+        <div>
+          <div class="rd-card-kicker">Глава 06 · 9 тем</div>
+          <h3>DML: меняем данные</h3>
+        </div>
+        <div class="rd-card-progress" title="Пройдено 0 из 9">
+          <span>0 / 9</span>
+          <i><b style="width:0%"></b></i>
+        </div>
+      </header>
+      <ol class="rd-steps"><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fdml%2Finsert.md">
+        <span class="rd-step-num">06.01</span>
+        <span class="rd-step-title">INSERT</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fdml%2Freturning.md">
+        <span class="rd-step-num">06.02</span>
+        <span class="rd-step-title">RETURNING</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fdml%2Fupdate.md">
+        <span class="rd-step-num">06.03</span>
+        <span class="rd-step-title">UPDATE</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fdml%2Fdelete.md">
+        <span class="rd-step-num">06.04</span>
+        <span class="rd-step-title">DELETE</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fdml%2Fupsert.md">
+        <span class="rd-step-num">06.05</span>
+        <span class="rd-step-title">UPSERT: ON CONFLICT</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fdml%2Fmassovye-operacii-i-copy.md">
+        <span class="rd-step-num">06.06</span>
+        <span class="rd-step-title">Массовые операции и COPY</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fdml%2Faudit-i-soft-delete.md">
+        <span class="rd-step-num">06.07</span>
+        <span class="rd-step-title">Аудит и мягкое удаление</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fdml%2Fpraktika-dml.md">
+        <span class="rd-step-num">06.08</span>
+        <span class="rd-step-title">Практика: наполняем кофейню</span>
+        <span class="rd-step-badges"><span class="rd-badge">Практика</span></span>
+      </a>
+    </li><li class="rd-step is-summary">
+      <a href="../theme.html?path=content%2Fsql%2Fdml%2Fdml.md">
+        <span class="rd-step-num">06.09</span>
+        <span class="rd-step-title">DML: меняем данные</span>
+        <span class="rd-step-badges"><span class="rd-badge rd-badge--summary">Итог</span></span>
+      </a>
+    </li></ol>
+    </div>
+  </section>
+<section class="rd-chapter" id="group-advanced-queries">
+    <div class="rd-node">07</div>
+    <div class="rd-card">
+      <header class="rd-card-head">
+        <div>
+          <div class="rd-card-kicker">Глава 07 · 12 тем</div>
+          <h3>Подзапросы, CTE и оконные функции</h3>
+        </div>
+        <div class="rd-card-progress" title="Пройдено 0 из 12">
+          <span>0 / 12</span>
+          <i><b style="width:0%"></b></i>
+        </div>
+      </header>
+      <ol class="rd-steps"><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fadvanced-queries%2Fpodzaprosy-in-exists.md">
+        <span class="rd-step-num">07.01</span>
+        <span class="rd-step-title">Подзапросы: IN, EXISTS, скалярные</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fadvanced-queries%2Fkorrelirovannye-podzaprosy-i-lateral.md">
+        <span class="rd-step-num">07.02</span>
+        <span class="rd-step-title">Коррелированные подзапросы и LATERAL</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fadvanced-queries%2Fpodzapros-v-from.md">
+        <span class="rd-step-num">07.03</span>
+        <span class="rd-step-title">Подзапрос в FROM</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fadvanced-queries%2Fcte.md">
+        <span class="rd-step-num">07.04</span>
+        <span class="rd-step-title">CTE: WITH</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fadvanced-queries%2Frecursive-cte.md">
+        <span class="rd-step-num">07.05</span>
+        <span class="rd-step-title">Рекурсивный CTE</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fadvanced-queries%2Fokonnye-funkcii.md">
+        <span class="rd-step-num">07.06</span>
+        <span class="rd-step-title">Оконные функции: зачем</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fadvanced-queries%2Frow-number-rank-dense-rank.md">
+        <span class="rd-step-num">07.07</span>
+        <span class="rd-step-title">ROW_NUMBER, RANK, DENSE_RANK</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fadvanced-queries%2Flag-i-lead.md">
+        <span class="rd-step-num">07.08</span>
+        <span class="rd-step-title">LAG и LEAD</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fadvanced-queries%2Framki-okna.md">
+        <span class="rd-step-num">07.09</span>
+        <span class="rd-step-title">Рамки окна и скользящие итоги</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fadvanced-queries%2Funion-intersect-except.md">
+        <span class="rd-step-num">07.10</span>
+        <span class="rd-step-title">UNION, INTERSECT, EXCEPT</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fadvanced-queries%2Fpraktika-analitika.md">
+        <span class="rd-step-num">07.11</span>
+        <span class="rd-step-title">Практика: аналитика кофейни</span>
+        <span class="rd-step-badges"><span class="rd-badge">Практика</span></span>
+      </a>
+    </li><li class="rd-step is-summary">
+      <a href="../theme.html?path=content%2Fsql%2Fadvanced-queries%2Fadvanced-queries.md">
+        <span class="rd-step-num">07.12</span>
+        <span class="rd-step-title">Подзапросы, CTE и оконные функции</span>
+        <span class="rd-step-badges"><span class="rd-badge rd-badge--summary">Итог</span></span>
+      </a>
+    </li></ol>
+    </div>
+  </section>
+<section class="rd-chapter" id="group-tranzakcii">
+    <div class="rd-node">08</div>
+    <div class="rd-card">
+      <header class="rd-card-head">
+        <div>
+          <div class="rd-card-kicker">Глава 08 · 9 тем</div>
+          <h3>Транзакции и блокировки</h3>
+        </div>
+        <div class="rd-card-progress" title="Пройдено 0 из 9">
+          <span>0 / 9</span>
+          <i><b style="width:0%"></b></i>
+        </div>
+      </header>
+      <ol class="rd-steps"><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Ftranzakcii%2Facid.md">
+        <span class="rd-step-num">08.01</span>
+        <span class="rd-step-title">ACID на примере заказа</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Ftranzakcii%2Fbegin-commit-rollback.md">
+        <span class="rd-step-num">08.02</span>
+        <span class="rd-step-title">BEGIN, COMMIT, ROLLBACK, SAVEPOINT</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Ftranzakcii%2Furovni-izolyacii.md">
+        <span class="rd-step-num">08.03</span>
+        <span class="rd-step-title">Уровни изоляции</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Ftranzakcii%2Fanomalii.md">
+        <span class="rd-step-num">08.04</span>
+        <span class="rd-step-title">Аномалии</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Ftranzakcii%2Fblokirovki-i-deadlock.md">
+        <span class="rd-step-num">08.05</span>
+        <span class="rd-step-title">Блокировки и deadlock</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Ftranzakcii%2Foptimisticheskaya-i-pessimisticheskaya-blokirovka.md">
+        <span class="rd-step-num">08.06</span>
+        <span class="rd-step-title">Оптимистичная и пессимистичная блокировка</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Ftranzakcii%2Fcelostnost-i-kaskady.md">
+        <span class="rd-step-num">08.07</span>
+        <span class="rd-step-title">Целостность и каскады</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Ftranzakcii%2Fpraktika-tranzakcii.md">
+        <span class="rd-step-num">08.08</span>
+        <span class="rd-step-title">Практика: заказ атомарно</span>
+        <span class="rd-step-badges"><span class="rd-badge">Практика</span></span>
+      </a>
+    </li><li class="rd-step is-summary">
+      <a href="../theme.html?path=content%2Fsql%2Ftranzakcii%2Ftranzakcii.md">
+        <span class="rd-step-num">08.09</span>
+        <span class="rd-step-title">Транзакции и блокировки</span>
+        <span class="rd-step-badges"><span class="rd-badge rd-badge--summary">Итог</span></span>
+      </a>
+    </li></ol>
+    </div>
+  </section>
+<section class="rd-chapter" id="group-proizvoditelnost">
+    <div class="rd-node">09</div>
+    <div class="rd-card">
+      <header class="rd-card-head">
+        <div>
+          <div class="rd-card-kicker">Глава 09 · 10 тем</div>
+          <h3>Индексы и производительность</h3>
+        </div>
+        <div class="rd-card-progress" title="Пройдено 0 из 10">
+          <span>0 / 10</span>
+          <i><b style="width:0%"></b></i>
+        </div>
+      </header>
+      <ol class="rd-steps"><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproizvoditelnost%2Fkak-baza-ishchet-stroki.md">
+        <span class="rd-step-num">09.01</span>
+        <span class="rd-step-title">Как база ищет строки</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproizvoditelnost%2Fb-tree.md">
+        <span class="rd-step-num">09.02</span>
+        <span class="rd-step-title">B-tree</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproizvoditelnost%2Fsostavnye-indeksy.md">
+        <span class="rd-step-num">09.03</span>
+        <span class="rd-step-title">Составные индексы</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproizvoditelnost%2Fchastichnye-unikalnye-expression-indeksy.md">
+        <span class="rd-step-num">09.04</span>
+        <span class="rd-step-title">Частичные, уникальные, expression-индексы</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproizvoditelnost%2Fexplain.md">
+        <span class="rd-step-num">09.05</span>
+        <span class="rd-step-title">EXPLAIN и EXPLAIN ANALYZE</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproizvoditelnost%2Fpochemu-indeks-ne-ispolzuetsya.md">
+        <span class="rd-step-num">09.06</span>
+        <span class="rd-step-title">Почему индекс не используется</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproizvoditelnost%2Fn-plus-one.md">
+        <span class="rd-step-num">09.07</span>
+        <span class="rd-step-title">N+1 запросов</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproizvoditelnost%2Fmaterializovannye-predstavleniya.md">
+        <span class="rd-step-num">09.08</span>
+        <span class="rd-step-title">Материализованные представления</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproizvoditelnost%2Fpraktika-proizvoditelnost.md">
+        <span class="rd-step-num">09.09</span>
+        <span class="rd-step-title">Практика: ускоряем отчёт</span>
+        <span class="rd-step-badges"><span class="rd-badge">Практика</span></span>
+      </a>
+    </li><li class="rd-step is-summary">
+      <a href="../theme.html?path=content%2Fsql%2Fproizvoditelnost%2Fproizvoditelnost.md">
+        <span class="rd-step-num">09.10</span>
+        <span class="rd-step-title">Индексы и производительность</span>
+        <span class="rd-step-badges"><span class="rd-badge rd-badge--summary">Итог</span></span>
+      </a>
+    </li></ol>
+    </div>
+  </section>
+<section class="rd-chapter" id="group-obekty-i-bezopasnost">
+    <div class="rd-node">10</div>
+    <div class="rd-card">
+      <header class="rd-card-head">
+        <div>
+          <div class="rd-card-kicker">Глава 10 · 10 тем</div>
+          <h3>Объекты БД и безопасность</h3>
+        </div>
+        <div class="rd-card-progress" title="Пройдено 0 из 10">
+          <span>0 / 10</span>
+          <i><b style="width:0%"></b></i>
+        </div>
+      </header>
+      <ol class="rd-steps"><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fobekty-i-bezopasnost%2Ffunkcii-i-procedury.md">
+        <span class="rd-step-num">10.01</span>
+        <span class="rd-step-title">Функции и процедуры</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fobekty-i-bezopasnost%2Fplpgsql-minimum.md">
+        <span class="rd-step-num">10.02</span>
+        <span class="rd-step-title">PL/pgSQL минимум</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fobekty-i-bezopasnost%2Ftriggery.md">
+        <span class="rd-step-num">10.03</span>
+        <span class="rd-step-title">Триггеры</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fobekty-i-bezopasnost%2Foshibki-i-raise.md">
+        <span class="rd-step-num">10.04</span>
+        <span class="rd-step-title">Ошибки и RAISE</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fobekty-i-bezopasnost%2Fjsonb.md">
+        <span class="rd-step-num">10.05</span>
+        <span class="rd-step-title">JSONB</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fobekty-i-bezopasnost%2Fpolnotekstovyy-poisk.md">
+        <span class="rd-step-num">10.06</span>
+        <span class="rd-step-title">Полнотекстовый поиск</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fobekty-i-bezopasnost%2Froli-i-prava.md">
+        <span class="rd-step-num">10.07</span>
+        <span class="rd-step-title">Роли и права</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fobekty-i-bezopasnost%2Fsql-inekcii.md">
+        <span class="rd-step-num">10.08</span>
+        <span class="rd-step-title">SQL-инъекции</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fobekty-i-bezopasnost%2Fpraktika-audit.md">
+        <span class="rd-step-num">10.09</span>
+        <span class="rd-step-title">Практика: аудит цен</span>
+        <span class="rd-step-badges"><span class="rd-badge">Практика</span></span>
+      </a>
+    </li><li class="rd-step is-summary">
+      <a href="../theme.html?path=content%2Fsql%2Fobekty-i-bezopasnost%2Fobekty-i-bezopasnost.md">
+        <span class="rd-step-num">10.10</span>
+        <span class="rd-step-title">Объекты БД и безопасность</span>
+        <span class="rd-step-badges"><span class="rd-badge rd-badge--summary">Итог</span></span>
+      </a>
+    </li></ol>
+    </div>
+  </section>
+<section class="rd-chapter" id="group-proektirovanie">
+    <div class="rd-node">11</div>
+    <div class="rd-card">
+      <header class="rd-card-head">
+        <div>
+          <div class="rd-card-kicker">Глава 11 · 9 тем</div>
+          <h3>Проектирование схемы</h3>
+        </div>
+        <div class="rd-card-progress" title="Пройдено 0 из 9">
+          <span>0 / 9</span>
+          <i><b style="width:0%"></b></i>
+        </div>
+      </header>
+      <ol class="rd-steps"><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproektirovanie%2Fot-trebovaniy-k-suschnostyam.md">
+        <span class="rd-step-num">11.01</span>
+        <span class="rd-step-title">От требований к сущностям</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproektirovanie%2Fer-diagramma.md">
+        <span class="rd-step-num">11.02</span>
+        <span class="rd-step-title">ER-диаграмма</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproektirovanie%2F1nf.md">
+        <span class="rd-step-num">11.03</span>
+        <span class="rd-step-title">1НФ</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproektirovanie%2F2nf.md">
+        <span class="rd-step-num">11.04</span>
+        <span class="rd-step-title">2НФ</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproektirovanie%2F3nf.md">
+        <span class="rd-step-num">11.05</span>
+        <span class="rd-step-title">3НФ</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproektirovanie%2Fkogda-denormalizovat.md">
+        <span class="rd-step-num">11.06</span>
+        <span class="rd-step-title">Когда денормализовать</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproektirovanie%2Fimenovanie-i-audit-poly.md">
+        <span class="rd-step-num">11.07</span>
+        <span class="rd-step-title">Именование, типы, audit-поля</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fproektirovanie%2Fpraktika-proektirovanie.md">
+        <span class="rd-step-num">11.08</span>
+        <span class="rd-step-title">Практика: схема доставки</span>
+        <span class="rd-step-badges"><span class="rd-badge">Практика</span></span>
+      </a>
+    </li><li class="rd-step is-summary">
+      <a href="../theme.html?path=content%2Fsql%2Fproektirovanie%2Fproektirovanie.md">
+        <span class="rd-step-num">11.09</span>
+        <span class="rd-step-title">Проектирование схемы</span>
+        <span class="rd-step-badges"><span class="rd-badge rd-badge--summary">Итог</span></span>
+      </a>
+    </li></ol>
+    </div>
+  </section>
+<section class="rd-chapter" id="group-praktikum">
+    <div class="rd-node">12</div>
+    <div class="rd-card">
+      <header class="rd-card-head">
+        <div>
+          <div class="rd-card-kicker">Глава 12 · 9 тем</div>
+          <h3>Практикум: SQL в реальной задаче</h3>
+        </div>
+        <div class="rd-card-progress" title="Пройдено 0 из 9">
+          <span>0 / 9</span>
+          <i><b style="width:0%"></b></i>
+        </div>
+      </header>
+      <ol class="rd-steps"><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fpraktikum%2Fscenariy-i-trebovaniya.md">
+        <span class="rd-step-num">12.01</span>
+        <span class="rd-step-title">Сценарий и требования</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fpraktikum%2Fshema-i-dannye.md">
+        <span class="rd-step-num">12.02</span>
+        <span class="rd-step-title">Схема и данные</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fpraktikum%2Fkatalog.md">
+        <span class="rd-step-num">12.03</span>
+        <span class="rd-step-title">Каталог: фильтры, сортировка, пагинация</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fpraktikum%2Fzakazy.md">
+        <span class="rd-step-num">12.04</span>
+        <span class="rd-step-title">Заказы: корзина и оформление</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fpraktikum%2Fotchety.md">
+        <span class="rd-step-num">12.05</span>
+        <span class="rd-step-title">Отчёты: выручка, топ, средний чек</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fpraktikum%2Fanalitika.md">
+        <span class="rd-step-num">12.06</span>
+        <span class="rd-step-title">Аналитика: повторные покупки</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fpraktikum%2Foptimizaciya.md">
+        <span class="rd-step-num">12.07</span>
+        <span class="rd-step-title">Оптимизация: EXPLAIN и индексы</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step">
+      <a href="../theme.html?path=content%2Fsql%2Fpraktikum%2Fchek-list-prodakshena.md">
+        <span class="rd-step-num">12.08</span>
+        <span class="rd-step-title">Чек-лист продакшена</span>
+        <span class="rd-step-badges"></span>
+      </a>
+    </li><li class="rd-step is-summary">
+      <a href="../theme.html?path=content%2Fsql%2Fpraktikum%2Fpraktikum.md">
+        <span class="rd-step-num">12.09</span>
+        <span class="rd-step-title">Практикум: SQL в реальной задаче</span>
+        <span class="rd-step-badges"><span class="rd-badge rd-badge--summary">Итог</span></span>
+      </a>
+    </li></ol>
+    </div>
+  </section>
+        <div class="rd-finish">
+          <div class="rd-finish-node">⚑</div>
+          <div class="rd-finish-card">
+            <h3>Финиш маршрута</h3>
+            <p>Практикум собрал всё вместе: схема, каталог, заказы, отчёты и оптимизация. Дальше — свои проекты и реальные данные.</p>
+            <a href="#group-praktikum">Перейти к практике →</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
