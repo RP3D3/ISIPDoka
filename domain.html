@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="./favicon.png">
   <link rel="apple-touch-icon" href="./favicon.png">
-<link rel="stylesheet" href="./css/style.css?v=20261113-4">
+<link rel="stylesheet" href="./css/style.css?v=20261115-1">
   <link rel="stylesheet" href="./css/admin.css?v=20261109-15">
   <style>:root { --domain-accent: #614fa8; }</style>
 </head>
@@ -42,11 +42,12 @@
     </div>
   </div>
 
-  <script src="./js/search.js?v=20261109-3"></script>
+  <script src="./js/search.js?v=20261114-1"></script>
   <script src="./js/progress.js?v=20261109-1"></script>
   <script src="./js/admin.js?v=20261113-1"></script>
   <script src="./js/admin-stats.js?v=20261109-7"></script>
   <script src="./js/mascot.js?v=20261109-7"></script>
+  <script src="./js/perf.js?v=20261114-2"></script>
   <script>
     (function () {
       function escapeHtml(value) {
@@ -147,6 +148,7 @@
                         <summary class="doka-actions-toggle" aria-haspopup="menu"
                           title="Действия с темой"
                           aria-label="Действия с темой «${escapeHtml(t.title)}»">›</summary>
+                        <template class="doka-actions-template">
                         <div class="doka-actions-menu" role="menu">
                           ${orderControlHtml({
                             kind: 'topic',
@@ -161,6 +163,7 @@
                           <button type="button" class="doka-actions-item" data-action="move">Переместить</button>
                           <button type="button" class="doka-actions-item doka-actions-item--danger" data-action="delete">Удалить</button>
                         </div>
+                        </template>
                       </details>`
                     : '';
                   return `<div class="topic-row">
@@ -184,6 +187,7 @@
                       <summary class="doka-actions-toggle" aria-haspopup="menu"
                         title="Действия с группой"
                         aria-label="Действия с группой «${escapeHtml(group.name)}»">›</summary>
+                      <template class="doka-actions-template">
                       <div class="doka-actions-menu" role="menu">
                         ${orderControlHtml({
                           kind: 'group',
@@ -195,6 +199,7 @@
                         ${allowRename ? '<button type="button" class="doka-actions-item" data-action="rename">Переименовать</button>' : ''}
                         <button type="button" class="doka-actions-item doka-actions-item--danger" data-action="delete">Удалить</button>
                       </div>
+                      </template>
                     </details>
                   </span>`
                 : '';
@@ -244,6 +249,53 @@
           }
 
           applyReadStates();
+
+          // Меню действий собираем лениво, при первом открытии: в области «csharp»
+          // 99 тем, и если положить 99 <input type=number> прямо в разметку, то
+          // Edge на каждое нажатие клавиши в любом поле пересканирует все поля
+          // страницы (это его автозаполнение), а с многоколоночной раскладкой
+          // (.topics-columns) такое сканирование стоит ~400 мс на символ —
+          // отсюда и фриз при наборе в поиске. Шаблон лежит в <template> и в
+          // документе не виден, поэтому ничего не тормозит.
+          function buildActionsMenu(node) {
+            const details = node && node.closest
+              ? node.closest('details.doka-actions')
+              : null;
+            if (!details) return;
+            if (details.querySelector('.doka-actions-menu')) return;
+            const template = details.querySelector('template.doka-actions-template');
+            if (!template) return;
+            const fragment = template.content.cloneNode(true);
+            // В локальном режиме кнопок переименования быть не должно: раньше
+            // их вырезал bindDomainPage по живой разметке, но ленивое меню
+            // появляется позже — чистим шаблон сами.
+            if (domain.localOnly) {
+              fragment
+                .querySelectorAll('.doka-actions-item[data-action="rename"]')
+                .forEach((button) => button.remove());
+            }
+            details.appendChild(fragment);
+          }
+
+          container.addEventListener('click', (event) =>
+            buildActionsMenu(event.target)
+          );
+          container.addEventListener('focusin', (event) =>
+            buildActionsMenu(event.target)
+          );
+          // Собранное меню держим в документе только пока оно открыто:
+          // иначе 99 открытых за сессию полей снова начнут тормозить ввод.
+          container.addEventListener(
+            'toggle',
+            (event) => {
+              const details = event.target;
+              if (!details.matches || !details.matches('details.doka-actions')) return;
+              if (details.open) return;
+              const menu = details.querySelector('.doka-actions-menu');
+              if (menu) menu.remove();
+            },
+            true
+          );
 
           if (window.DokaProgress) {
             window.addEventListener(

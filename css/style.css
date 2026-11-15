@@ -405,8 +405,11 @@ a {
 .search-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(4px);
+  /* Сплошное затемнение вместо backdrop-filter: blur(4px). Размытие фона
+     на весь экран заставляло браузер перерисовывать область размером с
+     вьюпорт на каждый символ запроса: на 2K-мониторе это заметно фризило
+     набор, а в маленьком окне — почти нет. */
+  background: rgba(0, 0, 0, 0.78);
   z-index: 200;
   display: none; /* открывается классом .active */
   align-items: flex-start;
@@ -1227,6 +1230,21 @@ b {
 /* --- 8.4. Блоки кода ---
    Разметка: <pre><code class="language-csharp">...</code></pre>.
    Цвета токенов задаёт atom-one-dark.min.css, фон и отступы — здесь. */
+
+/* JetBrains Mono по умолчанию склеивает =>, !=, >=, /= в один значок.
+   Шрифт оставляем, но лигатуры выключаем: иначе новичку кажется, что
+   на клавиатуре есть символ, которого там нет. "calt" отключаем отдельно —
+   в JetBrains Mono кодовые лигатуры лежат в том числе в нём. */
+pre,
+code,
+kbd,
+samp,
+.article-content pre,
+.article-content code {
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0, "dlig" 0, "calt" 0;
+}
+
 .article-content pre {
   background-color: #121316;
   border: 1px solid var(--border-color);

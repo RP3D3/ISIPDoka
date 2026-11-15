@@ -1,8 +1,9 @@
 /* Гибридный поиск: мгновенный лексический (MiniSearch, fuzzy+prefix) +
- * семантический векторный слой (transformers.js + rubert-tiny2). Веса
- * модели загружаются лениво — при первом открытии окна поиска. Вся база
- * заранее векторизована (data/embeddings.json), в браузере вектора
- * считаются только для запроса.
+ * семантический векторный слой (transformers.js + rubert-tiny2). Если модель
+ * уже скачана, она греется в простое после загрузки страницы; иначе веса
+ * подгружаются лениво при первом открытии окна поиска. Вся база заранее
+ * векторизована (data/embeddings.json), в браузере вектора считаются только
+ * для запроса.
  */
 (() => {
   'use strict';
@@ -77,6 +78,7 @@
   let debounceTimer = null;
   let aiStatusEl = null;
   let currentQuery = '';       // последний запрос, для защиты от гонки ответов
+  let semanticWarmupScheduled = false; // прогрев ИИ-слоя уже запланирован
 
   const statusEl = () => aiStatusEl;
 
@@ -172,6 +174,10 @@
   // Собственный кэш: подключаем его к transformers.js через env.customCache,
   // чтобы не зависеть от внутреннего имени кэша библиотеки.
   const MODEL_CACHE_NAME = 'rubert-local-cache-v1';
+
+  /** Если пользователь печатает в поиске — откладываем прогрев на этот
+   *  интервал, чтобы не отбирать главный поток в момент набора. */
+  const WARMUP_RETRY_MS = 1500;
 
   function formatMb(bytes) {
     return (bytes / (1024 * 1024)).toFixed(1).replace('.', ',');
@@ -400,6 +406,62 @@
     aiStatusEl.classList.toggle('error', state === 'error');
     aiStatusEl.querySelector('.search-ai-status-text').textContent = text;
     aiStatusEl.classList.add('visible');
+  }
+
+  /** Лежит ли уже собранная модель в Cache API (без обращения к сети). */
+  async function isModelCached() {
+    if (typeof caches === 'undefined') return false;
+    try {
+      const cache = await caches.open(MODEL_CACHE_NAME);
+      return Boolean(await cache.match(modelUrl));
+    } catch (err) {
+      return false;
+    }
+  }
+
+  /** Пользователь прямо сейчас набирает запрос — прогреву лучше подождать. */
+  function isTypingInSearch() {
+    const input = document.getElementById('searchInput');
+    return Boolean(
+      input && document.activeElement === input && input.value.trim()
+    );
+  }
+
+  /**
+   * Греет ИИ-слой в простое после загрузки страницы. Создание ONNX-сессии —
+   * одна непрерывная задача на главном потоке (замерено ~270 мс). Раньше она
+   * запускалась при открытии окна поиска, то есть ровно тогда, когда
+   * пользователь начинает печатать, и ввод «фризил». Теперь сессия создаётся
+   * заранее, пока страница простаивает.
+   */
+  function scheduleSemanticWarmup() {
+    if (extractorPromise || semanticWarmupScheduled) return;
+    // Экономим трафик там, где его просят экономить.
+    if (navigator.connection && navigator.connection.saveData) return;
+
+    semanticWarmupScheduled = true;
+
+    const run = async () => {
+      semanticWarmupScheduled = false;
+      if (extractorPromise) return;
+
+      // Не тянем 111 МБ в фоне: греем только уже установленную модель.
+      // Первый визит по-прежнему инициализирует ИИ по открытию поиска.
+      if (!(await isModelCached())) return;
+
+      if (isTypingInSearch()) {
+        setTimeout(scheduleSemanticWarmup, WARMUP_RETRY_MS);
+        return;
+      }
+
+      extractorPromise = initSemantic();
+    };
+
+    if (typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(run, { timeout: 2500 });
+    } else {
+      setTimeout(run, 200);
+    }
   }
 
   async function initSemantic() {
@@ -766,6 +828,8 @@
       console.error('[search] Ошибка инициализации лексического индекса:', err);
       renderResults([]);
     }
+    // ИИ-слой греем в простое, чтобы ONNX-сессия создавалась не во время набора
+    scheduleSemanticWarmup();
   }
 
   // page.js подключает search.js динамически уже после DOMContentLoaded,

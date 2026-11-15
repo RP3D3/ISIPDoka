@@ -722,7 +722,7 @@
   }
 
   async function loadRuntime() {
-    const assetVersion = '?v=20261108-1';
+    const assetVersion = '?v=20261114-1';
     const searchSrc = new URL('search.js' + assetVersion, jsDir).href;
     const highlightSrc = new URL('highlight.min.js' + assetVersion, jsDir).href;
     const progressSrc = new URL('progress.js' + assetVersion, jsDir).href;

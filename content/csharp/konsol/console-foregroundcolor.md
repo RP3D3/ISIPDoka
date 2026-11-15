@@ -8,13 +8,13 @@ keywords: Console.ForegroundColor, System.Console, ConsoleColor, Console.ResetCo
 
 `Console.ForegroundColor` — это статическое свойство класса `System.Console`, которое задаёт цвет текста (символов), выводимого в консоль. Значение выбирается из встроенного перечисления `ConsoleColor`.
 
-### Особенности работы
+## Особенности работы
 
 * **Действует на весь последующий вывод:** после изменения свойства весь текст печатается новым цветом до тех пор, пока цвет не сменят снова или не вызовут `Console.ResetColor()`.
 * **Не меняет уже выведенный текст:** перекрашиваются только те символы, которые появятся в консоли после присваивания цвета.
 * **Доступно чтение и запись:** исходный цвет можно сохранить в переменную типа `ConsoleColor`, временно поменять его для важного сообщения, а затем вернуть обратно.
 
-### Доступные цвета (ConsoleColor)
+## Доступные цвета (ConsoleColor)
 
 Перечисление содержит 16 стандартных цветов:
 
@@ -22,7 +22,7 @@ keywords: Console.ForegroundColor, System.Console, ConsoleColor, Console.ResetCo
 * **Яркие:** `Red`, `Green`, `Blue`, `Yellow`, `Cyan`, `Magenta`
 * **Тёмные:** `DarkRed`, `DarkGreen`, `DarkBlue`, `DarkYellow`, `DarkCyan`, `DarkMagenta`
 
-### Пример кода
+## Пример кода
 
 ```csharp
 using System;

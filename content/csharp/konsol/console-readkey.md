@@ -8,7 +8,7 @@ keywords: Console.ReadKey, System.Console, ConsoleKeyInfo, ConsoleKey, KeyChar, 
 
 `Console.ReadKey()` — это статический метод класса `System.Console`, который считывает **одно нажатие клавиши** сразу в момент нажатия, не дожидаясь клавиши **Enter**.
 
-### Основные возможности и перегрузки
+## Основные возможности и перегрузки
 
 * **Пауза в конце программы:** позволяет удержать окно консоли открытым до нажатия любой клавиши.
 * **Быстрое управление и меню:** обработка стрелок, клавиши `Escape` или ответов `Y/N` без необходимости нажимать Enter.
@@ -18,7 +18,7 @@ keywords: Console.ReadKey, System.Console, ConsoleKeyInfo, ConsoleKey, KeyChar, 
 
 
 
-### Что возвращает метод (ConsoleKeyInfo)
+## Что возвращает метод (ConsoleKeyInfo)
 
 Метод возвращает объект `ConsoleKeyInfo`, через свойства которого можно узнать детали нажатия:
 
@@ -26,7 +26,7 @@ keywords: Console.ReadKey, System.Console, ConsoleKeyInfo, ConsoleKey, KeyChar, 
 * `KeyChar` — конкретный символ (`char`), который получился при нажатии (учитывает регистр и текущую раскладку, например `'ф'` или `'A'`).
 * `Modifiers` — зажатые клавиши-модификаторы (`Shift`, `Alt`, `Control`).
 
-### Пример кода
+## Пример кода
 
 ```csharp
 using System;
