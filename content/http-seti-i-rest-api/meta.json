@@ -1,4 +1,5 @@
 {
   "title": "HTTP, сети и REST API",
-  "accent": "#00d2d3"
+  "accent": "#00d2d3",
+  "description": "Как устроены сети и HTTP, как проектировать, защищать и тестировать REST API."
 }

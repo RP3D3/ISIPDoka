@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 480" role="img" aria-labelledby="title desc">
+  <title id="title">Путь запроса в сети</title>
+  <desc id="desc">Схема показывает путь от клиента через DNS и TCP к серверу и обратно.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#00b8b9"/>
+    </marker>
+  </defs>
+  <rect width="920" height="480" fill="#f5fbfb"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#14343a">Что происходит после ввода адреса</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#14343a">
+    <rect x="20" y="110" width="150" height="105" rx="12" fill="#e6fbfb" stroke="#00b8b9" stroke-width="2"/>
+    <text x="95" y="145" text-anchor="middle" font-weight="700">Клиент</text>
+    <text x="95" y="170" text-anchor="middle" font-size="12">браузер или</text>
+    <text x="95" y="192" text-anchor="middle" font-size="12">мобильное приложение</text>
+
+    <rect x="200" y="110" width="150" height="105" rx="12" fill="#fff7d6" stroke="#eab308" stroke-width="2"/>
+    <text x="275" y="145" text-anchor="middle" font-weight="700">DNS</text>
+    <text x="275" y="170" text-anchor="middle" font-size="12">домен → IP</text>
+    <text x="275" y="192" text-anchor="middle" font-size="12">A, AAAA, CNAME</text>
+
+    <rect x="380" y="110" width="160" height="105" rx="12" fill="#e9f8ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="460" y="145" text-anchor="middle" font-weight="700">TCP и TLS</text>
+    <text x="460" y="170" text-anchor="middle" font-size="12">порт 443</text>
+    <text x="460" y="192" text-anchor="middle" font-size="12">соединение и шифрование</text>
+
+    <rect x="570" y="110" width="160" height="105" rx="12" fill="#e6f0ff" stroke="#3b82f6" stroke-width="2"/>
+    <text x="650" y="145" text-anchor="middle" font-weight="700">HTTP</text>
+    <text x="650" y="170" text-anchor="middle" font-size="12">запрос: метод,</text>
+    <text x="650" y="192" text-anchor="middle" font-size="12">путь, заголовки</text>
+
+    <rect x="760" y="110" width="140" height="105" rx="12" fill="#ffe8e8" stroke="#ef4444" stroke-width="2"/>
+    <text x="830" y="145" text-anchor="middle" font-weight="700">Сервер</text>
+    <text x="830" y="170" text-anchor="middle" font-size="12">API и база</text>
+    <text x="830" y="192" text-anchor="middle" font-size="12">ответ</text>
+
+    <line x1="170" y1="162" x2="190" y2="162" stroke="#00b8b9" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="350" y1="162" x2="370" y2="162" stroke="#00b8b9" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="540" y1="162" x2="560" y2="162" stroke="#00b8b9" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="730" y1="162" x2="750" y2="162" stroke="#00b8b9" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="90" y="280" width="740" height="140" rx="12" fill="#ffffff" stroke="#00b8b9" stroke-width="2"/>
+    <text x="460" y="312" text-anchor="middle" font-weight="700">Что важно помнить</text>
+    <text x="120" y="344" font-size="13">• домен — это имя, а не адрес сервера;</text>
+    <text x="120" y="368" font-size="13">• IP и порт определяют точку назначения;</text>
+    <text x="120" y="392" font-size="13">• HTTPS добавляет TLS поверх TCP;</text>
+    <text x="520" y="344" font-size="13">• HTTP не хранит состояние сам по себе;</text>
+    <text x="520" y="368" font-size="13">• ответ проходит тот же путь обратно;</text>
+    <text x="520" y="392" font-size="13">• кэш и прокси могут влиять на ответ.</text>
+  </g>
+</svg>

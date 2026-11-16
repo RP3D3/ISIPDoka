@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" role="img" aria-labelledby="title desc">
+  <title id="title">Структура HTTP-запроса и ответа</title>
+  <desc id="desc">Схема показывает стартовую строку, заголовки и тело запроса и ответа.</desc>
+  <rect width="920" height="500" fill="#f5fbfb"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#14343a">Из чего состоит HTTP-сообщение</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#14343a">
+    <rect x="40" y="90" width="400" height="320" rx="14" fill="#ffffff" stroke="#00b8b9" stroke-width="2"/>
+    <text x="240" y="122" text-anchor="middle" font-weight="700" font-size="16">Запрос</text>
+
+    <rect x="70" y="145" width="340" height="55" rx="8" fill="#e6fbfb" stroke="#00b8b9"/>
+    <text x="240" y="168" text-anchor="middle" font-weight="700">Стартовая строка</text>
+    <text x="240" y="188" text-anchor="middle" font-size="12">GET /api/tasks HTTP/1.1</text>
+
+    <rect x="70" y="215" width="340" height="80" rx="8" fill="#fff7d6" stroke="#eab308"/>
+    <text x="240" y="238" text-anchor="middle" font-weight="700">Заголовки</text>
+    <text x="240" y="258" text-anchor="middle" font-size="12">Host, Accept, Authorization</text>
+    <text x="240" y="278" text-anchor="middle" font-size="12">Content-Type, Cookie</text>
+
+    <rect x="70" y="310" width="340" height="75" rx="8" fill="#e9f8ee" stroke="#2f9e44"/>
+    <text x="240" y="333" text-anchor="middle" font-weight="700">Тело</text>
+    <text x="240" y="353" text-anchor="middle" font-size="12">JSON, форма или файл</text>
+    <text x="240" y="373" text-anchor="middle" font-size="12">у GET обычно пустое</text>
+
+    <rect x="480" y="90" width="400" height="320" rx="14" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+    <text x="680" y="122" text-anchor="middle" font-weight="700" font-size="16">Ответ</text>
+
+    <rect x="510" y="145" width="340" height="55" rx="8" fill="#e6f0ff" stroke="#3b82f6"/>
+    <text x="680" y="168" text-anchor="middle" font-weight="700">Статусная строка</text>
+    <text x="680" y="188" text-anchor="middle" font-size="12">HTTP/1.1 200 OK</text>
+
+    <rect x="510" y="215" width="340" height="80" rx="8" fill="#fff7d6" stroke="#eab308"/>
+    <text x="680" y="238" text-anchor="middle" font-weight="700">Заголовки</text>
+    <text x="680" y="258" text-anchor="middle" font-size="12">Content-Type, Cache-Control</text>
+    <text x="680" y="278" text-anchor="middle" font-size="12">Set-Cookie, ETag</text>
+
+    <rect x="510" y="310" width="340" height="75" rx="8" fill="#ffe8e8" stroke="#ef4444"/>
+    <text x="680" y="333" text-anchor="middle" font-weight="700">Тело</text>
+    <text x="680" y="353" text-anchor="middle" font-size="12">HTML, JSON или файл</text>
+    <text x="680" y="373" text-anchor="middle" font-size="12">может отсутствовать</text>
+
+    <text x="460" y="452" text-anchor="middle" font-size="13" fill="#365b61">Сначала читают статус и заголовки, потом тело.</text>
+  </g>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" role="img" aria-labelledby="title desc">
+  <title id="title">TLS handshake и HTTPS</title>
+  <desc id="desc">Схема показывает клиента, сервер, сертификат, обмен ключами и шифрованный HTTP.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#00b8b9"/>
+    </marker>
+  </defs>
+  <rect width="920" height="500" fill="#f5fbfb"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#14343a">Что делает HTTPS</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#14343a">
+    <rect x="90" y="95" width="200" height="70" rx="12" fill="#e6fbfb" stroke="#00b8b9" stroke-width="2"/>
+    <text x="190" y="125" text-anchor="middle" font-weight="700">Клиент</text>
+    <text x="190" y="148" text-anchor="middle" font-size="12">браузер</text>
+
+    <rect x="630" y="95" width="200" height="70" rx="12" fill="#ffe8e8" stroke="#ef4444" stroke-width="2"/>
+    <text x="730" y="125" text-anchor="middle" font-weight="700">Сервер</text>
+    <text x="730" y="148" text-anchor="middle" font-size="12">сертификат и ключ</text>
+
+    <line x1="290" y1="130" x2="620" y2="130" stroke="#00b8b9" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="455" y="122" text-anchor="middle" font-size="12">1. Client Hello</text>
+
+    <line x1="620" y1="175" x2="290" y2="175" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="455" y="167" text-anchor="middle" font-size="12">2. Server Hello + сертификат</text>
+
+    <line x1="290" y1="220" x2="620" y2="220" stroke="#00b8b9" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="455" y="212" text-anchor="middle" font-size="12">3. Проверка сертификата и ключи</text>
+
+    <rect x="210" y="280" width="500" height="95" rx="12" fill="#e9f8ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="460" y="312" text-anchor="middle" font-weight="700">Шифрованный канал</text>
+    <text x="460" y="338" text-anchor="middle" font-size="13">HTTP-запрос и ответ идут внутри TLS.</text>
+    <text x="460" y="360" text-anchor="middle" font-size="13">Провайдер и Wi-Fi не видят содержимое.</text>
+
+    <rect x="90" y="405" width="740" height="65" rx="10" fill="#ffffff" stroke="#00b8b9" stroke-width="2"/>
+    <text x="460" y="430" text-anchor="middle" font-weight="700">HTTPS = HTTP + TLS</text>
+    <text x="460" y="452" text-anchor="middle" font-size="12">Сертификат подтверждает домен, а ключи защищают обмен.</text>
+  </g>
+</svg>
