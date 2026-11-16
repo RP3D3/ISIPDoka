@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" role="img" aria-labelledby="title desc">
+  <title id="title">Практика: Python-бэкенд</title>
+  <desc id="desc">Схема показывает требования, контракт, реализацию, проверку и итог.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3776ab"/>
+    </marker>
+  </defs>
+  <rect width="920" height="500" fill="#f5f8ff"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#1f2d4a">Практика: от требований к проверке</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#1f2d4a">
+    <rect x="25" y="110" width="160" height="100" rx="12" fill="#e8f0ff" stroke="#3776ab" stroke-width="2"/>
+    <text x="105" y="144" text-anchor="middle" font-weight="700">Требования</text>
+    <text x="105" y="168" text-anchor="middle" font-size="12">роли, данные</text>
+    <text x="105" y="190" text-anchor="middle" font-size="12">сценарии</text>
+
+    <rect x="210" y="110" width="160" height="100" rx="12" fill="#fff7d6" stroke="#eab308" stroke-width="2"/>
+    <text x="290" y="144" text-anchor="middle" font-weight="700">Контракт</text>
+    <text x="290" y="168" text-anchor="middle" font-size="12">пути, методы</text>
+    <text x="290" y="190" text-anchor="middle" font-size="12">статусы, ошибки</text>
+
+    <rect x="395" y="110" width="160" height="100" rx="12" fill="#e9f8ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="475" y="144" text-anchor="middle" font-weight="700">Реализация</text>
+    <text x="475" y="168" text-anchor="middle" font-size="12">FastAPI</text>
+    <text x="475" y="190" text-anchor="middle" font-size="12">SQLAlchemy</text>
+
+    <rect x="580" y="110" width="160" height="100" rx="12" fill="#ffe8e8" stroke="#ef4444" stroke-width="2"/>
+    <text x="660" y="144" text-anchor="middle" font-weight="700">Проверка</text>
+    <text x="660" y="168" text-anchor="middle" font-size="12">pytest</text>
+    <text x="660" y="190" text-anchor="middle" font-size="12">curl, DevTools</text>
+
+    <rect x="765" y="110" width="125" height="100" rx="12" fill="#f3e8ff" stroke="#9c36b5" stroke-width="2"/>
+    <text x="827" y="144" text-anchor="middle" font-weight="700">Итог</text>
+    <text x="827" y="168" text-anchor="middle" font-size="12">README</text>
+    <text x="827" y="190" text-anchor="middle" font-size="12">ограничения</text>
+
+    <line x1="185" y1="160" x2="200" y2="160" stroke="#3776ab" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="370" y1="160" x2="385" y2="160" stroke="#3776ab" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="555" y1="160" x2="570" y2="160" stroke="#3776ab" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="740" y1="160" x2="755" y2="160" stroke="#3776ab" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="90" y="285" width="740" height="140" rx="12" fill="#ffffff" stroke="#3776ab" stroke-width="2"/>
+    <text x="460" y="317" text-anchor="middle" font-weight="700">Результат практики</text>
+    <text x="120" y="349" font-size="13">• работающий API;</text>
+    <text x="120" y="373" font-size="13">• миграции и схема;</text>
+    <text x="120" y="397" font-size="13">• auth и CORS;</text>
+    <text x="520" y="349" font-size="13">• тесты ключевых сценариев;</text>
+    <text x="520" y="373" font-size="13">• Docker и healthcheck;</text>
+    <text x="520" y="397" font-size="13">• README с запуском.</text>
+  </g>
+</svg>

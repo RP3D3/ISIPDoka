@@ -5386,8 +5386,633 @@
     "order": 75,
     "title": "Python",
     "accent": "#3776ab",
-    "description": "Python для бэкенда: основы, работа с данными, API и связка с фронтендом. Наполнение — позже.",
-    "groups": []
+    "description": "Python для бэкенда: основы языка, типы, базы данных, FastAPI, асинхронность, тесты и деплой.",
+    "groups": [
+      {
+        "id": "osnovy-python",
+        "order": 10,
+        "name": "Основы Python",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Зачем нужен Python",
+            "url": "content/python/osnovy-python/zachem-python.md",
+            "keywords": "Python бэкенд API FastAPI данные автоматизация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Первый скрипт и синтаксис",
+            "url": "content/python/osnovy-python/pervyy-skript-i-sintaksis.md",
+            "keywords": "Python первый скрипт print отступы main синтаксис",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Переменные и типы",
+            "url": "content/python/osnovy-python/peremennye-i-tipy.md",
+            "keywords": "Python переменные типы int float str bool None f-string",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Условия и циклы",
+            "url": "content/python/osnovy-python/usloviya-i-cikly.md",
+            "keywords": "Python условия циклы if for while range break",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Списки и кортежи",
+            "url": "content/python/osnovy-python/spiski-i-kortezhi.md",
+            "keywords": "Python списки кортежи list tuple срезы индексы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Словари и множества",
+            "url": "content/python/osnovy-python/slovari-i-mnozhestva.md",
+            "keywords": "Python словари множества dict set keys values",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Функции",
+            "url": "content/python/osnovy-python/funkcii.md",
+            "keywords": "Python функции def аргументы return scope type hints",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Ошибки и исключения",
+            "url": "content/python/osnovy-python/oshibki-i-isklyucheniya.md",
+            "keywords": "Python ошибки исключения try except raise logging",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Основы Python",
+            "url": "content/python/osnovy-python/osnovy-python.md",
+            "keywords": "основы Python итог типы циклы коллекции функции",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Практика: первый скрипт",
+            "url": "content/python/osnovy-python/praktika-pervyy-skript.md",
+            "keywords": "практика Python первый скрипт функции словари ошибки",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "kollekcii-funkcii-oop",
+        "order": 20,
+        "name": "Коллекции, функции и ООП",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Компрехеншены",
+            "url": "content/python/kollekcii-funkcii-oop/komprehensii.md",
+            "keywords": "Python компрехеншены list comprehension dict set генераторы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Итераторы и генераторы",
+            "url": "content/python/kollekcii-funkcii-oop/iteratory-i-generatory.md",
+            "keywords": "Python итераторы генераторы yield iter next lazy",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Функции высшего порядка",
+            "url": "content/python/kollekcii-funkcii-oop/funkcii-vysshego-poryadka.md",
+            "keywords": "Python функции высшего порядка map filter lambda decorator",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Классы и объекты",
+            "url": "content/python/kollekcii-funkcii-oop/klassy-i-obekty.md",
+            "keywords": "Python классы объекты __init__ self методы property",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Наследование и композиция",
+            "url": "content/python/kollekcii-funkcii-oop/nasledovanie-i-kompoziciya.md",
+            "keywords": "Python наследование композиция super MRO ООП",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Dataclasses",
+            "url": "content/python/kollekcii-funkcii-oop/dataclasses.md",
+            "keywords": "Python dataclasses dataclass fields frozen default_factory",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Абстрактные классы и протоколы",
+            "url": "content/python/kollekcii-funkcii-oop/abstraktnye-klassy-i-protokoly.md",
+            "keywords": "Python ABC abstractmethod Protocol duck typing интерфейс",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Коллекции, функции и ООП",
+            "url": "content/python/kollekcii-funkcii-oop/kollekcii-funkcii-oop.md",
+            "keywords": "коллекции функции ООП итог dataclasses протоколы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: ООП",
+            "url": "content/python/kollekcii-funkcii-oop/praktika-oop.md",
+            "keywords": "практика ООП Python dataclass Protocol сервис",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "moduli-okruzhenie-tipy",
+        "order": 30,
+        "name": "Модули, окружение и типы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Модули и пакеты",
+            "url": "content/python/moduli-okruzhenie-tipy/moduli-i-pakety.md",
+            "keywords": "Python модули пакеты import __init__ циклический импорт",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "venv и pip",
+            "url": "content/python/moduli-okruzhenie-tipy/venv-i-pip.md",
+            "keywords": "Python venv pip зависимости requirements окружение",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "pyproject и Poetry",
+            "url": "content/python/moduli-okruzhenie-tipy/pyproject-i-poetry.md",
+            "keywords": "Python pyproject Poetry uv lock зависимости проект",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Type hints",
+            "url": "content/python/moduli-okruzhenie-tipy/type-hints.md",
+            "keywords": "Python type hints typing Optional Union mypy аннотации",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Logging",
+            "url": "content/python/moduli-okruzhenie-tipy/logging.md",
+            "keywords": "Python logging логи уровни handlers formatters",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Конфигурация и секреты",
+            "url": "content/python/moduli-okruzhenie-tipy/config-i-secrets.md",
+            "keywords": "Python конфигурация секреты env pydantic-settings .env",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Модули, окружение и типы",
+            "url": "content/python/moduli-okruzhenie-tipy/moduli-okruzhenie-tipy.md",
+            "keywords": "модули окружение типы итог venv pyproject logging",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: структура проекта",
+            "url": "content/python/moduli-okruzhenie-tipy/praktika-struktura-proekta.md",
+            "keywords": "практика структура проекта Python venv pyproject logging",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "bazy-dannyh-i-sqlalchemy",
+        "order": 40,
+        "name": "Базы данных и SQLAlchemy",
+        "topics": [
+          {
+            "order": 10,
+            "title": "SQL для Python",
+            "url": "content/python/bazy-dannyh-i-sqlalchemy/sql-dlya-python.md",
+            "keywords": "Python SQL SELECT INSERT UPDATE DELETE параметры ORM",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "sqlite3 и psycopg",
+            "url": "content/python/bazy-dannyh-i-sqlalchemy/sqlite3-i-psycopg.md",
+            "keywords": "Python sqlite3 psycopg DB-API cursor commit параметры",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "SQLAlchemy: основы",
+            "url": "content/python/bazy-dannyh-i-sqlalchemy/sqlalchemy-osnovy.md",
+            "keywords": "Python SQLAlchemy engine session ORM select",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Модели и таблицы",
+            "url": "content/python/bazy-dannyh-i-sqlalchemy/modeli-i-tablicy.md",
+            "keywords": "Python SQLAlchemy модели таблицы связи ForeignKey индекс",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "CRUD в SQLAlchemy",
+            "url": "content/python/bazy-dannyh-i-sqlalchemy/crud-v-sqlalchemy.md",
+            "keywords": "Python SQLAlchemy CRUD Session select commit delete",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Транзакции",
+            "url": "content/python/bazy-dannyh-i-sqlalchemy/tranzakcii.md",
+            "keywords": "Python SQLAlchemy транзакции commit rollback ACID",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Alembic: миграции",
+            "url": "content/python/bazy-dannyh-i-sqlalchemy/alembic-migracii.md",
+            "keywords": "Python Alembic миграции upgrade downgrade схема",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "N+1 и загрузка",
+            "url": "content/python/bazy-dannyh-i-sqlalchemy/n-plus-one-i-zagruzka.md",
+            "keywords": "Python SQLAlchemy N+1 selectinload joinedload eager loading",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Базы данных и SQLAlchemy",
+            "url": "content/python/bazy-dannyh-i-sqlalchemy/bazy-dannyh-i-sqlalchemy.md",
+            "keywords": "базы данных SQLAlchemy итог CRUD транзакции Alembic N+1",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Практика: CRUD на SQLAlchemy",
+            "url": "content/python/bazy-dannyh-i-sqlalchemy/praktika-crud-sqlalchemy.md",
+            "keywords": "практика SQLAlchemy CRUD Session SQLite транзакции",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "fastapi-i-kontrakt-api",
+        "order": 50,
+        "name": "FastAPI и контракт API",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Зачем FastAPI",
+            "url": "content/python/fastapi-i-kontrakt-api/zachem-fastapi.md",
+            "keywords": "Python FastAPI API Pydantic async OpenAPI uvicorn",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Первый эндпоинт",
+            "url": "content/python/fastapi-i-kontrakt-api/pervyy-endpoint.md",
+            "keywords": "Python FastAPI uvicorn endpoint docs OpenAPI",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Routing и параметры",
+            "url": "content/python/fastapi-i-kontrakt-api/routing-i-parametry.md",
+            "keywords": "Python FastAPI routing path query body APIRouter",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Pydantic-модели",
+            "url": "content/python/fastapi-i-kontrakt-api/pydantic-modeli.md",
+            "keywords": "Python FastAPI Pydantic BaseModel валидация response_model",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Статусы и ошибки",
+            "url": "content/python/fastapi-i-kontrakt-api/status-kody-i-oshibki.md",
+            "keywords": "Python FastAPI HTTPException статусы ошибки 404 422",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Depends и сервисы",
+            "url": "content/python/fastapi-i-kontrakt-api/depends-i-servisy.md",
+            "keywords": "Python FastAPI Depends dependency injection get_db сервис",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Async в FastAPI",
+            "url": "content/python/fastapi-i-kontrakt-api/async-v-fastapi.md",
+            "keywords": "Python FastAPI async await event loop blocking threadpool",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "OpenAPI и документация",
+            "url": "content/python/fastapi-i-kontrakt-api/openapi-i-dokumentaciya.md",
+            "keywords": "Python FastAPI OpenAPI docs Swagger теги response_model",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "FastAPI и контракт API",
+            "url": "content/python/fastapi-i-kontrakt-api/fastapi-i-kontrakt-api.md",
+            "keywords": "FastAPI итог Pydantic Depends async OpenAPI API",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Практика: API на FastAPI",
+            "url": "content/python/fastapi-i-kontrakt-api/praktika-api-fastapi.md",
+            "keywords": "практика FastAPI API Pydantic SQLAlchemy CRUD статусы",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "auth-cors-bezopasnost",
+        "order": 60,
+        "name": "Auth, CORS и безопасность",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Пароли и хеширование",
+            "url": "content/python/auth-cors-bezopasnost/paroli-i-heshirovanie.md",
+            "keywords": "Python пароли хеширование Argon2 bcrypt безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "JWT и токены",
+            "url": "content/python/auth-cors-bezopasnost/jwt-i-tokeny.md",
+            "keywords": "Python JWT токены access token refresh token подпись",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "OAuth2 и scopes",
+            "url": "content/python/auth-cors-bezopasnost/oauth2-i-scopes.md",
+            "keywords": "Python FastAPI OAuth2 scopes токен права безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Сессии и cookies",
+            "url": "content/python/auth-cors-bezopasnost/sessii-i-cookies.md",
+            "keywords": "Python сессии cookies HttpOnly Secure SameSite CSRF",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "CORS",
+            "url": "content/python/auth-cors-bezopasnost/cors.md",
+            "keywords": "Python FastAPI CORS preflight allow_origins credentials",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Rate limiting",
+            "url": "content/python/auth-cors-bezopasnost/rate-limiting.md",
+            "keywords": "Python rate limiting 429 Retry-After Redis лимиты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Auth, CORS и безопасность",
+            "url": "content/python/auth-cors-bezopasnost/auth-cors-bezopasnost.md",
+            "keywords": "auth CORS безопасность итог JWT cookies rate limiting",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: защитить API",
+            "url": "content/python/auth-cors-bezopasnost/praktika-zashchitit-api.md",
+            "keywords": "практика auth JWT FastAPI CORS безопасность rate limiting",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "async-testy-deploy",
+        "order": 70,
+        "name": "Асинхронность, тесты и деплой",
+        "topics": [
+          {
+            "order": 10,
+            "title": "async/await",
+            "url": "content/python/async-testy-deploy/async-await.md",
+            "keywords": "Python async await корутины event loop asyncio",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "asyncio и задачи",
+            "url": "content/python/async-testy-deploy/asyncio-i-zadachi.md",
+            "keywords": "Python asyncio create_task gather timeout TaskGroup отмена",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Фоновые задачи",
+            "url": "content/python/async-testy-deploy/background-tasks.md",
+            "keywords": "Python FastAPI BackgroundTasks фоновые задачи очередь",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Очереди и воркеры",
+            "url": "content/python/async-testy-deploy/ocheredi-i-workers.md",
+            "keywords": "Python очередь Celery RQ ARQ Redis воркеры retry",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "pytest",
+            "url": "content/python/async-testy-deploy/pytest.md",
+            "keywords": "Python pytest тесты fixtures parametrize coverage",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Тестовая база и фикстуры",
+            "url": "content/python/async-testy-deploy/testovaya-baza-i-fixtures.md",
+            "keywords": "Python pytest тестовая база fixtures rollback dependency override",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Моки и async-тесты",
+            "url": "content/python/async-testy-deploy/moki-i-async-testy.md",
+            "keywords": "Python pytest mock AsyncMock monkeypatch httpx async tests",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Docker и uvicorn",
+            "url": "content/python/async-testy-deploy/docker-i-uvicorn.md",
+            "keywords": "Python Docker uvicorn Dockerfile healthcheck деплой",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Логи и healthcheck",
+            "url": "content/python/async-testy-deploy/logi-i-healthcheck.md",
+            "keywords": "Python логи healthcheck liveness readiness metrics request id",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Асинхронность, тесты и деплой",
+            "url": "content/python/async-testy-deploy/async-testy-deploy.md",
+            "keywords": "async тесты деплой итог pytest Docker healthcheck",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 110,
+            "title": "Практика: тесты и деплой",
+            "url": "content/python/async-testy-deploy/praktika-testirovanie-i-deploy.md",
+            "keywords": "практика pytest Docker деплой healthcheck миграции",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "praktika-python-backend",
+        "order": 80,
+        "name": "Практика: Python-бэкенд",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Требования и сценарии",
+            "url": "content/python/praktika-python-backend/trebovaniya-i-scenarii.md",
+            "keywords": "практика требования сценарии user story критерии приёмки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Контракт и эндпоинты",
+            "url": "content/python/praktika-python-backend/kontrakt-i-endpointy.md",
+            "keywords": "практика контракт REST эндпоинты статусы пагинация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Реализация и проверка",
+            "url": "content/python/praktika-python-backend/realizaciya-i-proverka.md",
+            "keywords": "практика реализация FastAPI SQLAlchemy тесты curl проверка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Практика: Python-бэкенд",
+            "url": "content/python/praktika-python-backend/praktika-python-backend.md",
+            "keywords": "Python бэкенд практика итог FastAPI SQLAlchemy Docker",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Практика: Python-бэкенд по задаче",
+            "url": "content/python/praktika-python-backend/praktika-python-backend-po-zadache.md",
+            "keywords": "практика Python FastAPI SQLAlchemy auth Docker задание",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      }
+    ]
   },
   "unity": {
     "order": 80,

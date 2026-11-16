@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" role="img" aria-labelledby="title desc">
+  <title id="title">Поток запроса в FastAPI</title>
+  <desc id="desc">Схема показывает путь от HTTP-запроса через router и Pydantic к сервису и ответу.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3776ab"/>
+    </marker>
+  </defs>
+  <rect width="920" height="500" fill="#f5f8ff"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#1f2d4a">Как FastAPI обрабатывает запрос</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#1f2d4a">
+    <rect x="25" y="110" width="160" height="100" rx="12" fill="#e8f0ff" stroke="#3776ab" stroke-width="2"/>
+    <text x="105" y="144" text-anchor="middle" font-weight="700">Запрос</text>
+    <text x="105" y="168" text-anchor="middle" font-size="12">метод, путь</text>
+    <text x="105" y="190" text-anchor="middle" font-size="12">JSON, headers</text>
+
+    <rect x="215" y="110" width="160" height="100" rx="12" fill="#fff7d6" stroke="#eab308" stroke-width="2"/>
+    <text x="295" y="144" text-anchor="middle" font-weight="700">Router</text>
+    <text x="295" y="168" text-anchor="middle" font-size="12">маршрут</text>
+    <text x="295" y="190" text-anchor="middle" font-size="12">зависимости</text>
+
+    <rect x="405" y="110" width="160" height="100" rx="12" fill="#e9f8ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="485" y="144" text-anchor="middle" font-weight="700">Pydantic</text>
+    <text x="485" y="168" text-anchor="middle" font-size="12">валидация</text>
+    <text x="485" y="190" text-anchor="middle" font-size="12">схемы</text>
+
+    <rect x="595" y="110" width="140" height="100" rx="12" fill="#ffe8e8" stroke="#ef4444" stroke-width="2"/>
+    <text x="665" y="144" text-anchor="middle" font-weight="700">Сервис</text>
+    <text x="665" y="168" text-anchor="middle" font-size="12">логика</text>
+    <text x="665" y="190" text-anchor="middle" font-size="12">БД</text>
+
+    <rect x="765" y="110" width="125" height="100" rx="12" fill="#f3e8ff" stroke="#9c36b5" stroke-width="2"/>
+    <text x="827" y="144" text-anchor="middle" font-weight="700">Ответ</text>
+    <text x="827" y="168" text-anchor="middle" font-size="12">JSON</text>
+    <text x="827" y="190" text-anchor="middle" font-size="12">статус</text>
+
+    <line x1="185" y1="160" x2="205" y2="160" stroke="#3776ab" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="375" y1="160" x2="395" y2="160" stroke="#3776ab" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="565" y1="160" x2="585" y2="160" stroke="#3776ab" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="735" y1="160" x2="755" y2="160" stroke="#3776ab" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="90" y="285" width="740" height="140" rx="12" fill="#ffffff" stroke="#3776ab" stroke-width="2"/>
+    <text x="460" y="317" text-anchor="middle" font-weight="700">Что не забыть</text>
+    <text x="120" y="349" font-size="13">• Pydantic проверяет вход и выход;</text>
+    <text x="120" y="373" font-size="13">• Depends собирает зависимости;</text>
+    <text x="120" y="397" font-size="13">• HTTPException даёт статус;</text>
+    <text x="520" y="349" font-size="13">• async не делает блокирующий код быстрым;</text>
+    <text x="520" y="373" font-size="13">• OpenAPI строится по схемам;</text>
+    <text x="520" y="397" font-size="13">• сервис не должен знать про HTTP.</text>
+  </g>
+</svg>
