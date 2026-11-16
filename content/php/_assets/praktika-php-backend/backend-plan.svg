@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 480" role="img" aria-labelledby="title desc">
+  <title id="title">План PHP-бэкенда</title>
+  <desc id="desc">Схема показывает путь от требований к API, базе данных, фронтенду и проверке.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#818cf8"/>
+    </marker>
+  </defs>
+  <rect width="920" height="480" fill="#f7f7ff"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#25234a">Практика: собрать PHP-бэкенд</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#25234a">
+    <rect x="25" y="110" width="160" height="100" rx="12" fill="#eef0ff" stroke="#818cf8" stroke-width="2"/>
+    <text x="105" y="145" text-anchor="middle" font-weight="700">План</text>
+    <text x="105" y="170" text-anchor="middle" font-size="12">сущности,</text>
+    <text x="105" y="192" text-anchor="middle" font-size="12">роли, сценарии</text>
+
+    <rect x="210" y="110" width="160" height="100" rx="12" fill="#fff4cc" stroke="#eab308" stroke-width="2"/>
+    <text x="290" y="145" text-anchor="middle" font-weight="700">API</text>
+    <text x="290" y="170" text-anchor="middle" font-size="12">маршруты,</text>
+    <text x="290" y="192" text-anchor="middle" font-size="12">JSON, ошибки</text>
+
+    <rect x="395" y="110" width="160" height="100" rx="12" fill="#e8f7ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="475" y="145" text-anchor="middle" font-weight="700">База</text>
+    <text x="475" y="170" text-anchor="middle" font-size="12">таблицы, PDO,</text>
+    <text x="475" y="192" text-anchor="middle" font-size="12">миграции</text>
+
+    <rect x="580" y="110" width="160" height="100" rx="12" fill="#ffe3d6" stroke="#ff6b35" stroke-width="2"/>
+    <text x="660" y="145" text-anchor="middle" font-weight="700">Фронтенд</text>
+    <text x="660" y="170" text-anchor="middle" font-size="12">fetch, CORS,</text>
+    <text x="660" y="192" text-anchor="middle" font-size="12">auth</text>
+
+    <rect x="765" y="110" width="125" height="100" rx="12" fill="#f3e8ff" stroke="#9c36b5" stroke-width="2"/>
+    <text x="827" y="145" text-anchor="middle" font-weight="700">Проверка</text>
+    <text x="827" y="170" text-anchor="middle" font-size="12">тесты,</text>
+    <text x="827" y="192" text-anchor="middle" font-size="12">логи</text>
+
+    <line x1="185" y1="160" x2="200" y2="160" stroke="#818cf8" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="370" y1="160" x2="385" y2="160" stroke="#818cf8" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="555" y1="160" x2="570" y2="160" stroke="#818cf8" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="740" y1="160" x2="755" y2="160" stroke="#818cf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="90" y="280" width="740" height="140" rx="12" fill="#ffffff" stroke="#818cf8" stroke-width="2"/>
+    <text x="460" y="312" text-anchor="middle" font-weight="700">Результат практики</text>
+    <text x="120" y="344" font-size="13">• работающий API;</text>
+    <text x="120" y="368" font-size="13">• схема базы и миграции;</text>
+    <text x="120" y="392" font-size="13">• проверка через фронтенд;</text>
+    <text x="520" y="344" font-size="13">• тесты и логи;</text>
+    <text x="520" y="368" font-size="13">• README с запуском;</text>
+    <text x="520" y="392" font-size="13">• список известных ограничений.</text>
+  </g>
+</svg>

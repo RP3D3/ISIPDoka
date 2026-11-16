@@ -4200,7 +4200,585 @@
     "order": 70,
     "title": "PHP",
     "accent": "#818cf8",
-    "groups": []
+    "description": "PHP для бэкенда: основы, HTTP, PDO, API, работа с фронтендом и Ларавел.",
+    "groups": [
+      {
+        "id": "osnovy-php",
+        "order": 10,
+        "name": "Основы PHP",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Зачем нужен PHP",
+            "url": "content/php/osnovy-php/zachem-php.md",
+            "keywords": "PHP бэкенд сервер запрос сайт API",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Первый скрипт и синтаксис",
+            "url": "content/php/osnovy-php/pervyy-skript-i-sintaksis.md",
+            "keywords": "PHP первый скрипт синтаксис echo php -S CLI",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Переменные и типы",
+            "url": "content/php/osnovy-php/peremennye-i-tipy.md",
+            "keywords": "PHP переменные типы string int bool strict_types",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Операторы и ветвления",
+            "url": "content/php/osnovy-php/operatory-i-vetvleniya.md",
+            "keywords": "PHP операторы if else switch match сравнение",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Циклы и массивы",
+            "url": "content/php/osnovy-php/cikly-i-massivy.md",
+            "keywords": "PHP циклы массивы foreach for while array",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Формы и суперглобалы",
+            "url": "content/php/osnovy-php/formy-i-superglobals.md",
+            "keywords": "PHP формы GET POST суперглобалы htmlspecialchars валидация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Ошибки и отладка",
+            "url": "content/php/osnovy-php/oshibki-i-otladka.md",
+            "keywords": "PHP ошибки исключения try catch логи отладка display_errors",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Основы PHP",
+            "url": "content/php/osnovy-php/osnovy-php.md",
+            "keywords": "основы PHP итог синтаксис переменные массивы формы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: первый скрипт",
+            "url": "content/php/osnovy-php/praktika-pervyy-skript.md",
+            "keywords": "практика PHP первый скрипт форма POST htmlspecialchars",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "funkcii-massivy-oop",
+        "order": 20,
+        "name": "Функции, массивы и ООП",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Массивы и их функции",
+            "url": "content/php/funkcii-massivy-oop/massivy-i-ih-funkcii.md",
+            "keywords": "PHP массивы array_map array_filter sort in_array array_column",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Строки и mbstring",
+            "url": "content/php/funkcii-massivy-oop/stroki-i-mbstring.md",
+            "keywords": "PHP строки mbstring strlen substr sprintf UTF-8",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Функции и замыкания",
+            "url": "content/php/funkcii-massivy-oop/funkcii-i-zamykaniya.md",
+            "keywords": "PHP функции параметры return замыкания use arrow functions",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Классы и объекты",
+            "url": "content/php/funkcii-massivy-oop/klassy-i-obekty.md",
+            "keywords": "PHP классы объекты конструктор свойства методы наследование",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Интерфейсы и трейты",
+            "url": "content/php/funkcii-massivy-oop/interfeysy-i-treyty.md",
+            "keywords": "PHP интерфейсы трейты abstract implements контракты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Namespaces и Composer",
+            "url": "content/php/funkcii-massivy-oop/namespaces-i-composer.md",
+            "keywords": "PHP namespaces Composer PSR-4 autoload зависимости",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Функции, массивы и ООП",
+            "url": "content/php/funkcii-massivy-oop/funkcii-massivy-oop.md",
+            "keywords": "функции массивы ООП итог классы интерфейсы Composer",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: ООП",
+            "url": "content/php/funkcii-massivy-oop/praktika-oop.md",
+            "keywords": "практика ООП PHP класс объект корзина",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "http-formy-sessii",
+        "order": 30,
+        "name": "HTTP, формы и сессии",
+        "topics": [
+          {
+            "order": 10,
+            "title": "HTTP-запрос и ответ",
+            "url": "content/php/http-formy-sessii/http-zapros-i-otvet.md",
+            "keywords": "HTTP запрос ответ методы заголовки статус-коды PHP",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "GET, POST и валидация",
+            "url": "content/php/http-formy-sessii/get-post-i-validaciya.md",
+            "keywords": "PHP GET POST валидация filter_input htmlspecialchars форма",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Cookies и сессии",
+            "url": "content/php/http-formy-sessii/cookies-i-sessii.md",
+            "keywords": "PHP cookies сессии session_start httponly samesite безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Файлы и загрузка",
+            "url": "content/php/http-formy-sessii/fayly-i-zagruzka.md",
+            "keywords": "PHP загрузка файлов $_FILES move_uploaded_file MIME безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Headers и редиректы",
+            "url": "content/php/http-formy-sessii/headers-i-redirekty.md",
+            "keywords": "PHP headers header Location редирект Content-Type кэш",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "CSRF и XSS в формах",
+            "url": "content/php/http-formy-sessii/csrf-i-xss-v-formah.md",
+            "keywords": "PHP CSRF XSS формы токен htmlspecialchars безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "HTTP, формы и сессии",
+            "url": "content/php/http-formy-sessii/http-formy-sessii.md",
+            "keywords": "HTTP формы сессии cookies валидация итог",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: обработка формы",
+            "url": "content/php/http-formy-sessii/praktika-forma-obrabotka.md",
+            "keywords": "практика форма валидация CSRF сессия PHP",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "bazy-dannyh-i-pdo",
+        "order": 40,
+        "name": "Базы данных и PDO",
+        "topics": [
+          {
+            "order": 10,
+            "title": "SQL для PHP",
+            "url": "content/php/bazy-dannyh-i-pdo/sql-dlya-php.md",
+            "keywords": "PHP SQL SELECT INSERT UPDATE DELETE WHERE JOIN",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Подключение PDO",
+            "url": "content/php/bazy-dannyh-i-pdo/pdo-podklyuchenie.md",
+            "keywords": "PHP PDO подключение DSN MySQL PostgreSQL SQLite",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Подготовленные запросы",
+            "url": "content/php/bazy-dannyh-i-pdo/podgotovlennye-zaprosy.md",
+            "keywords": "PHP PDO подготовленные запросы prepare execute SQL-инъекции",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "CRUD на PDO",
+            "url": "content/php/bazy-dannyh-i-pdo/crud-na-pdo.md",
+            "keywords": "PHP PDO CRUD INSERT SELECT UPDATE DELETE lastInsertId",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Транзакции",
+            "url": "content/php/bazy-dannyh-i-pdo/tranzakcii.md",
+            "keywords": "PHP PDO транзакции beginTransaction commit rollBack",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Joins и выборки",
+            "url": "content/php/bazy-dannyh-i-pdo/joins-i-vyborki.md",
+            "keywords": "PHP SQL JOIN INNER LEFT GROUP BY выборки N+1",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Пагинация и фильтры",
+            "url": "content/php/bazy-dannyh-i-pdo/paginaciya-i-filtry.md",
+            "keywords": "PHP PDO пагинация LIMIT OFFSET фильтры сортировка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Базы данных и PDO",
+            "url": "content/php/bazy-dannyh-i-pdo/bazy-dannyh-i-pdo.md",
+            "keywords": "базы данных PDO итог SQL CRUD транзакции",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: CRUD на PDO",
+            "url": "content/php/bazy-dannyh-i-pdo/praktika-crud-pdo.md",
+            "keywords": "практика PDO CRUD задачи prepare execute",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "api-i-frontend",
+        "order": 50,
+        "name": "API и фронтенд",
+        "topics": [
+          {
+            "order": 10,
+            "title": "JSON и формат ответа",
+            "url": "content/php/api-i-frontend/json-i-format-otveta.md",
+            "keywords": "PHP JSON json_encode json_decode API Content-Type",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "REST и статус-коды",
+            "url": "content/php/api-i-frontend/rest-i-status-kody.md",
+            "keywords": "PHP REST API статус-коды GET POST PUT DELETE",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Routing и контроллеры",
+            "url": "content/php/api-i-frontend/routing-i-kontrollery.md",
+            "keywords": "PHP routing контроллеры front controller API 404",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Валидация и ошибки",
+            "url": "content/php/api-i-frontend/validaciya-i-oshibki.md",
+            "keywords": "PHP API валидация ошибки 422 JSON filter_var",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "CORS и cookies",
+            "url": "content/php/api-i-frontend/cors-i-cookies.md",
+            "keywords": "PHP CORS cookies SameSite credentials preflight API",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Auth: сессии и JWT",
+            "url": "content/php/api-i-frontend/auth-session-jwt.md",
+            "keywords": "PHP auth сессии JWT токен cookie безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "API и фронтенд",
+            "url": "content/php/api-i-frontend/api-i-frontend.md",
+            "keywords": "API фронтенд JSON REST CORS auth итог",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: API для фронтенда",
+            "url": "content/php/api-i-frontend/praktika-api-dlya-frontenda.md",
+            "keywords": "практика API PHP JSON CORS валидация",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "bezopasnost-testy-deploy",
+        "order": 60,
+        "name": "Безопасность, тесты и деплой",
+        "topics": [
+          {
+            "order": 10,
+            "title": "SQL-инъекции и XSS",
+            "url": "content/php/bezopasnost-testy-deploy/sql-inekcii-i-xss.md",
+            "keywords": "PHP SQL-инъекции XSS безопасность подготовленные запросы экранирование",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "CSRF и сессии",
+            "url": "content/php/bezopasnost-testy-deploy/csrf-i-sessii.md",
+            "keywords": "PHP CSRF сессии cookie SameSite безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Пароли и хеширование",
+            "url": "content/php/bezopasnost-testy-deploy/paroli-i-heshirovanie.md",
+            "keywords": "PHP пароли password_hash password_verify хеширование безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Секреты и конфигурация",
+            "url": "content/php/bezopasnost-testy-deploy/sekrety-i-konfiguraciya.md",
+            "keywords": "PHP секреты конфигурация .env getenv безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "PHPUnit и тестирование",
+            "url": "content/php/bezopasnost-testy-deploy/phpunit-i-testirovanie.md",
+            "keywords": "PHP PHPUnit тесты unit интеграционные assertions",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Docker и деплой",
+            "url": "content/php/bezopasnost-testy-deploy/docker-i-deploy.md",
+            "keywords": "PHP Docker деплой PHP-FPM Nginx healthcheck логи",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Безопасность, тесты и деплой",
+            "url": "content/php/bezopasnost-testy-deploy/bezopasnost-testy-deploy.md",
+            "keywords": "безопасность тесты деплой итог PHP PHPUnit Docker",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: безопасный бэкенд",
+            "url": "content/php/bezopasnost-testy-deploy/praktika-bezopasnyy-backend.md",
+            "keywords": "практика безопасность PHPUnit деплой чек-лист",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "laravel-osnovy",
+        "order": 70,
+        "name": "Ларавел: основы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Зачем Ларавел",
+            "url": "content/php/laravel-osnovy/zachem-laravel.md",
+            "keywords": "PHP Ларавел Laravel MVC Eloquent Artisan фреймворк",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Установка и структура",
+            "url": "content/php/laravel-osnovy/ustanovka-i-struktura.md",
+            "keywords": "PHP Ларавел установка структура Composer Artisan .env",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Routes и контроллеры",
+            "url": "content/php/laravel-osnovy/routes-i-controllers.md",
+            "keywords": "PHP Ларавел routes controllers resource route model binding",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Blade и views",
+            "url": "content/php/laravel-osnovy/blade-i-views.md",
+            "keywords": "PHP Ларавел Blade views layouts экранирование",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Eloquent и модели",
+            "url": "content/php/laravel-osnovy/eloquent-i-modeli.md",
+            "keywords": "PHP Ларавел Eloquent модели fillable casts связи",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Миграции и seeders",
+            "url": "content/php/laravel-osnovy/migracii-i-seeders.md",
+            "keywords": "PHP Ларавел миграции seeders factories схема БД",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Валидация и middleware",
+            "url": "content/php/laravel-osnovy/validaciya-i-middleware.md",
+            "keywords": "PHP Ларавел валидация FormRequest middleware throttle auth",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "API Resources",
+            "url": "content/php/laravel-osnovy/laravel-api-resources.md",
+            "keywords": "PHP Ларавел API Resources JSON pagination сериализация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Ларавел: основы",
+            "url": "content/php/laravel-osnovy/laravel-osnovy.md",
+            "keywords": "Ларавел итог routes controllers Eloquent migrations API",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Практика: API на Ларавел",
+            "url": "content/php/laravel-osnovy/praktika-laravel-api.md",
+            "keywords": "практика Ларавел API CRUD Eloquent миграции ресурсы",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "praktika-php-backend",
+        "order": 80,
+        "name": "Практика: PHP-бэкенд",
+        "topics": [
+          {
+            "order": 10,
+            "title": "План и требования",
+            "url": "content/php/praktika-php-backend/plan-i-trebovaniya.md",
+            "keywords": "практика PHP план требования API сущности сценарии",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Реализация API и БД",
+            "url": "content/php/praktika-php-backend/realizaciya-api-i-bd.md",
+            "keywords": "практика PHP API база данных PDO структура реализация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Связка с фронтендом",
+            "url": "content/php/praktika-php-backend/svyazka-s-frontendom.md",
+            "keywords": "практика PHP фронтенд fetch CORS cookies ошибки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Практика: PHP-бэкенд",
+            "url": "content/php/praktika-php-backend/praktika-php-backend.md",
+            "keywords": "практика PHP-бэкенд итог API база данных фронтенд",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Практика: PHP-бэкенд по задаче",
+            "url": "content/php/praktika-php-backend/praktika-php-backend-po-zadache.md",
+            "keywords": "практика PHP-бэкенд задача API PDO фронтенд тесты",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      }
+    ]
   },
   "python": {
     "order": 75,

@@ -1,4 +1,5 @@
 {
   "title": "PHP",
-  "accent": "#818cf8"
+  "accent": "#818cf8",
+  "description": "PHP для бэкенда: основы, HTTP, PDO, API, работа с фронтендом и Ларавел."
 }

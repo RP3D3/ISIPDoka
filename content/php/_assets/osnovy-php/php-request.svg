@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 460" role="img" aria-labelledby="title desc">
+  <title id="title">Как PHP обрабатывает запрос</title>
+  <desc id="desc">Схема показывает путь от браузера через веб-сервер и PHP-скрипт к ответу.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#818cf8"/>
+    </marker>
+  </defs>
+  <rect width="920" height="460" fill="#f7f7ff"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#25234a">PHP работает на сервере</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#25234a">
+    <rect x="30" y="110" width="170" height="100" rx="12" fill="#eef0ff" stroke="#818cf8" stroke-width="2"/>
+    <text x="115" y="145" text-anchor="middle" font-weight="700">Браузер</text>
+    <text x="115" y="170" text-anchor="middle" font-size="12">запрос</text>
+    <text x="115" y="192" text-anchor="middle" font-size="12">URL, cookies</text>
+
+    <rect x="245" y="110" width="180" height="100" rx="12" fill="#e8f7ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="335" y="145" text-anchor="middle" font-weight="700">Веб-сервер</text>
+    <text x="335" y="170" text-anchor="middle" font-size="12">Nginx или Apache</text>
+    <text x="335" y="192" text-anchor="middle" font-size="12">передаёт PHP</text>
+
+    <rect x="470" y="110" width="190" height="100" rx="12" fill="#fff4cc" stroke="#eab308" stroke-width="2"/>
+    <text x="565" y="145" text-anchor="middle" font-weight="700">PHP-скрипт</text>
+    <text x="565" y="170" text-anchor="middle" font-size="12">логика, PDO,</text>
+    <text x="565" y="192" text-anchor="middle" font-size="12">сессии</text>
+
+    <rect x="705" y="110" width="185" height="100" rx="12" fill="#ffe3d6" stroke="#ff6b35" stroke-width="2"/>
+    <text x="797" y="145" text-anchor="middle" font-weight="700">Ответ</text>
+    <text x="797" y="170" text-anchor="middle" font-size="12">HTML, JSON,</text>
+    <text x="797" y="192" text-anchor="middle" font-size="12">redirect</text>
+
+    <line x1="200" y1="160" x2="235" y2="160" stroke="#818cf8" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="425" y1="160" x2="460" y2="160" stroke="#818cf8" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="660" y1="160" x2="695" y2="160" stroke="#818cf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="90" y="280" width="740" height="120" rx="12" fill="#ffffff" stroke="#818cf8" stroke-width="2"/>
+    <text x="460" y="312" text-anchor="middle" font-weight="700">Что важно помнить</text>
+    <text x="120" y="342" font-size="13">• PHP не выполняется в браузере;</text>
+    <text x="120" y="366" font-size="13">• клиент видит только результат;</text>
+    <text x="120" y="390" font-size="13">• серверный код и секреты не уходят в HTML.</text>
+    <text x="520" y="342" font-size="13">• один запрос — один цикл обработки;</text>
+    <text x="520" y="366" font-size="13">• ответ должен быть предсказуемым;</text>
+    <text x="520" y="390" font-size="13">• ошибки нужно логировать, а не показывать.</text>
+  </g>
+</svg>
