@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">План капстона</title>
+  <desc id="desc">Дизайн, сцена, игрок, враги и цель, сборка и полировка.</desc>
+  <rect width="900" height="300" rx="16" fill="#1b1c20"/>
+
+  <rect x="20" y="48" width="150" height="70" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="95" y="78" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">1. Дизайн</text>
+  <text x="95" y="98" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">цель и правила</text>
+
+  <rect x="195" y="48" width="150" height="70" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="270" y="78" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">2. Сцена</text>
+  <text x="270" y="98" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">окружение</text>
+
+  <rect x="370" y="48" width="150" height="70" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="445" y="78" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">3. Игрок</text>
+  <text x="445" y="98" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">движение и ввод</text>
+
+  <rect x="545" y="48" width="150" height="70" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="620" y="78" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">4. Враги</text>
+  <text x="620" y="98" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">препятствия и цель</text>
+
+  <rect x="720" y="48" width="160" height="70" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.7"/>
+  <text x="800" y="78" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">5. Сборка</text>
+  <text x="800" y="98" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">полировка и билд</text>
+
+  <path d="M170 83 H195" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M345 83 H370" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M520 83 H545" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M695 83 H720" stroke="#60a5fa" stroke-width="2"/>
+
+  <text x="20" y="176" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Мини-игра: собрать 5 предметов, избежать врагов, дойти до выхода.</text>
+  <text x="20" y="202" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Одна сцена, один игрок, 3 врага, счёт, здоровье, победа и поражение.</text>
+
+  <rect x="20" y="228" width="250" height="40" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.5"/>
+  <text x="36" y="253" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Обязательно: управление и камера</text>
+
+  <rect x="290" y="228" width="250" height="40" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.5"/>
+  <text x="306" y="253" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Обязательно: здоровье и счёт</text>
+
+  <rect x="560" y="228" width="320" height="40" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.6"/>
+  <text x="576" y="253" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Бонус: звук, частицы, меню и рестарт</text>
+</svg>

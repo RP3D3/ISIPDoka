@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240" role="img" aria-labelledby="title desc">
+  <title id="title">Update и FixedUpdate</title>
+  <desc id="desc">Update вызывается каждый кадр, FixedUpdate — с фиксированным шагом физики.</desc>
+  <rect width="900" height="240" rx="16" fill="#1b1c20"/>
+
+  <text x="24" y="34" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="600">Кадры и физика</text>
+
+  <text x="24" y="78" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Update</text>
+  <line x1="110" y1="74" x2="860" y2="74" stroke="#ffffff" stroke-opacity="0.18" stroke-width="2"/>
+  <circle cx="170" cy="74" r="7" fill="#f43f5e"/>
+  <circle cx="330" cy="74" r="7" fill="#f43f5e"/>
+  <circle cx="520" cy="74" r="7" fill="#f43f5e"/>
+  <circle cx="760" cy="74" r="7" fill="#f43f5e"/>
+  <text x="170" y="100" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">кадр 1</text>
+  <text x="330" y="100" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">кадр 2</text>
+  <text x="520" y="100" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">кадр 3</text>
+  <text x="760" y="100" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">кадр 4</text>
+
+  <text x="24" y="150" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">FixedUpdate</text>
+  <line x1="110" y1="146" x2="860" y2="146" stroke="#ffffff" stroke-opacity="0.18" stroke-width="2"/>
+  <circle cx="150" cy="146" r="6" fill="#60a5fa"/>
+  <circle cx="230" cy="146" r="6" fill="#60a5fa"/>
+  <circle cx="310" cy="146" r="6" fill="#60a5fa"/>
+  <circle cx="390" cy="146" r="6" fill="#60a5fa"/>
+  <circle cx="470" cy="146" r="6" fill="#60a5fa"/>
+  <circle cx="550" cy="146" r="6" fill="#60a5fa"/>
+  <circle cx="630" cy="146" r="6" fill="#60a5fa"/>
+  <circle cx="710" cy="146" r="6" fill="#60a5fa"/>
+  <circle cx="790" cy="146" r="6" fill="#60a5fa"/>
+
+  <rect x="110" y="176" width="300" height="40" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.6"/>
+  <text x="126" y="201" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="12">фиксированный шаг: 0.02 с (50 Гц)</text>
+
+  <rect x="430" y="176" width="430" height="40" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.6"/>
+  <text x="446" y="201" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="12">кадр зависит от FPS: 16.7 мс при 60 FPS, 33.3 мс при 30 FPS</text>
+</svg>

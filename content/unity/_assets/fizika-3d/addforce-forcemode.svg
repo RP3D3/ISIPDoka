@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
+  <title id="title">Четыре режима ForceMode</title>
+  <desc id="desc">Force и Acceleration действуют каждый физический шаг, Impulse и VelocityChange применяются мгновенно. Масса учитывается в Force и Impulse.</desc>
+  <rect width="900" height="430" rx="16" fill="#1b1c20"/>
+
+  <text x="28" y="42" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="600">ForceMode: как сила превращается в скорость</text>
+  <text x="28" y="68" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Формулы упрощены: Δv — прирост скорости за один вызов, m — масса тела</text>
+
+  <rect x="28" y="92" width="404" height="140" rx="10" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.55"/>
+  <text x="48" y="124" fill="#f43f5e" font-family="Consolas, monospace" font-size="17" font-weight="600">ForceMode.Force</text>
+  <text x="48" y="152" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="14">Постоянная сила, действует каждый шаг</text>
+  <text x="48" y="178" fill="#e2e8f0" font-family="Consolas, monospace" font-size="14">Δv = F · Δt / m</text>
+  <text x="48" y="204" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Масса важна. Основной режим для тяги и ветра.</text>
+
+  <rect x="468" y="92" width="404" height="140" rx="10" fill="#282a30" stroke="#ffffff" stroke-opacity="0.16"/>
+  <text x="488" y="124" fill="#ffffff" font-family="Consolas, monospace" font-size="17" font-weight="600">ForceMode.Acceleration</text>
+  <text x="488" y="152" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="14">Постоянное ускорение, каждый шаг</text>
+  <text x="488" y="178" fill="#e2e8f0" font-family="Consolas, monospace" font-size="14">Δv = a · Δt</text>
+  <text x="488" y="204" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Масса игнорируется. Удобно для гравитации.</text>
+
+  <rect x="28" y="252" width="404" height="140" rx="10" fill="#282a30" stroke="#ffffff" stroke-opacity="0.16"/>
+  <text x="48" y="284" fill="#ffffff" font-family="Consolas, monospace" font-size="17" font-weight="600">ForceMode.Impulse</text>
+  <text x="48" y="312" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="14">Мгновенный толчок, один вызов</text>
+  <text x="48" y="338" fill="#e2e8f0" font-family="Consolas, monospace" font-size="14">Δv = J / m</text>
+  <text x="48" y="364" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Масса важна. Прыжок, удар, взрыв.</text>
+
+  <rect x="468" y="252" width="404" height="140" rx="10" fill="#282a30" stroke="#ffffff" stroke-opacity="0.16"/>
+  <text x="488" y="284" fill="#ffffff" font-family="Consolas, monospace" font-size="17" font-weight="600">ForceMode.VelocityChange</text>
+  <text x="488" y="312" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="14">Мгновенное изменение скорости</text>
+  <text x="488" y="338" fill="#e2e8f0" font-family="Consolas, monospace" font-size="14">Δv = v</text>
+  <text x="488" y="364" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Масса игнорируется. Одинаково для всех тел.</text>
+</svg>

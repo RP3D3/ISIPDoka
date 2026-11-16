@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470" role="img" aria-labelledby="title desc">
+  <title id="title">Слои, маска и Raycast</title>
+  <desc id="desc">Луч из точки origin идёт в направлении direction, проверяет только слои из маски и возвращает попадание в RaycastHit.</desc>
+  <rect width="900" height="470" rx="16" fill="#1b1c20"/>
+
+  <text x="28" y="42" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="600">Слои, маска и Raycast</text>
+  <text x="28" y="68" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Маска — это биты, а не номер слоя: слой 8 — это 1 &lt;&lt; 8</text>
+
+  <rect x="28" y="92" width="420" height="250" rx="10" fill="#282a30" stroke="#ffffff" stroke-opacity="0.16"/>
+  <text x="48" y="120" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Сцена</text>
+  <path d="M70 300 L350 300" stroke="#ffffff" stroke-opacity="0.18" stroke-width="2"/>
+  <rect x="120" y="262" width="200" height="38" rx="4" fill="#3a3d46" stroke="#ffffff" stroke-opacity="0.25"/>
+  <text x="138" y="286" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">Ground · слой 8</text>
+
+  <circle cx="86" cy="160" r="9" fill="#f43f5e"/>
+  <text x="102" y="165" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">origin</text>
+  <path d="M96 168 L188 272" stroke="#f43f5e" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <path d="M188 272 L176 258 M188 272 L174 270" stroke="#f43f5e" stroke-width="2.5" fill="none"/>
+  <circle cx="188" cy="272" r="4" fill="#f43f5e"/>
+  <text x="200" y="252" fill="#f43f5e" font-family="Consolas, monospace" font-size="12">hit.point</text>
+  <path d="M188 272 L188 240" stroke="#38bdf8" stroke-width="2"/>
+  <text x="196" y="238" fill="#38bdf8" font-family="Consolas, monospace" font-size="12">normal</text>
+
+  <rect x="472" y="92" width="400" height="250" rx="10" fill="#282a30" stroke="#ffffff" stroke-opacity="0.16"/>
+  <text x="492" y="120" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Биты маски</text>
+  <text x="492" y="150" fill="#9e9ea0" font-family="Consolas, monospace" font-size="12">LayerMask.GetMask("Ground", "Props")</text>
+  <text x="492" y="182" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">слой 0  Default      0000 0001</text>
+  <text x="492" y="206" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">слой 6  Player       0100 0000</text>
+  <text x="492" y="230" fill="#f43f5e" font-family="Consolas, monospace" font-size="12">слой 8  Ground       1 0000 0000</text>
+  <text x="492" y="254" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">слой 9  Props        10 0000 0000</text>
+  <text x="492" y="286" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Physics.Raycast проверяет только те слои,</text>
+  <text x="492" y="306" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">чей бит включён в маске.</text>
+
+  <rect x="28" y="362" width="844" height="80" rx="10" fill="#282a30" stroke="#ffffff" stroke-opacity="0.16"/>
+  <text x="48" y="392" fill="#e2e8f0" font-family="Consolas, monospace" font-size="13">Physics.Raycast(origin, direction, out RaycastHit hit, maxDistance, layerMask, QueryTriggerInteraction.Ignore)</text>
+  <text x="48" y="420" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Луч не проходит сквозь объекты, не попавшие в маску, но останавливается на первом подходящем коллайдере.</text>
+</svg>

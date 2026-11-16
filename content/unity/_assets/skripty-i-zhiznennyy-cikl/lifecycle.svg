@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">Жизненный цикл MonoBehaviour</title>
+  <desc id="desc">Awake, OnEnable, Start, Update, FixedUpdate, LateUpdate, OnDisable, OnDestroy.</desc>
+  <rect width="900" height="300" rx="16" fill="#1b1c20"/>
+
+  <rect x="20" y="40" width="130" height="52" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="85" y="63" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Awake</text>
+  <text x="85" y="81" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">инициализация</text>
+
+  <rect x="180" y="40" width="130" height="52" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="245" y="63" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">OnEnable</text>
+  <text x="245" y="81" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">подписки</text>
+
+  <rect x="340" y="40" width="130" height="52" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="405" y="63" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Start</text>
+  <text x="405" y="81" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">первый кадр</text>
+
+  <rect x="500" y="40" width="170" height="52" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="585" y="63" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Update</text>
+  <text x="585" y="81" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">каждый кадр</text>
+
+  <rect x="690" y="40" width="190" height="52" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="785" y="63" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">LateUpdate</text>
+  <text x="785" y="81" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">после Update</text>
+
+  <path d="M150 66 H180" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M310 66 H340" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M470 66 H500" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M670 66 H690" stroke="#f43f5e" stroke-width="2"/>
+
+  <rect x="500" y="130" width="170" height="52" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.8"/>
+  <text x="585" y="153" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">FixedUpdate</text>
+  <text x="585" y="171" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">физика, 50 Гц</text>
+
+  <path d="M585 92 V130" stroke="#60a5fa" stroke-width="2" stroke-dasharray="5 4"/>
+  <path d="M585 182 V220 H405" stroke="#60a5fa" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="600" y="205" fill="#60a5fa" font-family="Segoe UI, Arial, sans-serif" font-size="11">может вызываться несколько раз за кадр</text>
+
+  <rect x="340" y="220" width="130" height="52" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="405" y="243" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">OnDisable</text>
+  <text x="405" y="261" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">отписки</text>
+
+  <rect x="180" y="220" width="130" height="52" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="245" y="243" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">OnDestroy</text>
+  <text x="245" y="261" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">удаление</text>
+
+  <path d="M340 246 H310" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M180 246 H150" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M150 92 V246" stroke="#f43f5e" stroke-width="2" stroke-opacity="0.35"/>
+</svg>

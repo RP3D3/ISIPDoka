@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">Sorting Layers в 2D</title>
+  <desc id="desc">Слои Background, Ground, Player и Foreground с порядком отрисовки.</desc>
+  <rect width="900" height="300" rx="16" fill="#1b1c20"/>
+  <text x="24" y="34" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="600">Sorting Layers</text>
+
+  <rect x="40" y="70" width="180" height="54" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.6"/>
+  <text x="130" y="93" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Background</text>
+  <text x="130" y="112" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">order = -10</text>
+
+  <rect x="40" y="140" width="180" height="54" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.6"/>
+  <text x="130" y="163" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Ground</text>
+  <text x="130" y="182" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">order = 0</text>
+
+  <rect x="40" y="210" width="180" height="54" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="130" y="233" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Player</text>
+  <text x="130" y="252" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">order = 10</text>
+
+  <rect x="300" y="140" width="180" height="54" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.6"/>
+  <text x="390" y="163" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Foreground</text>
+  <text x="390" y="182" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">order = 20</text>
+
+  <path d="M220 97 H260 V167 H300" fill="none" stroke="#60a5fa" stroke-width="2"/>
+  <path d="M220 167 H260" stroke="#60a5fa" stroke-width="2"/>
+  <path d="M220 237 H260 V167" stroke="#f43f5e" stroke-width="2"/>
+
+  <text x="540" y="90" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Порядок отрисовки:</text>
+  <text x="540" y="118" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Background → Ground → Player → Foreground</text>
+  <text x="540" y="146" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Чем больше Order in Layer, тем ближе к камере.</text>
+  <text x="540" y="174" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Sorting Layer задаёт группу, Order — число внутри группы.</text>
+
+  <rect x="540" y="200" width="320" height="64" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.6"/>
+  <text x="556" y="224" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">SpriteRenderer.sortingLayerName</text>
+  <text x="556" y="246" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">SpriteRenderer.sortingOrder</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">Build Settings и Build Profiles</title>
+  <desc id="desc">В Unity 2022.3 используется Build Settings, в Unity 6 — Build Profiles.</desc>
+  <rect width="900" height="300" rx="16" fill="#1b1c20"/>
+
+  <rect x="24" y="24" width="380" height="180" rx="10" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.6"/>
+  <text x="44" y="52" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="600">Unity 2022.3 LTS</text>
+  <text x="44" y="78" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">File → Build Settings</text>
+  <text x="44" y="104" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">Scenes In Build</text>
+  <text x="44" y="126" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">Platform: Windows</text>
+  <text x="44" y="148" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">Build / Build And Run</text>
+  <text x="44" y="178" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Один список сцен и текущая платформа</text>
+
+  <rect x="496" y="24" width="380" height="180" rx="10" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.7"/>
+  <text x="516" y="52" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="600">Unity 6</text>
+  <text x="516" y="78" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">File → Build Profiles</text>
+  <text x="516" y="104" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">Platforms: Windows, Web, Android</text>
+  <text x="516" y="126" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">Scene List: свои сцены</text>
+  <text x="516" y="148" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">Build / Build And Run</text>
+  <text x="516" y="178" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Профили для платформ и конфигураций</text>
+
+  <path d="M404 114 H496" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M496 114 L486 108 M496 114 L486 120" stroke="#f43f5e" stroke-width="2"/>
+
+  <text x="24" y="244" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Сцены должны быть в списке сборки в обеих версиях. В Unity 6 список живёт внутри профиля.</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">Rigidbody2D и Collider2D</title>
+  <desc id="desc">Rigidbody2D, BoxCollider2D, CircleCollider2D и земля.</desc>
+  <rect width="900" height="300" rx="16" fill="#1b1c20"/>
+
+  <rect x="24" y="24" width="300" height="190" rx="10" fill="#282a30" stroke="#ffffff" stroke-opacity="0.14"/>
+  <text x="44" y="52" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="600">Player</text>
+  <text x="44" y="80" fill="#9e9ea0" font-family="Consolas, monospace" font-size="12">Rigidbody2D</text>
+  <text x="44" y="102" fill="#9e9ea0" font-family="Consolas, monospace" font-size="12">BoxCollider2D</text>
+  <text x="44" y="124" fill="#9e9ea0" font-family="Consolas, monospace" font-size="12">SpriteRenderer</text>
+  <text x="44" y="146" fill="#9e9ea0" font-family="Consolas, monospace" font-size="12">PlayerController</text>
+  <text x="44" y="184" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Rigidbody2D отвечает за физику,</text>
+  <text x="44" y="202" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Collider2D — за форму столкновений.</text>
+
+  <rect x="370" y="24" width="506" height="190" rx="10" fill="#282a30" stroke="#ffffff" stroke-opacity="0.14"/>
+  <text x="390" y="52" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="600">Сцена</text>
+
+  <rect x="410" y="170" width="430" height="24" rx="4" fill="#f43f5e" fill-opacity="0.18" stroke="#f43f5e" stroke-opacity="0.5"/>
+  <text x="625" y="187" text-anchor="middle" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Ground (BoxCollider2D)</text>
+
+  <rect x="440" y="110" width="44" height="60" rx="4" fill="#60a5fa" fill-opacity="0.18" stroke="#60a5fa" stroke-opacity="0.7"/>
+  <circle cx="520" cy="140" r="30" fill="#f43f5e" fill-opacity="0.18" stroke="#f43f5e" stroke-opacity="0.7"/>
+
+  <text x="440" y="100" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">BoxCollider2D</text>
+  <text x="490" y="100" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">CircleCollider2D</text>
+
+  <path d="M462 140 H490" stroke="#60a5fa" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="390" y="238" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Для 2D используйте физику с суффиксом 2D: Rigidbody2D, Collider2D, Physics2D.</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">Tilemap</title>
+  <desc id="desc">Grid, Tilemap, Tile Palette и Tilemap Collider 2D.</desc>
+  <rect width="900" height="300" rx="16" fill="#1b1c20"/>
+
+  <text x="24" y="34" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="600">Tilemap</text>
+
+  <g stroke="#ffffff" stroke-opacity="0.12">
+    <path d="M24 64 H424 M24 104 H424 M24 144 H424 M24 184 H424 M24 224 H424"/>
+    <path d="M24 64 V224 M64 64 V224 M104 64 V224 M144 64 V224 M184 64 V224 M224 64 V224 M264 64 V224 M304 64 V224 M344 64 V224 M384 64 V224 M424 64 V224"/>
+  </g>
+
+  <rect x="64" y="184" width="40" height="40" fill="#f43f5e" fill-opacity="0.3"/>
+  <rect x="104" y="184" width="40" height="40" fill="#f43f5e" fill-opacity="0.3"/>
+  <rect x="144" y="184" width="40" height="40" fill="#f43f5e" fill-opacity="0.3"/>
+  <rect x="184" y="144" width="40" height="40" fill="#f43f5e" fill-opacity="0.3"/>
+  <rect x="224" y="144" width="40" height="40" fill="#f43f5e" fill-opacity="0.3"/>
+  <rect x="264" y="104" width="40" height="40" fill="#f43f5e" fill-opacity="0.3"/>
+  <rect x="304" y="104" width="40" height="40" fill="#f43f5e" fill-opacity="0.3"/>
+
+  <circle cx="224" cy="164" r="10" fill="#60a5fa"/>
+  <text x="224" y="169" text-anchor="middle" fill="#1b1c20" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700">P</text>
+
+  <rect x="460" y="64" width="200" height="160" rx="10" fill="#282a30" stroke="#ffffff" stroke-opacity="0.14"/>
+  <text x="480" y="92" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Tile Palette</text>
+  <rect x="480" y="110" width="40" height="40" fill="#f43f5e" fill-opacity="0.3"/>
+  <rect x="530" y="110" width="40" height="40" fill="#60a5fa" fill-opacity="0.3"/>
+  <rect x="580" y="110" width="40" height="40" fill="#facc15" fill-opacity="0.3"/>
+  <text x="480" y="180" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Кисти: Rect, Line,</text>
+  <text x="480" y="198" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Box, Picker</text>
+
+  <text x="690" y="92" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Компоненты</text>
+  <text x="690" y="118" fill="#9e9ea0" font-family="Consolas, monospace" font-size="12">Grid</text>
+  <text x="690" y="140" fill="#9e9ea0" font-family="Consolas, monospace" font-size="12">Tilemap</text>
+  <text x="690" y="162" fill="#9e9ea0" font-family="Consolas, monospace" font-size="12">TilemapRenderer</text>
+  <text x="690" y="184" fill="#9e9ea0" font-family="Consolas, monospace" font-size="12">TilemapCollider2D</text>
+
+  <text x="24" y="266" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Tilemap рисует сетку тайлов, а TilemapCollider2D добавляет столкновения.</text>
+</svg>

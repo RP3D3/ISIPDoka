@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260" role="img" aria-labelledby="title desc">
+  <title id="title">Путь клика по UI в Unity</title>
+  <desc id="desc">Устройство ввода передаёт данные в Input Module, EventSystem выполняет raycast через Graphic Raycaster, находит UI-элемент и вызывает Button.onClick.</desc>
+  <rect width="900" height="260" rx="16" fill="#1b1c20"/>
+
+  <text x="20" y="34" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="600">Как клик доходит до кнопки</text>
+
+  <rect x="20" y="70" width="150" height="70" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.8"/>
+  <text x="95" y="100" fill="#ffffff" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Ввод</text>
+  <text x="95" y="120" fill="#9e9ea0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11">мышь, клавиатура</text>
+
+  <rect x="195" y="70" width="150" height="70" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.8"/>
+  <text x="270" y="96" fill="#ffffff" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Input Module</text>
+  <text x="270" y="116" fill="#9e9ea0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11">на EventSystem</text>
+
+  <rect x="370" y="70" width="150" height="70" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.8"/>
+  <text x="445" y="96" fill="#ffffff" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">EventSystem</text>
+  <text x="445" y="116" fill="#9e9ea0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11">координаты и фокус</text>
+
+  <rect x="545" y="70" width="160" height="70" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.8"/>
+  <text x="625" y="96" fill="#ffffff" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Graphic Raycaster</text>
+  <text x="625" y="116" fill="#9e9ea0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11">на Canvas</text>
+
+  <rect x="730" y="70" width="150" height="70" rx="8" fill="#282a30" stroke="#22c55e" stroke-opacity="0.8"/>
+  <text x="805" y="96" fill="#ffffff" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Button</text>
+  <text x="805" y="116" fill="#9e9ea0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11">onClick</text>
+
+  <path d="M170 105 H195" stroke="#60a5fa" stroke-width="2"/>
+  <path d="M345 105 H370" stroke="#60a5fa" stroke-width="2"/>
+  <path d="M520 105 H545" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M705 105 H730" stroke="#22c55e" stroke-width="2"/>
+
+  <path d="M805 140 V172" stroke="#22c55e" stroke-width="2" stroke-dasharray="5 4"/>
+  <rect x="700" y="172" width="180" height="52" rx="8" fill="#282a30" stroke="#22c55e" stroke-opacity="0.5"/>
+  <text x="790" y="194" fill="#ffffff" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600">Вызов метода</text>
+  <text x="790" y="212" fill="#9e9ea0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11">из OnClick / AddListener</text>
+
+  <text x="20" y="236" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Нужны EventSystem на сцене, Input Module и Graphic Raycaster на Canvas.</text>
+</svg>

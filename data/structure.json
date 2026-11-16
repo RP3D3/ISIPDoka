@@ -2760,7 +2760,980 @@
     "order": 80,
     "title": "Unity",
     "accent": "#f43f5e",
-    "groups": []
+    "description": "Разработка игр на Unity и C#: от первого проекта до сборки",
+    "groups": [
+      {
+        "id": "start-i-versii",
+        "order": 10,
+        "name": "Старт и версии",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Что такое Unity",
+            "url": "content/unity/start-i-versii/chto-takoe-unity.md",
+            "keywords": "Unity что такое игровой движок редактор Unity GameObject компонент сцена C# в Unity",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Unity 2022 LTS и Unity 6",
+            "url": "content/unity/start-i-versii/unity-2022-i-unity-6.md",
+            "keywords": "Unity 2022 LTS Unity 6 6000.0 LTS версии Unity совместимость Unity 2022.3",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Установка и первый проект",
+            "url": "content/unity/start-i-versii/ustanovka-i-pervyy-proekt.md",
+            "keywords": "Unity Hub установка Unity создать проект Unity шаблон 3D URP Universal 3D первая сцена",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Окна редактора",
+            "url": "content/unity/start-i-versii/okna-redaktora.md",
+            "keywords": "Unity Editor окна Unity Hierarchy Scene Game Inspector Project Console Toolbar layout",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Сцена, GameObject и компонент",
+            "url": "content/unity/start-i-versii/scena-gameobject-component.md",
+            "keywords": "Unity сцена GameObject компонент Transform MonoBehaviour композиция префаб",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Папка Assets и метаданные",
+            "url": "content/unity/start-i-versii/papka-assets-i-metadannye.md",
+            "keywords": "Unity Assets .meta Library ProjectSettings Packages структура проекта Git Unity",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 65,
+            "title": "Старт и версии",
+            "url": "content/unity/start-i-versii/itog-start-i-versii.md",
+            "keywords": "Unity итог старт Unity версии Unity окна редактора GameObject компонент Assets",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Практика: первый проект",
+            "url": "content/unity/start-i-versii/praktika-start.md",
+            "keywords": "Unity практика первый проект Unity создать сцену материал скрипт Rotator Play mode",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "sceny-i-obekty",
+        "order": 20,
+        "name": "Сцены и объекты",
+        "topics": [
+          {
+            "order": 10,
+            "title": "GameObjects и компоненты",
+            "url": "content/unity/sceny-i-obekty/gameobject-i-component.md",
+            "keywords": "Unity GameObject компоненты Unity Transform AddComponent TryGetComponent композиция",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Transform",
+            "url": "content/unity/sceny-i-obekty/transform.md",
+            "keywords": "Unity Transform position localPosition rotation localScale Translate Rotate Time.deltaTime",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Локальные и мировые координаты",
+            "url": "content/unity/sceny-i-obekty/local-world-coordinates.md",
+            "keywords": "Unity local space world space localPosition TransformPoint InverseTransformPoint TransformDirection координаты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Иерархия и родители",
+            "url": "content/unity/sceny-i-obekty/ierarhiya-i-roditeli.md",
+            "keywords": "Unity Hierarchy родитель дочерний объект SetParent transform.parent иерархия worldPositionStays",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Префабы",
+            "url": "content/unity/sceny-i-obekty/prefaby.md",
+            "keywords": "Unity префаб Prefab Instantiate Prefab Variant вложенные префабы Apply Revert",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Теги, слои и порядок",
+            "url": "content/unity/sceny-i-obekty/tegi-sloi.md",
+            "keywords": "Unity теги слои Tags Layers CompareTag LayerMask Physics.Raycast sorting order",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 65,
+            "title": "Сцены и объекты",
+            "url": "content/unity/sceny-i-obekty/itog-sceny-i-obekty.md",
+            "keywords": "Unity итог GameObject Transform иерархия префабы теги слои сцена",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Практика: сцена",
+            "url": "content/unity/sceny-i-obekty/praktika-scena.md",
+            "keywords": "Unity практика сцена иерархия префаб теги слои localPosition SetParent",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "skripty-i-zhiznennyy-cikl",
+        "order": 40,
+        "name": "Скрипты и жизненный цикл",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Первый скрипт",
+            "url": "content/unity/skripty-i-zhiznennyy-cikl/pervyy-skript.md",
+            "keywords": "Unity первый скрипт MonoBehaviour Start Update Assets/Scripts имя класса C# в Unity",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Awake, OnEnable, Start",
+            "url": "content/unity/skripty-i-zhiznennyy-cikl/awake-onenable-start.md",
+            "keywords": "Unity Awake OnEnable Start порядок вызовов инициализация MonoBehaviour подписки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Update, FixedUpdate, LateUpdate",
+            "url": "content/unity/skripty-i-zhiznennyy-cikl/update-fixedupdate-lateupdate.md",
+            "keywords": "Unity Update FixedUpdate LateUpdate Time.deltaTime fixedDeltaTime Rigidbody физика камера",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Поля в Inspector",
+            "url": "content/unity/skripty-i-zhiznennyy-cikl/polya-v-inspector.md",
+            "keywords": "Unity Inspector SerializeField Range Header Tooltip HideInInspector поля скрипта",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Ссылки на компоненты",
+            "url": "content/unity/skripty-i-zhiznennyy-cikl/ssylki-na-komponenty.md",
+            "keywords": "Unity GetComponent TryGetComponent RequireComponent GetComponentInChildren ссылки на компоненты кэширование",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Debug и Console",
+            "url": "content/unity/skripty-i-zhiznennyy-cikl/debug-i-console.md",
+            "keywords": "Unity Debug Console Debug.Log LogWarning LogError DrawLine Assert отладка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Time и корутины",
+            "url": "content/unity/skripty-i-zhiznennyy-cikl/time-i-korutiny.md",
+            "keywords": "Unity Time timeScale deltaTime корутины Coroutine WaitForSeconds StartCoroutine пауза",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 75,
+            "title": "Скрипты и жизненный цикл",
+            "url": "content/unity/skripty-i-zhiznennyy-cikl/itog-skripty-i-zhiznennyy-cikl.md",
+            "keywords": "Unity итог MonoBehaviour жизненный цикл Awake Start Update FixedUpdate корутины Debug",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: жизненный цикл",
+            "url": "content/unity/skripty-i-zhiznennyy-cikl/praktika-zhiznennyy-cikl.md",
+            "keywords": "Unity практика жизненный цикл MonoBehaviour Awake Start Update корутина Debug.Log",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "vvod-input-system",
+        "order": 50,
+        "name": "Ввод: Input System",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Старый и новый Input",
+            "url": "content/unity/vvod-input-system/staryy-i-novyy-input.md",
+            "keywords": "Unity Input System Input Manager Active Input Handling Input.GetAxis новый ввод старый ввод",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Установка и настройка",
+            "url": "content/unity/vvod-input-system/ustanovka-i-nastroyka.md",
+            "keywords": "Unity Input System установка Package Manager com.unity.inputsystem Input Actions asset Active Input Handling",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Actions, Action Maps, Bindings",
+            "url": "content/unity/vvod-input-system/actions-action-maps-bindings.md",
+            "keywords": "Unity Input System Input Action Action Map Binding Composite 2D Vector processors interactions",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Control Schemes",
+            "url": "content/unity/vvod-input-system/control-schemes.md",
+            "keywords": "Unity Input System Control Scheme Keyboard Mouse Gamepad Touch PlayerInput устройства",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "ReadValue и Callbacks",
+            "url": "content/unity/vvod-input-system/readvalue-i-callbacks.md",
+            "keywords": "Unity Input System ReadValue CallbackContext started performed canceled WasPressedThisFrame InputAction",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "PlayerInput и события",
+            "url": "content/unity/vvod-input-system/playerinput-i-sobytiya.md",
+            "keywords": "Unity PlayerInput PlayerInputManager Unity Events C# Events multiplayer SwitchCurrentActionMap",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Generated C# class и Asset",
+            "url": "content/unity/vvod-input-system/generated-csharp-class.md",
+            "keywords": "Unity Input System Generate C# Class InputActionAsset FindAction PlayerControls InputActionReference",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Project-wide Actions",
+            "url": "content/unity/vvod-input-system/project-wide-actions.md",
+            "keywords": "Unity Project-wide Actions InputSystem.actions Unity 6 Input System project settings действия проекта",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "UI Input и touch",
+            "url": "content/unity/vvod-input-system/ui-input-i-touch.md",
+            "keywords": "Unity UI Input InputSystemUIInputModule EventSystem OnScreenStick OnScreenButton Touchscreen UI Action Map",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 95,
+            "title": "Ввод: Input System",
+            "url": "content/unity/vvod-input-system/itog-vvod-input-system.md",
+            "keywords": "Unity Input System итог Input Action Action Map Binding Control Scheme PlayerInput Project-wide Actions",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Практика: управление",
+            "url": "content/unity/vvod-input-system/praktika-upravlenie.md",
+            "keywords": "Unity Input System практика управление персонажем Move Jump Look CharacterController InputActionReference",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "fizika-3d",
+        "order": 60,
+        "name": "Физика 3D",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Rigidbody и Collider",
+            "url": "content/unity/fizika-3d/rigidbody-i-collider.md",
+            "keywords": "Unity Rigidbody Collider Box Collider Sphere Collider Capsule Collider Mesh Collider Physics Material масса isKinematic",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Масса, гравитация, damping",
+            "url": "content/unity/fizika-3d/massa-gravitaciya-damping.md",
+            "keywords": "Unity масса Rigidbody mass useGravity Physics.gravity linearDamping angularDamping drag angularDrag constraints",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "AddForce и ForceMode",
+            "url": "content/unity/fizika-3d/addforce-i-forcemode.md",
+            "keywords": "Unity AddForce ForceMode Force Impulse VelocityChange Acceleration FixedUpdate AddExplosionForce AddTorque",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "linearVelocity",
+            "url": "content/unity/fizika-3d/linearvelocity.md",
+            "keywords": "Unity linearVelocity velocity Rigidbody скорость прыжок FixedUpdate ClampMagnitude RigidbodyCompat",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Столкновения",
+            "url": "content/unity/fizika-3d/stolknoveniya.md",
+            "keywords": "Unity OnCollisionEnter OnCollisionStay OnCollisionExit Collision relativeVelocity contacts collision detection Continuous",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Триггеры",
+            "url": "content/unity/fizika-3d/triggery.md",
+            "keywords": "Unity триггер isTrigger OnTriggerEnter OnTriggerStay OnTriggerExit Collider Rigidbody LayerMask",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Слои, маски, Raycast",
+            "url": "content/unity/fizika-3d/sloi-maski-raycast.md",
+            "keywords": "Unity LayerMask слои Physics.Raycast RaycastHit QueryTriggerInteraction NameToLayer GetMask проверка земли",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Кинематик и интерполяция",
+            "url": "content/unity/fizika-3d/kinematik-i-interpolyaciya.md",
+            "keywords": "Unity isKinematic MovePosition MoveRotation RigidbodyInterpolation Interpolate Extrapolate движущаяся платформа FixedUpdate",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Версии физики",
+            "url": "content/unity/fizika-3d/versii-fiziki.md",
+            "keywords": "Unity 6 физика linearVelocity velocity linearDamping drag angularDamping PhysicsMaterial torque совместимость UNITY_6000_0_OR_NEWER",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 95,
+            "title": "Физика 3D",
+            "url": "content/unity/fizika-3d/itog-fizika-3d.md",
+            "keywords": "Unity физика 3D итог Rigidbody Collider FixedUpdate ForceMode Raycast триггеры чек-лист",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Практика: физический уровень",
+            "url": "content/unity/fizika-3d/praktika-fizicheskiy-uroven.md",
+            "keywords": "Unity практика физический уровень Rigidbody платформа триггер прыжок Raycast LayerMask",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "kamera-svet-materialy",
+        "order": 70,
+        "name": "Камера, свет и материалы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Камера",
+            "url": "content/unity/kamera-svet-materialy/kamera.md",
+            "keywords": "Unity Camera камера perspective orthographic Field of View near clipping far clipping culling mask Clear Flags Background",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Простая камера следования",
+            "url": "content/unity/kamera-svet-materialy/prostaya-kamera-sledovaniya.md",
+            "keywords": "Unity камера следования LateUpdate offset Vector3.Lerp LookAt SmoothDamp третье лицо камера за персонажем",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Cinemachine 3",
+            "url": "content/unity/kamera-svet-materialy/cinemachine-3.md",
+            "keywords": "Unity Cinemachine 3 CinemachineCamera CinemachineBrain CinemachineFollow CinemachineOrbitalFollow камера Unity 6",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Свет и тени",
+            "url": "content/unity/kamera-svet-materialy/svet-i-teni.md",
+            "keywords": "Unity свет Directional Light Point Light Spot Light intensity shadows lightmapping baked mixed URP",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Материалы и URP",
+            "url": "content/unity/kamera-svet-materialy/materialy-i-urp.md",
+            "keywords": "Unity URP материал URP Lit Base Map albedo Metallic Smoothness Emission шейдер URP 17",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Пост-обработка",
+            "url": "content/unity/kamera-svet-materialy/post-obrabotka.md",
+            "keywords": "Unity пост-обработка URP Volume Bloom Vignette Color Adjustments Volume Profile post-processing",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 65,
+            "title": "Камера, свет и материалы",
+            "url": "content/unity/kamera-svet-materialy/itog-kamera-svet-materialy.md",
+            "keywords": "Unity камера свет материалы URP пост-обработка итог чек-лист сцены",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Практика: камера и свет",
+            "url": "content/unity/kamera-svet-materialy/praktika-kamera-i-svet.md",
+            "keywords": "Unity практика камера следования свет URP материал Volume Bloom сцена",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "ui-i-interfeys",
+        "order": 80,
+        "name": "UI и интерфейс",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Canvas",
+            "url": "content/unity/ui-i-interfeys/canvas.md",
+            "keywords": "Unity Canvas Canvas Scaler Screen Space Overlay Screen Space Camera World Space Render Mode Graphic Raycaster UI",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "TextMeshPro",
+            "url": "content/unity/ui-i-interfeys/textmeshpro.md",
+            "keywords": "Unity TextMeshPro TMP TextMeshProUGUI TMP Essentials Font Asset авторазмер rich text UI текст",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Кнопки и события",
+            "url": "content/unity/ui-i-interfeys/knopki-i-sobytiya.md",
+            "keywords": "Unity Button onClick UnityEvent AddListener RemoveListener Interactable UI события кнопка Unity",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "HUD",
+            "url": "content/unity/ui-i-interfeys/hud.md",
+            "keywords": "Unity HUD health bar anchors RectTransform Canvas Scaler Layout Group Image Filled таймер счёт",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Меню и пауза",
+            "url": "content/unity/ui-i-interfeys/menyu-i-pauza.md",
+            "keywords": "Unity меню пауза Time.timeScale SetActive SceneManager.LoadScene Pause Menu Canvas Group загрузка сцены",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "EventSystem и Input Module",
+            "url": "content/unity/ui-i-interfeys/eventsystem-i-input-module.md",
+            "keywords": "Unity EventSystem InputSystemUIInputModule StandaloneInputModule Graphic Raycaster UI клики Input System Active Input Handling",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 65,
+            "title": "UI и интерфейс",
+            "url": "content/unity/ui-i-interfeys/itog-ui-i-interfeys.md",
+            "keywords": "Unity UI итог Canvas Canvas Scaler TextMeshPro Button HUD EventSystem пауза SceneManager",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Практика: HUD",
+            "url": "content/unity/ui-i-interfeys/praktika-hud.md",
+            "keywords": "Unity практика HUD health bar Image Filled TextMeshPro Canvas Scaler anchors пауза кнопки",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "animaciya-zvuk-effekty",
+        "order": 90,
+        "name": "Анимация, звук и эффекты",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Animator",
+            "url": "content/unity/animaciya-zvuk-effekty/animator.md",
+            "keywords": "Unity Animator Animator Controller параметры SetFloat SetBool SetTrigger состояния переходы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Animation Clips",
+            "url": "content/unity/animaciya-zvuk-effekty/animation-clips.md",
+            "keywords": "Unity Animation Clip ключевые кадры Animation window loop root motion кривые анимация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Animation Events",
+            "url": "content/unity/animaciya-zvuk-effekty/animation-events.md",
+            "keywords": "Unity Animation Events AnimationEvent вызов метода клип звук эффект тайминг",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "AudioSource",
+            "url": "content/unity/animaciya-zvuk-effekty/audiosource.md",
+            "keywords": "Unity AudioSource AudioClip AudioListener PlayOneShot spatialBlend 3D звук volume pitch",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "AudioMixer",
+            "url": "content/unity/animaciya-zvuk-effekty/audiomixer.md",
+            "keywords": "Unity AudioMixer группы snapshots exposed parameters SetFloat dB громкость",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Particle System",
+            "url": "content/unity/animaciya-zvuk-effekty/particle-system.md",
+            "keywords": "Unity Particle System emission shape lifetime color over lifetime size over lifetime эффекты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 65,
+            "title": "Анимация, звук и эффекты",
+            "url": "content/unity/animaciya-zvuk-effekty/itog-animaciya-zvuk-effekty.md",
+            "keywords": "Unity итог Animator Animation Clip Animation Event AudioSource AudioMixer Particle System",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Практика: оживить",
+            "url": "content/unity/animaciya-zvuk-effekty/praktika-ozhivit.md",
+            "keywords": "Unity практика анимация Animator Animation Clip AudioSource Particle System эффект",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "igrovaya-logika-arhitektura",
+        "order": 100,
+        "name": "Игровая логика и архитектура",
+        "topics": [
+          {
+            "order": 10,
+            "title": "GameManager",
+            "url": "content/unity/igrovaya-logika-arhitektura/gamemanager.md",
+            "keywords": "Unity GameManager состояние игры singleton DontDestroyOnLoad архитектура ссылки через Inspector",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Счёт и здоровье",
+            "url": "content/unity/igrovaya-logika-arhitektura/schet-i-zdorove.md",
+            "keywords": "Unity здоровье счёт Health damage heal Action event UI игровая логика",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Делегаты и события",
+            "url": "content/unity/igrovaya-logika-arhitektura/delegaty-i-sobytiya.md",
+            "keywords": "Unity делегаты события Action event UnityEvent подписка отписка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "ScriptableObject",
+            "url": "content/unity/igrovaya-logika-arhitektura/scriptableobject.md",
+            "keywords": "Unity ScriptableObject CreateAssetMenu конфиг данные ассеты EnemyConfig архитектура",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Пулинг и спавн",
+            "url": "content/unity/igrovaya-logika-arhitektura/puling-i-spavn.md",
+            "keywords": "Unity пулинг Object Pool Instantiate Destroy спавн spawn point Queue производительность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Сохранение",
+            "url": "content/unity/igrovaya-logika-arhitektura/sohranenie.md",
+            "keywords": "Unity сохранение PlayerPrefs JsonUtility persistentDataPath JSON save load прогресс",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Загрузка сцен",
+            "url": "content/unity/igrovaya-logika-arhitektura/zagruzka-scen.md",
+            "keywords": "Unity SceneManager LoadScene LoadSceneAsync загрузка сцены loading screen Build Settings Build Profiles",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 75,
+            "title": "Игровая логика и архитектура",
+            "url": "content/unity/igrovaya-logika-arhitektura/itog-igrovaya-logika-arhitektura.md",
+            "keywords": "Unity итог GameManager здоровье счёт события ScriptableObject пул сохранение SceneManager",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: игровой цикл",
+            "url": "content/unity/igrovaya-logika-arhitektura/praktika-igrovoy-cikl.md",
+            "keywords": "Unity практика игровой цикл GameManager здоровье счёт победа поражение рестарт",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "sborka-otladka-optimizaciya",
+        "order": 110,
+        "name": "Сборка, отладка и оптимизация",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Build Settings и Build Profiles",
+            "url": "content/unity/sborka-otladka-optimizaciya/build-settings-i-profiles.md",
+            "keywords": "Unity сборка Build Settings Build Profiles Build And Run сцены в сборке Windows WebGL",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Player Settings",
+            "url": "content/unity/sborka-otladka-optimizaciya/player-settings.md",
+            "keywords": "Unity Player Settings Product Name Company Name Scripting Backend IL2CPP resolution icon",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Логи и отладка",
+            "url": "content/unity/sborka-otladka-optimizaciya/logi-i-otladka.md",
+            "keywords": "Unity отладка Console Debug.Log breakpoint Player.log Development Build logMessageReceived",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Профилирование",
+            "url": "content/unity/sborka-otladka-optimizaciya/profilirovanie.md",
+            "keywords": "Unity Profiler профилирование CPU GPU Memory Frame Debugger GC производительность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Оптимизация",
+            "url": "content/unity/sborka-otladka-optimizaciya/optimizaciya.md",
+            "keywords": "Unity оптимизация draw calls batching атлас LOD occlusion текстуры размер билда IL2CPP",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Платформы и модули",
+            "url": "content/unity/sborka-otladka-optimizaciya/platformy-i-moduli.md",
+            "keywords": "Unity платформы модули Windows WebGL Android iOS Switch Platform Build Profiles",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 65,
+            "title": "Сборка, отладка и оптимизация",
+            "url": "content/unity/sborka-otladka-optimizaciya/itog-sborka-otladka-optimizaciya.md",
+            "keywords": "Unity итог сборка Build Profiles Player Settings отладка Profiler оптимизация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Практика: собрать билд",
+            "url": "content/unity/sborka-otladka-optimizaciya/praktika-sobrat-bild.md",
+            "keywords": "Unity практика сборка Build Profiles Development Build Player.log Profiler Windows",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "kapston-3d-igra",
+        "order": 120,
+        "name": "Капстон: 3D-игра",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Дизайн мини-игры",
+            "url": "content/unity/kapston-3d-igra/dizayn-mini-igry.md",
+            "keywords": "Unity капстон дизайн игры core loop MVP рамки проекта критерии готовности",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Сцена и окружение",
+            "url": "content/unity/kapston-3d-igra/scena-i-okruzhenie.md",
+            "keywords": "Unity капстон сцена blockout окружение материалы свет коллайдеры чекпоинты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Игрок и управление",
+            "url": "content/unity/kapston-3d-igra/igrok-i-upravlenie.md",
+            "keywords": "Unity капстон игрок CharacterController Input System камера respawn управление",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Враги и препятствия",
+            "url": "content/unity/kapston-3d-igra/vragi-i-prepyatstviya.md",
+            "keywords": "Unity капстон враги AI патруль преследование урон префабы препятствия",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Цель, счёт и победа",
+            "url": "content/unity/kapston-3d-igra/cel-schet-pobeda.md",
+            "keywords": "Unity капстон цель счёт победа поражение UI рестарт pickups",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Сборка и полировка",
+            "url": "content/unity/kapston-3d-igra/sborka-i-polirovka.md",
+            "keywords": "Unity капстон сборка тестирование баги полировка билд производительность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 65,
+            "title": "Капстон: 3D-игра",
+            "url": "content/unity/kapston-3d-igra/itog-kapston-3d-igra.md",
+            "keywords": "Unity капстон итог 3D-игра дизайн сцена игрок враги победа сборка",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "2d-trek",
+        "order": 130,
+        "name": "2D-трек",
+        "topics": [
+          {
+            "order": 10,
+            "title": "2D-проект и спрайты",
+            "url": "content/unity/2d-trek/2d-proekt-i-sprayty.md",
+            "keywords": "Unity 2D спрайты Sprite Pixels Per Unit Pivot импорт текстур 2D шаблон",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Sprite Renderer и Sorting",
+            "url": "content/unity/2d-trek/sprite-renderer-i-sorting.md",
+            "keywords": "Unity Sprite Renderer Sorting Layer Order in Layer flipX sprite 2D отрисовка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Rigidbody2D и Collider2D",
+            "url": "content/unity/2d-trek/rigidbody2d-i-collider2d.md",
+            "keywords": "Unity Rigidbody2D Collider2D BoxCollider2D CircleCollider2D gravityScale linearVelocity 2D физика",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "2D-анимация",
+            "url": "content/unity/2d-trek/2d-animaciya.md",
+            "keywords": "Unity 2D анимация sprite animation Animation window Animator ключевые кадры loop",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Tilemap",
+            "url": "content/unity/2d-trek/tilemap.md",
+            "keywords": "Unity Tilemap Grid Tile Palette TilemapCollider2D CompositeCollider2D 2D уровень",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Камера и UI в 2D",
+            "url": "content/unity/2d-trek/kamera-i-ui-2d.md",
+            "keywords": "Unity 2D камера orthographic orthographic size Pixel Perfect Canvas Canvas Scaler 2D UI",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 65,
+            "title": "2D-трек",
+            "url": "content/unity/2d-trek/itog-2d-trek.md",
+            "keywords": "Unity 2D итог спрайты Sorting Layer Rigidbody2D Tilemap 2D камера UI",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Практика: 2D-платформер",
+            "url": "content/unity/2d-trek/praktika-2d-platformer.md",
+            "keywords": "Unity 2D практика платформер Tilemap Rigidbody2D анимация камера монеты",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "versii-i-migraciya",
+        "order": 140,
+        "name": "Версии и миграция",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Матрица API 2022.3 и Unity 6",
+            "url": "content/unity/versii-i-migraciya/matrica-api.md",
+            "keywords": "Unity 2022.3 Unity 6 миграция матрица API linearVelocity FindFirstObjectByType Build Profiles",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Rigidbody и Rigidbody2D",
+            "url": "content/unity/versii-i-migraciya/rigidbody-migraciya.md",
+            "keywords": "Unity миграция физики linearVelocity linearDamping angularDamping Rigidbody2D compat",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Input System и project-wide actions",
+            "url": "content/unity/versii-i-migraciya/input-migraciya.md",
+            "keywords": "Unity миграция Input System Project-wide Actions InputSystem.actions InputActionReference Unity 6",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "FindObjectOfType и другие API",
+            "url": "content/unity/versii-i-migraciya/find-api.md",
+            "keywords": "Unity FindObjectOfType FindFirstObjectByType FindAnyObjectByType FindObjectsByType миграция API",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Пакеты, URP и TMP",
+            "url": "content/unity/versii-i-migraciya/pakety-urp-tmp.md",
+            "keywords": "Unity миграция пакетов URP 14 URP 17 TextMeshPro uGUI 2 Cinemachine 3 manifest.json",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Сборка и Build Profiles",
+            "url": "content/unity/versii-i-migraciya/build-migraciya.md",
+            "keywords": "Unity миграция сборки Build Settings Build Profiles сцены Development Build Unity 6",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 65,
+            "title": "Версии и миграция",
+            "url": "content/unity/versii-i-migraciya/itog-versii-i-migraciya.md",
+            "keywords": "Unity миграция итог 2022.3 Unity 6 linearVelocity FindFirstObjectByType Build Profiles",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      }
+    ]
   },
   "bezopasnost-prilozheniy": {
     "order": 90,

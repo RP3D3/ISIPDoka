@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="320" viewBox="0 0 900 320" role="img" aria-labelledby="title desc">
+  <title id="title">Схема простой камеры следования</title>
+  <desc id="desc">Камера плавно движется к точке target.position + offset и смотрит на цель в LateUpdate.</desc>
+  <rect width="900" height="320" rx="16" fill="#1b1c20"/>
+
+  <text x="24" y="34" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="600">Камера следования</text>
+  <text x="24" y="58" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">LateUpdate: сначала двигаются все объекты, потом камера</text>
+
+  <rect x="80" y="150" width="120" height="56" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.6"/>
+  <text x="140" y="174" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Target</text>
+  <text x="140" y="194" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">Player</text>
+
+  <circle cx="140" cy="150" r="5" fill="#60a5fa"/>
+
+  <rect x="420" y="72" width="170" height="64" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7" stroke-dasharray="6 4"/>
+  <text x="505" y="98" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600">target.position</text>
+  <text x="505" y="118" text-anchor="middle" fill="#f43f5e" font-family="Consolas, monospace" font-size="12">+ offset</text>
+
+  <rect x="420" y="196" width="170" height="64" rx="8" fill="#282a30" stroke="#ffffff" stroke-opacity="0.25"/>
+  <text x="505" y="222" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600">Camera</text>
+  <text x="505" y="242" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">transform.position</text>
+
+  <line x1="200" y1="178" x2="420" y2="104" stroke="#f43f5e" stroke-opacity="0.5" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="300" y="128" text-anchor="middle" fill="#f43f5e" font-family="Consolas, monospace" font-size="12">offset</text>
+
+  <line x1="200" y1="178" x2="420" y2="228" stroke="#ffffff" stroke-opacity="0.25" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="300" y="222" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">Vector3.Lerp</text>
+
+  <line x1="505" y1="196" x2="505" y2="136" stroke="#60a5fa" stroke-opacity="0.7" stroke-width="2"/>
+  <path d="M497 146 L505 134 L513 146" fill="none" stroke="#60a5fa" stroke-opacity="0.7" stroke-width="2"/>
+  <text x="530" y="168" fill="#60a5fa" font-family="Consolas, monospace" font-size="12">LookAt</text>
+
+  <rect x="660" y="96" width="208" height="128" rx="8" fill="#282a30" stroke="#ffffff" stroke-opacity="0.14"/>
+  <text x="676" y="122" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600">Порядок кадра</text>
+  <text x="676" y="148" fill="#e2e8f0" font-family="Consolas, monospace" font-size="11">Update — ввод и движение</text>
+  <text x="676" y="170" fill="#e2e8f0" font-family="Consolas, monospace" font-size="11">LateUpdate — камера</text>
+  <text x="676" y="192" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">камера видит итог кадра</text>
+
+  <path d="M590 228 C 620 228, 630 210, 660 200" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.5"/>
+</svg>

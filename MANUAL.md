@@ -100,6 +100,53 @@
 ![Подпись](path/to/image.png)
 ```
 
+Путь считается **от корня сайта**, а не от файла темы. Если картинка лежит
+в `content/unity/_assets/`, пишите так:
+
+```markdown
+![Окно редактора](content/unity/_assets/editor.png)
+```
+
+Папки и файлы, начинающиеся с `_`, не попадают в структуру и поиск, поэтому
+`content/<область>/_assets/` удобно для картинок.
+
+### Размер, центровка и источник
+
+Для картинок с подписью используйте HTML-блок `figure`. Готовые классы:
+
+- `md-figure` — базовый блок;
+- `md-figure--small` — ширина 360 px;
+- `md-figure--medium` — ширина 560 px;
+- `md-figure--wide` — на всю ширину колонки;
+- `md-figure--center` — центровка.
+
+```html
+<figure class="md-figure md-figure--center md-figure--medium">
+  <img
+    src="content/unity/_assets/editor.png"
+    alt="Окно редактора Unity 6"
+    width="560"
+  >
+  <figcaption>
+    Окно редактора Unity 6.
+    <a
+      class="md-figure-source"
+      href="https://docs.unity3d.com/6000.0/Documentation/Manual/"
+      target="_blank"
+      rel="noopener"
+    >
+      Источник: Unity Documentation
+    </a>
+  </figcaption>
+</figure>
+```
+
+`width` можно не указывать: класс `md-figure--small/medium/wide` задаёт ширину,
+а `max-width: 100%` не даёт картинке вылезти за колонку на телефоне.
+
+Для скриншотов из документации указывайте ссылку на страницу-источник
+в `figcaption` — это и атрибуция, и возможность проверить актуальность.
+
 ## Блоки кода
 
 Три обратных кавычки и язык после них включают подсветку синтаксиса:

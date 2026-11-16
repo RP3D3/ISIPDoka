@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="330" viewBox="0 0 900 330" role="img" aria-labelledby="title desc">
+  <title id="title">Схема Cinemachine 3</title>
+  <desc id="desc">CinemachineBrain на Main Camera выбирает активную CinemachineCamera по приоритету и смешивает кадры.</desc>
+  <rect width="900" height="330" rx="16" fill="#1b1c20"/>
+
+  <text x="24" y="34" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="600">Cinemachine 3</text>
+  <text x="24" y="58" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Brain на камере, несколько CinemachineCamera с разным приоритетом</text>
+
+  <rect x="36" y="96" width="250" height="92" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.6"/>
+  <text x="52" y="122" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">CinemachineCamera A</text>
+  <text x="52" y="146" fill="#e2e8f0" font-family="Consolas, monospace" font-size="11">CinemachineFollow</text>
+  <text x="52" y="168" fill="#60a5fa" font-family="Consolas, monospace" font-size="12">Priority = 10</text>
+
+  <rect x="36" y="204" width="250" height="92" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="52" y="230" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">CinemachineCamera B</text>
+  <text x="52" y="254" fill="#e2e8f0" font-family="Consolas, monospace" font-size="11">CinemachineOrbitalFollow</text>
+  <text x="52" y="276" fill="#f43f5e" font-family="Consolas, monospace" font-size="12">Priority = 20</text>
+
+  <rect x="390" y="150" width="200" height="92" rx="8" fill="#282a30" stroke="#ffffff" stroke-opacity="0.2"/>
+  <text x="490" y="178" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">CinemachineBrain</text>
+  <text x="490" y="200" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">выбирает активную</text>
+  <text x="490" y="220" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">и смешивает кадры</text>
+
+  <rect x="684" y="150" width="180" height="92" rx="8" fill="#282a30" stroke="#ffffff" stroke-opacity="0.2"/>
+  <text x="774" y="178" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Main Camera</text>
+  <text x="774" y="200" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">Camera</text>
+  <text x="774" y="220" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">+ Brain</text>
+
+  <line x1="286" y1="142" x2="390" y2="178" stroke="#60a5fa" stroke-opacity="0.55" stroke-width="2"/>
+  <line x1="286" y1="250" x2="390" y2="214" stroke="#f43f5e" stroke-opacity="0.65" stroke-width="2"/>
+  <line x1="590" y1="196" x2="684" y2="196" stroke="#ffffff" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M674 189 L686 196 L674 203" fill="none" stroke="#ffffff" stroke-opacity="0.4" stroke-width="2"/>
+
+  <text x="338" y="126" text-anchor="middle" fill="#60a5fa" font-family="Consolas, monospace" font-size="11">активна при 10</text>
+  <text x="338" y="282" text-anchor="middle" fill="#f43f5e" font-family="Consolas, monospace" font-size="11">перебивает при 20</text>
+</svg>

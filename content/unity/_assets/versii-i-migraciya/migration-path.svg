@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">Миграция с Unity 2022.3 на Unity 6</title>
+  <desc id="desc">Проверка API, пакетов, ввода, физики и сборки.</desc>
+  <rect width="900" height="300" rx="16" fill="#1b1c20"/>
+
+  <rect x="24" y="40" width="200" height="70" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.7"/>
+  <text x="124" y="70" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Unity 2022.3 LTS</text>
+  <text x="124" y="92" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">исходный проект</text>
+
+  <path d="M224 75 H300" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M300 75 L290 69 M300 75 L290 81" stroke="#f43f5e" stroke-width="2"/>
+
+  <rect x="300" y="24" width="280" height="190" rx="10" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="440" y="52" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Проверка перед обновлением</text>
+  <text x="320" y="80" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="12">• backup / Git</text>
+  <text x="320" y="102" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="12">• Rigidbody.velocity → linearVelocity</text>
+  <text x="320" y="124" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="12">• drag → linearDamping</text>
+  <text x="320" y="146" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="12">• FindObjectOfType → FindFirstObjectByType</text>
+  <text x="320" y="168" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="12">• Input System / Project-wide Actions</text>
+  <text x="320" y="190" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="12">• URP / TMP / Build Profiles</text>
+
+  <path d="M580 75 H656" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M656 75 L646 69 M656 75 L646 81" stroke="#f43f5e" stroke-width="2"/>
+
+  <rect x="656" y="40" width="220" height="70" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.7"/>
+  <text x="766" y="70" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Unity 6</text>
+  <text x="766" y="92" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">обновлённый проект</text>
+
+  <text x="24" y="256" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Сначала фиксируем проект в Git, потом обновляем и проверяем каждую систему отдельно.</text>
+</svg>
