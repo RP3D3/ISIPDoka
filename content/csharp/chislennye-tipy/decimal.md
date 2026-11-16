@@ -328,3 +328,51 @@ class Program
 * **Никаких копеечных потерь:** выражение `0.1m + 0.2m` вернёт ровно `0.3`, тогда как в `double` накопится микроскопическая ошибка.
 * **Плата за точность:** `decimal` занимает 16 байт и обрабатывается процессором медленнее, чем `double` или `float`, поэтому в играх и 3D-графике его не используют.
 
+## Проверь себя
+
+```quiz
+{
+  "type": "radio",
+  "question": "Какой суффикс нужен для литерала `decimal`?",
+  "options": [
+    {
+      "text": "`m`",
+      "correct": true
+    },
+    {
+      "text": "`f`",
+      "correct": false,
+      "explanation": "`f` — для `float`."
+    },
+    {
+      "text": "`d`",
+      "correct": false,
+      "explanation": "`d` — для `double`."
+    }
+  ],
+  "explanation": "`m` происходит от слова money — деньги."
+}
+```
+
+```quiz
+{
+  "type": "checkbox",
+  "question": "Почему `decimal` выбирают для денег?",
+  "options": [
+    {
+      "text": "Точная десятичная арифметика",
+      "correct": true
+    },
+    {
+      "text": "`0.1m + 0.2m == 0.3m`",
+      "correct": true
+    },
+    {
+      "text": "Он быстрее `double`",
+      "correct": false,
+      "explanation": "`decimal` медленнее, но точнее."
+    }
+  ],
+  "explanation": "Для сумм и цен важнее точность, чем скорость."
+}
+```

@@ -184,3 +184,52 @@ class Program
 
 * [Методы (руководство C#)](https://learn.microsoft.com/dotnet/csharp/programming-guide/classes-and-structs/methods) — объявление, параметры и перегрузка в руководстве Microsoft.
 * [Параметры методов](https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/method-parameters) — `ref`, `out`, `in` и `params` с примерами.
+
+## Проверь себя
+
+```quiz
+{
+  "type": "radio",
+  "question": "Какой модификатор передаёт переменную для изменения?",
+  "options": [
+    {
+      "text": "`ref`",
+      "correct": true
+    },
+    {
+      "text": "`in`",
+      "correct": false,
+      "explanation": "`in` — только для чтения."
+    },
+    {
+      "text": "`params`",
+      "correct": false,
+      "explanation": "`params` собирает аргументы в массив."
+    }
+  ],
+  "explanation": "`ref` позволяет методу изменить исходную переменную."
+}
+```
+
+```quiz
+{
+  "type": "checkbox",
+  "question": "Что верно про методы?",
+  "options": [
+    {
+      "text": "Могут возвращать значение",
+      "correct": true
+    },
+    {
+      "text": "Могут быть перегружены",
+      "correct": true
+    },
+    {
+      "text": "Все методы обязаны быть `void`",
+      "correct": false,
+      "explanation": "Методы могут возвращать значения."
+    }
+  ],
+  "explanation": "Методы — основной способ выделить повторяющуюся логику."
+}
+```

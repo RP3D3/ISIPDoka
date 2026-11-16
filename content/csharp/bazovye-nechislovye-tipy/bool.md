@@ -320,3 +320,51 @@ class Program
 * **Правила именования:** переменные типа `bool` принято называть как вопрос, начинающийся со слов `is`, `has` или `can` (например, `isReady`, `hasAccess`, `canJump`) — так код читается как обычный текст.
 * **Регистр при выводе:** в коде ключевые слова всегда пишутся со строчной буквы (`true`, `false`), но при печати в консоль через `Console.WriteLine()` они выводятся с заглавной (`True`, `False`).
 
+## Проверь себя
+
+```quiz
+{
+  "type": "radio",
+  "question": "Какие значения принимает `bool`?",
+  "options": [
+    {
+      "text": "`true` и `false`",
+      "correct": true
+    },
+    {
+      "text": "`1` и `0`",
+      "correct": false,
+      "explanation": "В C# нет неявного преобразования числа в `bool`."
+    },
+    {
+      "text": "Любые числа",
+      "correct": false,
+      "explanation": "`bool` хранит только логические значения."
+    }
+  ],
+  "explanation": "`bool` — строго логический тип."
+}
+```
+
+```quiz
+{
+  "type": "checkbox",
+  "question": "Как принято называть `bool`-переменные?",
+  "options": [
+    {
+      "text": "`isReady`",
+      "correct": true
+    },
+    {
+      "text": "`hasAccess`",
+      "correct": true
+    },
+    {
+      "text": "`count`",
+      "correct": false,
+      "explanation": "`count` — это число, а не флаг."
+    }
+  ],
+  "explanation": "Имена-вопросы с `is`, `has`, `can` делают код понятнее."
+}
+```

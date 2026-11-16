@@ -252,7 +252,6 @@
                     : escapeHtml(t.url);
                   const badge = t.interactive ? ' 🔧' : '';
                   const isSummary =
-                    topicIndex === topics.length - 1 &&
                     normalizeTitle(t.title) === normalizeTitle(group.name);
                   const isPractice =
                     !isSummary && /^Практик/i.test(String(t.title || '').trim());

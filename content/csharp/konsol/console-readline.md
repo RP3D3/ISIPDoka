@@ -53,3 +53,52 @@ class Program
 | `Console.ReadLine()` | Всю строку целиком | `string?` | Да |
 | `Console.Read()` | Один следующий символ | `int` (код символа в Юникоде) | Да |
 | `Console.ReadKey()` | Одно нажатие любой клавиши | `ConsoleKeyInfo` (структура с данными о клавише) | Нет (срабатывает сразу) |
+
+## Проверь себя
+
+```quiz
+{
+  "type": "radio",
+  "question": "Что возвращает `Console.ReadLine()`?",
+  "options": [
+    {
+      "text": "Строку `string`",
+      "correct": true
+    },
+    {
+      "text": "Число `int`",
+      "correct": false,
+      "explanation": "Строку нужно преобразовать отдельно."
+    },
+    {
+      "text": "Один символ `char`",
+      "correct": false,
+      "explanation": "Для одного символа есть `Read` и `ReadKey`."
+    }
+  ],
+  "explanation": "`ReadLine` всегда возвращает строку."
+}
+```
+
+```quiz
+{
+  "type": "checkbox",
+  "question": "Как получить число из строки, введённой через `ReadLine`?",
+  "options": [
+    {
+      "text": "`int.Parse`",
+      "correct": true
+    },
+    {
+      "text": "`int.TryParse`",
+      "correct": true
+    },
+    {
+      "text": "Просто присвоить строку в `int`",
+      "correct": false,
+      "explanation": "Нужно явное преобразование."
+    }
+  ],
+  "explanation": "`TryParse` безопаснее для пользовательского ввода."
+}
+```

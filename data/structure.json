@@ -33,6 +33,14 @@
             "keywords": "неявная типизация ключевое слово var вывод типов объявление переменной строгая типизация инициализация компилятор сокращение кода",
             "type": "md",
             "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Практика: самопроверка — первые шаги",
+            "url": "content/csharp/pervye-shagi/praktika-pervye-shagi.md",
+            "keywords": "практика c# первая программа точка входа Main переменные var Console.WriteLine задания самопроверка карточка участника",
+            "type": "md",
+            "interactive": false
           }
         ]
       },
@@ -144,6 +152,14 @@
             "keywords": "Console.SetCursorPosition Console.CursorVisible координаты курсора позиция текста убрать мигание скрыть курсор вывод по координатам экран консоль",
             "type": "md",
             "interactive": false
+          },
+          {
+            "order": 140,
+            "title": "Практика: самопроверка — консоль",
+            "url": "content/csharp/konsol/praktika-konsol.md",
+            "keywords": "практика консоли c# Console.ReadLine Console.ReadKey Console.Read Console.Clear ForegroundColor BackgroundColor Console.Title SetCursorPosition задания самопроверка",
+            "type": "md",
+            "interactive": false
           }
         ]
       },
@@ -215,6 +231,14 @@
             "keywords": "выбор числового типа int long double float decimal byte суффиксы чисел точность переполнение типы данных",
             "type": "md",
             "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: самопроверка — численные типы",
+            "url": "content/csharp/chislennye-tipy/praktika-chislennye-tipy.md",
+            "keywords": "практика численных типов c# int long double float decimal byte short MinValue MaxValue переполнение выбор типа задания самопроверка",
+            "type": "md",
+            "interactive": false
           }
         ]
       },
@@ -244,6 +268,14 @@
             "title": "bool",
             "url": "content/csharp/bazovye-nechislovye-tipy/bool.md",
             "keywords": "bool System.Boolean логический тип данных true false истина ложь условие сравнение проверка да нет переменная",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Практика: самопроверка — строки, символы, bool",
+            "url": "content/csharp/bazovye-nechislovye-tipy/praktika-bazovye-tipy.md",
+            "keywords": "практика string char bool c# длина строки индексация ToUpper ToLower пустая строка IsNullOrWhiteSpace логический тип задания самопроверка",
             "type": "md",
             "interactive": false
           }
@@ -293,6 +325,14 @@
             "keywords": "преобразование типов приведение типов Parse TryParse Convert ToString кастинг перевод строки в число округление ошибка ввода",
             "type": "md",
             "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Практика: самопроверка — преобразование типов",
+            "url": "content/csharp/preobrazovanie-tipov/praktika-preobrazovanie-tipov.md",
+            "keywords": "практика преобразования типов c# неявное приведение явное приведение cast Parse TryParse Convert ToString форматирование потеря данных задания самопроверка",
+            "type": "md",
+            "interactive": false
           }
         ]
       },
@@ -332,6 +372,14 @@
             "keywords": "Math степень квадратный корень модуль числа округление дроби минимум максимум число Пи математические функции вычисления",
             "type": "md",
             "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Практика: самопроверка — арифметика и математика",
+            "url": "content/csharp/arifmetika-i-matematika/praktika-arifmetika.md",
+            "keywords": "практика арифметики c# операторы деление остаток проценты инкремент декремент Math округление Math.Round задания самопроверка",
+            "type": "md",
+            "interactive": false
           }
         ]
       },
@@ -361,6 +409,14 @@
             "title": "Приоритет операторов",
             "url": "content/csharp/operatory-sravneniya-i-logika/prioritet-operatorov.md",
             "keywords": "приоритет операторов порядок выполнения круглые скобки арифметика сравнение логика присваивание инкремент выражение вычисления условие новичок",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Практика: самопроверка — сравнения и логика",
+            "url": "content/csharp/operatory-sravneniya-i-logika/praktika-logika.md",
+            "keywords": "практика операторов c# сравнение равно не равно логическое И ИЛИ НЕ приоритет операторов скобки bool задания самопроверка",
             "type": "md",
             "interactive": false
           }
@@ -416,6 +472,14 @@
             "title": "Ветвления",
             "url": "content/csharp/uslovnye-konstrukcii/vetvleniya.md",
             "keywords": "условные конструкции ветвление if else тернарный оператор switch выбор значения условие проверка сравнение диапазон логика",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Практика: самопроверка — условные конструкции",
+            "url": "content/csharp/uslovnye-konstrukcii/praktika-uslovnye-konstrukcii.md",
+            "keywords": "практика if else c# else if тернарный оператор switch современный switch switch expression pattern matching вложенные условия задания самопроверка",
             "type": "md",
             "interactive": false
           }
@@ -481,6 +545,14 @@
             "keywords": "циклы повторение действий итерация while for foreach счётчик предусловие постусловие перебор элементов условие выхода выбор",
             "type": "md",
             "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: самопроверка — циклы",
+            "url": "content/csharp/cikly/praktika-cikly.md",
+            "keywords": "практика циклов c# while do while for foreach break continue вложенные циклы угадай число задания самопроверка",
+            "type": "md",
+            "interactive": false
           }
         ]
       },
@@ -542,6 +614,14 @@
             "title": "Массивы",
             "url": "content/csharp/massivy/massivy.md",
             "keywords": "массивы одномерный массив двумерный массив матрица зубчатый массив индексы длина строки столбцы таблица данных выбор",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: самопроверка — массивы",
+            "url": "content/csharp/massivy/praktika-massivy.md",
+            "keywords": "практика массивов c# одномерный массив перебор сумма среднее минимум максимум Array.Sort двумерный массив зубчатый массив задания самопроверка",
             "type": "md",
             "interactive": false
           }
@@ -623,6 +703,14 @@
             "keywords": "методы сигнатура возврат значения void return параметры аргументы ссылка модификаторы ref out in params перегрузка",
             "type": "md",
             "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Практика: самопроверка — методы",
+            "url": "content/csharp/metody/praktika-metody.md",
+            "keywords": "практика методов c# void return параметры аргументы ref out in params перегрузка рекурсия области видимости задания самопроверка",
+            "type": "md",
+            "interactive": false
           }
         ]
       },
@@ -686,6 +774,14 @@
             "keywords": "коллекции массив динамический список словарь ключ значение множество уникальные элементы очередь стек порядок поиск выбор",
             "type": "md",
             "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: самопроверка — коллекции",
+            "url": "content/csharp/kollekcii/praktika-kollekcii.md",
+            "keywords": "практика коллекций c# List Dictionary HashSet Queue Stack добавление удаление поиск сортировка ключ значение задания самопроверка",
+            "type": "md",
+            "interactive": false
           }
         ]
       },
@@ -747,6 +843,14 @@
             "title": "Классы и объекты",
             "url": "content/csharp/klassy-i-obekty/klassy-i-obekty.md",
             "keywords": "структура класса экземпляр объекта инкапсуляция данных конструктор свойства поля модификаторы доступа статические члены порядок элементов",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: самопроверка — классы и объекты",
+            "url": "content/csharp/klassy-i-obekty/praktika-klassy-i-obekty.md",
+            "keywords": "практика классов c# class объект new поля константы readonly конструкторы this модификаторы доступа свойства static инкапсуляция задания самопроверка",
             "type": "md",
             "interactive": false
           }

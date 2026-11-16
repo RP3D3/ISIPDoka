@@ -312,3 +312,52 @@ class Program
 * **Отрицательные числа в `Floor` и `Ceiling`:** `Math.Floor(-3.1)` вернёт `-4` (так как `-4` меньше, чем `-3.1`), а `Math.Ceiling(-3.9)` вернёт `-3`.
 * **Полезный бонус `Math.Clamp(значение, min, max)`:** помогает быстро удержать число в заданных границах (например, не дать здоровью персонажа опуститься ниже `0` или подняться выше `100`).
 
+## Проверь себя
+
+```quiz
+{
+  "type": "radio",
+  "question": "Какой тип возвращает `Math.Sqrt(81)`?",
+  "options": [
+    {
+      "text": "`double`",
+      "correct": true
+    },
+    {
+      "text": "`int`",
+      "correct": false,
+      "explanation": "Результат математических методов — `double`."
+    },
+    {
+      "text": "`decimal`",
+      "correct": false,
+      "explanation": "`decimal` возвращают другие методы."
+    }
+  ],
+  "explanation": "`Math.Sqrt` и `Math.Pow` всегда возвращают `double`."
+}
+```
+
+```quiz
+{
+  "type": "radio",
+  "question": "Что вернёт `Math.Floor(-3.1)`?",
+  "options": [
+    {
+      "text": "`-4`",
+      "correct": true
+    },
+    {
+      "text": "`-3`",
+      "correct": false,
+      "explanation": "Это было бы `Ceiling`."
+    },
+    {
+      "text": "`3`",
+      "correct": false,
+      "explanation": "Знак не меняется."
+    }
+  ],
+  "explanation": "`Floor` всегда округляет вниз, а `-4` меньше `-3.1`."
+}
+```

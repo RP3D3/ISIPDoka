@@ -380,3 +380,52 @@ class Program
 * **Спокойная реакция на `null`:** если передать в `Convert.ToInt32(null)` пустую ссылку, метод спокойно вернёт `0`, тогда как `int.Parse(null)` аварийно завершит программу.
 * **Падение на буквах:** если передать в `Convert.ToInt32("привет")` строку с буквами, программа всё равно остановится с ошибкой `FormatException` — для защиты от неверного ввода пользователя лучше использовать `TryParse()`.
 
+## Проверь себя
+
+```quiz
+{
+  "type": "radio",
+  "question": "Как `Convert.ToInt32(4.6)` преобразует число?",
+  "options": [
+    {
+      "text": "Округлит до `5`",
+      "correct": true
+    },
+    {
+      "text": "Отбросит дробь до `4`",
+      "correct": false,
+      "explanation": "Это делает явное приведение `(int)`."
+    },
+    {
+      "text": "Выдаст ошибку",
+      "correct": false,
+      "explanation": "Преобразование допустимо."
+    }
+  ],
+  "explanation": "`Convert` округляет по математическим правилам."
+}
+```
+
+```quiz
+{
+  "type": "radio",
+  "question": "Что вернёт `Convert.ToInt32(null)`?",
+  "options": [
+    {
+      "text": "`0`",
+      "correct": true
+    },
+    {
+      "text": "`null`",
+      "correct": false,
+      "explanation": "Результат — число."
+    },
+    {
+      "text": "Исключение",
+      "correct": false,
+      "explanation": "`Convert` спокойно возвращает `0`."
+    }
+  ],
+  "explanation": "`Convert` умеет обрабатывать `null`, в отличие от `Parse`."
+}
+```

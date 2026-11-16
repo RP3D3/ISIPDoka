@@ -185,3 +185,52 @@ class UserAccount
 
 * [Классы (руководство C#)](https://learn.microsoft.com/dotnet/csharp/fundamentals/types/classes) — поля, конструкторы и создание объектов.
 * [Свойства](https://learn.microsoft.com/dotnet/csharp/programming-guide/classes-and-structs/properties) — автосвойства, `init` и проверки в аксессорах.
+
+## Проверь себя
+
+```quiz
+{
+  "type": "radio",
+  "question": "Что относится к состоянию объекта?",
+  "options": [
+    {
+      "text": "Поля и свойства",
+      "correct": true
+    },
+    {
+      "text": "Методы",
+      "correct": false,
+      "explanation": "Методы — это поведение."
+    },
+    {
+      "text": "Конструкторы",
+      "correct": false,
+      "explanation": "Конструктор создаёт объект."
+    }
+  ],
+  "explanation": "Состояние хранят поля и свойства, поведение — методы."
+}
+```
+
+```quiz
+{
+  "type": "checkbox",
+  "question": "Что верно про классы и объекты?",
+  "options": [
+    {
+      "text": "Класс — ссылочный тип",
+      "correct": true
+    },
+    {
+      "text": "Объект создаётся через `new`",
+      "correct": true
+    },
+    {
+      "text": "Изменяемые поля лучше делать `public`",
+      "correct": false,
+      "explanation": "Их прячут за свойствами."
+    }
+  ],
+  "explanation": "Инкапсуляция защищает внутреннее состояние объекта."
+}
+```

@@ -171,3 +171,53 @@ class Program
 
 * [Коллекции в .NET](https://learn.microsoft.com/dotnet/standard/collections/) — обзор `List`, `Dictionary`, `HashSet`, `Queue` и `Stack` и правила выбора структуры.
 * [Пространство System.Collections.Generic](https://learn.microsoft.com/dotnet/api/system.collections.generic) — справочник API по обобщённым коллекциям.
+
+## Проверь себя
+
+```quiz
+{
+  "type": "radio",
+  "question": "Какая коллекция хранит пары «ключ — значение»?",
+  "options": [
+    {
+      "text": "`Dictionary`",
+      "correct": true
+    },
+    {
+      "text": "`List`",
+      "correct": false,
+      "explanation": "Список хранит элементы по индексу."
+    },
+    {
+      "text": "`HashSet`",
+      "correct": false,
+      "explanation": "Множество хранит уникальные значения."
+    }
+  ],
+  "explanation": "Для поиска по ключу используют `Dictionary`."
+}
+```
+
+```quiz
+{
+  "type": "radio",
+  "question": "Какая коллекция хранит только уникальные элементы?",
+  "options": [
+    {
+      "text": "`HashSet`",
+      "correct": true
+    },
+    {
+      "text": "`List`",
+      "correct": false,
+      "explanation": "В списке могут быть дубликаты."
+    },
+    {
+      "text": "`Queue`",
+      "correct": false,
+      "explanation": "Очередь хранит все добавленные элементы."
+    }
+  ],
+  "explanation": "`HashSet` автоматически отсеивает повторы."
+}
+```

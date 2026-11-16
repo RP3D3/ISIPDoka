@@ -69,3 +69,52 @@ class Program
 * **Автоматический сдвиг индексов:** после `Insert` или `RemoveAt` список сам пересчитывает номера всех последующих элементов — пустых «дырок» внутри него не остаётся.
 * **Подключение библиотеки коллекций:** для работы со списком `List<T>` в самом верху файла должна быть подключена директива `using System.Collections.Generic;`.
 
+## Проверь себя
+
+```quiz
+{
+  "type": "radio",
+  "question": "Какое свойство хранит количество элементов `List`?",
+  "options": [
+    {
+      "text": "`Count`",
+      "correct": true
+    },
+    {
+      "text": "`Length`",
+      "correct": false,
+      "explanation": "`Length` — у массива."
+    },
+    {
+      "text": "`Size`",
+      "correct": false,
+      "explanation": "Такого свойства нет."
+    }
+  ],
+  "explanation": "У динамических коллекций используется `Count`."
+}
+```
+
+```quiz
+{
+  "type": "radio",
+  "question": "Что делает `Remove` при двух одинаковых элементах?",
+  "options": [
+    {
+      "text": "Удаляет первое совпадение",
+      "correct": true
+    },
+    {
+      "text": "Удаляет все совпадения",
+      "correct": false,
+      "explanation": "Для всех есть `RemoveAll`."
+    },
+    {
+      "text": "Удаляет последнее",
+      "correct": false,
+      "explanation": "`Remove` идёт слева."
+    }
+  ],
+  "explanation": "`Remove` возвращает `true`, если элемент был найден."
+}
+```

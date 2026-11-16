@@ -75,3 +75,52 @@ class Program
 * **Короткая запись `var` в цикле `foreach`:** вместо длинного типа `KeyValuePair<string, int>` в цикле обычно пишут `foreach (var pair in stock)` — компилятор сам определит тип пары.
 * **Нельзя менять состав словаря внутри `foreach`:** добавление или удаление записей во время обхода словаря в `foreach` вызовет аварийную ошибку (`InvalidOperationException`).
 
+## Проверь себя
+
+```quiz
+{
+  "type": "radio",
+  "question": "Чем `TryGetValue` лучше `ContainsKey` + `dict[key]`?",
+  "options": [
+    {
+      "text": "Ищет ключ один раз",
+      "correct": true
+    },
+    {
+      "text": "Работает с массивами",
+      "correct": false,
+      "explanation": "Это метод словаря."
+    },
+    {
+      "text": "Не требует `out`",
+      "correct": false,
+      "explanation": "`out` как раз используется."
+    }
+  ],
+  "explanation": "`TryGetValue` экономит повторный поиск ключа."
+}
+```
+
+```quiz
+{
+  "type": "radio",
+  "question": "Что запишется в `out`-переменную, если ключа нет?",
+  "options": [
+    {
+      "text": "Значение по умолчанию",
+      "correct": true
+    },
+    {
+      "text": "Всегда `null`",
+      "correct": false,
+      "explanation": "Для `int` это `0`."
+    },
+    {
+      "text": "Исключение",
+      "correct": false,
+      "explanation": "`TryGetValue` не выбрасывает исключение."
+    }
+  ],
+  "explanation": "Для чисел это `0`, для ссылочных типов — `null`."
+}
+```

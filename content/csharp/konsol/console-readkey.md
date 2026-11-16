@@ -64,3 +64,53 @@ class Program
 Нажата клавиша Spacebar, символ: ' '
 
 ```
+
+## Проверь себя
+
+```quiz
+{
+  "type": "radio",
+  "question": "Что возвращает `Console.ReadKey()`?",
+  "options": [
+    {
+      "text": "`ConsoleKeyInfo`",
+      "correct": true,
+      "explanation": "Объект с символом, клавишей и модификаторами."
+    },
+    {
+      "text": "Строку",
+      "correct": false,
+      "explanation": "Строку читает `ReadLine`."
+    },
+    {
+      "text": "Число `int`",
+      "correct": false,
+      "explanation": "Числовой код возвращает `Read`."
+    }
+  ],
+  "explanation": "`ConsoleKeyInfo` содержит `KeyChar`, `Key` и `Modifiers`."
+}
+```
+
+```quiz
+{
+  "type": "checkbox",
+  "question": "Что верно про `Console.ReadKey(true)`?",
+  "options": [
+    {
+      "text": "Нажатый символ не появляется на экране",
+      "correct": true
+    },
+    {
+      "text": "Возвращает `ConsoleKeyInfo`",
+      "correct": true
+    },
+    {
+      "text": "Читает целую строку",
+      "correct": false,
+      "explanation": "Это делает `ReadLine`."
+    }
+  ],
+  "explanation": "Аргумент `true` отключает эхо ввода."
+}
+```

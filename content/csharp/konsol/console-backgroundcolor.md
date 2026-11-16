@@ -46,3 +46,53 @@ class Program
 
 ```
 
+## Проверь себя
+
+```quiz
+{
+  "type": "radio",
+  "question": "Что меняет `Console.BackgroundColor`?",
+  "options": [
+    {
+      "text": "Цвет фона",
+      "correct": true
+    },
+    {
+      "text": "Цвет текста",
+      "correct": false,
+      "explanation": "Текст красит `ForegroundColor`."
+    },
+    {
+      "text": "Заголовок окна",
+      "correct": false,
+      "explanation": "Заголовок задаёт `Console.Title`."
+    }
+  ],
+  "explanation": "`BackgroundColor` отвечает за фон последующего вывода."
+}
+```
+
+```quiz
+{
+  "type": "radio",
+  "question": "Что произойдёт с уже выведенным текстом после смены цвета фона?",
+  "options": [
+    {
+      "text": "Он останется прежним",
+      "correct": true,
+      "explanation": "Новый цвет применяется к будущему выводу."
+    },
+    {
+      "text": "Он перекрасится",
+      "correct": false,
+      "explanation": "Уже напечатанные символы не меняются."
+    },
+    {
+      "text": "Он исчезнет",
+      "correct": false,
+      "explanation": "Смена цвета не очищает экран."
+    }
+  ],
+  "explanation": "Цвета влияют только на символы, напечатанные после смены."
+}
+```

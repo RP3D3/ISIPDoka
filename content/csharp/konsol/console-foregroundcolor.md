@@ -48,3 +48,51 @@ class Program
 
 ```
 
+## Проверь себя
+
+```quiz
+{
+  "type": "radio",
+  "question": "За что отвечает `Console.ForegroundColor`?",
+  "options": [
+    {
+      "text": "За цвет текста",
+      "correct": true
+    },
+    {
+      "text": "За цвет фона",
+      "correct": false,
+      "explanation": "Фон задаёт `BackgroundColor`."
+    },
+    {
+      "text": "За размер шрифта",
+      "correct": false,
+      "explanation": "Размер шрифта так не меняется."
+    }
+  ],
+  "explanation": "`ForegroundColor` задаёт цвет последующего текста."
+}
+```
+
+```quiz
+{
+  "type": "checkbox",
+  "question": "Какие значения допустимы для `Console.ForegroundColor`?",
+  "options": [
+    {
+      "text": "`ConsoleColor.Green`",
+      "correct": true
+    },
+    {
+      "text": "`ConsoleColor.Red`",
+      "correct": true
+    },
+    {
+      "text": "`\"green\"`",
+      "correct": false,
+      "explanation": "Нужно значение перечисления `ConsoleColor`."
+    }
+  ],
+  "explanation": "Цвет выбирают из перечисления `ConsoleColor`."
+}
+```
