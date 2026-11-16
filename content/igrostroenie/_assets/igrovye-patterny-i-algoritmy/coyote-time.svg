@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">Coyote time и jump buffer</title>
+  <desc id="desc">Таймлайн прыжка: нажатие кнопки, отрыв от земли, окно coyote time, буфер ввода и момент выполнения прыжка.</desc>
+  <rect width="900" height="300" rx="16" fill="#1b1c20"/>
+
+  <text x="40" y="42" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Прощающие окна прыжка</text>
+
+  <line x1="300" y1="66" x2="300" y2="230" stroke="#9e9ea0" stroke-dasharray="4 4"/>
+  <line x1="380" y1="66" x2="380" y2="230" stroke="#9e9ea0" stroke-dasharray="4 4"/>
+  <line x1="440" y1="66" x2="440" y2="230" stroke="#9e9ea0" stroke-dasharray="4 4"/>
+
+  <text x="300" y="60" text-anchor="middle" fill="#fbbf24" font-family="Segoe UI, Arial, sans-serif" font-size="11">нажатие</text>
+  <text x="380" y="60" text-anchor="middle" fill="#60a5fa" font-family="Segoe UI, Arial, sans-serif" font-size="11">отрыв от земли</text>
+  <text x="440" y="60" text-anchor="middle" fill="#34d399" font-family="Segoe UI, Arial, sans-serif" font-size="11">прыжок</text>
+
+  <rect x="300" y="104" width="90" height="28" rx="6" fill="#fbbf24" fill-opacity="0.25" stroke="#fbbf24"/>
+  <text x="345" y="123" text-anchor="middle" fill="#fbbf24" font-family="Segoe UI, Arial, sans-serif" font-size="10">буфер 0.12 с</text>
+
+  <rect x="380" y="150" width="100" height="28" rx="6" fill="#60a5fa" fill-opacity="0.25" stroke="#60a5fa"/>
+  <text x="430" y="169" text-anchor="middle" fill="#60a5fa" font-family="Segoe UI, Arial, sans-serif" font-size="10">coyote 0.10 с</text>
+
+  <rect x="40" y="210" width="340" height="10" rx="4" fill="#3a3c44"/>
+  <text x="40" y="202" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="10">земля</text>
+
+  <path d="M300 132 V150 H378" fill="none" stroke="#9e9ea0" stroke-width="1.5"/>
+  <path d="M380 178 V208" stroke="#9e9ea0" stroke-width="1.5"/>
+  <path d="M440 150 V208" stroke="#34d399" stroke-width="1.5"/>
+
+  <text x="500" y="120" fill="#fbbf24" font-family="Segoe UI, Arial, sans-serif" font-size="12">Кнопка запомнена</text>
+  <text x="500" y="140" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">и сработает, когда появится земля</text>
+
+  <text x="500" y="170" fill="#60a5fa" font-family="Segoe UI, Arial, sans-serif" font-size="12">Прыжок ещё разрешён</text>
+  <text x="500" y="190" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">сразу после схода с края</text>
+
+  <text x="40" y="272" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Окна пересекаются: игрок нажал до отрыва, но прыжок всё равно засчитан.</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="280" viewBox="0 0 900 280" role="img" aria-labelledby="title desc">
+  <title id="title">Риск и награда</title>
+  <desc id="desc">Чем выше добровольный и понятный риск, тем больше награда; примеры трёх уровней риска.</desc>
+  <rect width="900" height="280" rx="16" fill="#1b1c20"/>
+
+  <text x="24" y="34" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Риск должен быть добровольным и читаемым</text>
+
+  <path d="M90 232 V48" stroke="#4a4d55" stroke-width="1.5"/>
+  <path d="M90 232 H540" stroke="#4a4d55" stroke-width="1.5"/>
+  <text x="54" y="140" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11" transform="rotate(-90 54 140)">награда</text>
+  <text x="315" y="256" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">риск</text>
+
+  <path d="M100 220 Q250 210 340 160 T520 66" fill="none" stroke="#a78bfa" stroke-width="2.5"/>
+  <circle cx="160" cy="214" r="5" fill="#4ade9a"/>
+  <circle cx="340" cy="160" r="5" fill="#fbbf24"/>
+  <circle cx="500" cy="78" r="5" fill="#f43f5e"/>
+  <text x="160" y="200" text-anchor="middle" fill="#4ade9a" font-family="Segoe UI, Arial, sans-serif" font-size="10">обычный враг</text>
+  <text x="340" y="146" text-anchor="middle" fill="#fbbf24" font-family="Segoe UI, Arial, sans-serif" font-size="10">элитный враг</text>
+  <text x="500" y="64" text-anchor="middle" fill="#f43f5e" font-family="Segoe UI, Arial, sans-serif" font-size="10">босс</text>
+
+  <rect x="590" y="62" width="280" height="150" rx="10" fill="#282a30" stroke="#3a3d45"/>
+  <text x="730" y="90" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600">Три условия честного риска</text>
+  <text x="610" y="118" fill="#c9c9cc" font-family="Segoe UI, Arial, sans-serif" font-size="12">1. Игрок выбирает риск сам.</text>
+  <text x="610" y="142" fill="#c9c9cc" font-family="Segoe UI, Arial, sans-serif" font-size="12">2. Последствия видны заранее.</text>
+  <text x="610" y="166" fill="#c9c9cc" font-family="Segoe UI, Arial, sans-serif" font-size="12">3. Награда стоит потерянного.</text>
+  <text x="610" y="194" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Иначе это не риск, а лотерея.</text>
+
+  <text x="24" y="274" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Игрок соглашается на опасность, когда понимает ставку и верит в свои силы.</text>
+</svg>

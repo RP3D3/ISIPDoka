@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="320" viewBox="0 0 900 320" role="img" aria-labelledby="title desc">
+  <title id="title">Слои game feel</title>
+  <desc id="desc">Таймлайн удара: anticipation, hit stop, тряска камеры, частицы и плавное затухание.</desc>
+  <rect width="900" height="320" rx="16" fill="#1b1c20"/>
+
+  <text x="40" y="42" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Таймлайн отклика на удар</text>
+
+  <text x="90" y="76" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="10">ввод</text>
+  <text x="230" y="76" text-anchor="middle" fill="#fbbf24" font-family="Segoe UI, Arial, sans-serif" font-size="10">anticipation</text>
+  <text x="380" y="76" text-anchor="middle" fill="#f43f5e" font-family="Segoe UI, Arial, sans-serif" font-size="10">удар</text>
+  <text x="500" y="76" text-anchor="middle" fill="#a78bfa" font-family="Segoe UI, Arial, sans-serif" font-size="10">hit stop</text>
+  <text x="650" y="76" text-anchor="middle" fill="#34d399" font-family="Segoe UI, Arial, sans-serif" font-size="10">тряска и частицы</text>
+  <text x="790" y="76" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="10">затухание</text>
+
+  <line x1="60" y1="170" x2="840" y2="170" stroke="#3a3c44"/>
+
+  <path d="M60 170 L200 158 L360 170 L380 96 L470 96 Q505 62 540 96 Q575 130 610 96 Q645 62 680 96 Q715 130 750 112 L800 170"
+        fill="none" stroke="#f43f5e" stroke-width="2.5"/>
+
+  <line x1="380" y1="88" x2="470" y2="88" stroke="#a78bfa" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="425" y="82" text-anchor="middle" fill="#a78bfa" font-family="Segoe UI, Arial, sans-serif" font-size="10">стоп кадров</text>
+
+  <circle cx="380" cy="96" r="4" fill="#f43f5e"/>
+  <circle cx="470" cy="96" r="4" fill="#a78bfa"/>
+
+  <text x="60" y="212" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Амплитуда отклика: сначала короткая пауза, затем затухающие колебания.</text>
+  <text x="60" y="234" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">Длительность и сила подбираются на ощупь, а не по формуле из учебника.</text>
+
+  <text x="60" y="278" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Смысл: подтвердить попадание сразу, но не украсть у игрока управление надолго.</text>
+</svg>

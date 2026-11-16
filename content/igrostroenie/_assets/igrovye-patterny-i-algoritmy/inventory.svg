@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="340" viewBox="0 0 900 340" role="img" aria-labelledby="title desc">
+  <title id="title">Модель инвентаря</title>
+  <desc id="desc">Сетка слотов со стопками, панель экипировки и полоса веса.</desc>
+  <rect width="900" height="340" rx="16" fill="#1b1c20"/>
+
+  <text x="40" y="42" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Сумка: сетка 5 × 3</text>
+  <text x="430" y="42" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Экипировка</text>
+
+  <rect x="40" y="60" width="64" height="64" rx="8" fill="#23252b" stroke="#f43f5e" stroke-opacity="0.8"/>
+  <text x="72" y="88" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="12">Меч</text>
+  <text x="72" y="106" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="10">×1</text>
+
+  <rect x="112" y="60" width="64" height="64" rx="8" fill="#23252b" stroke="#34d399" stroke-opacity="0.8"/>
+  <text x="144" y="88" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="12">Зелье</text>
+  <text x="144" y="106" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="10">×5</text>
+
+  <rect x="184" y="60" width="64" height="64" rx="8" fill="#23252b" stroke="#fbbf24" stroke-opacity="0.8"/>
+  <text x="216" y="88" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="12">Стрелы</text>
+  <text x="216" y="106" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="10">×20</text>
+
+  <rect x="256" y="60" width="64" height="64" rx="8" fill="#23252b" stroke="#3a3c44"/>
+  <rect x="328" y="60" width="64" height="64" rx="8" fill="#23252b" stroke="#a78bfa" stroke-opacity="0.8"/>
+  <text x="360" y="88" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="12">Ключ</text>
+  <text x="360" y="106" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="10">×1</text>
+
+  <rect x="40" y="132" width="64" height="64" rx="8" fill="#23252b" stroke="#3a3c44"/>
+  <rect x="112" y="132" width="64" height="64" rx="8" fill="#23252b" stroke="#3a3c44"/>
+  <rect x="184" y="132" width="64" height="64" rx="8" fill="#23252b" stroke="#60a5fa" stroke-opacity="0.8"/>
+  <text x="216" y="160" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="12">Руда</text>
+  <text x="216" y="178" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="10">×12</text>
+  <rect x="256" y="132" width="64" height="64" rx="8" fill="#23252b" stroke="#3a3c44"/>
+  <rect x="328" y="132" width="64" height="64" rx="8" fill="#23252b" stroke="#3a3c44"/>
+
+  <rect x="40" y="204" width="64" height="64" rx="8" fill="#23252b" stroke="#3a3c44"/>
+  <rect x="112" y="204" width="64" height="64" rx="8" fill="#23252b" stroke="#3a3c44"/>
+  <rect x="184" y="204" width="64" height="64" rx="8" fill="#23252b" stroke="#3a3c44"/>
+  <rect x="256" y="204" width="64" height="64" rx="8" fill="#23252b" stroke="#3a3c44"/>
+  <rect x="328" y="204" width="64" height="64" rx="8" fill="#23252b" stroke="#3a3c44"/>
+
+  <rect x="430" y="60" width="220" height="208" rx="10" fill="#23252b" stroke="#3a3c44"/>
+  <text x="446" y="88" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Шлем</text>
+  <rect x="590" y="70" width="36" height="36" rx="6" fill="#282a30" stroke="#3a3c44"/>
+  <text x="446" y="128" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Оружие</text>
+  <rect x="590" y="110" width="36" height="36" rx="6" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.8"/>
+  <text x="446" y="168" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Броня</text>
+  <rect x="590" y="150" width="36" height="36" rx="6" fill="#282a30" stroke="#3a3c44"/>
+  <text x="446" y="208" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Кольцо</text>
+  <rect x="590" y="190" width="36" height="36" rx="6" fill="#282a30" stroke="#a78bfa" stroke-opacity="0.8"/>
+  <text x="446" y="252" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Слоты экипировки дают бонусы</text>
+
+  <text x="690" y="88" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="13">Вес: 62 / 100</text>
+  <rect x="690" y="100" width="180" height="14" rx="7" fill="#282a30" stroke="#3a3c44"/>
+  <rect x="690" y="100" width="112" height="14" rx="7" fill="#fbbf24"/>
+  <text x="780" y="140" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">переносимый вес</text>
+
+  <text x="40" y="312" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Стопки уменьшают число объектов, но у каждого предмета свой лимит и вес.</text>
+</svg>

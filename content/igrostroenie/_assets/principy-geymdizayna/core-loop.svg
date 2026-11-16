@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="280" viewBox="0 0 900 280" role="img" aria-labelledby="title desc">
+  <title id="title">Три масштаба core loop</title>
+  <desc id="desc">Моментальный, сессионный и долгий игровые циклы с примерами.</desc>
+  <rect width="900" height="280" rx="16" fill="#1b1c20"/>
+
+  <text x="24" y="34" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Один цикл на трёх масштабах времени</text>
+
+  <rect x="30" y="55" width="270" height="150" rx="10" fill="#282a30" stroke="#a78bfa" stroke-opacity="0.8"/>
+  <circle cx="72" cy="92" r="18" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="46 10"/>
+  <path d="M72 74 L78 82 L66 82 Z" fill="#a78bfa"/>
+  <text x="104" y="88" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Моментальный</text>
+  <text x="104" y="108" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">2–30 секунд</text>
+  <text x="46" y="142" fill="#c9c9cc" font-family="Segoe UI, Arial, sans-serif" font-size="12">Тетрис: поставить фигуру</text>
+  <text x="46" y="163" fill="#c9c9cc" font-family="Segoe UI, Arial, sans-serif" font-size="12">Vampire Survivors: убить врага</text>
+  <text x="46" y="184" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">действие → отклик → награда</text>
+
+  <rect x="315" y="55" width="270" height="150" rx="10" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.8"/>
+  <circle cx="357" cy="92" r="18" fill="none" stroke="#60a5fa" stroke-width="2" stroke-dasharray="46 10"/>
+  <path d="M357 74 L363 82 L351 82 Z" fill="#60a5fa"/>
+  <text x="389" y="88" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Сессионный</text>
+  <text x="389" y="108" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">5–40 минут</text>
+  <text x="331" y="142" fill="#c9c9cc" font-family="Segoe UI, Arial, sans-serif" font-size="12">Hades: забег до смерти</text>
+  <text x="331" y="163" fill="#c9c9cc" font-family="Segoe UI, Arial, sans-serif" font-size="12">Stardew Valley: один день</text>
+  <text x="331" y="184" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">начало → прогресс → итог</text>
+
+  <rect x="600" y="55" width="270" height="150" rx="10" fill="#282a30" stroke="#fbbf24" stroke-opacity="0.8"/>
+  <circle cx="642" cy="92" r="18" fill="none" stroke="#fbbf24" stroke-width="2" stroke-dasharray="46 10"/>
+  <path d="M642 74 L648 82 L636 82 Z" fill="#fbbf24"/>
+  <text x="674" y="88" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Долгий</text>
+  <text x="674" y="108" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">часы и дни</text>
+  <text x="616" y="142" fill="#c9c9cc" font-family="Segoe UI, Arial, sans-serif" font-size="12">мета-прогрессия Hades</text>
+  <text x="616" y="163" fill="#c9c9cc" font-family="Segoe UI, Arial, sans-serif" font-size="12">сезоны Stardew Valley</text>
+  <text x="616" y="184" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">цель → рост → новая цель</text>
+
+  <text x="450" y="235" text-anchor="middle" fill="#e7e7ea" font-family="Segoe UI, Arial, sans-serif" font-size="13">Если длинный цикл не опирается на короткий, игрок чувствует не прогресс, а работу.</text>
+</svg>

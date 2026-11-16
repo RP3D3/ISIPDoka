@@ -3837,6 +3837,268 @@
       }
     ]
   },
+  "igrostroenie": {
+    "order": 85,
+    "title": "Игростроение",
+    "accent": "#a78bfa",
+    "description": "Геймдизайн и игровые паттерны: от принципов проектирования опыта до инвентаря, рандома и game feel",
+    "groups": [
+      {
+        "id": "principy-geymdizayna",
+        "order": 10,
+        "name": "Принципы геймдизайна",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Что такое геймдизайн",
+            "url": "content/igrostroenie/principy-geymdizayna/chto-takoe-geymdizayn.md",
+            "keywords": "геймдизайн что такое геймдизайн опыт игрока игровые решения прототип итерации геймдизайнер player experience",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Core loop",
+            "url": "content/igrostroenie/principy-geymdizayna/core-loop.md",
+            "keywords": "core loop игровой цикл моментальный цикл сессионный цикл мета-прогрессия игровые решения темп игры",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Механики, динамика, эстетика",
+            "url": "content/igrostroenie/principy-geymdizayna/mehaniki-dinamika-estetika.md",
+            "keywords": "MDA механики динамика эстетика game design опыт игрока flow эстетика игры",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Цели, правила, вызов",
+            "url": "content/igrostroenie/principy-geymdizayna/celi-pravila-vyzov.md",
+            "keywords": "цели игры правила вызов challenge skill flow ограничения game design",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Баланс, риск и награда",
+            "url": "content/igrostroenie/principy-geymdizayna/balans-risk-nagrada.md",
+            "keywords": "баланс игры риск и награда risk reward доминирующая стратегия expected value game balance",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Кривая сложности и обучение",
+            "url": "content/igrostroenie/principy-geymdizayna/krivaya-slozhnosti-i-obuchenie.md",
+            "keywords": "кривая сложности обучение onboarding flow difficulty curve game design туториал",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Читаемость и UX",
+            "url": "content/igrostroenie/principy-geymdizayna/chitaemost-i-ux.md",
+            "keywords": "читаемость UX affordance signifier feedback визуальная иерархия интерфейс game design",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Нарратив и мир",
+            "url": "content/igrostroenie/principy-geymdizayna/narrativ-i-mir.md",
+            "keywords": "нарратив мир игры environmental storytelling ludonarrative сеттинг персонажи game design",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Экономика и прогрессия",
+            "url": "content/igrostroenie/principy-geymdizayna/ekonomika-i-progressiya.md",
+            "keywords": "экономика игры прогрессия краны и стоки валюты power curve гринд баланс",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Плейтест и итерации",
+            "url": "content/igrostroenie/principy-geymdizayna/playtest-i-iteracii.md",
+            "keywords": "плейтест итерации тестирование игры feedback прототип наблюдение game design",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 110,
+            "title": "Жанры и референсы",
+            "url": "content/igrostroenie/principy-geymdizayna/zhanry-i-referensy.md",
+            "keywords": "жанры игр игровые жанры референсы разбор игр метроидвания roguelike гибридные жанры прототип",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 120,
+            "title": "Доступность и этика",
+            "url": "content/igrostroenie/principy-geymdizayna/dostupnost-i-etika.md",
+            "keywords": "доступность игр accessibility assist mode тёмные паттерны dark patterns этика геймдизайна настройки сложности FOMO",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 125,
+            "title": "Принципы геймдизайна",
+            "url": "content/igrostroenie/principy-geymdizayna/itog-principy-geymdizayna.md",
+            "keywords": "принципы геймдизайна итог чек-лист геймдизайнера core loop MDA плейтест баланс доступность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 130,
+            "title": "Практика: game design document",
+            "url": "content/igrostroenie/principy-geymdizayna/praktika-geymdizayn-dokument.md",
+            "keywords": "game design document GDD шаблон GDD логлайн практика геймдизайна прототип документация игры",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "igrovye-patterny-i-algoritmy",
+        "order": 20,
+        "name": "Игровые паттерны и алгоритмы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Состояния и конечные автоматы",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/sostoyaniya-i-konechnye-avtomaty.md",
+            "keywords": "конечный автомат FSM состояние переход enum игровая логика guard Enter Exit",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Инвентарь",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/inventar.md",
+            "keywords": "инвентарь слоты стопки вес сетка список добавление предмета удаление UI",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Предметы и экипировка",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/predmety-i-ekipirovka.md",
+            "keywords": "предметы ItemDefinition ItemInstance статы модификаторы редкость экипировка сериализация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Лут и таблицы дропа",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/loot-i-tablicy-dropa.md",
+            "keywords": "лут таблица дропа loot table шанс выпадения гарантированный дроп pity экономика редкость",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Случайность и seed",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/random-i-seed.md",
+            "keywords": "random seed PRNG детерминизм случайность воспроизводимость game development",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Взвешенный случайный выбор",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/vzveshennyy-random.md",
+            "keywords": "weighted random взвешенный рандом вероятности loot table таблица дропа game development",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Pity-система и псевдослучайность",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/pity-i-psevdosluchaynost.md",
+            "keywords": "pity system pity псевдослучайность PRD гарантия дропа случайность game design",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Coyote time и jump buffer",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/coyote-time-i-jump-buffer.md",
+            "keywords": "coyote time jump buffer платформер jump game feel управление input buffering",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Game feel",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/game-feel.md",
+            "keywords": "game feel juice отклик hit stop screen shake анимация звук управление",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Управление и камера",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/upravlenie-i-kamera.md",
+            "keywords": "управление в игре камера input deadzone camera follow look ahead game feel",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 110,
+            "title": "AI: патруль и поведение",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/ai-patrul-i-povedenie.md",
+            "keywords": "AI врага патруль FSM поведение perception navmesh game development",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 120,
+            "title": "Процедурная генерация",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/procedurnaya-generaciya.md",
+            "keywords": "процедурная генерация procgen seed noise dungeon уровни game development",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 130,
+            "title": "Сохранения и миграции",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/sohraneniya-i-versii.md",
+            "keywords": "сохранения save system миграции версии JSON игровые данные game development",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 140,
+            "title": "Пул объектов и производительность",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/pooling-i-proizvoditelnost.md",
+            "keywords": "object pooling пул объектов производительность GC instantiate game development",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 150,
+            "title": "Игровые паттерны и алгоритмы",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/itog-igrovye-patterny-i-algoritmy.md",
+            "keywords": "игровые паттерны алгоритмы итог FSM инвентарь лут случайность AI сохранения",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 160,
+            "title": "Практика: прототип на одном экране",
+            "url": "content/igrostroenie/igrovye-patterny-i-algoritmy/praktika-prototip.md",
+            "keywords": "практика прототип game development инвентарь лут FSM game feel упражнение",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      }
+    ]
+  },
   "bezopasnost-prilozheniy": {
     "order": 90,
     "title": "Безопасность приложений",
