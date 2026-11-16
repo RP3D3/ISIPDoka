@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">События и подписчики</title>
+  <desc id="desc">Издатель вызывает event, а UI, звук и достижения подписываются на него.</desc>
+  <rect width="900" height="300" rx="16" fill="#1b1c20"/>
+
+  <rect x="24" y="70" width="220" height="110" rx="10" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="134" y="100" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Health</text>
+  <text x="134" y="124" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">event Action&lt;int&gt;</text>
+  <text x="134" y="146" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">HealthChanged</text>
+  <text x="134" y="168" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">издатель</text>
+
+  <path d="M244 125 H340" stroke="#f43f5e" stroke-width="2"/>
+  <text x="292" y="114" text-anchor="middle" fill="#f43f5e" font-family="Segoe UI, Arial, sans-serif" font-size="11">Invoke</text>
+
+  <path d="M340 70 V180" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M340 70 H430" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M340 125 H430" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M340 180 H430" stroke="#f43f5e" stroke-width="2"/>
+
+  <rect x="430" y="42" width="250" height="56" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.7"/>
+  <text x="555" y="66" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">HealthBar</text>
+  <text x="555" y="85" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">+= OnHealthChanged</text>
+
+  <rect x="430" y="97" width="250" height="56" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.7"/>
+  <text x="555" y="121" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">DamageSound</text>
+  <text x="555" y="140" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">+= OnDamage</text>
+
+  <rect x="430" y="152" width="250" height="56" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.7"/>
+  <text x="555" y="176" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Achievement</text>
+  <text x="555" y="195" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">+= OnLowHealth</text>
+
+  <rect x="720" y="42" width="156" height="166" rx="10" fill="#282a30" stroke="#ffffff" stroke-opacity="0.14"/>
+  <text x="798" y="70" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Правило</text>
+  <text x="798" y="96" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Подписка</text>
+  <text x="798" y="116" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">+=</text>
+  <text x="798" y="142" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Отписка</text>
+  <text x="798" y="162" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="11">-=</text>
+  <text x="798" y="190" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="10">Всегда парой</text>
+
+  <text x="24" y="266" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Издатель не знает, кто слушает. Подписчики сами решают, что делать с событием.</text>
+</svg>

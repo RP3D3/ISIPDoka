@@ -2905,6 +2905,69 @@
         ]
       },
       {
+        "id": "csharp-most-dlya-unity",
+        "order": 30,
+        "name": "C#-мост для Unity",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Классы и MonoBehaviour",
+            "url": "content/unity/csharp-most-dlya-unity/klassy-i-monobehaviour.md",
+            "keywords": "Unity C# MonoBehaviour класс компонент gameObject transform GetComponent наследование",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Поля, свойства и SerializeField",
+            "url": "content/unity/csharp-most-dlya-unity/polya-svoystva-serializefield.md",
+            "keywords": "Unity C# SerializeField поля свойства Inspector Range Header Tooltip HideInInspector",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Делегаты, события и лямбды",
+            "url": "content/unity/csharp-most-dlya-unity/delegaty-sobytiya-lyambdy.md",
+            "keywords": "Unity C# делегаты события Action event UnityEvent лямбды подписка отписка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Коллекции в игре",
+            "url": "content/unity/csharp-most-dlya-unity/kollekcii-v-igre.md",
+            "keywords": "Unity C# коллекции массивы List Dictionary Queue HashSet GC производительность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Корутины и IEnumerator",
+            "url": "content/unity/csharp-most-dlya-unity/korutiny-i-ienumerator.md",
+            "keywords": "Unity C# корутины IEnumerator StartCoroutine yield return WaitForSeconds WaitForSecondsRealtime",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Null и TryGetComponent",
+            "url": "content/unity/csharp-most-dlya-unity/null-i-trygetcomponent.md",
+            "keywords": "Unity C# null TryGetComponent GetComponent NullReferenceException проверка ссылок",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 65,
+            "title": "C#-мост для Unity",
+            "url": "content/unity/csharp-most-dlya-unity/itog-csharp-most.md",
+            "keywords": "Unity C# итог MonoBehaviour SerializeField события коллекции корутины TryGetComponent",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
         "id": "skripty-i-zhiznennyy-cikl",
         "order": 40,
         "name": "Скрипты и жизненный цикл",
@@ -3728,6 +3791,45 @@
             "title": "Версии и миграция",
             "url": "content/unity/versii-i-migraciya/itog-versii-i-migraciya.md",
             "keywords": "Unity миграция итог 2022.3 Unity 6 linearVelocity FindFirstObjectByType Build Profiles",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "prodvinutye-temy",
+        "order": 150,
+        "name": "Продвинутые темы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "NavMesh и навигация",
+            "url": "content/unity/prodvinutye-temy/navmesh-i-navigaciya.md",
+            "keywords": "Unity NavMesh AI Navigation NavMeshAgent NavMeshSurface SetDestination навигация pathfinding",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Addressables",
+            "url": "content/unity/prodvinutye-temy/addressables.md",
+            "keywords": "Unity Addressables Addressable Assets группы адреса метки LoadAssetAsync InstantiateAsync Release",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "UI Toolkit",
+            "url": "content/unity/prodvinutye-temy/ui-toolkit.md",
+            "keywords": "Unity UI Toolkit UXML USS UIDocument VisualElement UI Builder runtime UI",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 35,
+            "title": "Продвинутые темы",
+            "url": "content/unity/prodvinutye-temy/itog-prodvinutye-temy.md",
+            "keywords": "Unity продвинутые темы NavMesh Addressables UI Toolkit итог",
             "type": "md",
             "interactive": false
           }

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">Addressables</title>
+  <desc id="desc">Ассеты группируются, собираются в каталог и загружаются по адресу с последующим Release.</desc>
+  <rect width="900" height="300" rx="16" fill="#1b1c20"/>
+
+  <rect x="24" y="40" width="170" height="80" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="109" y="68" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Assets</text>
+  <text x="109" y="90" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">prefabs, scenes, textures</text>
+
+  <path d="M194 80 H250" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M250 80 L240 74 M250 80 L240 86" stroke="#f43f5e" stroke-width="2"/>
+
+  <rect x="250" y="40" width="170" height="80" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="335" y="68" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Group</text>
+  <text x="335" y="90" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Local / Remote</text>
+
+  <path d="M420 80 H476" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M476 80 L466 74 M476 80 L466 86" stroke="#f43f5e" stroke-width="2"/>
+
+  <rect x="476" y="40" width="170" height="80" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.7"/>
+  <text x="561" y="68" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Catalog</text>
+  <text x="561" y="90" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">адреса и бандлы</text>
+
+  <path d="M646 80 H702" stroke="#60a5fa" stroke-width="2"/>
+  <path d="M702 80 L692 74 M702 80 L692 86" stroke="#60a5fa" stroke-width="2"/>
+
+  <rect x="702" y="40" width="174" height="80" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.7"/>
+  <text x="789" y="68" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Runtime</text>
+  <text x="789" y="90" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Load / Instantiate</text>
+
+  <rect x="24" y="160" width="410" height="90" rx="8" fill="#282a30" stroke="#ffffff" stroke-opacity="0.12"/>
+  <text x="44" y="188" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">Addressables.LoadAssetAsync&lt;GameObject&gt;</text>
+  <text x="44" y="210" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">    ("Enemy");</text>
+  <text x="44" y="232" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Асинхронная загрузка по адресу.</text>
+
+  <rect x="466" y="160" width="410" height="90" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.6"/>
+  <text x="486" y="188" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">Addressables.Release(handle);</text>
+  <text x="486" y="210" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Освобождайте загруженное.</text>
+  <text x="486" y="232" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Иначе память будет расти.</text>
+
+  <text x="24" y="282" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Addressables отделяет адрес ассета от способа его доставки: локально, из бандла или с сервера.</text>
+</svg>

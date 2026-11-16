@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">Коллекции в Unity</title>
+  <desc id="desc">Массив, List, Dictionary и Queue: когда что выбирать.</desc>
+  <rect width="900" height="300" rx="16" fill="#1b1c20"/>
+
+  <rect x="24" y="34" width="200" height="180" rx="10" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.6"/>
+  <text x="124" y="62" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">T[]</text>
+  <text x="124" y="86" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">фиксированный размер</text>
+  <rect x="52" y="106" width="32" height="24" rx="3" fill="#f43f5e" fill-opacity="0.25"/>
+  <rect x="92" y="106" width="32" height="24" rx="3" fill="#f43f5e" fill-opacity="0.25"/>
+  <rect x="132" y="106" width="32" height="24" rx="3" fill="#f43f5e" fill-opacity="0.25"/>
+  <rect x="172" y="106" width="24" height="24" rx="3" fill="#f43f5e" fill-opacity="0.1"/>
+  <text x="124" y="160" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">быстро, но размер не меняется</text>
+
+  <rect x="244" y="34" width="200" height="180" rx="10" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.7"/>
+  <text x="344" y="62" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">List&lt;T&gt;</text>
+  <text x="344" y="86" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">динамический список</text>
+  <rect x="272" y="106" width="32" height="24" rx="3" fill="#60a5fa" fill-opacity="0.25"/>
+  <rect x="312" y="106" width="32" height="24" rx="3" fill="#60a5fa" fill-opacity="0.25"/>
+  <rect x="352" y="106" width="32" height="24" rx="3" fill="#60a5fa" fill-opacity="0.25"/>
+  <rect x="392" y="106" width="32" height="24" rx="3" fill="#60a5fa" fill-opacity="0.25"/>
+  <text x="344" y="160" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Add, Remove, индекс</text>
+
+  <rect x="464" y="34" width="200" height="180" rx="10" fill="#282a30" stroke="#facc15" stroke-opacity="0.6"/>
+  <text x="564" y="62" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Dictionary</text>
+  <text x="564" y="86" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">ключ → значение</text>
+  <text x="500" y="118" fill="#e2e8f0" font-family="Consolas, monospace" font-size="11">"hp" → 100</text>
+  <text x="500" y="140" fill="#e2e8f0" font-family="Consolas, monospace" font-size="11">"score" → 250</text>
+  <text x="564" y="170" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">быстрый поиск по ключу</text>
+
+  <rect x="684" y="34" width="192" height="180" rx="10" fill="#282a30" stroke="#a78bfa" stroke-opacity="0.7"/>
+  <text x="780" y="62" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">Queue&lt;T&gt;</text>
+  <text x="780" y="86" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="12">очередь FIFO</text>
+  <rect x="708" y="106" width="32" height="24" rx="3" fill="#a78bfa" fill-opacity="0.25"/>
+  <rect x="748" y="106" width="32" height="24" rx="3" fill="#a78bfa" fill-opacity="0.25"/>
+  <rect x="788" y="106" width="32" height="24" rx="3" fill="#a78bfa" fill-opacity="0.25"/>
+  <text x="780" y="160" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">Enqueue / Dequeue</text>
+
+  <text x="24" y="266" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">Выбирайте коллекцию по операции: индекс, поиск по ключу, очередь или фиксированный набор.</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">UI Toolkit</title>
+  <desc id="desc">UXML и USS описывают интерфейс, UIDocument связывает его со сценой, C# управляет VisualElement.</desc>
+  <rect width="900" height="300" rx="16" fill="#1b1c20"/>
+
+  <rect x="24" y="40" width="200" height="90" rx="8" fill="#282a30" stroke="#f43f5e" stroke-opacity="0.7"/>
+  <text x="124" y="68" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">UXML</text>
+  <text x="124" y="90" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">структура UI</text>
+  <text x="124" y="112" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="10">&lt;Button text="Start"/&gt;</text>
+
+  <rect x="24" y="150" width="200" height="90" rx="8" fill="#282a30" stroke="#60a5fa" stroke-opacity="0.7"/>
+  <text x="124" y="178" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">USS</text>
+  <text x="124" y="200" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">стили, похожие на CSS</text>
+  <text x="124" y="222" text-anchor="middle" fill="#9e9ea0" font-family="Consolas, monospace" font-size="10">.menu { padding: 8px; }</text>
+
+  <path d="M224 85 H300" stroke="#f43f5e" stroke-width="2"/>
+  <path d="M224 195 H300" stroke="#60a5fa" stroke-width="2"/>
+  <path d="M300 85 V195" stroke="#ffffff" stroke-opacity="0.3" stroke-width="2"/>
+
+  <rect x="300" y="100" width="200" height="80" rx="8" fill="#282a30" stroke="#ffffff" stroke-opacity="0.16"/>
+  <text x="400" y="128" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">UIDocument</text>
+  <text x="400" y="150" text-anchor="middle" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">компонент на GameObject</text>
+
+  <path d="M500 140 H576" stroke="#ffffff" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M576 140 L566 134 M576 140 L566 146" stroke="#ffffff" stroke-opacity="0.3" stroke-width="2"/>
+
+  <rect x="576" y="40" width="300" height="210" rx="10" fill="#282a30" stroke="#ffffff" stroke-opacity="0.14"/>
+  <text x="596" y="68" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">VisualElement tree</text>
+  <text x="596" y="96" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12">root</text>
+  <text x="616" y="118" fill="#9e9ea0" font-family="Consolas, monospace" font-size="12">├── menu</text>
+  <text x="636" y="140" fill="#9e9ea0" font-family="Consolas, monospace" font-size="12">│   ├── Button Start</text>
+  <text x="636" y="162" fill="#9e9ea0" font-family="Consolas, monospace" font-size="12">│   └── Button Quit</text>
+  <text x="616" y="184" fill="#9e9ea0" font-family="Consolas, monospace" font-size="12">└── hud</text>
+  <text x="596" y="214" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="11">C# ищет элементы через Q&lt;T&gt;()</text>
+
+  <text x="24" y="278" fill="#9e9ea0" font-family="Segoe UI, Arial, sans-serif" font-size="13">UI Toolkit описывает интерфейс структурой и стилями, а код управляет элементами.</text>
+</svg>
