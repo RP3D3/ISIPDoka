@@ -4202,6 +4202,13 @@
     "accent": "#818cf8",
     "groups": []
   },
+  "python": {
+    "order": 75,
+    "title": "Python",
+    "accent": "#3776ab",
+    "description": "Python для бэкенда: основы, работа с данными, API и связка с фронтендом. Наполнение — позже.",
+    "groups": []
+  },
   "unity": {
     "order": 80,
     "title": "Unity",
