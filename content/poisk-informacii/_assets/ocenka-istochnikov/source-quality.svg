@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 520" role="img" aria-labelledby="title desc">
+  <title id="title">Оценка качества источника</title>
+  <desc id="desc">Схема перечисляет автора, дату, первоисточник, доказательства, предвзятость и репутацию.</desc>
+  <rect width="920" height="520" fill="#fffdf5"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2b2410">Шесть вопросов к любому источнику</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#2b2410">
+    <rect x="40" y="90" width="400" height="80" rx="10" fill="#e8f7ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="60" y="122" font-weight="700">1. Кто автор?</text>
+    <text x="60" y="148" font-size="13">человек, команда, организация, anonymous</text>
+
+    <rect x="480" y="90" width="400" height="80" rx="10" fill="#e8f7ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="500" y="122" font-weight="700">2. Когда опубликовано?</text>
+    <text x="500" y="148" font-size="13">дата, обновления, версия</text>
+
+    <rect x="40" y="190" width="400" height="80" rx="10" fill="#fff4cc" stroke="#eab308" stroke-width="2"/>
+    <text x="60" y="222" font-weight="700">3. Это первоисточник?</text>
+    <text x="60" y="248" font-size="13">или пересказ без ссылки</text>
+
+    <rect x="480" y="190" width="400" height="80" rx="10" fill="#fff4cc" stroke="#eab308" stroke-width="2"/>
+    <text x="500" y="222" font-weight="700">4. Где доказательства?</text>
+    <text x="500" y="248" font-size="13">данные, примеры, ссылки, код</text>
+
+    <rect x="40" y="290" width="400" height="80" rx="10" fill="#ffe3d6" stroke="#ff6b35" stroke-width="2"/>
+    <text x="60" y="322" font-weight="700">5. Есть ли предвзятость?</text>
+    <text x="60" y="348" font-size="13">реклама, интерес, идеология</text>
+
+    <rect x="480" y="290" width="400" height="80" rx="10" fill="#ffe3d6" stroke="#ff6b35" stroke-width="2"/>
+    <text x="500" y="322" font-weight="700">6. Что говорят другие?</text>
+    <text x="500" y="348" font-size="13">перекрёстные ссылки и критика</text>
+
+    <rect x="120" y="410" width="680" height="60" rx="10" fill="#fff" stroke="#eab308" stroke-width="2"/>
+    <text x="460" y="436" text-anchor="middle" font-weight="700">Если на вопросы нет ответов — источник не доказательство.</text>
+    <text x="460" y="458" text-anchor="middle" font-size="12" fill="#5c4a20">Это нормально: так вы отсеиваете мусор до того, как он попал в работу.</text>
+  </g>
+</svg>

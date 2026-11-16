@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" role="img" aria-labelledby="title desc">
+  <title id="title">План исследования</title>
+  <desc id="desc">Схема показывает путь от вопроса к плану, поиску, сравнению и оформлению ссылок.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#eab308"/>
+    </marker>
+  </defs>
+  <rect width="920" height="500" fill="#fffdf5"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2b2410">Исследование по задаче</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#2b2410">
+    <rect x="25" y="120" width="150" height="90" rx="10" fill="#fff4cc" stroke="#eab308" stroke-width="2"/>
+    <text x="100" y="155" text-anchor="middle" font-weight="700">Вопрос</text>
+    <text x="100" y="180" text-anchor="middle" font-size="12">что решаем</text>
+
+    <rect x="205" y="120" width="150" height="90" rx="10" fill="#fff4cc" stroke="#eab308" stroke-width="2"/>
+    <text x="280" y="155" text-anchor="middle" font-weight="700">План</text>
+    <text x="280" y="180" text-anchor="middle" font-size="12">подвопросы и</text>
+    <text x="280" y="200" text-anchor="middle" font-size="12">критерии</text>
+
+    <rect x="385" y="120" width="150" height="90" rx="10" fill="#e8f7ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="460" y="155" text-anchor="middle" font-weight="700">Поиск</text>
+    <text x="460" y="180" text-anchor="middle" font-size="12">несколько</text>
+    <text x="460" y="200" text-anchor="middle" font-size="12">источников</text>
+
+    <rect x="565" y="120" width="150" height="90" rx="10" fill="#e3e8ff" stroke="#4c6ef5" stroke-width="2"/>
+    <text x="640" y="155" text-anchor="middle" font-weight="700">Сравнение</text>
+    <text x="640" y="180" text-anchor="middle" font-size="12">где сходятся</text>
+    <text x="640" y="200" text-anchor="middle" font-size="12">и где спорят</text>
+
+    <rect x="745" y="120" width="145" height="90" rx="10" fill="#f3e8ff" stroke="#9c36b5" stroke-width="2"/>
+    <text x="817" y="155" text-anchor="middle" font-weight="700">Вывод</text>
+    <text x="817" y="180" text-anchor="middle" font-size="12">со ссылками</text>
+
+    <line x1="175" y1="165" x2="195" y2="165" stroke="#eab308" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="355" y1="165" x2="375" y2="165" stroke="#eab308" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="535" y1="165" x2="555" y2="165" stroke="#eab308" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="715" y1="165" x2="735" y2="165" stroke="#eab308" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="100" y="300" width="720" height="130" rx="12" fill="#fff" stroke="#eab308" stroke-width="2"/>
+    <text x="460" y="332" text-anchor="middle" font-weight="700">Что должно быть в результате</text>
+    <text x="130" y="364" font-size="13">• ответ на исходный вопрос;</text>
+    <text x="130" y="388" font-size="13">• список источников с датами;</text>
+    <text x="130" y="412" font-size="13">• где данные расходятся;</text>
+    <text x="500" y="364" font-size="13">• что осталось неизвестным;</text>
+    <text x="500" y="388" font-size="13">• как проверить вывод;</text>
+    <text x="500" y="412" font-size="13">• дата исследования.</text>
+  </g>
+</svg>

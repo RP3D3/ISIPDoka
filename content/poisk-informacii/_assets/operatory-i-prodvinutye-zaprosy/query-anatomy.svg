@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" role="img" aria-labelledby="title desc">
+  <title id="title">Анатомия поискового запроса</title>
+  <desc id="desc">Схема разбирает запрос на операторы site, filetype, кавычки и минус-слова.</desc>
+  <rect width="920" height="500" fill="#fffdf5"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2b2410">Из чего состоит продвинутый запрос</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#2b2410">
+    <rect x="40" y="90" width="840" height="70" rx="10" fill="#fff4cc" stroke="#eab308" stroke-width="2"/>
+    <text x="60" y="132" font-family="Consolas, monospace" font-size="18" fill="#2b2410">site:docs.python.org filetype:pdf "asyncio" -tutorial</text>
+
+    <line x1="120" y1="160" x2="120" y2="220" stroke="#eab308" stroke-width="2"/>
+    <text x="120" y="245" text-anchor="middle" font-weight="700">site:</text>
+    <text x="120" y="268" text-anchor="middle" font-size="12">только этот сайт</text>
+
+    <line x1="360" y1="160" x2="360" y2="220" stroke="#eab308" stroke-width="2"/>
+    <text x="360" y="245" text-anchor="middle" font-weight="700">filetype:</text>
+    <text x="360" y="268" text-anchor="middle" font-size="12">только этот формат</text>
+
+    <line x1="610" y1="160" x2="610" y2="220" stroke="#eab308" stroke-width="2"/>
+    <text x="610" y="245" text-anchor="middle" font-weight="700">"..."</text>
+    <text x="610" y="268" text-anchor="middle" font-size="12">точная фраза</text>
+
+    <line x1="830" y1="160" x2="830" y2="220" stroke="#eab308" stroke-width="2"/>
+    <text x="830" y="245" text-anchor="middle" font-weight="700">-слово</text>
+    <text x="830" y="268" text-anchor="middle" font-size="12">исключить</text>
+
+    <rect x="40" y="320" width="400" height="130" rx="12" fill="#e8f7ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="60" y="352" font-weight="700">Когда помогает</text>
+    <text x="60" y="378" font-size="13">Нужна официальная документация в PDF,</text>
+    <text x="60" y="400" font-size="13">но без вводных туториалов.</text>
+    <text x="60" y="426" font-size="13">Запрос становится уже и точнее.</text>
+
+    <rect x="480" y="320" width="400" height="130" rx="12" fill="#ffe3d6" stroke="#ff6b35" stroke-width="2"/>
+    <text x="500" y="352" font-weight="700">Когда мешает</text>
+    <text x="500" y="378" font-size="13">Слишком много операторов сразу —</text>
+    <text x="500" y="400" font-size="13">выдача может стать пустой.</text>
+    <text x="500" y="426" font-size="13">Добавляйте операторы по одному.</text>
+  </g>
+</svg>

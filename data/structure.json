@@ -3289,6 +3289,677 @@
       }
     ]
   },
+  "poisk-informacii": {
+    "order": 25,
+    "title": "Поиск информации и работа с источниками",
+    "accent": "#eab308",
+    "description": "Как искать, проверять, сохранять и цитировать информацию: от запросов и операторов до оценки источников и поиска с ИИ",
+    "groups": [
+      {
+        "id": "osnovy-poiska",
+        "order": 10,
+        "name": "Основы поиска",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Зачем нужен поиск информации",
+            "url": "content/poisk-informacii/osnovy-poiska/zachem-nuzhen-poisk.md",
+            "keywords": "поиск информации информационная грамотность обучение источники запрос",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Как работает поисковая выдача",
+            "url": "content/poisk-informacii/osnovy-poiska/kak-rabotaet-vydacha.md",
+            "keywords": "поисковая выдача индекс ранжирование сниппет реклама персонализация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Ключевые слова и смысл запроса",
+            "url": "content/poisk-informacii/osnovy-poiska/klyuchevye-slova.md",
+            "keywords": "ключевые слова запрос синонимы термины поиск формулировка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Уточнение и сужение запроса",
+            "url": "content/poisk-informacii/osnovy-poiska/utochnenie-zaprosa.md",
+            "keywords": "уточнение запроса сужение поиска итерация контекст версия ошибка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Язык, регион и персонализация",
+            "url": "content/poisk-informacii/osnovy-poiska/yazyk-region-personalizaciya.md",
+            "keywords": "язык поиска регион персонализация безопасный поиск настройки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Поиск на русском и английском",
+            "url": "content/poisk-informacii/osnovy-poiska/poisk-na-russkom-i-angliyskom.md",
+            "keywords": "поиск на русском поиск на английском перевод терминов сообщества документация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Оценка результатов",
+            "url": "content/poisk-informacii/osnovy-poiska/ocenka-rezultatov.md",
+            "keywords": "оценка результатов выдача реклама релевантность источники сниппет",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Основы поиска",
+            "url": "content/poisk-informacii/osnovy-poiska/osnovy-poiska.md",
+            "keywords": "основы поиска итог ключевые слова выдача уточнение оценка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: сформулировать запрос",
+            "url": "content/poisk-informacii/osnovy-poiska/praktika-sformulirovat-zapros.md",
+            "keywords": "практика поисковый запрос ключевые слова синонимы выдача",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "operatory-i-prodvinutye-zaprosy",
+        "order": 20,
+        "name": "Операторы и продвинутые запросы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Кавычки и точная фраза",
+            "url": "content/poisk-informacii/operatory-i-prodvinutye-zaprosy/kavychki-i-tochnaya-fraza.md",
+            "keywords": "кавычки точная фраза поиск фразы операторы запрос",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "site: и filetype:",
+            "url": "content/poisk-informacii/operatory-i-prodvinutye-zaprosy/site-i-filetype.md",
+            "keywords": "site filetype поиск по сайту pdf документация операторы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Минус-слова и OR",
+            "url": "content/poisk-informacii/operatory-i-prodvinutye-zaprosy/minus-slova-i-or.md",
+            "keywords": "минус-слова OR исключение альтернативы операторы поиска",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "intitle, inurl, allintext",
+            "url": "content/poisk-informacii/operatory-i-prodvinutye-zaprosy/intitle-inurl-allintext.md",
+            "keywords": "intitle inurl allintext заголовок URL операторы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Даты, язык и регион",
+            "url": "content/poisk-informacii/operatory-i-prodvinutye-zaprosy/daty-yazyk-region.md",
+            "keywords": "даты after before язык регион свежесть поиск",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Поиск по документации и файлам",
+            "url": "content/poisk-informacii/operatory-i-prodvinutye-zaprosy/poisk-po-dokumentacii-i-faylam.md",
+            "keywords": "поиск по документации PDF API filetype site официальные документы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Комбинирование операторов",
+            "url": "content/poisk-informacii/operatory-i-prodvinutye-zaprosy/kombinirovanie-operatorov.md",
+            "keywords": "комбинирование операторов site filetype кавычки минус-слова запрос",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Операторы и продвинутые запросы",
+            "url": "content/poisk-informacii/operatory-i-prodvinutye-zaprosy/operatory-i-prodvinutye-zaprosy.md",
+            "keywords": "операторы поиска итог кавычки site filetype OR запрос",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: операторы поиска",
+            "url": "content/poisk-informacii/operatory-i-prodvinutye-zaprosy/praktika-operatory-poiska.md",
+            "keywords": "практика операторы site filetype кавычки минус-слова",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "poisk-dlya-razrabotchika",
+        "order": 30,
+        "name": "Поиск для разработчика",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Официальная документация",
+            "url": "content/poisk-informacii/poisk-dlya-razrabotchika/oficialnaya-dokumentaciya.md",
+            "keywords": "официальная документация docs API версия руководство разработчик",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Поиск по ошибкам и стек-трейсам",
+            "url": "content/poisk-informacii/poisk-dlya-razrabotchika/poisk-po-oshibkam-i-stek-treysam.md",
+            "keywords": "ошибки стек-трейс traceback исключение поиск ошибки версия",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "GitHub и code search",
+            "url": "content/poisk-informacii/poisk-dlya-razrabotchika/github-i-code-search.md",
+            "keywords": "GitHub code search поиск кода issues pull request примеры",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Stack Overflow и Q&A",
+            "url": "content/poisk-informacii/poisk-dlya-razrabotchika/stack-overflow-i-qa.md",
+            "keywords": "Stack Overflow Q&A ответы голоса дата комментарии ошибки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Changelog, RFC и стандарты",
+            "url": "content/poisk-informacii/poisk-dlya-razrabotchika/changelog-rfc-i-standarty.md",
+            "keywords": "changelog release notes RFC стандарты breaking changes версии",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "API-справочники и примеры",
+            "url": "content/poisk-informacii/poisk-dlya-razrabotchika/api-spravochniki-i-primery.md",
+            "keywords": "API справочник сигнатура параметры возвращаемое значение примеры",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Поиск по исходникам и regex",
+            "url": "content/poisk-informacii/poisk-dlya-razrabotchika/poisk-po-ishodnikam-i-regex.md",
+            "keywords": "поиск по исходникам regex grep ripgrep code search символы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Поиск в базе знаний и трекерах",
+            "url": "content/poisk-informacii/poisk-dlya-razrabotchika/poisk-v-baze-znaniy-i-trekerah.md",
+            "keywords": "база знаний вики issues трекеры чат внутренняя документация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Поиск для разработчика",
+            "url": "content/poisk-informacii/poisk-dlya-razrabotchika/poisk-dlya-razrabotchika.md",
+            "keywords": "поиск для разработчика итог документация ошибки GitHub Q&A changelog",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Практика: найти решение ошибки",
+            "url": "content/poisk-informacii/poisk-dlya-razrabotchika/praktika-nayti-reshenie-oshibki.md",
+            "keywords": "практика ошибка поиск решения документация GitHub Q&A",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "ocenka-istochnikov",
+        "order": 40,
+        "name": "Оценка источников",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Автор и авторство",
+            "url": "content/poisk-informacii/ocenka-istochnikov/avtor-i-avtorstvo.md",
+            "keywords": "автор авторство экспертность репутация источник проверка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Дата и актуальность",
+            "url": "content/poisk-informacii/ocenka-istochnikov/data-i-aktualnost.md",
+            "keywords": "дата актуальность обновление устаревшая информация версия",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Первоисточник и пересказ",
+            "url": "content/poisk-informacii/ocenka-istochnikov/pervoistochnik-i-pereskaz.md",
+            "keywords": "первоисточник пересказ цитирование оригинал ссылки достоверность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Репутация и признаки качества",
+            "url": "content/poisk-informacii/ocenka-istochnikov/reputaciya-i-priznaki-kachestva.md",
+            "keywords": "репутация качество источника редакция цитирование рецензирование доверие",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Предвзятость и реклама",
+            "url": "content/poisk-informacii/ocenka-istochnikov/predvzyatost-i-reklama.md",
+            "keywords": "предвзятость реклама конфликт интересов спонсор манипуляция источник",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "AI-контент и мусорные сайты",
+            "url": "content/poisk-informacii/ocenka-istochnikov/ai-kontent-i-musornye-sayty.md",
+            "keywords": "AI-контент мусорные сайты SEO сгенерированный текст проверка источники",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Перекрёстная проверка",
+            "url": "content/poisk-informacii/ocenka-istochnikov/perekrestnaya-proverka.md",
+            "keywords": "перекрёстная проверка независимые источники триангуляция фактчекинг",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Оценка источников",
+            "url": "content/poisk-informacii/ocenka-istochnikov/ocenka-istochnikov.md",
+            "keywords": "оценка источников итог автор дата первоисточник предвзятость проверка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: проверить источник",
+            "url": "content/poisk-informacii/ocenka-istochnikov/praktika-proverit-istochnik.md",
+            "keywords": "практика проверка источника автор дата первоисточник предвзятость",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "nauchnyy-i-professionalnyy-poisk",
+        "order": 50,
+        "name": "Научный и профессиональный поиск",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Google Scholar и академические базы",
+            "url": "content/poisk-informacii/nauchnyy-i-professionalnyy-poisk/google-scholar-i-bazy.md",
+            "keywords": "Google Scholar академические базы научные статьи Scopus Web of Science",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "arXiv, PubMed и DOI",
+            "url": "content/poisk-informacii/nauchnyy-i-professionalnyy-poisk/arxiv-pubmed-doi.md",
+            "keywords": "arXiv PubMed DOI preprint рецензирование научные статьи",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Ключевые слова для науки",
+            "url": "content/poisk-informacii/nauchnyy-i-professionalnyy-poisk/klyuchevye-slova-dlya-nauki.md",
+            "keywords": "научный запрос ключевые слова PICO синонимы булевы операторы MeSH",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Цитирование и snowballing",
+            "url": "content/poisk-informacii/nauchnyy-i-professionalnyy-poisk/citirovanie-i-snowballing.md",
+            "keywords": "цитирование snowballing forward citation backward citation научный поиск",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Систематический поиск",
+            "url": "content/poisk-informacii/nauchnyy-i-professionalnyy-poisk/sistematicheskiy-poisk.md",
+            "keywords": "систематический поиск протокол критерии PRISMA воспроизводимость",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Библиотеки и доступ к статьям",
+            "url": "content/poisk-informacii/nauchnyy-i-professionalnyy-poisk/biblioteki-i-dostup-k-statyam.md",
+            "keywords": "библиотека доступ к статьям open access DOI полный текст научный поиск",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Чтение научной статьи",
+            "url": "content/poisk-informacii/nauchnyy-i-professionalnyy-poisk/chtenie-nauchnoy-staty.md",
+            "keywords": "чтение статьи abstract methods results discussion ограничения",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Научный и профессиональный поиск",
+            "url": "content/poisk-informacii/nauchnyy-i-professionalnyy-poisk/nauchnyy-i-professionalnyy-poisk.md",
+            "keywords": "научный поиск итог базы DOI snowballing систематический поиск",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: найти статью",
+            "url": "content/poisk-informacii/nauchnyy-i-professionalnyy-poisk/praktika-nayti-statyu.md",
+            "keywords": "практика научная статья DOI поиск методы оценка",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "poisk-s-pomoshchyu-ii",
+        "order": 60,
+        "name": "Поиск с помощью ИИ",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Как LLM отвечает на вопросы",
+            "url": "content/poisk-informacii/poisk-s-pomoshchyu-ii/kak-llm-otvechaet.md",
+            "keywords": "LLM языковая модель генерация галлюцинации поиск ИИ",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Формулировка запроса к ИИ",
+            "url": "content/poisk-informacii/poisk-s-pomoshchyu-ii/formulirovka-zaprosa-k-ii.md",
+            "keywords": "промпт запрос к ИИ контекст роль формат ограничения",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Проверка ответов и галлюцинации",
+            "url": "content/poisk-informacii/poisk-s-pomoshchyu-ii/proverka-otvetov-i-gallyucinacii.md",
+            "keywords": "галлюцинации проверка ответа факты ссылки код ИИ",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Цитаты и ссылки",
+            "url": "content/poisk-informacii/poisk-s-pomoshchyu-ii/citaty-i-ssylki.md",
+            "keywords": "цитаты ссылки ИИ проверка DOI источники",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Поиск с ИИ vs обычный поиск",
+            "url": "content/poisk-informacii/poisk-s-pomoshchyu-ii/poisk-s-ii-vs-obychynyy-poisk.md",
+            "keywords": "ИИ поисковик сравнение свежие данные источники гибридный поиск",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Приватность и секреты",
+            "url": "content/poisk-informacii/poisk-s-pomoshchyu-ii/privatnost-i-sekrety.md",
+            "keywords": "приватность секреты ИИ персональные данные токены безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "AI-агенты и инструменты",
+            "url": "content/poisk-informacii/poisk-s-pomoshchyu-ii/ai-agenty-i-instrumenty.md",
+            "keywords": "AI-агенты инструменты поиск автоматизация риски проверка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Поиск с помощью ИИ",
+            "url": "content/poisk-informacii/poisk-s-pomoshchyu-ii/poisk-s-pomoshchyu-ii.md",
+            "keywords": "поиск с ИИ итог LLM проверка ссылки приватность агенты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: проверить ответ ИИ",
+            "url": "content/poisk-informacii/poisk-s-pomoshchyu-ii/praktika-proverit-otvet-ii.md",
+            "keywords": "практика ИИ проверка галлюцинации ссылки код",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "sohranenie-i-organizaciya",
+        "order": 70,
+        "name": "Сохранение и организация",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Закладки и read-later",
+            "url": "content/poisk-informacii/sohranenie-i-organizaciya/zakladki-i-read-later.md",
+            "keywords": "закладки read-later сохранение ссылок подборка организация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Заметки и теги",
+            "url": "content/poisk-informacii/sohranenie-i-organizaciya/zametki-i-tegi.md",
+            "keywords": "заметки теги организация база знаний конспект ссылки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Менеджеры ссылок и Zotero",
+            "url": "content/poisk-informacii/sohranenie-i-organizaciya/menedzhery-ssylok-i-zotero.md",
+            "keywords": "Zotero менеджер ссылок библиография DOI PDF цитирование",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Obsidian и личная база знаний",
+            "url": "content/poisk-informacii/sohranenie-i-organizaciya/obsidian-i-lichnaya-baza-znaniy.md",
+            "keywords": "Obsidian личная база знаний заметки связи Markdown поиск",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Поиск по своим материалам",
+            "url": "content/poisk-informacii/sohranenie-i-organizaciya/poisk-po-svoim-materialam.md",
+            "keywords": "поиск по заметкам теги имена файлов личная база поиск",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Архивирование и резервные копии",
+            "url": "content/poisk-informacii/sohranenie-i-organizaciya/arhivirovanie-i-rezervnye-kopii.md",
+            "keywords": "архивирование резервные копии 3-2-1 экспорт ссылки сохранность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Сохранение и организация",
+            "url": "content/poisk-informacii/sohranenie-i-organizaciya/sohranenie-i-organizaciya.md",
+            "keywords": "сохранение организация закладки заметки Zotero база знаний резервные копии",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: собрать подборку",
+            "url": "content/poisk-informacii/sohranenie-i-organizaciya/praktika-sobrat-podborku.md",
+            "keywords": "практика подборка источники заметки теги резервные копии",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "etika-i-bezopasnost",
+        "order": 80,
+        "name": "Этика и безопасность",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Авторское право и цитирование",
+            "url": "content/poisk-informacii/etika-i-bezopasnost/avtorskoe-pravo-i-citirovanie.md",
+            "keywords": "авторское право цитирование лицензия fair use источники",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Плагиат и переработка",
+            "url": "content/poisk-informacii/etika-i-bezopasnost/plagiat-i-pererabotka.md",
+            "keywords": "плагиат переработка пересказ цитирование авторство AI",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Приватность и трекеры",
+            "url": "content/poisk-informacii/etika-i-bezopasnost/privatnost-i-trekery.md",
+            "keywords": "приватность трекеры cookies история поиска инкогнито цифровой след",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Фишинг и опасные ссылки",
+            "url": "content/poisk-informacii/etika-i-bezopasnost/fishing-i-opasnye-ssylki.md",
+            "keywords": "фишинг опасные ссылки поддельный сайт пароль домен безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Безопасный поиск",
+            "url": "content/poisk-informacii/etika-i-bezopasnost/bezopasnyy-poisk.md",
+            "keywords": "безопасный поиск настройки блокировка загрузки браузер защита",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Дезинформация и манипуляции",
+            "url": "content/poisk-informacii/etika-i-bezopasnost/dezinformaciya-i-manipulyacii.md",
+            "keywords": "дезинформация манипуляции фактчекинг новости контекст проверка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Этика и безопасность",
+            "url": "content/poisk-informacii/etika-i-bezopasnost/etika-i-bezopasnost.md",
+            "keywords": "этика безопасность авторское право приватность фишинг дезинформация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: безопасный поиск",
+            "url": "content/poisk-informacii/etika-i-bezopasnost/praktika-bezopasnyy-poisk.md",
+            "keywords": "практика безопасный поиск фишинг приватность дезинформация",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "praktika-issledovanie",
+        "order": 90,
+        "name": "Практика: исследование",
+        "topics": [
+          {
+            "order": 10,
+            "title": "План исследования",
+            "url": "content/poisk-informacii/praktika-issledovanie/plan-issledovaniya.md",
+            "keywords": "план исследования вопрос подвопросы критерии источники вывод",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Сравнение источников",
+            "url": "content/poisk-informacii/praktika-issledovanie/sravnenie-istochnikov.md",
+            "keywords": "сравнение источников критерии таблица противоречия вывод",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Практика: исследование",
+            "url": "content/poisk-informacii/praktika-issledovanie/praktika-issledovanie.md",
+            "keywords": "исследование итог вопрос источники сравнение вывод ссылки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Практика: исследование по задаче",
+            "url": "content/poisk-informacii/praktika-issledovanie/praktika-issledovanie-po-zadache.md",
+            "keywords": "практика исследование задача источники сравнение вывод ссылки",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      }
+    ]
+  },
   "principy-patterny-i-arhitektura": {
     "order": 30,
     "title": "Принципы, паттерны и архитектура",

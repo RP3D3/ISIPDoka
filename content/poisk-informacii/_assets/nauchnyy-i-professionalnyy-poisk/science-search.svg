@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" role="img" aria-labelledby="title desc">
+  <title id="title">Научный поиск и цитирование</title>
+  <desc id="desc">Схема показывает путь от вопроса к базе данных, DOI, чтению и snowballing.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#eab308"/>
+    </marker>
+  </defs>
+  <rect width="920" height="500" fill="#fffdf5"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2b2410">Как искать научные источники</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#2b2410">
+    <rect x="25" y="110" width="140" height="90" rx="10" fill="#fff4cc" stroke="#eab308" stroke-width="2"/>
+    <text x="95" y="145" text-anchor="middle" font-weight="700">Вопрос</text>
+    <text x="95" y="170" text-anchor="middle" font-size="12">узкий и проверяемый</text>
+
+    <rect x="195" y="110" width="140" height="90" rx="10" fill="#fff4cc" stroke="#eab308" stroke-width="2"/>
+    <text x="265" y="145" text-anchor="middle" font-weight="700">Ключевые слова</text>
+    <text x="265" y="170" text-anchor="middle" font-size="12">термины и синонимы</text>
+
+    <rect x="365" y="110" width="140" height="90" rx="10" fill="#e8f7ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="435" y="145" text-anchor="middle" font-weight="700">База</text>
+    <text x="435" y="170" text-anchor="middle" font-size="12">Scholar, arXiv, PubMed</text>
+
+    <rect x="535" y="110" width="140" height="90" rx="10" fill="#e3e8ff" stroke="#4c6ef5" stroke-width="2"/>
+    <text x="605" y="145" text-anchor="middle" font-weight="700">DOI</text>
+    <text x="605" y="170" text-anchor="middle" font-size="12">постоянная ссылка</text>
+
+    <rect x="705" y="110" width="185" height="90" rx="10" fill="#f3e8ff" stroke="#9c36b5" stroke-width="2"/>
+    <text x="797" y="145" text-anchor="middle" font-weight="700">Чтение</text>
+    <text x="797" y="170" text-anchor="middle" font-size="12">абстракт, метод, выводы</text>
+
+    <line x1="165" y1="155" x2="185" y2="155" stroke="#eab308" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="335" y1="155" x2="355" y2="155" stroke="#eab308" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="505" y1="155" x2="525" y2="155" stroke="#eab308" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="675" y1="155" x2="695" y2="155" stroke="#eab308" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <path d="M 797 200 C 797 300 435 300 435 250" fill="none" stroke="#2f9e44" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+    <text x="620" y="292" text-anchor="middle" font-size="13" fill="#2b6b3a">snowballing: смотрим, на кого ссылается статья и кто ссылается на неё</text>
+
+    <rect x="120" y="340" width="680" height="100" rx="10" fill="#fff" stroke="#eab308" stroke-width="2"/>
+    <text x="460" y="370" text-anchor="middle" font-weight="700">Цитирование — это не украшение, а проверяемый след.</text>
+    <text x="460" y="396" text-anchor="middle" font-size="13" fill="#5c4a20">Автор, год, название, DOI или URL, дата обращения.</text>
+    <text x="460" y="420" text-anchor="middle" font-size="13" fill="#5c4a20">Если ссылку нельзя проверить — это слабый источник.</text>
+  </g>
+</svg>

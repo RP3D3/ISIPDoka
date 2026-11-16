@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" role="img" aria-labelledby="title desc">
+  <title id="title">Источники для разработчика</title>
+  <desc id="desc">Схема показывает, где искать документацию, ошибки, код, обсуждения и изменения.</desc>
+  <rect width="920" height="500" fill="#fffdf5"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2b2410">Где искать ответ разработчику</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#2b2410">
+    <rect x="30" y="100" width="270" height="110" rx="12" fill="#e8f7ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="50" y="132" font-weight="700">Официальная документация</text>
+    <text x="50" y="158" font-size="13">язык, фреймворк, API, CLI</text>
+    <text x="50" y="180" font-size="13">самый надёжный источник</text>
+
+    <rect x="325" y="100" width="270" height="110" rx="12" fill="#fff4cc" stroke="#eab308" stroke-width="2"/>
+    <text x="345" y="132" font-weight="700">Ошибки и стек-трейсы</text>
+    <text x="345" y="158" font-size="13">точный текст ошибки</text>
+    <text x="345" y="180" font-size="13">версия, окружение, шаги</text>
+
+    <rect x="620" y="100" width="270" height="110" rx="12" fill="#e3e8ff" stroke="#4c6ef5" stroke-width="2"/>
+    <text x="640" y="132" font-weight="700">GitHub и code search</text>
+    <text x="640" y="158" font-size="13">примеры кода, issues, PR</text>
+    <text x="640" y="180" font-size="13">как сделано в реальных проектах</text>
+
+    <rect x="30" y="250" width="270" height="110" rx="12" fill="#f3e8ff" stroke="#9c36b5" stroke-width="2"/>
+    <text x="50" y="282" font-weight="700">Q&A и форумы</text>
+    <text x="50" y="308" font-size="13">Stack Overflow, профильные чаты</text>
+    <text x="50" y="330" font-size="13">проверяйте дату и голоса</text>
+
+    <rect x="325" y="250" width="270" height="110" rx="12" fill="#ffe3d6" stroke="#ff6b35" stroke-width="2"/>
+    <text x="345" y="282" font-weight="700">Changelog и RFC</text>
+    <text x="345" y="308" font-size="13">что изменилось между версиями</text>
+    <text x="345" y="330" font-size="13">почему принято решение</text>
+
+    <rect x="620" y="250" width="270" height="110" rx="12" fill="#dff3e4" stroke="#2f9e44" stroke-width="2"/>
+    <text x="640" y="282" font-weight="700">Трекеры и база знаний</text>
+    <text x="640" y="308" font-size="13">issues, wiki, внутренние заметки</text>
+    <text x="640" y="330" font-size="13">контекст вашей команды</text>
+
+    <text x="460" y="420" text-anchor="middle" font-size="14" fill="#5c4a20">Сначала официальные источники, потом обсуждения. Не наоборот.</text>
+    <text x="460" y="448" text-anchor="middle" font-size="13" fill="#5c4a20">Ответ с форума — гипотеза, которую нужно проверить в вашем проекте.</text>
+  </g>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" role="img" aria-labelledby="title desc">
+  <title id="title">Сохранение и организация найденной информации</title>
+  <desc id="desc">Схема показывает путь от найденного материала к заметке, тегу и личной базе знаний.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#eab308"/>
+    </marker>
+  </defs>
+  <rect width="920" height="500" fill="#fffdf5"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2b2410">Не терять найденное</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#2b2410">
+    <rect x="25" y="110" width="150" height="90" rx="10" fill="#fff4cc" stroke="#eab308" stroke-width="2"/>
+    <text x="100" y="145" text-anchor="middle" font-weight="700">Входящие</text>
+    <text x="100" y="170" text-anchor="middle" font-size="12">ссылки, файлы,</text>
+    <text x="100" y="192" text-anchor="middle" font-size="12">цитаты</text>
+
+    <rect x="210" y="110" width="150" height="90" rx="10" fill="#e8f7ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="285" y="145" text-anchor="middle" font-weight="700">Разбор</text>
+    <text x="285" y="170" text-anchor="middle" font-size="12">зачем это нужно</text>
+    <text x="285" y="192" text-anchor="middle" font-size="12">и что главное</text>
+
+    <rect x="395" y="110" width="150" height="90" rx="10" fill="#e3e8ff" stroke="#4c6ef5" stroke-width="2"/>
+    <text x="470" y="145" text-anchor="middle" font-weight="700">Теги</text>
+    <text x="470" y="170" text-anchor="middle" font-size="12">тема, проект,</text>
+    <text x="470" y="192" text-anchor="middle" font-size="12">тип источника</text>
+
+    <rect x="580" y="110" width="150" height="90" rx="10" fill="#f3e8ff" stroke="#9c36b5" stroke-width="2"/>
+    <text x="655" y="145" text-anchor="middle" font-weight="700">Заметка</text>
+    <text x="655" y="170" text-anchor="middle" font-size="12">своими словами</text>
+    <text x="655" y="192" text-anchor="middle" font-size="12">+ ссылка</text>
+
+    <rect x="765" y="110" width="125" height="90" rx="10" fill="#dff3e4" stroke="#2f9e44" stroke-width="2"/>
+    <text x="827" y="145" text-anchor="middle" font-weight="700">База</text>
+    <text x="827" y="170" text-anchor="middle" font-size="12">поиск по</text>
+    <text x="827" y="192" text-anchor="middle" font-size="12">своим</text>
+
+    <line x1="175" y1="155" x2="200" y2="155" stroke="#eab308" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="360" y1="155" x2="385" y2="155" stroke="#eab308" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="545" y1="155" x2="570" y2="155" stroke="#eab308" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="730" y1="155" x2="755" y2="155" stroke="#eab308" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="90" y="280" width="740" height="130" rx="10" fill="#fff" stroke="#eab308" stroke-width="2"/>
+    <text x="460" y="312" text-anchor="middle" font-weight="700">Правило: сохранять не «на всякий случай», а с причиной</text>
+    <text x="120" y="344" font-size="13">• что это за источник;</text>
+    <text x="120" y="368" font-size="13">• почему он важен;</text>
+    <text x="120" y="392" font-size="13">• к какой задаче относится;</text>
+    <text x="500" y="344" font-size="13">• что именно вы хотите использовать;</text>
+    <text x="500" y="368" font-size="13">• когда проверили и актуально ли это;</text>
+    <text x="500" y="392" font-size="13">• где лежит оригинал.</text>
+
+    <text x="460" y="456" text-anchor="middle" font-size="13" fill="#5c4a20">Хорошая личная база отвечает на вопрос «почему я это сохранил», а не просто хранит ссылки.</text>
+  </g>
+</svg>
