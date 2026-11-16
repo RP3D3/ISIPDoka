@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" role="img" aria-labelledby="title desc">
+  <title id="title">Модель Git: рабочая копия, индекс, локальный и удалённый репозиторий</title>
+  <desc id="desc">Схема показывает путь изменений от рабочей копии через индекс и локальный репозиторий к удалённому репозиторию.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff6b35"/>
+    </marker>
+  </defs>
+  <rect width="900" height="480" fill="#fffaf7"/>
+  <text x="450" y="46" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2d1b12">Как изменения проходят через Git</text>
+  <g font-family="Arial, sans-serif" font-size="16" fill="#2d1b12">
+    <rect x="40" y="120" width="170" height="110" rx="12" fill="#ffe3d6" stroke="#ff6b35" stroke-width="2"/>
+    <text x="125" y="158" text-anchor="middle" font-weight="700">Рабочая копия</text>
+    <text x="125" y="184" text-anchor="middle" font-size="14">файлы на диске</text>
+    <text x="125" y="206" text-anchor="middle" font-size="14">редактируем</text>
+
+    <rect x="260" y="120" width="170" height="110" rx="12" fill="#fff1cc" stroke="#e0a100" stroke-width="2"/>
+    <text x="345" y="158" text-anchor="middle" font-weight="700">Индекс</text>
+    <text x="345" y="184" text-anchor="middle" font-size="14">staging area</text>
+    <text x="345" y="206" text-anchor="middle" font-size="14">что попадёт в коммит</text>
+
+    <rect x="480" y="120" width="170" height="110" rx="12" fill="#dff3e4" stroke="#2f9e44" stroke-width="2"/>
+    <text x="565" y="158" text-anchor="middle" font-weight="700">Локальный</text>
+    <text x="565" y="180" text-anchor="middle" font-weight="700">репозиторий</text>
+    <text x="565" y="206" text-anchor="middle" font-size="14">история коммитов</text>
+
+    <rect x="700" y="120" width="160" height="110" rx="12" fill="#e3e8ff" stroke="#4c6ef5" stroke-width="2"/>
+    <text x="780" y="158" text-anchor="middle" font-weight="700">Удалённый</text>
+    <text x="780" y="180" text-anchor="middle" font-weight="700">репозиторий</text>
+    <text x="780" y="206" text-anchor="middle" font-size="14">GitHub / GitLab</text>
+
+    <line x1="210" y1="175" x2="250" y2="175" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="230" y="160" text-anchor="middle" font-size="13" fill="#7a3b20">add</text>
+
+    <line x1="430" y1="175" x2="470" y2="175" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="450" y="160" text-anchor="middle" font-size="13" fill="#7a3b20">commit</text>
+
+    <line x1="650" y1="175" x2="690" y2="175" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="670" y="160" text-anchor="middle" font-size="13" fill="#7a3b20">push</text>
+
+    <path d="M 700 230 C 620 300 300 300 220 230" fill="none" stroke="#4c6ef5" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+    <text x="455" y="292" text-anchor="middle" font-size="14" fill="#3b4fb8">fetch / pull</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#5c4033">
+    <text x="40" y="380">Коммит — это снимок индекса, а не «сохранение всех файлов на диске».</text>
+    <text x="40" y="408">Пока изменения не добавлены в индекс, они не попадут в следующий коммит.</text>
+    <text x="40" y="436">Удалённый репозиторий — ещё одна копия истории, а не «главный диск».</text>
+  </g>
+</svg>

@@ -2512,7 +2512,782 @@
     "order": 20,
     "title": "Git и командная разработка",
     "accent": "#ff6b35",
-    "groups": []
+    "groups": [
+      {
+        "id": "osnovy-git",
+        "order": 10,
+        "name": "Основы Git",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Что такое версионный контроль",
+            "url": "content/git-i-komandnaya-razrabotka/osnovy-git/chto-takoe-versionnyy-kontrol.md",
+            "keywords": "версионный контроль Git VCS распределённая система история изменений коммиты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Git, GitHub и GitLab",
+            "url": "content/git-i-komandnaya-razrabotka/osnovy-git/git-i-github.md",
+            "keywords": "Git GitHub GitLab удалённый репозиторий pull request хостинг",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Установка и настройка",
+            "url": "content/git-i-komandnaya-razrabotka/osnovy-git/ustanovka-i-nastroyka.md",
+            "keywords": "установка Git git config user.name user.email SSH HTTPS настройка Git",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Репозиторий, индекс и рабочая копия",
+            "url": "content/git-i-komandnaya-razrabotka/osnovy-git/repozitoriy-indeks-i-rabochaya-kopiya.md",
+            "keywords": "репозиторий индекс staging area рабочая копия git init .git",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Первый коммит",
+            "url": "content/git-i-komandnaya-razrabotka/osnovy-git/pervyy-kommit.md",
+            "keywords": "первый коммит git init git add git commit git log репозиторий",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Состояния файлов и history",
+            "url": "content/git-i-komandnaya-razrabotka/osnovy-git/sostoyaniya-faylov-i-history.md",
+            "keywords": "git status git diff git log история состояния файлов staged unstaged",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": ".gitignore",
+            "url": "content/git-i-komandnaya-razrabotka/osnovy-git/gitignore.md",
+            "keywords": "gitignore игнорирование файлов секреты временные файлы .env node_modules",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Основы Git",
+            "url": "content/git-i-komandnaya-razrabotka/osnovy-git/osnovy-git.md",
+            "keywords": "основы Git итог репозиторий индекс коммит gitignore",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: первый репозиторий",
+            "url": "content/git-i-komandnaya-razrabotka/osnovy-git/praktika-pervyy-repozitoriy.md",
+            "keywords": "практика Git первый репозиторий git init git add git commit gitignore",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "ezhednevnaya-rabota",
+        "order": 20,
+        "name": "Ежедневная работа",
+        "topics": [
+          {
+            "order": 10,
+            "title": "status, diff и log",
+            "url": "content/git-i-komandnaya-razrabotka/ezhednevnaya-rabota/status-diff-log.md",
+            "keywords": "git status git diff git log ежедневная работа staged unstaged",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "add, commit и amend",
+            "url": "content/git-i-komandnaya-razrabotka/ezhednevnaya-rabota/add-commit-amend.md",
+            "keywords": "git add git commit git amend commit --amend staging атомарный коммит",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "restore",
+            "url": "content/git-i-komandnaya-razrabotka/ezhednevnaya-rabota/restore.md",
+            "keywords": "git restore отмена изменений restore --staged рабочая копия индекс",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "reset",
+            "url": "content/git-i-komandnaya-razrabotka/ezhednevnaya-rabota/reset.md",
+            "keywords": "git reset reset --soft reset --mixed reset --hard HEAD откат коммита",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "revert",
+            "url": "content/git-i-komandnaya-razrabotka/ezhednevnaya-rabota/revert.md",
+            "keywords": "git revert отмена коммита revert merge публичная история безопасный откат",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "clean",
+            "url": "content/git-i-komandnaya-razrabotka/ezhednevnaya-rabota/clean.md",
+            "keywords": "git clean неотслеживаемые файлы git clean -n очистка репозитория",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "stash",
+            "url": "content/git-i-komandnaya-razrabotka/ezhednevnaya-rabota/stash.md",
+            "keywords": "git stash stash pop stash apply временные изменения переключение веток",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Ежедневная работа",
+            "url": "content/git-i-komandnaya-razrabotka/ezhednevnaya-rabota/ezhednevnaya-rabota.md",
+            "keywords": "ежедневная работа Git status commit restore reset revert stash",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Практика: отмена изменений",
+            "url": "content/git-i-komandnaya-razrabotka/ezhednevnaya-rabota/praktika-otmena-izmeneniy.md",
+            "keywords": "практика Git отмена изменений restore reset revert clean stash",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "vetki-i-sliyaniya",
+        "order": 30,
+        "name": "Ветки и слияния",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Ветка как указатель",
+            "url": "content/git-i-komandnaya-razrabotka/vetki-i-sliyaniya/vetka-kak-ukazatel.md",
+            "keywords": "ветка Git branch HEAD указатель коммит граф",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "branch и switch",
+            "url": "content/git-i-komandnaya-razrabotka/vetki-i-sliyaniya/branch-i-switch.md",
+            "keywords": "git branch git switch git checkout создание ветки удаление ветки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Merge fast-forward",
+            "url": "content/git-i-komandnaya-razrabotka/vetki-i-sliyaniya/merge-fast-forward.md",
+            "keywords": "git merge fast-forward слияние merge commit ветки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Merge three-way",
+            "url": "content/git-i-komandnaya-razrabotka/vetki-i-sliyaniya/merge-three-way.md",
+            "keywords": "three-way merge git merge merge commit общий предок слияние веток",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Конфликты слияния",
+            "url": "content/git-i-komandnaya-razrabotka/vetki-i-sliyaniya/konflikty.md",
+            "keywords": "конфликт Git merge conflict конфликт слияния маркеры git add git merge --abort",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Rebase vs merge",
+            "url": "content/git-i-komandnaya-razrabotka/vetki-i-sliyaniya/rebase-vs-merge.md",
+            "keywords": "rebase merge rebase vs merge переписывание истории линейная история",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Интерактивный rebase",
+            "url": "content/git-i-komandnaya-razrabotka/vetki-i-sliyaniya/interaktivnyy-rebase.md",
+            "keywords": "interactive rebase rebase -i squash fixup reword drop история",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Cherry-pick",
+            "url": "content/git-i-komandnaya-razrabotka/vetki-i-sliyaniya/cherry-pick.md",
+            "keywords": "git cherry-pick перенос коммита cherry pick ветки конфликты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Ветки и слияния",
+            "url": "content/git-i-komandnaya-razrabotka/vetki-i-sliyaniya/vetki-i-sliyaniya.md",
+            "keywords": "ветки слияния merge rebase конфликты cherry-pick итог",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Практика: ветки и конфликт",
+            "url": "content/git-i-komandnaya-razrabotka/vetki-i-sliyaniya/praktika-vetki-i-konflikt.md",
+            "keywords": "практика Git ветки конфликт merge fast-forward three-way",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "udalyonnaya-rabota-i-code-review",
+        "order": 40,
+        "name": "Удалённая работа и code review",
+        "topics": [
+          {
+            "order": 10,
+            "title": "remote и clone",
+            "url": "content/git-i-komandnaya-razrabotka/udalyonnaya-rabota-i-code-review/remote-i-clone.md",
+            "keywords": "git remote git clone origin удалённый репозиторий SSH HTTPS",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "fetch, pull и push",
+            "url": "content/git-i-komandnaya-razrabotka/udalyonnaya-rabota-i-code-review/fetch-pull-push.md",
+            "keywords": "git fetch git pull git push origin upstream push rejected",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Tracking branches",
+            "url": "content/git-i-komandnaya-razrabotka/udalyonnaya-rabota-i-code-review/tracking-branches.md",
+            "keywords": "tracking branch upstream git branch -vv git push -u origin/main",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Fork и upstream",
+            "url": "content/git-i-komandnaya-razrabotka/udalyonnaya-rabota-i-code-review/fork-i-upstream.md",
+            "keywords": "fork upstream origin чужой репозиторий pull request GitHub",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Синхронизация форка",
+            "url": "content/git-i-komandnaya-razrabotka/udalyonnaya-rabota-i-code-review/sinkhronizatsiya-forks.md",
+            "keywords": "синхронизация форка upstream fetch merge rebase fork",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Pull request",
+            "url": "content/git-i-komandnaya-razrabotka/udalyonnaya-rabota-i-code-review/pull-request.md",
+            "keywords": "pull request PR merge request review GitHub GitLab",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Code review",
+            "url": "content/git-i-komandnaya-razrabotka/udalyonnaya-rabota-i-code-review/code-review.md",
+            "keywords": "code review ревью кода pull request замечания approve request changes",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Защита веток",
+            "url": "content/git-i-komandnaya-razrabotka/udalyonnaya-rabota-i-code-review/zashchita-vetok.md",
+            "keywords": "protected branches защита веток branch protection CI review main",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Удалённая работа и code review",
+            "url": "content/git-i-komandnaya-razrabotka/udalyonnaya-rabota-i-code-review/udalyonnaya-rabota-i-code-review.md",
+            "keywords": "удалённая работа code review remote pull request fork защита веток",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Практика: PR в команде",
+            "url": "content/git-i-komandnaya-razrabotka/udalyonnaya-rabota-i-code-review/praktika-pr-v-komande.md",
+            "keywords": "практика PR pull request code review команда GitHub merge",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "komandnye-processy",
+        "order": 50,
+        "name": "Командные процессы",
+        "topics": [
+          {
+            "order": 10,
+            "title": "GitHub Flow",
+            "url": "content/git-i-komandnaya-razrabotka/komandnye-processy/github-flow.md",
+            "keywords": "GitHub Flow workflow feature branch pull request main CI",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Trunk-based development",
+            "url": "content/git-i-komandnaya-razrabotka/komandnye-processy/trunk-based.md",
+            "keywords": "trunk-based development trunk feature flags короткие ветки CI",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Git Flow",
+            "url": "content/git-i-komandnaya-razrabotka/komandnye-processy/git-flow.md",
+            "keywords": "Git Flow main develop release hotfix feature ветвление",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Feature branches",
+            "url": "content/git-i-komandnaya-razrabotka/komandnye-processy/feature-branches.md",
+            "keywords": "feature branch ветка под задачу naming база ветки короткоживущая ветка",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Commit messages",
+            "url": "content/git-i-komandnaya-razrabotka/komandnye-processy/commit-messages.md",
+            "keywords": "commit message сообщение коммита conventional commits атомарный коммит",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Issues и задачи",
+            "url": "content/git-i-komandnaya-razrabotka/komandnye-processy/issues-i-zadachi.md",
+            "keywords": "issues задачи GitHub Issues критерии приёмки labels project management",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Definition of Done",
+            "url": "content/git-i-komandnaya-razrabotka/komandnye-processy/definition-of-done.md",
+            "keywords": "definition of done DoD критерии готовности команда качество",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Этикет code review",
+            "url": "content/git-i-komandnaya-razrabotka/komandnye-processy/etiket-code-review.md",
+            "keywords": "этикет review code review комментарии тон блокирующие замечания",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Командные процессы",
+            "url": "content/git-i-komandnaya-razrabotka/komandnye-processy/komandnye-processy.md",
+            "keywords": "командные процессы GitHub Flow trunk-based Git Flow DoD review",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Практика: командный спринт",
+            "url": "content/git-i-komandnaya-razrabotka/komandnye-processy/praktika-komandnyy-sprint.md",
+            "keywords": "практика командный спринт GitHub Flow issues PR DoD",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "kachestvo-i-bezopasnost-repozitoriya",
+        "order": 60,
+        "name": "Качество и безопасность репозитория",
+        "topics": [
+          {
+            "order": 10,
+            "title": "README, CONTRIBUTING и LICENSE",
+            "url": "content/git-i-komandnaya-razrabotka/kachestvo-i-bezopasnost-repozitoriya/readme-contributing-license.md",
+            "keywords": "README CONTRIBUTING LICENSE документация репозитория open source",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Шаблоны issue и PR",
+            "url": "content/git-i-komandnaya-razrabotka/kachestvo-i-bezopasnost-repozitoriya/shablony-issue-i-pr.md",
+            "keywords": "issue template pull request template шаблоны GitHub чек-лист PR",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Секреты и .env",
+            "url": "content/git-i-komandnaya-razrabotka/kachestvo-i-bezopasnost-repozitoriya/sekrety-i-env.md",
+            "keywords": "секреты .env gitignore токены утечка ротация ключей",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Права доступа",
+            "url": "content/git-i-komandnaya-razrabotka/kachestvo-i-bezopasnost-repozitoriya/prava-dostupa.md",
+            "keywords": "права доступа роли least privilege GitHub GitLab безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Подписанные коммиты",
+            "url": "content/git-i-komandnaya-razrabotka/kachestvo-i-bezopasnost-repozitoriya/podpisannye-kommitty.md",
+            "keywords": "signed commits подпись коммита GPG SSH signing verified безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Обновление зависимостей",
+            "url": "content/git-i-komandnaya-razrabotka/kachestvo-i-bezopasnost-repozitoriya/obnovlenie-zavisimostey.md",
+            "keywords": "зависимости Dependabot Renovate lockfile уязвимости обновления",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Качество и безопасность репозитория",
+            "url": "content/git-i-komandnaya-razrabotka/kachestvo-i-bezopasnost-repozitoriya/kachestvo-i-bezopasnost-repozitoriya.md",
+            "keywords": "качество репозитория безопасность README LICENSE секреты права зависимости",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: аудит репозитория",
+            "url": "content/git-i-komandnaya-razrabotka/kachestvo-i-bezopasnost-repozitoriya/praktika-audit-repozitoriya.md",
+            "keywords": "аудит репозитория практика безопасность README секреты зависимости",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "relizy-i-ci-cd",
+        "order": 70,
+        "name": "Релизы и CI/CD",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Теги и версии",
+            "url": "content/git-i-komandnaya-razrabotka/relizy-i-ci-cd/tegi-i-versii.md",
+            "keywords": "git tag теги версии релиз annotated tag push tags",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "SemVer",
+            "url": "content/git-i-komandnaya-razrabotka/relizy-i-ci-cd/semver.md",
+            "keywords": "SemVer семантическое версионирование версии major minor patch",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Changelog",
+            "url": "content/git-i-komandnaya-razrabotka/relizy-i-ci-cd/changelog.md",
+            "keywords": "changelog release notes история изменений релиз Keep a Changelog",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Hotfix",
+            "url": "content/git-i-komandnaya-razrabotka/relizy-i-ci-cd/hotfix.md",
+            "keywords": "hotfix срочное исправление релиз main patch инцидент",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Rollback",
+            "url": "content/git-i-komandnaya-razrabotka/relizy-i-ci-cd/rollback.md",
+            "keywords": "rollback откат релиза деплой инцидент revert восстановление",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "CI/CD",
+            "url": "content/git-i-komandnaya-razrabotka/relizy-i-ci-cd/ci-cd.md",
+            "keywords": "CI/CD continuous integration continuous delivery deployment pipeline",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "GitHub Actions",
+            "url": "content/git-i-komandnaya-razrabotka/relizy-i-ci-cd/github-actions.md",
+            "keywords": "GitHub Actions workflow jobs steps runner CI",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Pipeline",
+            "url": "content/git-i-komandnaya-razrabotka/relizy-i-ci-cd/pipeline.md",
+            "keywords": "pipeline CI stages cache artifacts fail fast тесты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Secrets в CI",
+            "url": "content/git-i-komandnaya-razrabotka/relizy-i-ci-cd/secrets-v-ci.md",
+            "keywords": "secrets CI GitHub Actions secrets environment secrets OIDC безопасность",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Релизы и CI/CD",
+            "url": "content/git-i-komandnaya-razrabotka/relizy-i-ci-cd/relizy-i-ci-cd.md",
+            "keywords": "релизы CI/CD SemVer changelog hotfix rollback pipeline",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 110,
+            "title": "Практика: CI и релиз",
+            "url": "content/git-i-komandnaya-razrabotka/relizy-i-ci-cd/praktika-ci-i-reliz.md",
+            "keywords": "практика CI релиз GitHub Actions тег SemVer changelog",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "rassledovanie-i-vosstanovlenie",
+        "order": 80,
+        "name": "Расследование и восстановление",
+        "topics": [
+          {
+            "order": 10,
+            "title": "reflog",
+            "url": "content/git-i-komandnaya-razrabotka/rassledovanie-i-vosstanovlenie/reflog.md",
+            "keywords": "git reflog восстановление коммитов HEAD потерянные коммиты ORIG_HEAD",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "bisect",
+            "url": "content/git-i-komandnaya-razrabotka/rassledovanie-i-vosstanovlenie/bisect.md",
+            "keywords": "git bisect поиск бага бинарный поиск good bad регрессия",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "worktree",
+            "url": "content/git-i-komandnaya-razrabotka/rassledovanie-i-vosstanovlenie/worktree.md",
+            "keywords": "git worktree несколько рабочих копий параллельная работа ветки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "hooks",
+            "url": "content/git-i-komandnaya-razrabotka/rassledovanie-i-vosstanovlenie/hooks.md",
+            "keywords": "git hooks pre-commit commit-msg pre-push husky автоматизация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "submodules",
+            "url": "content/git-i-komandnaya-razrabotka/rassledovanie-i-vosstanovlenie/submodules.md",
+            "keywords": "git submodules подмодули .gitmodules clone --recurse-submodules зависимости",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Git LFS",
+            "url": "content/git-i-komandnaya-razrabotka/rassledovanie-i-vosstanovlenie/git-lfs.md",
+            "keywords": "Git LFS большие файлы lfs track миграция ассеты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Расследование и восстановление",
+            "url": "content/git-i-komandnaya-razrabotka/rassledovanie-i-vosstanovlenie/rassledovanie-i-vosstanovlenie.md",
+            "keywords": "расследование восстановление reflog bisect worktree hooks LFS",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Практика: найти баг через bisect",
+            "url": "content/git-i-komandnaya-razrabotka/rassledovanie-i-vosstanovlenie/praktika-nayti-bag.md",
+            "keywords": "практика bisect поиск бага регрессия git bisect тест",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "chastye-oshibki-i-ih-resheniya",
+        "order": 85,
+        "name": "Частые ошибки и их решения",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Коммит не в ту ветку",
+            "url": "content/git-i-komandnaya-razrabotka/chastye-oshibki-i-ih-resheniya/kommit-ne-v-tu-vetku.md",
+            "keywords": "коммит не в ту ветку cherry-pick reset revert ошибки Git",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Потерянные коммиты",
+            "url": "content/git-i-komandnaya-razrabotka/chastye-oshibki-i-ih-resheniya/poteryannye-kommitty.md",
+            "keywords": "потерянные коммиты reset --hard reflog ORIG_HEAD восстановление",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 30,
+            "title": "Конфликт слияния",
+            "url": "content/git-i-komandnaya-razrabotka/chastye-oshibki-i-ih-resheniya/konflikt-sliyaniya.md",
+            "keywords": "конфликт слияния merge conflict маркеры git add merge --abort",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 40,
+            "title": "Push rejected",
+            "url": "content/git-i-komandnaya-razrabotka/chastye-oshibki-i-ih-resheniya/push-rejected.md",
+            "keywords": "push rejected non-fast-forward force-with-lease fetch rebase protected branch",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 50,
+            "title": "Detached HEAD",
+            "url": "content/git-i-komandnaya-razrabotka/chastye-oshibki-i-ih-resheniya/detached-head.md",
+            "keywords": "detached HEAD HEAD git switch git branch потерянные коммиты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 60,
+            "title": "Секреты и большие файлы в истории",
+            "url": "content/git-i-komandnaya-razrabotka/chastye-oshibki-i-ih-resheniya/sekrety-v-istorii.md",
+            "keywords": "секреты в истории удаление секретов filter-repo BFG большие файлы LFS",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 70,
+            "title": "Ошибки rebase",
+            "url": "content/git-i-komandnaya-razrabotka/chastye-oshibki-i-ih-resheniya/oshibki-rebase.md",
+            "keywords": "ошибки rebase rebase --abort reflog ORIG_HEAD конфликты",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 80,
+            "title": "Потерянные изменения",
+            "url": "content/git-i-komandnaya-razrabotka/chastye-oshibki-i-ih-resheniya/poteryannye-izmeneniya.md",
+            "keywords": "потерянные изменения stash checkout restore незакоммиченные файлы",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 90,
+            "title": "Командные ошибки",
+            "url": "content/git-i-komandnaya-razrabotka/chastye-oshibki-i-ih-resheniya/komandnye-oshibki.md",
+            "keywords": "командные ошибки commit messages PR review процесс коммуникация",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 100,
+            "title": "Частые ошибки и их решения",
+            "url": "content/git-i-komandnaya-razrabotka/chastye-oshibki-i-ih-resheniya/chastye-oshibki-i-ih-resheniya.md",
+            "keywords": "частые ошибки решения reflog revert конфликты секреты командные ошибки",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 110,
+            "title": "Практика: разбор инцидентов",
+            "url": "content/git-i-komandnaya-razrabotka/chastye-oshibki-i-ih-resheniya/praktika-razbor-incidentov.md",
+            "keywords": "практика инциденты Git reflog revert конфликт секреты",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      },
+      {
+        "id": "itog-komandnaya-razrabotka",
+        "order": 90,
+        "name": "Итог: командная разработка",
+        "topics": [
+          {
+            "order": 10,
+            "title": "Итог: командная разработка",
+            "url": "content/git-i-komandnaya-razrabotka/itog-komandnaya-razrabotka/itog-komandnaya-razrabotka.md",
+            "keywords": "итог командная разработка Git workflow CI/CD review релиз",
+            "type": "md",
+            "interactive": false
+          },
+          {
+            "order": 20,
+            "title": "Практика: командный проект с нуля",
+            "url": "content/git-i-komandnaya-razrabotka/itog-komandnaya-razrabotka/praktika-komandnyy-proekt.md",
+            "keywords": "практика командный проект Git PR CI релиз командная разработка",
+            "type": "md",
+            "interactive": false
+          }
+        ]
+      }
+    ]
   },
   "principy-patterny-i-arhitektura": {
     "order": 30,

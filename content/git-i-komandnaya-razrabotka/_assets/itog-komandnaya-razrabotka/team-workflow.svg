@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" role="img" aria-labelledby="title desc">
+  <title id="title">Полный командный workflow</title>
+  <desc id="desc">Схема показывает путь от задачи до релиза через ветку, коммит, PR, review, CI и merge.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff6b35"/>
+    </marker>
+  </defs>
+  <rect width="920" height="500" fill="#fffaf7"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2d1b12">Командный цикл работы</text>
+  <g font-family="Arial, sans-serif" font-size="13" fill="#2d1b12">
+    <rect x="25" y="110" width="120" height="80" rx="10" fill="#ffe3d6" stroke="#ff6b35" stroke-width="2"/>
+    <text x="85" y="142" text-anchor="middle" font-weight="700">Задача</text>
+    <text x="85" y="166" text-anchor="middle" font-size="11">issue / ticket</text>
+
+    <rect x="175" y="110" width="120" height="80" rx="10" fill="#fff1cc" stroke="#e0a100" stroke-width="2"/>
+    <text x="235" y="142" text-anchor="middle" font-weight="700">Ветка</text>
+    <text x="235" y="166" text-anchor="middle" font-size="11">feature/...</text>
+
+    <rect x="325" y="110" width="120" height="80" rx="10" fill="#e8f7ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="385" y="142" text-anchor="middle" font-weight="700">Коммиты</text>
+    <text x="385" y="166" text-anchor="middle" font-size="11">маленькие и атомарные</text>
+
+    <rect x="475" y="110" width="120" height="80" rx="10" fill="#e3e8ff" stroke="#4c6ef5" stroke-width="2"/>
+    <text x="535" y="142" text-anchor="middle" font-weight="700">PR</text>
+    <text x="535" y="166" text-anchor="middle" font-size="11">описание и цель</text>
+
+    <rect x="625" y="110" width="120" height="80" rx="10" fill="#f3e8ff" stroke="#9c36b5" stroke-width="2"/>
+    <text x="685" y="142" text-anchor="middle" font-weight="700">Review</text>
+    <text x="685" y="166" text-anchor="middle" font-size="11">замечания и правки</text>
+
+    <rect x="775" y="110" width="120" height="80" rx="10" fill="#dff3e4" stroke="#2f9e44" stroke-width="2"/>
+    <text x="835" y="142" text-anchor="middle" font-weight="700">CI</text>
+    <text x="835" y="166" text-anchor="middle" font-size="11">lint / test / build</text>
+
+    <line x1="145" y1="150" x2="165" y2="150" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="295" y1="150" x2="315" y2="150" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="445" y1="150" x2="465" y2="150" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="595" y1="150" x2="615" y2="150" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="745" y1="150" x2="765" y2="150" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <path d="M 835 190 C 835 280 460 280 460 340" fill="none" stroke="#2f9e44" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="330" y="340" width="260" height="70" rx="10" fill="#dff3e4" stroke="#2f9e44" stroke-width="2"/>
+    <text x="460" y="370" text-anchor="middle" font-weight="700">Merge в main</text>
+    <text x="460" y="394" text-anchor="middle" font-size="11">после review и зелёного CI</text>
+
+    <path d="M 460 410 L 460 450" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="330" y="450" width="260" height="36" rx="8" fill="#ff6b35"/>
+    <text x="460" y="474" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">Релиз и обратная связь</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="13" fill="#5c4033">
+    <text x="25" y="250">Хороший цикл короткий: задача → маленькая ветка → PR → review → CI → merge.</text>
+    <text x="25" y="276">Чем дольше ветка живёт отдельно, тем дороже конфликты и review.</text>
+  </g>
+</svg>

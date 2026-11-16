@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="title desc">
+  <title id="title">Граф веток и слияний Git</title>
+  <desc id="desc">Схема показывает основную ветку, feature-ветку, коммиты и слияние.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff6b35"/>
+    </marker>
+  </defs>
+  <rect width="900" height="520" fill="#fffaf7"/>
+  <text x="450" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2d1b12">Ветка — это указатель на коммит</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#2d1b12">
+    <line x1="80" y1="180" x2="820" y2="180" stroke="#ff6b35" stroke-width="3"/>
+    <line x1="300" y1="180" x2="300" y2="320" stroke="#4c6ef5" stroke-width="3"/>
+    <line x1="300" y1="320" x2="700" y2="320" stroke="#4c6ef5" stroke-width="3"/>
+    <line x1="700" y1="320" x2="700" y2="180" stroke="#4c6ef5" stroke-width="3"/>
+
+    <circle cx="100" cy="180" r="14" fill="#ff6b35"/>
+    <circle cx="220" cy="180" r="14" fill="#ff6b35"/>
+    <circle cx="300" cy="180" r="14" fill="#ff6b35"/>
+    <circle cx="420" cy="180" r="14" fill="#ff6b35"/>
+    <circle cx="560" cy="180" r="14" fill="#ff6b35"/>
+    <circle cx="700" cy="180" r="14" fill="#ff6b35"/>
+    <circle cx="820" cy="180" r="14" fill="#ff6b35"/>
+
+    <circle cx="300" cy="320" r="14" fill="#4c6ef5"/>
+    <circle cx="430" cy="320" r="14" fill="#4c6ef5"/>
+    <circle cx="560" cy="320" r="14" fill="#4c6ef5"/>
+    <circle cx="700" cy="320" r="14" fill="#4c6ef5"/>
+
+    <text x="100" y="155" text-anchor="middle">A</text>
+    <text x="220" y="155" text-anchor="middle">B</text>
+    <text x="300" y="155" text-anchor="middle">C</text>
+    <text x="420" y="155" text-anchor="middle">D</text>
+    <text x="560" y="155" text-anchor="middle">E</text>
+    <text x="700" y="155" text-anchor="middle">F</text>
+    <text x="820" y="155" text-anchor="middle">G</text>
+    <text x="430" y="350" text-anchor="middle">X</text>
+    <text x="560" y="350" text-anchor="middle">Y</text>
+    <text x="700" y="350" text-anchor="middle">Z</text>
+
+    <rect x="70" y="80" width="120" height="30" rx="8" fill="#ffe3d6" stroke="#ff6b35"/>
+    <text x="130" y="100" text-anchor="middle" font-weight="700">main</text>
+    <rect x="500" y="390" width="160" height="30" rx="8" fill="#e3e8ff" stroke="#4c6ef5"/>
+    <text x="580" y="410" text-anchor="middle" font-weight="700">feature/login</text>
+
+    <path d="M 700 180 C 720 230 760 230 780 180" fill="none" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="760" y="225" text-anchor="middle" font-size="12" fill="#7a3b20">merge</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#5c4033">
+    <text x="80" y="460">Коммиты A–G образуют основную ветку. X–Z — работа в feature-ветке.</text>
+    <text x="80" y="488">После merge история сохраняет обе линии, а main получает новый коммит слияния.</text>
+  </g>
+</svg>

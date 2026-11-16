@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" role="img" aria-labelledby="title desc">
+  <title id="title">Путь pull request в команде</title>
+  <desc id="desc">Схема показывает ветку, коммиты, push, pull request, review, CI и merge.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff6b35"/>
+    </marker>
+  </defs>
+  <rect width="920" height="500" fill="#fffaf7"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2d1b12">Pull request: от ветки до main</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#2d1b12">
+    <rect x="30" y="110" width="130" height="80" rx="10" fill="#ffe3d6" stroke="#ff6b35" stroke-width="2"/>
+    <text x="95" y="142" text-anchor="middle" font-weight="700">Ветка</text>
+    <text x="95" y="166" text-anchor="middle" font-size="12">feature/login</text>
+
+    <rect x="200" y="110" width="130" height="80" rx="10" fill="#fff1cc" stroke="#e0a100" stroke-width="2"/>
+    <text x="265" y="142" text-anchor="middle" font-weight="700">Коммиты</text>
+    <text x="265" y="166" text-anchor="middle" font-size="12">локально</text>
+
+    <rect x="370" y="110" width="130" height="80" rx="10" fill="#e3e8ff" stroke="#4c6ef5" stroke-width="2"/>
+    <text x="435" y="142" text-anchor="middle" font-weight="700">Push</text>
+    <text x="435" y="166" text-anchor="middle" font-size="12">в remote</text>
+
+    <rect x="540" y="110" width="150" height="80" rx="10" fill="#e8f7ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="615" y="142" text-anchor="middle" font-weight="700">Pull request</text>
+    <text x="615" y="166" text-anchor="middle" font-size="12">описание и цель</text>
+
+    <rect x="730" y="110" width="150" height="80" rx="10" fill="#f3e8ff" stroke="#9c36b5" stroke-width="2"/>
+    <text x="805" y="142" text-anchor="middle" font-weight="700">Review</text>
+    <text x="805" y="166" text-anchor="middle" font-size="12">замечания и правки</text>
+
+    <line x1="160" y1="150" x2="190" y2="150" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="330" y1="150" x2="360" y2="150" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="500" y1="150" x2="530" y2="150" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="690" y1="150" x2="720" y2="150" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <path d="M 805 190 C 805 260 460 260 460 320" fill="none" stroke="#4c6ef5" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+    <text x="640" y="270" text-anchor="middle" font-size="13" fill="#3b4fb8">правки → новый push</text>
+
+    <rect x="340" y="330" width="240" height="80" rx="10" fill="#dff3e4" stroke="#2f9e44" stroke-width="2"/>
+    <text x="460" y="362" text-anchor="middle" font-weight="700">CI: lint / test / build</text>
+    <text x="460" y="386" text-anchor="middle" font-size="12">обязательные проверки</text>
+
+    <path d="M 460 410 L 460 450" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="340" y="450" width="240" height="36" rx="8" fill="#ff6b35"/>
+    <text x="460" y="474" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">Merge в main</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="13" fill="#5c4033">
+    <text x="30" y="250">PR — это не «кнопка merge», а место обсуждения изменений.</text>
+    <text x="30" y="276">Хороший PR небольшой, имеет описание, тесты и понятную цель.</text>
+  </g>
+</svg>

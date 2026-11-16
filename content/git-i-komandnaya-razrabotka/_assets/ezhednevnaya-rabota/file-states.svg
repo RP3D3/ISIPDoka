@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" role="img" aria-labelledby="title desc">
+  <title id="title">Состояния файлов в Git</title>
+  <desc id="desc">Схема показывает переходы между untracked, modified, staged и committed состояниями.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff6b35"/>
+    </marker>
+  </defs>
+  <rect width="900" height="500" fill="#fffaf7"/>
+  <text x="450" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2d1b12">Четыре состояния файла</text>
+  <g font-family="Arial, sans-serif" font-size="15" fill="#2d1b12">
+    <rect x="50" y="110" width="170" height="100" rx="12" fill="#f1f3f5" stroke="#868e96" stroke-width="2"/>
+    <text x="135" y="148" text-anchor="middle" font-weight="700">Untracked</text>
+    <text x="135" y="174" text-anchor="middle" font-size="13">Git ещё не следит</text>
+    <text x="135" y="196" text-anchor="middle" font-size="13">за файлом</text>
+
+    <rect x="270" y="110" width="170" height="100" rx="12" fill="#ffe3d6" stroke="#ff6b35" stroke-width="2"/>
+    <text x="355" y="148" text-anchor="middle" font-weight="700">Modified</text>
+    <text x="355" y="174" text-anchor="middle" font-size="13">файл изменён,</text>
+    <text x="355" y="196" text-anchor="middle" font-size="13">но не в индексе</text>
+
+    <rect x="490" y="110" width="170" height="100" rx="12" fill="#fff1cc" stroke="#e0a100" stroke-width="2"/>
+    <text x="575" y="148" text-anchor="middle" font-weight="700">Staged</text>
+    <text x="575" y="174" text-anchor="middle" font-size="13">изменение добавлено</text>
+    <text x="575" y="196" text-anchor="middle" font-size="13">в индекс</text>
+
+    <rect x="710" y="110" width="150" height="100" rx="12" fill="#dff3e4" stroke="#2f9e44" stroke-width="2"/>
+    <text x="785" y="148" text-anchor="middle" font-weight="700">Committed</text>
+    <text x="785" y="174" text-anchor="middle" font-size="13">снимок в истории</text>
+    <text x="785" y="196" text-anchor="middle" font-size="13">репозитория</text>
+
+    <line x1="220" y1="160" x2="260" y2="160" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="240" y="145" text-anchor="middle" font-size="12" fill="#7a3b20">add</text>
+
+    <line x1="440" y1="160" x2="480" y2="160" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="460" y="145" text-anchor="middle" font-size="12" fill="#7a3b20">add</text>
+
+    <line x1="660" y1="160" x2="700" y2="160" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="680" y="145" text-anchor="middle" font-size="12" fill="#7a3b20">commit</text>
+
+    <path d="M 710 230 C 640 300 420 300 350 230" fill="none" stroke="#4c6ef5" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+    <text x="530" y="292" text-anchor="middle" font-size="13" fill="#3b4fb8">изменить файл снова</text>
+
+    <path d="M 490 230 C 450 320 300 320 260 230" fill="none" stroke="#868e96" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+    <text x="375" y="340" text-anchor="middle" font-size="13" fill="#5c4033">restore --staged</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#5c4033">
+    <text x="50" y="400">`git status` показывает, в каком состоянии находятся файлы.</text>
+    <text x="50" y="428">`git add` переводит изменение в индекс, `git commit` фиксирует индекс.</text>
+    <text x="50" y="456">`git restore --staged` убирает изменение из индекса, не удаляя его с диска.</text>
+  </g>
+</svg>

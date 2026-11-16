@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 480" role="img" aria-labelledby="title desc">
+  <title id="title">Пайплайн CI/CD от коммита до релиза</title>
+  <desc id="desc">Схема показывает коммит, lint, тесты, сборку, артефакт и релиз.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff6b35"/>
+    </marker>
+  </defs>
+  <rect width="920" height="480" fill="#fffaf7"/>
+  <text x="460" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2d1b12">CI/CD: автоматическая проверка изменений</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#2d1b12">
+    <rect x="30" y="120" width="130" height="80" rx="10" fill="#ffe3d6" stroke="#ff6b35" stroke-width="2"/>
+    <text x="95" y="152" text-anchor="middle" font-weight="700">Commit</text>
+    <text x="95" y="176" text-anchor="middle" font-size="12">push / pull request</text>
+
+    <rect x="200" y="120" width="130" height="80" rx="10" fill="#fff1cc" stroke="#e0a100" stroke-width="2"/>
+    <text x="265" y="152" text-anchor="middle" font-weight="700">Lint</text>
+    <text x="265" y="176" text-anchor="middle" font-size="12">стиль и ошибки</text>
+
+    <rect x="370" y="120" width="130" height="80" rx="10" fill="#e8f7ee" stroke="#2f9e44" stroke-width="2"/>
+    <text x="435" y="152" text-anchor="middle" font-weight="700">Test</text>
+    <text x="435" y="176" text-anchor="middle" font-size="12">unit / integration</text>
+
+    <rect x="540" y="120" width="130" height="80" rx="10" fill="#e3e8ff" stroke="#4c6ef5" stroke-width="2"/>
+    <text x="605" y="152" text-anchor="middle" font-weight="700">Build</text>
+    <text x="605" y="176" text-anchor="middle" font-size="12">сборка проекта</text>
+
+    <rect x="710" y="120" width="180" height="80" rx="10" fill="#f3e8ff" stroke="#9c36b5" stroke-width="2"/>
+    <text x="800" y="152" text-anchor="middle" font-weight="700">Artifact</text>
+    <text x="800" y="176" text-anchor="middle" font-size="12">бинарник / пакет</text>
+
+    <line x1="160" y1="160" x2="190" y2="160" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="330" y1="160" x2="360" y2="160" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="500" y1="160" x2="530" y2="160" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="670" y1="160" x2="700" y2="160" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <path d="M 800 200 L 800 260 L 460 260 L 460 320" fill="none" stroke="#2f9e44" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="320" y="320" width="280" height="70" rx="10" fill="#dff3e4" stroke="#2f9e44" stroke-width="2"/>
+    <text x="460" y="350" text-anchor="middle" font-weight="700">Deploy / Release</text>
+    <text x="460" y="374" text-anchor="middle" font-size="12">staging → production</text>
+
+    <rect x="650" y="320" width="240" height="70" rx="10" fill="#ffe3d6" stroke="#ff6b35" stroke-width="2"/>
+    <text x="770" y="350" text-anchor="middle" font-weight="700">Остановка пайплайна</text>
+    <text x="770" y="374" text-anchor="middle" font-size="12">если lint или тесты упали</text>
+    <line x1="600" y1="355" x2="640" y2="355" stroke="#ff6b35" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="13" fill="#5c4033">
+    <text x="30" y="440">CI проверяет каждый коммит. CD доставляет проверенную сборку в среду.</text>
+  </g>
+</svg>
